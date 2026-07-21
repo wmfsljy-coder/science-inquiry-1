@@ -46,11 +46,20 @@
       <div class="stage-head">
         <div class="eyebrow">02 · 공정한 비교를 위한 조건</div>
         <h2 class="display">변인 통제</h2>
-        <p>"빛의 세기가 식물 성장에 미치는 영향"을 알아보는 실험 설계입니다. 각 변인 카드를 클릭해 독립변인·종속변인·통제변인을 구분해 보세요.</p>
+        <p>"빛의 세기가 식물 성장에 미치는 영향"을 알아보는 실험 설계입니다. 각 변인 카드를 클릭해 독립변인·종속변인·통제변인을 구분한 뒤, 아래 슬라이더로 독립변인(빛의 세기)을 직접 바꾸어 가며 종속변인(식물의 키)이 어떻게 달라지는지 관찰해 보세요.</p>
       </div>
       <div class="stage-card">
         <div class="canvas-wrap"><canvas id="c1" width="900" height="380"></canvas></div>
         <div class="info-card" id="c1-info">변인 카드를 클릭해 보세요.</div>
+
+        <div class="controls" style="margin-top:18px">
+          <div class="ctrl-group">
+            <div class="ctrl-label">독립변인 실험하기 · 빛의 세기<span class="val" id="c1-light-val">50</span></div>
+            <input type="range" id="c1-light" min="0" max="100" step="1" value="50">
+          </div>
+        </div>
+        <div class="canvas-wrap" style="margin-top:10px; height:180px"><canvas id="c1-sim" width="900" height="180"></canvas></div>
+        <div class="detail-panel" id="c1-sim-info"></div>
       </div>
     </section>
 
@@ -164,6 +173,55 @@
     }
   }
   render();
+})();
+
+/* TAB1 부속: 빛의 세기 -> 식물 키 미니 시뮬레이션 (변인 통제 개념 체험) */
+(function () {
+  var canvas = document.getElementById("c1-sim");
+  var ctx = setupCanvas(canvas);
+  var W = canvas._w, H = canvas._h;
+  var info = document.getElementById("c1-sim-info");
+  var valEl = document.getElementById("c1-light-val");
+  var slider = document.getElementById("c1-light");
+
+  function heightFor(light) {
+    // 빛이 전혀 없으면 거의 자라지 못하고, 빛이 강해질수록 자라는 정도가 완만해지는 포화 곡선(illustrative)
+    return 2 + 18 * (1 - Math.exp(-light / 35));
+  }
+
+  function render(light) {
+    var h = heightFor(light);
+    ctx.clearRect(0, 0, W, H);
+    ctx.fillStyle = cssVar("--panel"); ctx.fillRect(0, 0, W, H);
+    var baseY = H - 30, maxH = H - 60;
+    var potX = W / 2;
+    var barH = (h / 20) * maxH;
+    ctx.fillStyle = cssVar("--panel-2");
+    ctx.fillRect(potX - 40, baseY - 20, 80, 20);
+    ctx.strokeStyle = cssVar("--line");
+    ctx.strokeRect(potX - 40, baseY - 20, 80, 20);
+    ctx.strokeStyle = cssVar("--teal"); ctx.lineWidth = 6; ctx.lineCap = "round";
+    ctx.beginPath(); ctx.moveTo(potX, baseY - 20); ctx.lineTo(potX, baseY - 20 - barH); ctx.stroke();
+    ctx.fillStyle = cssVar("--teal"); ctx.font = "22px Segoe UI"; ctx.textAlign = "center";
+    ctx.fillText("🌱", potX, baseY - 24 - barH);
+    ctx.fillStyle = cssVar("--foam"); ctx.font = "700 13px Segoe UI";
+    ctx.fillText(h.toFixed(1) + " cm", potX, baseY + 18);
+  }
+
+  function update() {
+    var light = +slider.value;
+    valEl.textContent = light;
+    render(light);
+    var h = heightFor(light);
+    var note;
+    if (light < 20) { note = "빛이 부족해 광합성이 충분히 일어나지 못하고 성장이 크게 느립니다."; }
+    else if (light < 70) { note = "빛의 세기가 늘어날수록 식물의 키(종속변인)도 함께 커지는 경향을 보입니다."; }
+    else { note = "빛이 이미 충분한 구간이라, 세기를 더 늘려도 키가 늘어나는 정도는 점점 줄어듭니다."; }
+    info.innerHTML = "통제변인(물의 양·온도·흙의 종류)은 모두 동일하게 고정한 채 독립변인(빛의 세기)만 " + light + "로 바꾸었을 때, 종속변인인 식물의 키는 약 <b>" + h.toFixed(1) + "cm</b>로 예측됩니다. " + note;
+  }
+  slider.addEventListener("input", update);
+  window.addEventListener("resize", function () { render(+slider.value); });
+  update();
 })();
 
 /* TAB2 데이터시각화 */
