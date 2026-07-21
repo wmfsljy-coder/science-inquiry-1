@@ -1,0 +1,925 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ⅱ. 과학 탐구의 과정과 절차 — 관측 스테이션</title>
+<link rel="stylesheet" href="../assets/theme.css">
+<style>
+  .swan-box { display: flex; flex-wrap: wrap; gap: 8px; padding: 4px 20px; font-size: 30px; min-height: 60px; align-items: center; }
+  .swan-box span.black { filter: brightness(0.15) sepia(1) hue-rotate(180deg); }
+</style>
+</head>
+<body>
+
+<div class="app">
+  <nav class="rail" id="rail">
+    <div class="brand">
+      <a class="home" href="../">← 과학탐구실험1</a>
+      <div class="eyebrow">Ⅱ · 탐구의 과정과 절차</div>
+      <h1 class="display">과학 탐구의<br>과정과 절차</h1>
+    </div>
+    <button class="tab-btn active" data-tab="0"><span class="num">01</span> 귀납적 탐구 사례</button>
+    <button class="tab-btn" data-tab="1"><span class="num">02</span> 파스퇴르의 백조목 실험</button>
+    <button class="tab-btn" data-tab="2"><span class="num">03</span> 뉴턴의 프리즘 실험</button>
+    <button class="tab-btn" data-tab="3"><span class="num">04</span> 기후 변화 빅데이터</button>
+    <button class="tab-btn" data-tab="4"><span class="num">05</span> 화학 반응 과학 마술</button>
+    <button class="tab-btn" data-tab="5"><span class="num">06</span> 천연 항생물질 탐구</button>
+  </nav>
+
+  <main>
+    <!-- TAB 0 : 귀납적 탐구 사례 -->
+    <section class="tab-panel" data-panel="0">
+      <div class="stage-head">
+        <div class="eyebrow">01 · 과학사에서 귀납적 탐구 사례 알아보기</div>
+        <h2 class="display">백조는 모두 흰색일까?</h2>
+        <p>[관찰 추가] 버튼을 눌러 백조를 하나씩 관찰해 보세요. 관찰이 쌓일수록 어떤 결론을 내리게 되는지, 그리고 그 결론이 항상 안전한지 함께 생각해 봅시다.</p>
+      </div>
+      <div class="stage-card">
+        <div class="controls" style="padding-bottom:0;">
+          <div class="btn-row">
+            <button class="btn primary" id="t0-add">관찰 추가 (백조 발견)</button>
+            <button class="btn" id="t0-reset">처음부터</button>
+          </div>
+        </div>
+        <div class="swan-box" id="t0-swans"></div>
+        <div class="stat-row">
+          <div class="stat-box"><div class="lbl">누적 관찰 횟수</div><div class="num" id="t0-count">0</div></div>
+        </div>
+        <div class="detail-panel" id="t0-concl">아직 관찰을 시작하지 않았습니다. [관찰 추가]를 눌러 보세요.</div>
+        <div class="btn-row" style="padding:0 20px 20px;">
+          <button class="btn" id="t0-blackswan" disabled>1697년 · 새로운 대륙에서 발견된 백조 확인하기</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- TAB 1 : 파스퇴르의 백조목 플라스크 -->
+    <section class="tab-panel" data-panel="1" hidden>
+      <div class="stage-head">
+        <div class="eyebrow">02 · 프로젝트 · 파스퇴르의 생물속생설 도출 과정 재연하기</div>
+        <h2 class="display">고기즙은 왜 상하지 않았을까?</h2>
+        <p>당시 사람들은 '생물이 무생물에서 저절로 생겨난다(자연발생설)'고 믿었습니다. 파스퇴르는 플라스크의 목 모양을 바꾸어 이 믿음을 반박했습니다. 목 모양을 바꾸고 시간을 흘려보내 보세요.</p>
+      </div>
+      <div class="stage-card">
+        <div class="canvas-wrap">
+          <canvas id="t1" width="900" height="420"></canvas>
+        </div>
+        <div class="controls">
+          <div class="ctrl-group">
+            <div class="ctrl-label">플라스크 목 모양</div>
+            <div class="seg" id="t1-type">
+              <button class="on" data-t="swan">S자형 백조목</button>
+              <button data-t="straight">곧은 목</button>
+            </div>
+          </div>
+          <div class="ctrl-group">
+            <div class="ctrl-label">경과 시간(일)<span class="val" id="t1-day-val">0</span></div>
+            <input type="range" id="t1-day" min="0" max="14" step="1" value="0">
+          </div>
+        </div>
+        <div class="info-card" id="t1-info"></div>
+      </div>
+      <p class="foot-note">S자형 목은 공기는 통과시키지만, 공기 중의 먼지·미생물은 굽은 부분에 가라앉아 액체까지 도달하지 못합니다. 목을 부러뜨리면(현실 실험) 곧은 목과 같은 결과가 나타나, 오염의 원인이 '공기 자체'가 아니라 '먼지 속 미생물'임을 증명했습니다.</p>
+    </section>
+
+    <!-- TAB 2 : 뉴턴의 프리즘 실험 -->
+    <section class="tab-panel" data-panel="2" hidden>
+      <div class="stage-head">
+        <div class="eyebrow">03 · 손전등을 이용하여 뉴턴의 프리즘 실험 구현하기</div>
+        <h2 class="display">흰빛은 사실 여러 색의 조합</h2>
+        <p>손전등의 각도를 조절해 프리즘에 흰빛을 통과시켜 보세요. 두 번째 프리즘을 켜면 흩어진 빛이 다시 하나의 흰빛으로 모이는 것도 확인할 수 있습니다.</p>
+      </div>
+      <div class="stage-card">
+        <div class="canvas-wrap">
+          <canvas id="t2" width="900" height="420"></canvas>
+        </div>
+        <div class="controls">
+          <div class="ctrl-group">
+            <div class="ctrl-label">손전등 각도<span class="val" id="t2-angle-val">0°</span></div>
+            <input type="range" id="t2-angle" min="-20" max="20" step="1" value="0">
+          </div>
+          <div class="ctrl-group">
+            <div class="ctrl-label">두 번째 프리즘</div>
+            <div class="seg" id="t2-second">
+              <button class="on" data-v="off">끄기</button>
+              <button data-v="on">켜기 (재결합)</button>
+            </div>
+          </div>
+        </div>
+        <div class="info-card" id="t2-info">첫 번째 프리즘이 흰빛을 굴절률 차이에 따라 빨강~보라의 스펙트럼으로 분산시킵니다.</div>
+      </div>
+    </section>
+
+    <!-- TAB 3 : 기후 변화 빅데이터 -->
+    <section class="tab-panel" data-panel="3" hidden>
+      <div class="stage-head">
+        <div class="eyebrow">04 · 관측 자료(빅데이터)를 활용하여 한반도의 기후 변화 경향성 파악하기</div>
+        <h2 class="display">한반도는 얼마나 더워졌을까?</h2>
+        <p>1974~2023년 한반도 연평균 기온(예시 데이터)입니다. 분석 구간을 조절해 원하는 기간의 상승 경향(추세선)을 계산해 보세요.</p>
+      </div>
+      <div class="stage-card">
+        <div class="canvas-wrap">
+          <canvas id="t3" width="900" height="380"></canvas>
+        </div>
+        <div class="controls">
+          <div class="ctrl-group">
+            <div class="ctrl-label">분석 시작 연도<span class="val" id="t3-start-val">1974</span></div>
+            <input type="range" id="t3-start" min="1974" max="2022" step="1" value="1974">
+          </div>
+          <div class="ctrl-group">
+            <div class="ctrl-label">분석 종료 연도<span class="val" id="t3-end-val">2023</span></div>
+            <input type="range" id="t3-end" min="1975" max="2023" step="1" value="2023">
+          </div>
+        </div>
+        <div class="stat-row">
+          <div class="stat-box"><div class="lbl">구간 내 상승률</div><div class="num" id="t3-rate">—</div></div>
+          <div class="stat-box"><div class="lbl">구간 평균 기온</div><div class="num" id="t3-avg">—</div></div>
+        </div>
+        <div class="info-card">회색 점은 연평균 기온, 노란 음영은 선택한 분석 구간, 붉은 선은 그 구간의 선형 추세선입니다. 실제 기상청 관측값과는 다른 예시 데이터입니다.</div>
+      </div>
+    </section>
+
+    <!-- TAB 4 : 화학 반응 과학 마술 -->
+    <section class="tab-panel" data-panel="4" hidden>
+      <div class="stage-head">
+        <div class="eyebrow">05 · 화학 반응을 활용한 과학 마술 시나리오 개발 및 시연하기</div>
+        <h2 class="display">화학 반응으로 만드는 마술</h2>
+        <p>마술로 활용할 수 있는 화학 반응을 선택하고 [시연]을 눌러 색이 바뀌는 과정을 관찰해 보세요.</p>
+      </div>
+      <div class="stage-card">
+        <div class="card-grid" id="t4-grid" style="padding-top:16px;"></div>
+        <div class="canvas-wrap" style="margin-top:6px;">
+          <canvas id="t4" width="900" height="360"></canvas>
+        </div>
+        <div class="controls" id="t4-controls"></div>
+        <div class="info-card" id="t4-info">위에서 반응을 선택해 보세요.</div>
+      </div>
+    </section>
+
+    <!-- TAB 5 : 천연 항생물질 탐구 -->
+    <section class="tab-panel" data-panel="5" hidden>
+      <div class="stage-head">
+        <div class="eyebrow">06 · 우리 주변에서 천연 항생물질 찾기</div>
+        <h2 class="display">디스크 확산법으로 항생 효과 측정하기</h2>
+        <p>식물 추출물을 적신 종이 디스크를 세균 배지 위에 올리면, 항생 효과가 있는 추출물 주위에는 세균이 자라지 못하는 <b>억제대</b>가 생깁니다. 식물 종류와 농도, 배양 시간을 바꾸어 보세요.</p>
+      </div>
+      <div class="stage-card">
+        <div class="canvas-wrap">
+          <canvas id="t5" width="900" height="480"></canvas>
+        </div>
+        <div class="controls">
+          <div class="ctrl-group">
+            <div class="ctrl-label">식물 추출물</div>
+            <div class="seg" id="t5-plant">
+              <button class="on" data-p="garlic">마늘</button>
+              <button data-p="cypress">편백나무</button>
+              <button data-p="tea">녹차</button>
+              <button data-p="control">대조군(에탄올)</button>
+            </div>
+          </div>
+          <div class="ctrl-group">
+            <div class="ctrl-label">추출물 농도(%)<span class="val" id="t5-conc-val">50</span></div>
+            <input type="range" id="t5-conc" min="0" max="100" step="5" value="50">
+          </div>
+          <div class="ctrl-group">
+            <div class="ctrl-label">배양 시간(시간)<span class="val" id="t5-time-val">24</span></div>
+            <input type="range" id="t5-time" min="0" max="72" step="4" value="24">
+          </div>
+        </div>
+        <div class="stat-row">
+          <div class="stat-box"><div class="lbl">A 억제대 지름</div><div class="num" id="t5-d0">0.0 mm</div></div>
+          <div class="stat-box"><div class="lbl">B 억제대 지름</div><div class="num" id="t5-d1">0.0 mm</div></div>
+          <div class="stat-box"><div class="lbl">C 억제대 지름</div><div class="num" id="t5-d2">0.0 mm</div></div>
+        </div>
+        <div class="info-card" id="t5-info">농도와 배양 시간이 늘어날수록 억제대가 커집니다. 대조군(에탄올만 적신 디스크)은 억제대가 거의 생기지 않아야 이 실험의 결과를 신뢰할 수 있습니다.</div>
+      </div>
+    </section>
+  </main>
+</div>
+
+<button class="theme-toggle" id="themeToggle">라이트 모드</button>
+<script src="../assets/theme.js"></script>
+<script>
+"use strict";
+
+/* ===== TAB 0 : 귀납적 탐구 (백조) ===== */
+(function () {
+  var addBtn = document.getElementById("t0-add");
+  var resetBtn = document.getElementById("t0-reset");
+  var blackBtn = document.getElementById("t0-blackswan");
+  var box = document.getElementById("t0-swans");
+  var countEl = document.getElementById("t0-count");
+  var concl = document.getElementById("t0-concl");
+  var count = 0;
+  var revealed = false;
+
+  function addSwan() {
+    if (revealed) return;
+    count++;
+    countEl.textContent = count;
+    var s = document.createElement("span");
+    s.textContent = "🦢";
+    box.appendChild(s);
+    if (count < 3) {
+      concl.textContent = "관찰 " + count + "회 — 아직 결론을 내리기엔 이릅니다. 관찰을 더 쌓아 보세요.";
+    } else {
+      concl.innerHTML = "관찰 " + count + "회, 지금까지 만난 백조가 <b>모두 흰색</b>이었습니다. 이를 근거로 '모든 백조는 흰색이다'라는 결론을 귀납적으로 이끌어낼 수 있습니다.";
+    }
+    if (count >= 8) {
+      blackBtn.disabled = false;
+    }
+  }
+  addBtn.addEventListener("click", addSwan);
+  blackBtn.addEventListener("click", function () {
+    revealed = true;
+    var s = document.createElement("span");
+    s.textContent = "🦢";
+    s.className = "black";
+    box.appendChild(s);
+    concl.innerHTML = "1697년, 네덜란드 탐험가 빌럼 데 블라밍이 <b>오스트레일리아에서 검은 백조</b>를 발견했습니다! 아무리 많은 관찰을 쌓아도 <b>단 하나의 반례</b>로 귀납적 결론은 뒤집힐 수 있습니다 — 이것이 귀납적 탐구의 한계입니다.";
+    blackBtn.disabled = true;
+    addBtn.disabled = true;
+  });
+  resetBtn.addEventListener("click", function () {
+    count = 0; revealed = false;
+    countEl.textContent = 0;
+    box.innerHTML = "";
+    addBtn.disabled = false;
+    blackBtn.disabled = true;
+    concl.textContent = "아직 관찰을 시작하지 않았습니다. [관찰 추가]를 눌러 보세요.";
+  });
+})();
+
+/* ===== TAB 1 : 파스퇴르 백조목 플라스크 ===== */
+(function () {
+  var canvas = document.getElementById("t1");
+  var ctx = window.setupCanvas(canvas);
+  var W = canvas._w, H = canvas._h;
+  var typeSeg = document.getElementById("t1-type");
+  var daySlider = document.getElementById("t1-day");
+  var dayVal = document.getElementById("t1-day-val");
+  var info = document.getElementById("t1-info");
+  var type = "swan";
+
+  typeSeg.querySelectorAll("button").forEach(function (b) {
+    b.addEventListener("click", function () {
+      typeSeg.querySelectorAll("button").forEach(function (x) { x.classList.remove("on"); });
+      b.classList.add("on");
+      type = b.getAttribute("data-t");
+      render();
+    });
+  });
+  daySlider.addEventListener("input", render);
+
+  function neckPath(type) {
+    // returns array of points describing the neck centerline from opening (left, high) to bulb top (right)
+    var bulbCx = 620, bulbTopY = 250;
+    if (type === "straight") {
+      return [[140, 90], [300, 140], [460, 200], [bulbCx, bulbTopY]];
+    }
+    return [
+      [140, 90], [230, 95], [300, 130], [330, 190], [300, 250],
+      [340, 300], [430, 300], [500, 260], [bulbCx, bulbTopY]
+    ];
+  }
+
+  function render() {
+    var day = +daySlider.value;
+    dayVal.textContent = day;
+    ctx.clearRect(0, 0, W, H);
+
+    var pts = neckPath(type);
+    // neck tube
+    ctx.strokeStyle = window.cssVar("--mist");
+    ctx.lineWidth = 10;
+    ctx.lineCap = "round";
+    ctx.lineJoin = "round";
+    ctx.beginPath();
+    ctx.moveTo(pts[0][0], pts[0][1]);
+    for (var i = 1; i < pts.length; i++) ctx.lineTo(pts[i][0], pts[i][1]);
+    ctx.stroke();
+    ctx.strokeStyle = window.cssVar("--panel-2");
+    ctx.lineWidth = 6;
+    ctx.stroke();
+
+    // opening label
+    ctx.fillStyle = window.cssVar("--mist");
+    ctx.font = "12px sans-serif";
+    ctx.fillText("공기 중 먼지·미생물", pts[0][0] - 30, pts[0][1] - 14);
+    window.drawArrow(ctx, pts[0][0] - 20, pts[0][1] - 6, pts[0][0] + 4, pts[0][1] + 4, 6);
+
+    // bulb
+    var bulbCx = 620, bulbCy = 340, bulbR = 110;
+    ctx.beginPath();
+    ctx.arc(bulbCx, bulbCy, bulbR, 0, Math.PI * 2);
+    ctx.strokeStyle = window.cssVar("--mist");
+    ctx.lineWidth = 6;
+    ctx.stroke();
+
+    // contamination logic
+    var reaches = (type === "straight") && day >= 3;
+    var turbidity = reaches ? Math.min(1, (day - 3) / 6) : 0;
+
+    // liquid
+    var liquidTopY = bulbCy + 10;
+    ctx.save();
+    ctx.beginPath();
+    ctx.arc(bulbCx, bulbCy, bulbR - 4, 0, Math.PI * 2);
+    ctx.clip();
+    var baseColor = [230, 200, 130]; // amber
+    var murkyColor = [120, 92, 60];
+    var col = baseColor.map(function (c, i) { return Math.round(c + (murkyColor[i] - c) * turbidity); });
+    ctx.fillStyle = "rgb(" + col.join(",") + ")";
+    ctx.fillRect(bulbCx - bulbR, liquidTopY, bulbR * 2, bulbR);
+    if (turbidity > 0.1) {
+      var seed = 7;
+      function hash(i) { var x = Math.sin(i * 999.7 + seed) * 10000; return x - Math.floor(x); }
+      ctx.fillStyle = "rgba(60,40,20,0.5)";
+      for (var k = 0; k < Math.floor(turbidity * 40); k++) {
+        var rx = bulbCx - bulbR + 8 + hash(k) * (bulbR * 2 - 16);
+        var ry = liquidTopY + 8 + hash(k + 50) * (bulbR - 16);
+        ctx.beginPath(); ctx.arc(rx, ry, 2, 0, Math.PI * 2); ctx.fill();
+      }
+    }
+    ctx.restore();
+
+    // dust particles along neck (deterministic positions revealed progressively with day)
+    var maxDust = 26;
+    var shown = Math.min(maxDust, day * 2);
+    function pointAtT(t) {
+      var seg = t * (pts.length - 1);
+      var i0 = Math.floor(seg);
+      if (i0 >= pts.length - 1) i0 = pts.length - 2;
+      var f = seg - i0;
+      var p0 = pts[i0], p1 = pts[i0 + 1];
+      return [p0[0] + (p1[0] - p0[0]) * f, p0[1] + (p1[1] - p0[1]) * f];
+    }
+    ctx.fillStyle = "#5b3a20";
+    for (var d = 0; d < shown; d++) {
+      var t;
+      if (type === "swan") {
+        // cluster near the low bend (~55% along path) — never reaches bulb
+        t = 0.35 + (d % 13) / 13 * 0.28;
+      } else {
+        // travels steadily toward bulb
+        t = Math.min(0.98, (d / maxDust) * 1.05);
+      }
+      var p = pointAtT(t);
+      ctx.beginPath();
+      ctx.arc(p[0] + ((d % 5) - 2), p[1] + ((d % 3) - 1), 2.2, 0, Math.PI * 2);
+      ctx.fill();
+    }
+
+    ctx.fillStyle = window.cssVar("--foam");
+    ctx.font = "bold 13px sans-serif";
+    ctx.fillText(type === "swan" ? "S자형 백조목" : "곧은 목", bulbCx - 30, 90);
+
+    if (day === 0) {
+      info.innerHTML = "슬라이더를 움직여 시간을 흘려보내 보세요.";
+    } else if (type === "swan") {
+      info.innerHTML = "<b>" + day + "일 경과 —</b> 먼지는 S자 굽이의 낮은 곳에 가라앉아 고이고, 액체까지 도달하지 못합니다. 액체는 계속 <b>맑게</b> 유지됩니다 → 미생물이 저절로 생기지 않았습니다.";
+    } else if (day < 3) {
+      info.innerHTML = "<b>" + day + "일 경과 —</b> 먼지가 곧은 목을 따라 아래로 이동하고 있습니다.";
+    } else {
+      info.innerHTML = "<b>" + day + "일 경과 —</b> 먼지(미생물)가 액체에 도달해 액체가 점점 <b>혼탁해집니다</b>. 미생물이 증식하고 있다는 뜻입니다 → 자연발생이 아니라 공기 중 미생물의 오염입니다.";
+    }
+  }
+
+  render();
+})();
+
+/* ===== TAB 2 : 뉴턴 프리즘 ===== */
+(function () {
+  var canvas = document.getElementById("t2");
+  var ctx = window.setupCanvas(canvas);
+  var W = canvas._w, H = canvas._h;
+  var angleSlider = document.getElementById("t2-angle");
+  var angleVal = document.getElementById("t2-angle-val");
+  var secondSeg = document.getElementById("t2-second");
+  var info = document.getElementById("t2-info");
+  var second = false;
+
+  secondSeg.querySelectorAll("button").forEach(function (b) {
+    b.addEventListener("click", function () {
+      secondSeg.querySelectorAll("button").forEach(function (x) { x.classList.remove("on"); });
+      b.classList.add("on");
+      second = b.getAttribute("data-v") === "on";
+      render();
+      info.innerHTML = second
+        ? "두 번째 프리즘이 흩어진 빛을 반대 방향으로 굴절시켜 <b>다시 흰빛으로 재결합</b>시킵니다. 이는 흰빛이 원래 여러 색의 혼합임을 다시 확인시켜 줍니다."
+        : "첫 번째 프리즘이 흰빛을 굴절률 차이에 따라 빨강~보라의 스펙트럼으로 <b>분산</b>시킵니다.";
+    });
+  });
+  angleSlider.addEventListener("input", function () {
+    angleVal.textContent = angleSlider.value + "°";
+    render();
+  });
+
+  var colors = ["#e8483a", "#f2965c", "#eede4e", "#3fc9b0", "#6fa8e0", "#7c5cc4"];
+
+  function render() {
+    ctx.clearRect(0, 0, W, H);
+    var angle = +angleSlider.value;
+    var midY = H / 2;
+    var srcX = 70, srcY = midY - angle * 2;
+    var prism1X = 380;
+
+    // flashlight
+    ctx.fillStyle = window.cssVar("--panel-2");
+    ctx.strokeStyle = window.cssVar("--mist");
+    ctx.lineWidth = 2;
+    window.roundRect(ctx, srcX - 40, srcY - 16, 40, 32, 6);
+    ctx.fill(); ctx.stroke();
+    ctx.fillStyle = window.cssVar("--mist");
+    ctx.font = "11px sans-serif";
+    ctx.fillText("손전등", srcX - 38, srcY + 34);
+
+    // incoming white beam
+    ctx.strokeStyle = "#ffffff";
+    ctx.lineWidth = 4;
+    ctx.beginPath();
+    ctx.moveTo(srcX, srcY);
+    ctx.lineTo(prism1X, midY);
+    ctx.stroke();
+
+    // prism 1 (triangle)
+    function triangle(cx, cy, flip) {
+      var s = 70;
+      ctx.beginPath();
+      if (!flip) {
+        ctx.moveTo(cx, cy - s);
+        ctx.lineTo(cx - s * 0.9, cy + s * 0.6);
+        ctx.lineTo(cx + s * 0.9, cy + s * 0.6);
+      } else {
+        ctx.moveTo(cx, cy + s);
+        ctx.lineTo(cx - s * 0.9, cy - s * 0.6);
+        ctx.lineTo(cx + s * 0.9, cy - s * 0.6);
+      }
+      ctx.closePath();
+      ctx.fillStyle = "rgba(63,201,176,0.12)";
+      ctx.fill();
+      ctx.strokeStyle = window.cssVar("--teal-dim");
+      ctx.lineWidth = 2;
+      ctx.stroke();
+    }
+    triangle(prism1X, midY, false);
+
+    var spread = 0.55 + Math.abs(angle) / 40;
+    var screenX = 850;
+
+    if (!second) {
+      colors.forEach(function (c, i) {
+        var dy = (i - (colors.length - 1) / 2) * 16 * spread;
+        ctx.strokeStyle = c; ctx.lineWidth = 3;
+        ctx.beginPath();
+        ctx.moveTo(prism1X, midY);
+        ctx.lineTo(screenX, midY + dy);
+        ctx.stroke();
+      });
+      // screen band
+      var grad = ctx.createLinearGradient(0, midY - 60, 0, midY + 60);
+      colors.forEach(function (c, i) { grad.addColorStop(i / (colors.length - 1), c); });
+      ctx.fillStyle = grad;
+      ctx.fillRect(screenX, midY - 60, 14, 120);
+      ctx.fillStyle = window.cssVar("--mist");
+      ctx.font = "11px sans-serif";
+      ctx.fillText("스크린(스펙트럼)", screenX - 30, midY + 90);
+    } else {
+      var prism2X = 640;
+      colors.forEach(function (c) {
+        ctx.strokeStyle = c; ctx.lineWidth = 3; ctx.globalAlpha = 0.85;
+        ctx.beginPath();
+        ctx.moveTo(prism1X, midY);
+        ctx.lineTo(prism2X, midY);
+        ctx.stroke();
+      });
+      ctx.globalAlpha = 1;
+      triangle(prism2X, midY, true);
+      ctx.strokeStyle = "#ffffff";
+      ctx.lineWidth = 4;
+      ctx.beginPath();
+      ctx.moveTo(prism2X, midY);
+      ctx.lineTo(screenX, midY);
+      ctx.stroke();
+      ctx.fillStyle = "#ffffff";
+      ctx.beginPath(); ctx.arc(screenX + 6, midY, 8, 0, Math.PI * 2); ctx.fill();
+      ctx.fillStyle = window.cssVar("--mist");
+      ctx.font = "11px sans-serif";
+      ctx.fillText("다시 흰빛으로", screenX - 20, midY + 30);
+    }
+  }
+  render();
+})();
+
+/* ===== TAB 3 : 기후 변화 빅데이터 ===== */
+(function () {
+  var canvas = document.getElementById("t3");
+  var ctx = window.setupCanvas(canvas);
+  var W = canvas._w, H = canvas._h;
+  var startSlider = document.getElementById("t3-start");
+  var endSlider = document.getElementById("t3-end");
+  var startVal = document.getElementById("t3-start-val");
+  var endVal = document.getElementById("t3-end-val");
+  var rateEl = document.getElementById("t3-rate");
+  var avgEl = document.getElementById("t3-avg");
+
+  var years = [];
+  var temps = [];
+  function hash(i) { var x = Math.sin(i * 12.9898 + 4.1) * 43758.5453; return x - Math.floor(x); }
+  for (var y = 1974; y <= 2023; y++) {
+    years.push(y);
+    var base = 12.3 + (y - 1974) * 0.028;
+    var noise = (hash(y - 1974) - 0.5) * 1.1;
+    temps.push(+(base + noise).toFixed(2));
+  }
+
+  var padL = 55, padR = 20, padT = 20, padB = 34;
+  function xOf(i) { return padL + (i / (years.length - 1)) * (W - padL - padR); }
+  function yOf(t) { return H - padB - ((t - 10.5) / (16 - 10.5)) * (H - padT - padB); }
+
+  function linreg(xs, ys) {
+    var n = xs.length;
+    var sx = 0, sy = 0, sxy = 0, sxx = 0;
+    for (var i = 0; i < n; i++) { sx += xs[i]; sy += ys[i]; sxy += xs[i] * ys[i]; sxx += xs[i] * xs[i]; }
+    var slope = (n * sxy - sx * sy) / (n * sxx - sx * sx);
+    var intercept = (sy - slope * sx) / n;
+    return { slope: slope, intercept: intercept };
+  }
+
+  function render() {
+    var startY = Math.min(+startSlider.value, +endSlider.value - 1);
+    var endY = Math.max(+endSlider.value, startY + 1);
+    startSlider.value = startY; endSlider.value = endY;
+    startVal.textContent = startY;
+    endVal.textContent = endY;
+
+    ctx.clearRect(0, 0, W, H);
+    // axes
+    ctx.strokeStyle = window.cssVar("--line");
+    ctx.lineWidth = 1;
+    for (var t = 11; t <= 15; t++) {
+      var yy = yOf(t);
+      ctx.beginPath(); ctx.moveTo(padL, yy); ctx.lineTo(W - padR, yy); ctx.stroke();
+      ctx.fillStyle = window.cssVar("--mist");
+      ctx.font = "10.5px sans-serif";
+      ctx.fillText(t + "°C", 8, yy + 4);
+    }
+    [1974, 1985, 1995, 2005, 2015, 2023].forEach(function (yr) {
+      var idx = yr - 1974;
+      var xx = xOf(idx);
+      ctx.fillStyle = window.cssVar("--mist");
+      ctx.fillText(yr, xx - 12, H - 12);
+    });
+
+    // selected range shading
+    var i0 = startY - 1974, i1 = endY - 1974;
+    ctx.fillStyle = "rgba(242,150,92,0.14)";
+    ctx.fillRect(xOf(i0), padT, xOf(i1) - xOf(i0), H - padT - padB);
+
+    // data points + line
+    ctx.strokeStyle = window.cssVar("--mist");
+    ctx.lineWidth = 1.4;
+    ctx.beginPath();
+    years.forEach(function (yr, i) {
+      var x = xOf(i), y = yOf(temps[i]);
+      if (i === 0) ctx.moveTo(x, y); else ctx.lineTo(x, y);
+    });
+    ctx.stroke();
+    years.forEach(function (yr, i) {
+      var x = xOf(i), y = yOf(temps[i]);
+      ctx.beginPath();
+      ctx.arc(x, y, 2.4, 0, Math.PI * 2);
+      ctx.fillStyle = (i >= i0 && i <= i1) ? window.cssVar("--teal") : window.cssVar("--mist");
+      ctx.fill();
+    });
+
+    // regression over selected range
+    var xs = [], ys = [];
+    for (var i = i0; i <= i1; i++) { xs.push(years[i]); ys.push(temps[i]); }
+    var r = linreg(xs, ys);
+    ctx.strokeStyle = window.cssVar("--coral");
+    ctx.lineWidth = 2.5;
+    ctx.beginPath();
+    ctx.moveTo(xOf(i0), yOf(r.slope * years[i0] + r.intercept));
+    ctx.lineTo(xOf(i1), yOf(r.slope * years[i1] + r.intercept));
+    ctx.stroke();
+
+    var perDecade = r.slope * 10;
+    rateEl.textContent = (perDecade >= 0 ? "+" : "") + perDecade.toFixed(2) + " °C/10년";
+    var avg = ys.reduce(function (a, b) { return a + b; }, 0) / ys.length;
+    avgEl.textContent = avg.toFixed(2) + " °C";
+  }
+
+  startSlider.addEventListener("input", render);
+  endSlider.addEventListener("input", render);
+  render();
+})();
+
+/* ===== TAB 4 : 화학 반응 과학 마술 ===== */
+(function () {
+  var canvas = document.getElementById("t4");
+  var ctx = window.setupCanvas(canvas);
+  var W = canvas._w, H = canvas._h;
+  var grid = document.getElementById("t4-grid");
+  var controlsWrap = document.getElementById("t4-controls");
+  var info = document.getElementById("t4-info");
+
+  var reactions = [
+    {
+      id: "iodine", ico: "⏱️", name: "아이오딘 시계 반응",
+      desc: "두 무색 용액을 섞으면 처음엔 투명하다가, 일정 시간이 지나면 마치 시계처럼 갑자기 짙은 청남색으로 변합니다. 반응 중간체가 임계 농도에 도달하는 순간 색이 급변합니다.",
+      progressLabel: "반응 진행", mode: "progress"
+    },
+    {
+      id: "flame", ico: "🔥", name: "불꽃 반응",
+      desc: "금속 이온을 불꽃에 넣으면 이온마다 고유한 색의 불꽃을 냅니다. 전자가 에너지를 흡수했다가 다시 방출하며 빛을 내는 원리입니다.",
+      mode: "flame"
+    },
+    {
+      id: "btb", ico: "🧪", name: "BTB 지시약 색 변화",
+      desc: "브로모티몰블루(BTB) 용액은 산성에서 노랑, 중성에서 초록, 염기성에서 파랑으로 변합니다. 날숨(이산화 탄소)을 불어넣으면 산성이 되어 색이 변하는 마술처럼 보여줄 수 있습니다.",
+      progressLabel: "pH (산성 ← → 염기성)", mode: "ph"
+    },
+    {
+      id: "volcano", ico: "🌋", name: "화산 반응",
+      desc: "탄산수소나트륨(베이킹소다)과 아세트산(식초)이 반응하면 이산화 탄소 기체가 발생해 거품이 화산처럼 분출됩니다.",
+      progressLabel: "반응 진행", mode: "progress"
+    }
+  ];
+  var current = reactions[0];
+  var flameIon = "Na";
+  var progress = 0;
+  var playing = false;
+
+  reactions.forEach(function (r) {
+    var card = document.createElement("button");
+    card.className = "pick-card";
+    if (r.id === current.id) card.classList.add("on");
+    card.innerHTML = '<span class="ico">' + r.ico + '</span><div class="t">' + r.name + '</div>';
+    card.addEventListener("click", function () {
+      current = r; progress = 0; playing = false;
+      grid.querySelectorAll(".pick-card").forEach(function (c) { c.classList.remove("on"); });
+      card.classList.add("on");
+      info.innerHTML = r.desc;
+      buildControls();
+      draw();
+    });
+    grid.appendChild(card);
+  });
+
+  function buildControls() {
+    controlsWrap.innerHTML = "";
+    if (current.mode === "flame") {
+      var group = document.createElement("div");
+      group.className = "ctrl-group";
+      group.innerHTML = '<div class="ctrl-label">금속 이온</div>';
+      var seg = document.createElement("div");
+      seg.className = "seg";
+      [["Li", "리튬(빨강)"], ["Na", "나트륨(노랑)"], ["K", "칼륨(보라)"], ["Cu", "구리(청록)"], ["Ca", "칼슘(주황)"]].forEach(function (p) {
+        var b = document.createElement("button");
+        b.textContent = p[1];
+        if (p[0] === flameIon) b.classList.add("on");
+        b.addEventListener("click", function () {
+          flameIon = p[0];
+          seg.querySelectorAll("button").forEach(function (x) { x.classList.remove("on"); });
+          b.classList.add("on");
+          draw();
+        });
+        seg.appendChild(b);
+      });
+      group.appendChild(seg);
+      controlsWrap.appendChild(group);
+    } else {
+      var group2 = document.createElement("div");
+      group2.className = "ctrl-group";
+      group2.innerHTML = '<div class="ctrl-label">' + current.progressLabel + '<span class="val" id="t4-prog-val">0</span></div>';
+      var slider = document.createElement("input");
+      slider.type = "range"; slider.min = 0; slider.max = 100; slider.value = 0;
+      slider.addEventListener("input", function () { progress = +slider.value; draw(); });
+      group2.appendChild(slider);
+      controlsWrap.appendChild(group2);
+
+      var btnRow = document.createElement("div");
+      btnRow.className = "btn-row";
+      var playBtn = document.createElement("button");
+      playBtn.className = "btn primary";
+      playBtn.textContent = "시연 ▶";
+      playBtn.addEventListener("click", function () {
+        progress = 0; playing = true;
+        var timer = setInterval(function () {
+          progress += 2;
+          slider.value = progress;
+          draw();
+          if (progress >= 100) { clearInterval(timer); playing = false; }
+        }, 40);
+      });
+      btnRow.appendChild(playBtn);
+      controlsWrap.appendChild(btnRow);
+    }
+  }
+
+  function draw() {
+    ctx.clearRect(0, 0, W, H);
+    var progLabel = document.getElementById("t4-prog-val");
+    if (progLabel) progLabel.textContent = progress;
+
+    if (current.id === "iodine") {
+      var color = progress < 70 ? "rgba(230,230,235,0.5)" : "#1a2450";
+      drawBeaker(color);
+      note(progress < 70 ? "아직 무색 투명합니다…" : "짙은 청남색으로 급변했습니다! (전분-아이오딘 반응)");
+    } else if (current.id === "btb") {
+      var pct = progress / 100;
+      var col = pct < 0.5
+        ? lerpColor([234, 221, 78], [63, 201, 176], pct / 0.5)
+        : lerpColor([63, 201, 176], [64, 120, 220], (pct - 0.5) / 0.5);
+      drawBeaker("rgb(" + col.join(",") + ")");
+      var ph = 3 + pct * 8;
+      note("pH ≈ " + ph.toFixed(1) + " — " + (ph < 6 ? "산성(노랑)" : ph < 8 ? "중성(초록)" : "염기성(파랑)"));
+    } else if (current.id === "volcano") {
+      drawVolcano(progress);
+      note(progress < 30 ? "반응 준비 중…" : progress < 70 ? "이산화 탄소 기체가 발생하며 거품이 올라옵니다." : "거품이 화산처럼 분출합니다!");
+    } else if (current.id === "flame") {
+      drawFlame(flameIon);
+      var names = { Li: "리튬 — 빨강", Na: "나트륨 — 노랑", K: "칼륨 — 보라", Cu: "구리 — 청록", Ca: "칼슘 — 주황" };
+      note(names[flameIon] + " 불꽃 반응");
+    }
+  }
+
+  function lerpColor(a, b, t) {
+    return [0, 1, 2].map(function (i) { return Math.round(a[i] + (b[i] - a[i]) * t); });
+  }
+
+  function note(txt) {
+    ctx.fillStyle = window.cssVar("--mist");
+    ctx.font = "13px sans-serif";
+    ctx.fillText(txt, 20, H - 16);
+  }
+
+  function drawBeaker(fillColor) {
+    var cx = W / 2, top = 60, bot = 300, halfW = 90;
+    ctx.strokeStyle = window.cssVar("--mist");
+    ctx.lineWidth = 4;
+    ctx.beginPath();
+    ctx.moveTo(cx - halfW, top);
+    ctx.lineTo(cx - halfW - 10, bot);
+    ctx.lineTo(cx + halfW + 10, bot);
+    ctx.lineTo(cx + halfW, top);
+    ctx.stroke();
+    ctx.fillStyle = fillColor;
+    ctx.beginPath();
+    ctx.moveTo(cx - halfW + 6, top + 40);
+    ctx.lineTo(cx - halfW - 4, bot - 4);
+    ctx.lineTo(cx + halfW + 4, bot - 4);
+    ctx.lineTo(cx + halfW - 6, top + 40);
+    ctx.closePath();
+    ctx.fill();
+  }
+
+  function drawVolcano(p) {
+    var cx = W / 2, baseY = 320;
+    ctx.fillStyle = window.cssVar("--panel-2");
+    ctx.strokeStyle = window.cssVar("--mist");
+    ctx.lineWidth = 3;
+    ctx.beginPath();
+    ctx.moveTo(cx - 150, baseY);
+    ctx.lineTo(cx - 35, 90);
+    ctx.lineTo(cx + 35, 90);
+    ctx.lineTo(cx + 150, baseY);
+    ctx.closePath();
+    ctx.fill(); ctx.stroke();
+    if (p > 20) {
+      var foamH = Math.min(140, (p - 20) * 2);
+      ctx.fillStyle = "#f4ead0";
+      for (var i = 0; i < foamH / 6; i++) {
+        var fx = cx + (Math.sin(i * 12.9) * 30);
+        var fy = 90 - i * 6;
+        ctx.beginPath();
+        ctx.arc(fx, fy, 14, 0, Math.PI * 2);
+        ctx.fill();
+      }
+    }
+  }
+
+  function drawFlame(ion) {
+    var colors = { Li: "#e8483a", Na: "#eede4e", K: "#b79cf0", Cu: "#3fc9b0", Ca: "#f2965c" };
+    var cx = W / 2, baseY = 320;
+    ctx.strokeStyle = window.cssVar("--mist");
+    ctx.lineWidth = 3;
+    ctx.beginPath(); ctx.moveTo(cx - 10, baseY); ctx.lineTo(cx - 6, baseY - 60); ctx.lineTo(cx + 6, baseY - 60); ctx.lineTo(cx + 10, baseY); ctx.stroke();
+    ctx.fillStyle = colors[ion];
+    ctx.beginPath();
+    ctx.moveTo(cx, baseY - 60);
+    ctx.quadraticCurveTo(cx - 46, baseY - 150, cx, baseY - 250);
+    ctx.quadraticCurveTo(cx + 46, baseY - 150, cx, baseY - 60);
+    ctx.closePath();
+    ctx.globalAlpha = 0.85;
+    ctx.fill();
+    ctx.globalAlpha = 1;
+  }
+
+  buildControls();
+  info.innerHTML = current.desc;
+  draw();
+})();
+
+/* ===== TAB 5 : 천연 항생물질 디스크 확산법 ===== */
+(function () {
+  var canvas = document.getElementById("t5");
+  var ctx = window.setupCanvas(canvas);
+  var W = canvas._w, H = canvas._h;
+  var plantSeg = document.getElementById("t5-plant");
+  var concSlider = document.getElementById("t5-conc");
+  var timeSlider = document.getElementById("t5-time");
+  var concVal = document.getElementById("t5-conc-val");
+  var timeVal = document.getElementById("t5-time-val");
+  var d0El = document.getElementById("t5-d0"), d1El = document.getElementById("t5-d1"), d2El = document.getElementById("t5-d2");
+
+  var effect = { garlic: 1.0, cypress: 0.7, tea: 0.5, control: 0.06 };
+  var plant = "garlic";
+
+  plantSeg.querySelectorAll("button").forEach(function (b) {
+    b.addEventListener("click", function () {
+      plantSeg.querySelectorAll("button").forEach(function (x) { x.classList.remove("on"); });
+      b.classList.add("on");
+      plant = b.getAttribute("data-p");
+      render();
+    });
+  });
+  concSlider.addEventListener("input", render);
+  timeSlider.addEventListener("input", render);
+
+  function hash(i) { var x = Math.sin(i * 78.233) * 43758.5453; return x - Math.floor(x); }
+
+  function render() {
+    var conc = +concSlider.value;
+    var time = +timeSlider.value;
+    concVal.textContent = conc;
+    timeVal.textContent = time;
+
+    ctx.clearRect(0, 0, W, H);
+    var cx = W / 2, cy = H / 2 + 10, dishR = 200;
+
+    // dish
+    ctx.fillStyle = window.cssVar("--panel-2");
+    ctx.strokeStyle = window.cssVar("--mist");
+    ctx.lineWidth = 4;
+    ctx.beginPath(); ctx.arc(cx, cy, dishR, 0, Math.PI * 2); ctx.fill(); ctx.stroke();
+
+    // bacterial lawn stipple
+    ctx.fillStyle = "rgba(169,195,202,0.45)";
+    for (var i = 0; i < 900; i++) {
+      var ang = hash(i) * Math.PI * 2;
+      var r = Math.sqrt(hash(i + 500)) * (dishR - 8);
+      var x = cx + Math.cos(ang) * r, y = cy + Math.sin(ang) * r;
+      ctx.beginPath(); ctx.arc(x, y, 1.1, 0, Math.PI * 2); ctx.fill();
+    }
+
+    var eff = effect[plant];
+    var maxZone = 95;
+    var timeFactor = Math.min(1, time / 48);
+    var radiusPx = 14 + eff * (conc / 100) * timeFactor * maxZone;
+    var diameterMm = (radiusPx / dishR) * 90 * 2 * eff > 0 ? ((radiusPx * 2) / dishR * 45).toFixed(1) : "0.0";
+
+    var discPositions = [
+      [cx - dishR * 0.5, cy - dishR * 0.05],
+      [cx + dishR * 0.5, cy - dishR * 0.05],
+      [cx, cy + dishR * 0.55]
+    ];
+    var labels = ["A", "B", "C"];
+    var diamEls = [d0El, d1El, d2El];
+
+    discPositions.forEach(function (p, i) {
+      // inhibition zone (clear halo)
+      ctx.beginPath();
+      ctx.arc(p[0], p[1], radiusPx, 0, Math.PI * 2);
+      ctx.fillStyle = window.cssVar("--panel-2");
+      ctx.fill();
+      ctx.strokeStyle = "rgba(63,201,176,0.5)";
+      ctx.lineWidth = 1.5;
+      ctx.stroke();
+      // disc
+      ctx.beginPath();
+      ctx.arc(p[0], p[1], 12, 0, Math.PI * 2);
+      ctx.fillStyle = "#fdfaf2";
+      ctx.fill();
+      ctx.strokeStyle = window.cssVar("--line");
+      ctx.lineWidth = 1;
+      ctx.stroke();
+      ctx.fillStyle = window.cssVar("--ink");
+      ctx.font = "bold 11px sans-serif";
+      ctx.fillText(labels[i], p[0] - 3, p[1] + 4);
+
+      diamEls[i].textContent = diameterMm + " mm";
+    });
+
+    ctx.fillStyle = window.cssVar("--foam");
+    ctx.font = "12px sans-serif";
+    var plantNames = { garlic: "마늘 추출물", cypress: "편백나무 추출물", tea: "녹차 추출물", control: "대조군(에탄올)" };
+    ctx.fillText(plantNames[plant] + " · 농도 " + conc + "% · 배양 " + time + "시간", cx - 110, cy - dishR - 12);
+  }
+
+  render();
+})();
+</script>
+</body>
+</html>

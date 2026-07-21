@@ -8,6 +8,7 @@
       var next = cur === "dark" ? "light" : "dark";
       root.setAttribute("data-theme", next);
       themeBtn.textContent = next === "dark" ? "라이트 모드" : "다크 모드";
+      window.dispatchEvent(new Event("theme-changed"));
     });
   }
 
@@ -18,6 +19,7 @@
       var idx = btn.getAttribute("data-tab");
       tabBtns.forEach(function (b) { b.classList.toggle("active", b === btn); });
       panels.forEach(function (p) { p.hidden = p.getAttribute("data-panel") !== idx; });
+      window.dispatchEvent(new CustomEvent("tab-shown", { detail: idx }));
     });
   });
 
@@ -52,5 +54,16 @@
     ctx.lineTo(x2 - head * Math.cos(ang + 0.45), y2 - head * Math.sin(ang + 0.45));
     ctx.closePath();
     ctx.fill();
+  };
+
+  window.roundRect = function (ctx, x, y, w, h, r) {
+    if (typeof r === "undefined") r = 6;
+    ctx.beginPath();
+    ctx.moveTo(x + r, y);
+    ctx.arcTo(x + w, y, x + w, y + h, r);
+    ctx.arcTo(x + w, y + h, x, y + h, r);
+    ctx.arcTo(x, y + h, x, y, r);
+    ctx.arcTo(x, y, x + w, y, r);
+    ctx.closePath();
   };
 })();
