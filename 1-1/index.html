@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>과학의 본성과 역사 속의 과학 탐구 — 관측 스테이션</title>
+<link rel="stylesheet" href="../assets/theme.css">
+</head>
+<body>
+
+<div class="app">
+  <nav class="rail" id="rail">
+    <div class="brand">
+      <a class="home" href="../">← 과학탐구실험1</a>
+      <div class="eyebrow" style="margin-top:8px">Ⅰ · 과학의 본성과 역사 속 탐구</div>
+      <h1 class="display">과학의 본성과<br>탐구의 역사</h1>
+    </div>
+    <button class="tab-btn active" data-tab="0"><span class="num">01</span> 과학의 본성</button>
+    <button class="tab-btn" data-tab="1"><span class="num">02</span> 역사 속 과학 탐구 사례</button>
+  </nav>
+
+  <main>
+    <section class="tab-panel" data-panel="0">
+      <div class="stage-head">
+        <div class="eyebrow">01 · 과학은 어떻게 지식을 만드는가</div>
+        <h2 class="display">과학의 본성</h2>
+        <p>카드를 클릭해 과학 지식이 만들어지는 과정의 특징을 확인해 보세요.</p>
+      </div>
+      <div class="stage-card">
+        <div class="canvas-wrap"><canvas id="c0" width="900" height="380"></canvas></div>
+        <div class="info-card" id="c0-info">카드를 클릭해 보세요.</div>
+      </div>
+    </section>
+
+    <section class="tab-panel" data-panel="1" hidden>
+      <div class="stage-head">
+        <div class="eyebrow">02 · 관찰과 증거로 세계관이 바뀐 순간들</div>
+        <h2 class="display">역사 속 과학 탐구 사례</h2>
+        <p>타임라인의 사례를 클릭해, 새로운 증거와 탐구가 어떻게 기존의 과학적 설명을 바꾸었는지 확인해 보세요.</p>
+      </div>
+      <div class="stage-card">
+        <div class="canvas-wrap"><canvas id="c1" width="900" height="380"></canvas></div>
+        <div class="info-card" id="c1-info">타임라인의 점을 클릭해 보세요.</div>
+      </div>
+    </section>
+  </main>
+</div>
+
+<button class="theme-toggle" id="themeToggle">라이트 모드</button>
+<script src="../assets/theme.js"></script>
+<script>
+(function () {
+"use strict";
+
+/* TAB0 과학의 본성 */
+(function () {
+  var canvas = document.getElementById("c0");
+  var ctx = setupCanvas(canvas);
+  var W = canvas._w, H = canvas._h;
+  var info = document.getElementById("c0-info");
+  var cards = [
+    { icon: "🔍", name: "경험적 증거에 기초", desc: "과학은 관찰과 실험으로 얻은 경험적 증거를 근거로 주장을 펼칩니다.", x: 130 },
+    { icon: "🔄", name: "잠정적 지식", desc: "과학 지식은 절대 불변이 아니라, 새로운 증거가 나오면 수정되거나 대체될 수 있습니다.", x: 380 },
+    { icon: "🤝", name: "사회적 합의 과정", desc: "과학자 사회의 동료 검토(peer review)와 토론을 거쳐 지식으로 인정받습니다.", x: 630 },
+    { icon: "🧭", name: "다양한 탐구 방법", desc: "관찰, 실험, 귀납, 연역 등 문제에 따라 다양한 방법으로 지식을 탐구합니다.", x: 850 }
+  ];
+  canvas.addEventListener("click", function (e) {
+    var rect = canvas.getBoundingClientRect();
+    var scaleX = canvas._w / rect.width;
+    var mx = (e.clientX - rect.left) * scaleX;
+    cards.forEach(function (c) { if (Math.abs(mx - c.x) < 110) info.innerHTML = "<b>" + c.icon + " " + c.name + "</b> — " + c.desc; });
+  });
+  function render() {
+    ctx.clearRect(0, 0, W, H);
+    ctx.fillStyle = cssVar("--panel"); ctx.fillRect(0, 0, W, H);
+    cards.forEach(function (c) {
+      ctx.save();
+      ctx.strokeStyle = cssVar("--line"); ctx.fillStyle = cssVar("--panel-2");
+      ctx.fillRect(c.x - 100, 100, 200, 160);
+      ctx.strokeRect(c.x - 100, 100, 200, 160);
+      ctx.restore();
+      ctx.font = "40px Segoe UI"; ctx.textAlign = "center"; ctx.fillText(c.icon, c.x, 190);
+      ctx.font = "700 12px Segoe UI"; ctx.fillStyle = cssVar("--foam");
+      wrapText(ctx, c.name, c.x, 225, 170, 15);
+    });
+    function wrapText(ctx, text, x, y, maxW, lh) {
+      var line = "", lines = [];
+      for (var i = 0; i < text.length; i++) {
+        var test = line + text[i];
+        if (ctx.measureText(test).width > maxW && line.length > 0) { lines.push(line); line = text[i]; } else line = test;
+      }
+      lines.push(line);
+      lines.forEach(function (l, i) { ctx.fillText(l, x, y + i * lh); });
+    }
+  }
+  render();
+})();
+
+/* TAB1 역사속사례 */
+(function () {
+  var canvas = document.getElementById("c1");
+  var ctx = setupCanvas(canvas);
+  var W = canvas._w, H = canvas._h;
+  var info = document.getElementById("c1-info");
+  var events = [
+    { name: "천동설 → 지동설", who: "코페르니쿠스·갈릴레이·케플러", desc: "지구가 우주의 중심이라는 오랜 믿음이, 행성의 관측 자료와 망원경 관측이라는 새로운 증거로 태양 중심설로 바뀌었습니다.", frac: 0.1 },
+    { name: "낙하 운동의 재해석", who: "갈릴레이", desc: "무거운 물체가 더 빨리 떨어진다는 아리스토텔레스의 주장을, 실험(사고 실험과 경사면 실험)으로 반박하고 모든 물체가 같은 가속도로 떨어짐을 밝혔습니다.", frac: 0.32 },
+    { name: "자연발생설 반박", who: "파스퇴르", desc: "백조목 플라스크 실험으로, 생물이 무생물에서 저절로 생겨난다는 자연발생설을 반박하고 미생물도 기존 생물에서만 생겨남을 증명했습니다.", frac: 0.55 },
+    { name: "대륙 이동설 → 판구조론", who: "베게너 이후 여러 과학자", desc: "대륙이 이동한다는 베게너의 가설은 당시 증거 부족으로 받아들여지지 않았지만, 이후 해저 지형·고지자기 자료 등 새 증거가 쌓이며 판구조론으로 발전했습니다.", frac: 0.78 },
+    { name: "우주 팽창의 발견", who: "허블", desc: "먼 은하일수록 빠르게 멀어진다는 관측(적색 이동)으로, 정적인 우주관에서 팽창하는 우주관으로 바뀌었습니다.", frac: 0.95 }
+  ];
+  canvas.addEventListener("click", function (e) {
+    var rect = canvas.getBoundingClientRect();
+    var scaleX = canvas._w / rect.width;
+    var mx = (e.clientX - rect.left) * scaleX;
+    var x0 = 60, x1 = W - 60;
+    events.forEach(function (ev) { if (Math.abs((x0 + ev.frac * (x1 - x0)) - mx) < 22) info.innerHTML = "<b>" + ev.name + "</b> (" + ev.who + ") — " + ev.desc; });
+  });
+  function render() {
+    ctx.clearRect(0, 0, W, H);
+    ctx.fillStyle = cssVar("--panel"); ctx.fillRect(0, 0, W, H);
+    var x0 = 60, x1 = W - 60, y = H / 2;
+    ctx.strokeStyle = cssVar("--line"); ctx.lineWidth = 2;
+    ctx.beginPath(); ctx.moveTo(x0, y); ctx.lineTo(x1, y); ctx.stroke();
+    events.forEach(function (ev, i) {
+      var x = x0 + ev.frac * (x1 - x0);
+      var up = i % 2 === 0;
+      ctx.save(); ctx.fillStyle = cssVar("--teal"); ctx.beginPath(); ctx.arc(x, y, 9, 0, 7); ctx.fill(); ctx.restore();
+      ctx.font = "700 11px Segoe UI"; ctx.fillStyle = cssVar("--foam"); ctx.textAlign = "center";
+      wrapText(ctx, ev.name, x, up ? y - 46 : y + 34, 130, 14);
+      ctx.font = "10px Segoe UI"; ctx.fillStyle = cssVar("--mist");
+      ctx.fillText(ev.who, x, up ? y - 20 : y + 60);
+    });
+    function wrapText(ctx, text, x, y, maxW, lh) {
+      var line = "", lines = [];
+      for (var i = 0; i < text.length; i++) {
+        var test = line + text[i];
+        if (ctx.measureText(test).width > maxW && line.length > 0) { lines.push(line); line = text[i]; } else line = test;
+      }
+      lines.push(line);
+      lines.forEach(function (l, i) { ctx.fillText(l, x, y + i * lh); });
+    }
+  }
+  render();
+})();
+
+})();
+</script>
+</body>
+</html>
