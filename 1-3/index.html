@@ -347,7 +347,7 @@
   ];
 
   function render() {
-    var i = +slider.value;
+    var i = Math.round(+slider.value);
     var e = eras[i];
     eraVal.textContent = e.name;
     fill.style.width = (i / (eras.length - 1) * 100) + "%";
