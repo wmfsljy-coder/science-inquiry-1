@@ -80,6 +80,23 @@
         <div class="info-card" id="t1-info"></div>
       </div>
       <p class="foot-note">S자형 목은 공기는 통과시키지만, 공기 중의 먼지·미생물은 굽은 부분에 가라앉아 액체까지 도달하지 못합니다. 목을 부러뜨리면(현실 실험) 곧은 목과 같은 결과가 나타나, 오염의 원인이 '공기 자체'가 아니라 '먼지 속 미생물'임을 증명했습니다.</p>
+
+      <div class="stage-head">
+        <div class="eyebrow">🔎 미션 · 고기즙의 상태 예측하기</div>
+        <h2 class="display" style="font-size:18px;">이 조건에서 고기즙은 상할까, 상하지 않을까?</h2>
+      </div>
+      <div class="stage-card">
+        <div class="info-card" id="t1m-data"></div>
+        <div class="seg" id="t1m-choices">
+          <button data-c="fresh">상하지 않는다(미생물이 자라지 않는다)</button>
+          <button data-c="spoiled">상한다(미생물이 자란다)</button>
+        </div>
+        <div class="toggle-row" style="margin:14px 20px;">
+          <button class="btn" id="t1m-check">정답 확인</button>
+          <button class="btn" id="t1m-new">새 문제</button>
+        </div>
+        <div class="info-card" id="t1m-info"></div>
+      </div>
     </section>
 
     <!-- TAB 2 : 뉴턴의 프리즘 실험 -->
@@ -386,6 +403,50 @@
   }
 
   render();
+})();
+
+/* TAB1 미션 — 고기즙 상태 예측 */
+(function () {
+  var dataBox = document.getElementById("t1m-data");
+  var seg = document.getElementById("t1m-choices");
+  var checkBtn = document.getElementById("t1m-check");
+  var newBtn = document.getElementById("t1m-new");
+  var info = document.getElementById("t1m-info");
+  var type, day, key, picked = null;
+
+  function newQuestion() {
+    type = Math.random() < 0.5 ? "swan" : "straight";
+    day = 3 + Math.floor(Math.random() * 12);
+    key = type === "swan" ? "fresh" : "spoiled";
+    picked = null;
+    dataBox.innerHTML = "플라스크 목 모양: <b>" + (type === "swan" ? "S자형 백조목" : "곧은 목") + "</b>, 경과 시간: <b>" + day + "일</b>. 이 고기즙은 어떻게 될까요?";
+    seg.querySelectorAll("button").forEach(function (x) { x.classList.remove("on"); });
+    info.innerHTML = "";
+    info.style.color = "";
+  }
+
+  seg.querySelectorAll("button").forEach(function (btn) {
+    btn.addEventListener("click", function () {
+      picked = btn.dataset.c;
+      seg.querySelectorAll("button").forEach(function (x) { x.classList.toggle("on", x === btn); });
+    });
+  });
+
+  checkBtn.addEventListener("click", function () {
+    if (!picked) { info.innerHTML = "먼저 보기를 하나 선택하세요."; info.style.color = "var(--coral)"; return; }
+    if (picked === key) {
+      info.innerHTML = key === "fresh"
+        ? "✅ 정답! S자형 목에서는 먼지 속 미생물이 굽은 곳에 가라앉아 액체까지 도달하지 못해 고기즙이 상하지 않습니다."
+        : "✅ 정답! 곧은 목에서는 먼지(미생물)가 바로 액체에 도달해 시간이 지나면 고기즙이 상합니다.";
+      info.style.color = "var(--teal)";
+    } else {
+      info.innerHTML = "❌ 틀렸습니다. 정답은 '" + (key === "fresh" ? "상하지 않는다" : "상한다") + "' 입니다.";
+      info.style.color = "var(--coral)";
+    }
+  });
+
+  newBtn.addEventListener("click", newQuestion);
+  newQuestion();
 })();
 
 /* ===== TAB 2 : 뉴턴 프리즘 ===== */

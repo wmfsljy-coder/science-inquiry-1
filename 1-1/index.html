@@ -46,6 +46,20 @@
         </div>
         <div class="info-card" id="c0b-info"></div>
       </div>
+
+      <div class="stage-head">
+        <div class="eyebrow">🔎 미션 · 동료 검토 확률 어림하기</div>
+        <h2 class="display" style="font-size:18px;">검토자가 n명일 때 오류를 걸러낼 확률은?</h2>
+      </div>
+      <div class="stage-card">
+        <div class="info-card" id="c0m-data"></div>
+        <div class="seg" id="c0m-choices"></div>
+        <div class="toggle-row" style="margin:14px 20px;">
+          <button class="btn" id="c0m-check">정답 확인</button>
+          <button class="btn" id="c0m-new">새 문제</button>
+        </div>
+        <div class="info-card" id="c0m-info"></div>
+      </div>
     </section>
 
     <section class="tab-panel" data-panel="1" hidden>
@@ -155,6 +169,57 @@
   }
   slider.addEventListener("input", update);
   update();
+})();
+
+/* TAB0 미션 — 동료 검토 확률 어림하기 */
+(function () {
+  var dataBox = document.getElementById("c0m-data");
+  var seg = document.getElementById("c0m-choices");
+  var checkBtn = document.getElementById("c0m-check");
+  var newBtn = document.getElementById("c0m-new");
+  var info = document.getElementById("c0m-info");
+  var n, answer, picked = null;
+  var P_MISS = 0.7;
+
+  function newQuestion() {
+    var nVals = [1, 2, 3, 5, 10];
+    n = nVals[Math.floor(Math.random() * nVals.length)];
+    answer = Math.round((1 - Math.pow(P_MISS, n)) * 100);
+    picked = null;
+    dataBox.innerHTML = "검토자 한 명이 오류를 발견할 확률이 30%(놓칠 확률 70%)라고 할 때, 검토자 <b>" + n + "명</b>이 독립적으로 검토하면 적어도 한 명이 오류를 발견할 확률(%)은 얼마에 가장 가까울까요?";
+    var opts = [answer];
+    while (opts.length < 4) {
+      var decoy = Math.max(1, Math.min(99, answer + Math.round((Math.random() - 0.5) * 40)));
+      if (opts.indexOf(decoy) === -1) opts.push(decoy);
+    }
+    opts.sort(function () { return Math.random() - 0.5; });
+    seg.innerHTML = "";
+    opts.forEach(function (o) {
+      var b = document.createElement("button");
+      b.textContent = o + "%";
+      b.addEventListener("click", function () {
+        picked = o;
+        seg.querySelectorAll("button").forEach(function (x) { x.classList.toggle("on", x === b); });
+      });
+      seg.appendChild(b);
+    });
+    info.innerHTML = "";
+    info.style.color = "";
+  }
+
+  checkBtn.addEventListener("click", function () {
+    if (picked === null) { info.innerHTML = "먼저 보기를 하나 선택하세요."; info.style.color = "var(--coral)"; return; }
+    if (picked === answer) {
+      info.innerHTML = "✅ 정답! 1 − 0.7" + "^" + n + " ≈ " + answer + "%";
+      info.style.color = "var(--teal)";
+    } else {
+      info.innerHTML = "❌ 틀렸습니다. 1 − 0.7^" + n + " ≈ " + answer + "% 입니다.";
+      info.style.color = "var(--coral)";
+    }
+  });
+
+  newBtn.addEventListener("click", newQuestion);
+  newQuestion();
 })();
 
 /* TAB1 역사속사례 */

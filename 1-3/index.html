@@ -59,6 +59,24 @@
         <div class="info-card" id="c0-info">경사각과 환경을 정한 뒤 [굴리기]를 눌러 보세요. 진공(공기 저항 없음)에서는 질량과 상관없이 항상 같은 시간에 도착합니다.</div>
       </div>
       <p class="foot-note">실제 갈릴레이의 사고 실험은 진공 개념 없이 마찰이 작은 경사면으로 낙하를 "늦춰서" 관찰한 것입니다. 이 모식도는 공기 저항의 유무에 따른 차이를 이해하기 쉽도록 단순화했습니다.</p>
+
+      <div class="stage-head">
+        <div class="eyebrow">🔎 미션 · 도착 순서 예측하기</div>
+        <h2 class="display" style="font-size:18px;">이 조건에서는 어느 공이 먼저 도착할까?</h2>
+      </div>
+      <div class="stage-card">
+        <div class="info-card" id="c0m-data"></div>
+        <div class="seg" id="c0m-choices">
+          <button data-c="same">두 공은 동시에 도착한다</button>
+          <button data-c="heavy">무거운 공 A가 먼저 도착한다</button>
+          <button data-c="light">가벼운 공 B가 먼저 도착한다</button>
+        </div>
+        <div class="toggle-row" style="margin:14px 20px;">
+          <button class="btn" id="c0m-check">정답 확인</button>
+          <button class="btn" id="c0m-new">새 문제</button>
+        </div>
+        <div class="info-card" id="c0m-info"></div>
+      </div>
     </section>
 
     <!-- TAB 1 : 도량형의 역사 -->
@@ -301,6 +319,49 @@
   }
 
   resetSim();
+})();
+
+/* TAB0 미션 — 도착 순서 예측하기 */
+(function () {
+  var dataBox = document.getElementById("c0m-data");
+  var seg = document.getElementById("c0m-choices");
+  var checkBtn = document.getElementById("c0m-check");
+  var newBtn = document.getElementById("c0m-new");
+  var info = document.getElementById("c0m-info");
+  var labels = { same: "두 공은 동시에 도착한다", heavy: "무거운 공 A가 먼저 도착한다", light: "가벼운 공 B가 먼저 도착한다" };
+  var env, angle, key, picked = null;
+
+  function newQuestion() {
+    env = Math.random() < 0.5 ? "vacuum" : "air";
+    angle = 10 + Math.floor(Math.random() * 51);
+    key = env === "vacuum" ? "same" : "heavy";
+    picked = null;
+    dataBox.innerHTML = "경사각 " + angle + "°, 환경: <b>" + (env === "vacuum" ? "공기 저항 없음(진공)" : "공기 저항 있음") + "</b>인 경사면에서 무거운 공 A(3kg)와 가벼운 공 B(1kg)를 동시에 굴렸습니다. 어느 공이 먼저 도착할까요?";
+    seg.querySelectorAll("button").forEach(function (x) { x.classList.remove("on"); });
+    info.innerHTML = "";
+    info.style.color = "";
+  }
+
+  seg.querySelectorAll("button").forEach(function (btn) {
+    btn.addEventListener("click", function () {
+      picked = btn.dataset.c;
+      seg.querySelectorAll("button").forEach(function (x) { x.classList.toggle("on", x === btn); });
+    });
+  });
+
+  checkBtn.addEventListener("click", function () {
+    if (!picked) { info.innerHTML = "먼저 보기를 하나 선택하세요."; info.style.color = "var(--coral)"; return; }
+    if (picked === key) {
+      info.innerHTML = "✅ 정답! " + (key === "same" ? "진공에서는 공기 저항이 없어 질량과 상관없이 같은 가속도로 떨어지므로 동시에 도착합니다." : "공기 중에서는 가벼운 공이 공기 저항의 상대적 영향을 더 크게 받아 무거운 공이 먼저 도착합니다.");
+      info.style.color = "var(--teal)";
+    } else {
+      info.innerHTML = "❌ 틀렸습니다. 정답은 '" + labels[key] + "' 입니다.";
+      info.style.color = "var(--coral)";
+    }
+  });
+
+  newBtn.addEventListener("click", newQuestion);
+  newQuestion();
 })();
 
 /* ===== TAB 1 : 도량형의 역사 ===== */
