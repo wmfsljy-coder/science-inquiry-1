@@ -20,6 +20,7 @@
     <button class="tab-btn" data-tab="2"><span class="num">03</span> 우리 선조의 과학 기술</button>
     <button class="tab-btn" data-tab="3"><span class="num">04</span> 멘델레예프의 주기율표</button>
     <button class="tab-btn" data-tab="4"><span class="num">05</span> 동시 발견 이야기</button>
+    <button class="tab-btn" data-tab="5"><span class="num">06</span> 정리하기</button>
   </nav>
 
   <main>
@@ -29,6 +30,8 @@
         <div class="eyebrow">01 · 갈릴레이의 경사면을 이용한 낙하 운동 실험</div>
         <h2 class="display">질량이 다른 물체는 같이 떨어질까?</h2>
         <p>아리스토텔레스는 "무거운 물체가 더 빨리 떨어진다"라고 주장했습니다. 갈릴레이는 경사면에서 공을 굴려 이를 반박했습니다. 공기 저항을 켜고 끄면서 두 공의 도착 시간이 어떻게 달라지는지 관찰해 보세요.</p>
+      
+        <span class="std-chip">10과탐1-01-01</span><span class="std-chip">10과탐1-01-02</span><div class="std-note"><b>[10과탐1-01-01]</b> 과학사에서 패러다임의 전환을 가져온 결정적 실험을 따라 해 보고, 과학의 발전 과정에 관해 설명할 수 있다.<br><b>[10과탐1-01-02]</b> 과학사의 다양한 사례들로부터 과학의 본성을 추론할 수 있다.</div><div class="terms"><b>갈릴레이 낙하 실험</b><b>도량형</b><b>주기율표</b><b>동시 발견</b></div>
       </div>
       <div class="stage-card">
         <div class="canvas-wrap">
@@ -77,6 +80,7 @@
         </div>
         <div class="info-card" id="c0m-info"></div>
       </div>
+      <div class="miscon loose"><span class="tag">오개념 지도</span><br><b>갈릴레이의 피사의 사탑 일화</b><br>갈릴레이가 피사의 사탑에서 무거운 공과 가벼운 공을 동시에 낙하시켜 두 공이 동시에 떨어진다는 것을 실험으로 증명하였다는 일화는 <b>후대에 만들어진 것으로 근거가 명확하지 않다.</b> 갈릴레이가 실제로 쓴 것은 사고 실험과 빗면 실험이었다.<cite>과학탐구실험1 교사용 교과서, 오개념 지도</cite></div>
     </section>
 
     <!-- TAB 1 : 도량형의 역사 -->
@@ -162,6 +166,15 @@
         <div class="detail-panel" id="c4-detail"></div>
       </div>
       <p class="foot-note">과학적 발견이 특정 천재 한 사람만의 것이 아니라, 그 시대의 지식과 기술이 쌓여 여러 사람이 비슷한 결론에 도달하는 경우가 많다는 것을 보여 주는 사례들입니다. (다중 발견, multiple discovery)</p>
+    </section>
+
+    <section class="tab-panel" data-panel="5" hidden>
+      <div class="stage-head">
+        <div class="eyebrow">06 · 오늘 알아낸 것을 문장으로</div>
+        <h2 class="display">정리하기</h2>
+        <p>조작한 것을 말이나 글로 옮기지 않으면 남지 않습니다. 아래를 채우고 <b>답안 복사</b>를 눌러 제출하세요. 쓰는 동안 자동으로 저장됩니다.</p>
+      </div>
+      <div class="stage-card" style="padding:6px 0 4px"><div id="wk"></div></div>
     </section>
   </main>
 </div>
@@ -661,6 +674,36 @@
   }
 
   render();
+})();
+</script>
+
+<script>
+(function () {
+  window.sthUnit("gt1-1-3");
+  window.sthWork({
+    mount: "wk",
+    unitLabel: "[과학탐구실험1 Ⅰ] 역사 속의 과학 탐구",
+    items: [
+      {
+            "id": "w1",
+            "label": "갈릴레이가 실제로 한 것",
+            "hint": "사탑 일화가 아니라면 갈릴레이는 무엇으로 결론을 얻었는지 쓰세요.",
+            "ph": ""
+      },
+      {
+            "id": "w2",
+            "label": "같은 발견이 동시에",
+            "hint": "같은 시기에 여러 사람이 같은 것을 발견한 사례를 하나 들고, 왜 그런 일이 생기는지 생각을 쓰세요.",
+            "ph": ""
+      },
+      {
+            "id": "w3",
+            "label": "아직 헷갈리는 것",
+            "hint": "다음 시간에 여기서부터 시작합니다.",
+            "ph": ""
+      }
+]
+  });
 })();
 </script>
 </body>

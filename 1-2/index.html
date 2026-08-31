@@ -18,6 +18,7 @@
     <button class="tab-btn active" data-tab="0"><span class="num">01</span> 귀납과 연역</button>
     <button class="tab-btn" data-tab="1"><span class="num">02</span> 변인 통제</button>
     <button class="tab-btn" data-tab="2"><span class="num">03</span> 데이터 시각화</button>
+    <button class="tab-btn" data-tab="3"><span class="num">04</span> 정리하기</button>
   </nav>
 
   <main>
@@ -26,6 +27,8 @@
         <div class="eyebrow">01 · 결론에 이르는 두 가지 논리</div>
         <h2 class="display">귀납적 탐구와 연역적 탐구</h2>
         <p>두 가지 탐구 방법을 비교해 보세요.</p>
+      
+        <span class="std-chip">10과탐1-02-01</span><span class="std-chip">10과탐1-02-02</span><div class="std-note"><b>[10과탐1-02-01]</b> 직접적인 관찰을 통한 탐구를 수행하고, 귀납적 탐구 방법을 설명할 수 있다.<br><b>[10과탐1-02-02]</b> 가설 설정을 포함한 과학사의 대표적인 탐구 실험을 수행하고, 연역적 탐구 방법의 특징을 예증할 수 있다.</div><p class="std-note" style="margin-top:6px">※ 같은 영역의 실습편이 <b>Ⅱ. 과학 탐구의 과정과 절차</b>(1-4)에 따로 있습니다.</p><div class="terms"><b>귀납적 탐구</b><b>연역적 탐구</b><b>가설</b><b>변인 통제</b></div>
       </div>
       <div class="stage-card">
         <div class="canvas-wrap"><canvas id="c0" width="900" height="380"></canvas></div>
@@ -116,6 +119,15 @@
         <div class="canvas-wrap"><canvas id="c2b" width="900" height="320"></canvas></div>
         <div class="info-card" id="c2b-info"></div>
       </div>
+    </section>
+
+    <section class="tab-panel" data-panel="3" hidden>
+      <div class="stage-head">
+        <div class="eyebrow">04 · 오늘 알아낸 것을 문장으로</div>
+        <h2 class="display">정리하기</h2>
+        <p>조작한 것을 말이나 글로 옮기지 않으면 남지 않습니다. 아래를 채우고 <b>답안 복사</b>를 눌러 제출하세요. 쓰는 동안 자동으로 저장됩니다.</p>
+      </div>
+      <div class="stage-card" style="padding:6px 0 4px"><div id="wk"></div></div>
     </section>
   </main>
 </div>
@@ -450,6 +462,36 @@
   render();
 })();
 
+})();
+</script>
+
+<script>
+(function () {
+  window.sthUnit("gt1-1-2");
+  window.sthWork({
+    mount: "wk",
+    unitLabel: "[과학탐구실험1 Ⅱ] 과학 탐구의 과정과 절차 — 개관",
+    items: [
+      {
+            "id": "w1",
+            "label": "귀납과 연역의 갈림길",
+            "hint": "두 방법이 갈리는 지점이 어디인지 한 문장으로 쓰세요.",
+            "ph": ""
+      },
+      {
+            "id": "w2",
+            "label": "좋은 가설의 조건",
+            "hint": "검증 가능한 가설과 그렇지 않은 가설을 하나씩 만들어 보고, 왜 그런지 쓰세요.",
+            "ph": ""
+      },
+      {
+            "id": "w3",
+            "label": "아직 헷갈리는 것",
+            "hint": "다음 시간에 여기서부터 시작합니다.",
+            "ph": ""
+      }
+]
+  });
 })();
 </script>
 </body>
