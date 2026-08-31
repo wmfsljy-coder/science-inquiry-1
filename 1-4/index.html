@@ -25,6 +25,7 @@
     <button class="tab-btn" data-tab="3"><span class="num">04</span> 기후 변화 빅데이터</button>
     <button class="tab-btn" data-tab="4"><span class="num">05</span> 화학 반응 과학 마술</button>
     <button class="tab-btn" data-tab="5"><span class="num">06</span> 천연 항생물질 탐구</button>
+    <button class="tab-btn" data-tab="6"><span class="num">07</span> 정리하기</button>
   </nav>
 
   <main>
@@ -34,6 +35,8 @@
         <div class="eyebrow">01 · 과학사에서 귀납적 탐구 사례 알아보기</div>
         <h2 class="display">백조는 모두 흰색일까?</h2>
         <p>[관찰 추가] 버튼을 눌러 백조를 하나씩 관찰해 보세요. 관찰이 쌓일수록 어떤 결론을 내리게 되는지, 그리고 그 결론이 항상 안전한지 함께 생각해 봅시다.</p>
+      
+        <span class="std-chip">10과탐1-02-01</span><span class="std-chip">10과탐1-02-02</span><span class="std-chip">10과탐1-02-03</span><span class="std-chip">10과탐1-02-04</span><div class="std-note"><b>[10과탐1-02-01]</b> 직접적인 관찰을 통한 탐구를 수행하고, 귀납적 탐구 방법을 설명할 수 있다.<br><b>[10과탐1-02-02]</b> 가설 설정을 포함한 과학사의 대표적인 탐구 실험을 수행하고, 연역적 탐구 방법의 특징을 예증할 수 있다.<br><b>[10과탐1-02-03]</b> 탐구 수행에서 얻은 정성적 혹은 정량적 데이터를 분석하고 그 결과를 다양하게 표상하고 소통할 수 있다.<br><b>[10과탐1-02-04]</b> 흥미와 호기심을 갖고 과학 탐구에 참여하고, 분야 간 협동 연구 등을 통해 협력적 탐구 활동을 수행할 수 있다.</div><div class="terms"><b>귀납적 탐구</b><b>연역적 탐구</b><b>가설</b><b>변인 통제</b></div>
       </div>
       <div class="stage-card">
         <div class="controls" style="padding-bottom:0;">
@@ -51,6 +54,7 @@
           <button class="btn" id="t0-blackswan" disabled>1697년 · 새로운 대륙에서 발견된 백조 확인하기</button>
         </div>
       </div>
+      <div class="miscon loose"><span class="tag">오개념 지도</span><br><b>갈릴레이의 피사의 사탑 일화</b><br>갈릴레이가 피사의 사탑에서 무거운 공과 가벼운 공을 동시에 낙하시켜 두 공이 동시에 떨어진다는 것을 실험으로 증명하였다는 일화는 <b>후대에 만들어진 것으로 근거가 명확하지 않다.</b> 갈릴레이가 실제로 사용한 것은 사고 실험과 빗면 실험이었다.<cite>과학탐구실험1 교사용 교과서, 오개념 지도</cite></div>
     </section>
 
     <!-- TAB 1 : 파스퇴르의 백조목 플라스크 -->
@@ -210,6 +214,15 @@
         </div>
         <div class="info-card" id="t5-info">농도와 배양 시간이 늘어날수록 억제대가 커집니다. 대조군(에탄올만 적신 디스크)은 억제대가 거의 생기지 않아야 이 실험의 결과를 신뢰할 수 있습니다.</div>
       </div>
+    </section>
+
+    <section class="tab-panel" data-panel="6" hidden>
+      <div class="stage-head">
+        <div class="eyebrow">07 · 오늘 알아낸 것을 문장으로</div>
+        <h2 class="display">정리하기</h2>
+        <p>조작한 것을 말이나 글로 옮기지 않으면 남지 않습니다. 아래를 채우고 <b>답안 복사</b>를 눌러 제출하세요. 쓰는 동안 자동으로 저장됩니다.</p>
+      </div>
+      <div class="stage-card" style="padding:6px 0 4px"><div id="wk"></div></div>
     </section>
   </main>
 </div>
@@ -980,6 +993,42 @@
   }
 
   render();
+})();
+</script>
+
+<script>
+(function () {
+  window.sthUnit("gt1-1-4");
+  window.sthWork({
+    mount: "wk",
+    unitLabel: "[과학탐구실험1 Ⅱ] 과학 탐구의 과정과 절차",
+    items: [
+      {
+            "id": "w1",
+            "label": "귀납과 연역이 갈리는 지점",
+            "hint": "이 단원의 탐구 하나를 골라, 그것이 귀납적 탐구인지 연역적 탐구인지 판단하고 근거를 쓰세요.",
+            "ph": "내가 고른 탐구: …  /  판단: …  /  근거: …"
+      },
+      {
+            "id": "w2",
+            "label": "가설이 갖추어야 할 조건",
+            "hint": "파스퇴르의 백조목 실험에서 검증된 가설을 한 문장으로 쓰고, 그 가설이 왜 “검증 가능한” 가설인지 설명하세요.",
+            "ph": ""
+      },
+      {
+            "id": "w3",
+            "label": "통제해야 했던 변인",
+            "hint": "그 실험에서 무엇을 같게 두고 무엇만 다르게 두었는지 쓰세요.",
+            "ph": ""
+      },
+      {
+            "id": "w4",
+            "label": "아직 헷갈리는 것",
+            "hint": "다음 시간에 여기서부터 시작합니다.",
+            "ph": ""
+      }
+]
+  });
 })();
 </script>
 </body>
