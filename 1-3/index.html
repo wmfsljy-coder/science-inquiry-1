@@ -33,10 +33,11 @@
       
         <span class="std-chip">10과탐1-01-01</span><span class="std-chip">10과탐1-01-02</span><div class="std-note"><b>[10과탐1-01-01]</b> 과학사에서 패러다임의 전환을 가져온 결정적 실험을 따라 해 보고, 과학의 발전 과정에 관해 설명할 수 있다.<br><b>[10과탐1-01-02]</b> 과학사의 다양한 사례들로부터 과학의 본성을 추론할 수 있다.</div><div class="terms"><b>갈릴레이 낙하 실험</b><b>도량형</b><b>주기율표</b><b>동시 발견</b></div>
       </div>
+      <div class="gate loose" id="gt"></div>
       <div class="stage-card">
-        <div class="canvas-wrap">
+        <div class="canvas-wrap" style="position:relative">
           <canvas id="c0" width="900" height="480"></canvas>
-          <div class="badge-row"><span class="badge" id="c0-state">준비됨</span></div>
+          <div class="badge-row"><span class="badge" id="c0-state">준비됨</span><div class="veil" id="vl"><p>예상을 고르면 화면이 열립니다.</p></div></div>
         </div>
         <div class="controls">
           <div class="ctrl-group">
@@ -703,6 +704,26 @@
             "ph": ""
       }
 ]
+  });
+})();
+</script>
+
+<script>
+(function () {
+  window.sthGate({
+    gate: "gt", veil: "vl", key: "galileo",
+    question: "갈릴레이가 <b>피사의 사탑에서 두 공을 떨어뜨린 실험</b>은 실제로 있었을까요?",
+    options: ["㉠ 실제로 있었고 기록도 남아 있다", "㉡ 근거가 명확하지 않은 후대의 이야기다", "㉢ 다른 사람이 한 실험이다", "㉣ 실패한 실험이었다"],
+    onPick: function (i) {
+      var ok = (i === 1);
+      window.sthState("galileoOK", ok ? "맞음" : "어긋남");
+      var msg = (ok ? "<b>맞았습니다.</b> " : "<b>정답은 ㉡ 입니다.</b> ") + "이 일화는 <b>후대에 만들어진 것으로 근거가 명확하지 않습니다.</b>" + " " + "갈릴레이가 실제로 쓴 것은 <b>사고 실험</b>과 <b>빗면 실험</b>이었습니다. 낙하는 너무 빨라 당시 기술로 잴 수 없었기에, 빗면으로 <b>느리게 만들어</b> 측정했습니다.";
+      var g = document.getElementById("gt");
+      var box = g.parentNode.querySelector(".info-card");
+      if (box) box.innerHTML = msg;
+      else { var d = document.createElement("div"); d.className = "info-card"; d.style.margin = "18px 0 0";
+             d.innerHTML = msg; g.insertAdjacentElement("afterend", d); }
+    }
   });
 })();
 </script>
