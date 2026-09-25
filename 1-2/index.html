@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>과학 탐구의 과정과 절차 — 관측 스테이션</title>
 <link rel="stylesheet" href="../assets/theme.css">
+<link rel="stylesheet" href="../assets/share.css">
 </head>
 <body>
 
@@ -19,6 +20,7 @@
     <button class="tab-btn" data-tab="1"><span class="num">02</span> 변인 통제</button>
     <button class="tab-btn" data-tab="2"><span class="num">03</span> 데이터 시각화</button>
     <button class="tab-btn" data-tab="3"><span class="num">04</span> 정리하기</button>
+    <button class="tab-btn" data-tab="4"><span class="num">05</span> 우리 반</button>
   </nav>
 
   <main>
@@ -129,11 +131,24 @@
       </div>
       <div class="stage-card" style="padding:6px 0 4px"><div id="wk"></div></div>
     </section>
+  
+    <!-- ===================================================================== 05 우리 반 -->
+    <section class="tab-panel" data-panel="4" hidden>
+      <div class="stage-head">
+        <div class="eyebrow">05 · 같은 반 친구들과 나누기</div>
+        <h2 class="display">우리 반</h2>
+        <p>정리하기에 쓴 것을 우리 반에 올리고, 같은 반 친구들이 어디까지 했는지 함께 보세요. <b>올리기 버튼을 눌렀을 때만</b> 공유됩니다. 실명 대신 별명을 쓰고, 글까지 올릴지는 직접 고르세요.</p>
+      </div>
+      <div class="stage-card"><div id="share"></div></div>
+    </section>
+
   </main>
 </div>
 
 <button class="theme-toggle" id="themeToggle">라이트 모드</button>
 <script src="../assets/theme.js"></script>
+<script src="../assets/share-config.js"></script>
+<script src="../assets/share.js"></script>
 <script>
 (function () {
 "use strict";
@@ -491,6 +506,15 @@
             "ph": ""
       }
 ]
+  });
+  window.sthShare({
+    mount: "share",
+    unit: "gt1-1-2",
+    unitLabel: "[과학탐구실험1 Ⅱ] 과학 탐구의 과정과 절차 — 개관",
+    works: [
+      { id: "w1", label: "귀납과 연역의 갈림길" },
+      { id: "w2", label: "좋은 가설의 조건" }
+    ]
   });
 })();
 </script>
