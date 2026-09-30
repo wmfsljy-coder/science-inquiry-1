@@ -5,11 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Ⅱ. 과학 탐구의 과정과 절차 — 관측 스테이션</title>
 <link rel="stylesheet" href="../assets/theme.css">
-<link rel="stylesheet" href="../assets/share.css">
-<style>
-  .swan-box { display: flex; flex-wrap: wrap; gap: 8px; padding: 4px 20px; font-size: 30px; min-height: 60px; align-items: center; }
-  .swan-box span.black { filter: brightness(0.15) sepia(1) hue-rotate(180deg); }
-</style>
+<link rel="stylesheet" href="../assets/story.css">
 </head>
 <body>
 
@@ -20,1041 +16,370 @@
       <div class="eyebrow">Ⅱ · 탐구의 과정과 절차</div>
       <h1 class="display">과학 탐구의<br>과정과 절차</h1>
     </div>
-    <button class="tab-btn active" data-tab="0"><span class="num">01</span> 귀납적 탐구 사례</button>
-    <button class="tab-btn" data-tab="1"><span class="num">02</span> 파스퇴르의 백조목 실험</button>
-    <button class="tab-btn" data-tab="2"><span class="num">03</span> 뉴턴의 프리즘 실험</button>
-    <button class="tab-btn" data-tab="3"><span class="num">04</span> 기후 변화 빅데이터</button>
-    <button class="tab-btn" data-tab="4"><span class="num">05</span> 화학 반응 과학 마술</button>
-    <button class="tab-btn" data-tab="5"><span class="num">06</span> 천연 항생물질 탐구</button>
+    <button class="tab-btn active" data-tab="0"><span class="num">01</span> 귀납과 파스퇴르의 실험</button>
+    <button class="tab-btn" data-tab="1"><span class="num">02</span> 뉴턴의 프리즘 실험</button>
+    <button class="tab-btn" data-tab="2"><span class="num">03</span> 기후 변화 빅데이터</button>
+    <button class="tab-btn" data-tab="3"><span class="num">04</span> 천연 항생물질과 과학 마술</button>
+    <button class="tab-btn" data-tab="4"><span class="num">05</span> 수준별 문제</button>
+    <button class="tab-btn" data-tab="5"><span class="num">06</span> 응용 실험실</button>
     <button class="tab-btn" data-tab="6"><span class="num">07</span> 정리하기</button>
     <button class="tab-btn" data-tab="7"><span class="num">08</span> 우리 반</button>
   </nav>
 
   <main>
-    <!-- TAB 0 : 귀납적 탐구 사례 -->
+    <!-- =====================================================================
+         01 귀납과 파스퇴르의 실험 — 이야기 「목이 휜 플라스크」
+         ===================================================================== -->
     <section class="tab-panel" data-panel="0">
       <div class="stage-head">
-        <div class="eyebrow">01 · 과학사에서 귀납적 탐구 사례 알아보기</div>
-        <h2 class="display">백조는 모두 흰색일까?</h2>
-        <p>[관찰 추가] 버튼을 눌러 백조를 하나씩 관찰해 보세요. 관찰이 쌓일수록 어떤 결론을 내리게 되는지, 그리고 그 결론이 항상 안전한지 함께 생각해 봅시다.</p>
-      
+        <div class="eyebrow">01 · 귀납적 탐구 사례 · 파스퇴르의 생물속생설 도출 과정 재연 · 이야기 한 편</div>
+        <h2 class="display">목이 휜 플라스크</h2>
+        <p>1859년 프랑스 과학 아카데미가 상금을 걸었습니다. “생물은 저절로 생겨나는가?” 파스퇴르의 조수가 되어 관찰을 쌓는 귀납의 한계를 먼저 겪어 보고, 두 설명의 예측을 갈라 놓는 백조목 플라스크 실험으로 오래된 논쟁에 답합니다.</p>
         <span class="std-chip">10과탐1-02-01</span><span class="std-chip">10과탐1-02-02</span><span class="std-chip">10과탐1-02-03</span><span class="std-chip">10과탐1-02-04</span><div class="std-note"><b>[10과탐1-02-01]</b> 직접적인 관찰을 통한 탐구를 수행하고, 귀납적 탐구 방법을 설명할 수 있다.<br><b>[10과탐1-02-02]</b> 가설 설정을 포함한 과학사의 대표적인 탐구 실험을 수행하고, 연역적 탐구 방법의 특징을 예증할 수 있다.<br><b>[10과탐1-02-03]</b> 탐구 수행에서 얻은 정성적 혹은 정량적 데이터를 분석하고 그 결과를 다양하게 표상하고 소통할 수 있다.<br><b>[10과탐1-02-04]</b> 흥미와 호기심을 갖고 과학 탐구에 참여하고, 분야 간 협동 연구 등을 통해 협력적 탐구 활동을 수행할 수 있다.</div><div class="terms"><b>귀납적 탐구</b><b>연역적 탐구</b><b>가설</b><b>변인 통제</b></div>
       </div>
-      <div class="stage-card">
-        <div class="controls" style="padding-bottom:0;">
-          <div class="btn-row">
-            <button class="btn primary" id="t0-add">관찰 추가 (백조 발견)</button>
-            <button class="btn" id="t0-reset">처음부터</button>
+
+      <div class="episode" id="ep1">
+        <section class="scene" data-title="상한 고기즙">
+          <div class="story narr"><div class="who">🍲</div><div class="say"><span class="name">이야기</span>파스퇴르의 실험실. 끓여서 식힌 고기즙 플라스크를 입구를 연 채 두었더니, 사흘 뒤 뿌옇게 흐려지고 현미경 속에 미생물이 우글거립니다. 옆 실험실의 푸셰 교수는 말합니다. “보시오, 생명은 공기 속 ‘생명력’으로 저절로 생겨나는 거요!”</div></div>
+          <div class="story"><div class="who">👨‍🔬</div><div class="say"><span class="name">파스퇴르</span>“자네 생각은 어떤가? 이 결과가 무엇을 보여 준다고 보나?”</div></div>
+          <div class="gate loose" id="g1"></div>
+        </section>
+
+        <section class="scene" data-title="백조는 모두 흰색일까">
+          <div class="story"><div class="who">🦢</div><div class="say"><span class="name">파스퇴르</span>“푸셰 교수는 ‘열어 둔 고기즙은 언제나 상했다’는 관찰을 수없이 쌓았다네. 관찰을 많이 쌓으면 결론이 확실해질까? 옛 유럽 사람들이 백조를 관찰한 기록으로 시험해 보세. 관찰을 <b>20번 이상</b> 쌓아 결론을 내린 뒤, 1697년 새로운 대륙에서 온 소식을 확인해 보게.”</div></div>
+          <div class="stage-card">
+            <div class="canvas-wrap"><canvas id="a-c-swan" width="900" height="220"></canvas></div>
+            <div class="btn-row" style="padding:12px 20px 0">
+              <button class="btn primary" id="a-add" type="button">백조 관찰 하나 더</button>
+              <button class="btn" id="a-add5" type="button">다섯 번 더</button>
+              <button class="btn" id="a-black" type="button" disabled>1697년 · 오스트레일리아 소식 확인</button>
+            </div>
+            <div class="info-card" id="a-swan-info"></div>
           </div>
-        </div>
-        <div class="swan-box" id="t0-swans"></div>
-        <div class="stat-row">
-          <div class="stat-box"><div class="lbl">누적 관찰 횟수</div><div class="num" id="t0-count">0</div></div>
-        </div>
-        <div class="detail-panel" id="t0-concl">아직 관찰을 시작하지 않았습니다. [관찰 추가]를 눌러 보세요.</div>
-        <div class="btn-row" style="padding:0 20px 20px;">
-          <button class="btn" id="t0-blackswan" disabled>1697년 · 새로운 대륙에서 발견된 백조 확인하기</button>
-        </div>
+          <div id="a-swan-pick"></div>
+          <div class="mission" id="m1-2"><ul><li id="m1-2a">백조를 20번 이상 관찰해 결론 내리기</li><li id="m1-2b">1697년의 관찰 확인하기</li><li id="m1-2c">귀납적 결론의 특징 고르기</li></ul></div>
+        </section>
+
+        <section class="scene" data-title="백조목 플라스크">
+          <div class="story"><div class="who">⚗️</div><div class="say"><span class="name">파스퇴르</span>“내 가설은 이렇다네. ‘고기즙을 상하게 하는 미생물은 저절로 생기는 게 아니라, 공기 속 먼지에 묻어 들어온다.’ 가설이 옳다면, 공기는 드나들되 먼지만 막으면 고기즙은 상하지 않아야 해. 플라스크의 목 모양을 바꿔 가며 끓인 고기즙을 <b>14일</b> 지켜보게. 그리고 먼지가 고기즙에 닿게 한 비교 플라스크도 하나 확인해 보게.”</div></div>
+          <div class="stage-card">
+            <div class="canvas-wrap"><canvas id="a-c-flask" width="900" height="300"></canvas></div>
+            <div class="controls">
+              <div class="ctrl-group" style="flex:1 1 100%">
+                <div class="ctrl-label">플라스크 (모두 고기즙을 끓인 뒤)</div>
+                <div class="seg" id="a-neck"><button class="on" data-v="straight">곧은 목</button><button data-v="swan">S자 백조목</button><button data-v="tilt">백조목 — 기울여 굽은 곳을 적심</button><button data-v="broken">백조목 — 목을 부러뜨림</button></div>
+              </div>
+              <div class="ctrl-group">
+                <div class="ctrl-label">지난 날수<span class="val" id="a-day-val">0일</span></div>
+                <input type="range" id="a-day" min="0" max="14" step="1" value="0">
+              </div>
+            </div>
+            <div class="info-card" id="a-flask-info"></div>
+          </div>
+          <div id="a-flask-pick"></div>
+          <div class="mission" id="m1-3"><ul><li id="m1-3a">공기가 드나드는데도 14일 동안 맑은 플라스크 찾기</li><li id="m1-3b">먼지가 닿은 비교 플라스크가 상하는 것 확인하기</li><li id="m1-3c">이 실험이 결정적이었던 까닭 고르기</li></ul></div>
+        </section>
+
+        <section class="scene" data-title="두 설명의 예측 가르기">
+          <div class="story"><div class="who">⚖️</div><div class="say"><span class="name">과학 아카데미 심사 위원</span>“자연발생설(생명력이 있는 공기만 있으면 생물이 저절로 생긴다)과 생물속생설(생물은 생물에서만 생긴다)은 어떤 실험에서 서로 다른 결과를 예측합니까? 실험을 예측에 따라 나눠 보세요.”</div></div>
+          <div class="stage-card"><div id="a-sort"></div></div>
+          <div class="mission" id="m1-4">여섯 가지 실험을 두 설명의 예측에 따라 나누세요.</div>
+        </section>
+
+        <section class="scene" data-title="결말 — 1864년 소르본 강연">
+          <div class="ending">
+            <h4>🦢 “자연발생설은 이 간단한 실험의 치명타에서 결코 회복하지 못할 것입니다”</h4>
+            <p>백조목 플라스크는 공기는 드나들게 하면서 먼지 속 미생물만 굽은 목에 가라앉혔습니다. 자연발생설은 ‘상한다’, 생물속생설은 ‘상하지 않는다’고 예측이 갈리는 실험에서 고기즙은 맑게 남았고, 목을 부러뜨리거나 먼지를 적시자 곧 상했지요. 관찰을 아무리 쌓아도 흰 백조 결론은 검은 백조 하나에 무너졌듯, <b>귀납</b>만으로는 원인을 확정하기 어렵습니다. 파스퇴르는 <b>가설</b>을 세우고, 가설에서 <b>예측</b>을 이끌어 내고, 목 모양만 다르게 한 <b>대조 실험</b>으로 확인하는 <b>연역적 탐구</b>로 논쟁을 끝냈습니다.</p>
+            <div class="vs" id="e1-vs"></div>
+            <span class="stamp">탐구 보고서 ① 완성</span>
+          </div>
+          <div class="info-card" style="margin:14px 0">📎 과학자의 눈: 파스퇴르가 1860년대에 만든 백조목 플라스크 가운데 몇 개는 지금도 파리의 파스퇴르 연구소에 맑은 채로 보관되어 있다고 합니다. 그의 연구는 저온 살균법과 백신 개발로 이어졌습니다.</div>
+          <div class="stage-card" style="padding:6px 0 4px;margin-top:16px"><div id="wk1"></div></div>
+        </section>
       </div>
       <div class="miscon loose"><span class="tag">오개념 지도</span><br><b>갈릴레이의 피사의 사탑 일화</b><br>갈릴레이가 피사의 사탑에서 무거운 공과 가벼운 공을 동시에 낙하시켜 두 공이 동시에 떨어진다는 것을 실험으로 증명하였다는 일화는 <b>후대에 만들어진 것으로 근거가 명확하지 않다.</b> 갈릴레이가 실제로 사용한 것은 사고 실험과 빗면 실험이었다.<cite>과학탐구실험1 교사용 교과서, 오개념 지도</cite></div>
+      <p class="teacher-note">교사용: 주소 끝에 <a href="?open=1">?open=1</a> 을 붙이면 모든 장면이 열립니다.</p>
     </section>
 
-    <!-- TAB 1 : 파스퇴르의 백조목 플라스크 -->
+    <!-- =====================================================================
+         02 뉴턴의 프리즘 실험 — 이야기 「두 번째 프리즘」
+         ===================================================================== -->
     <section class="tab-panel" data-panel="1" hidden>
       <div class="stage-head">
-        <div class="eyebrow">02 · 프로젝트 · 파스퇴르의 생물속생설 도출 과정 재연하기</div>
-        <h2 class="display">고기즙은 왜 상하지 않았을까?</h2>
-        <p>당시 사람들은 '생물이 무생물에서 저절로 생겨난다(자연발생설)'고 믿었습니다. 파스퇴르는 플라스크의 목 모양을 바꾸어 이 믿음을 반박했습니다. 목 모양을 바꾸고 시간을 흘려보내 보세요.</p>
+        <div class="eyebrow">02 · 손전등을 이용하여 뉴턴의 프리즘 실험 구현하기 · 이야기 한 편</div>
+        <h2 class="display">두 번째 프리즘</h2>
+        <p>1666년, 흑사병으로 대학이 문을 닫자 고향에 내려온 스물세 살의 뉴턴. 어두운 방의 덧문에 작은 구멍을 뚫고 햇빛을 프리즘에 비춥니다. 흰빛이 여러 색으로 펼쳐지는 까닭을 두고, ‘유리가 빛을 물들인다’는 당시의 설명과 뉴턴의 가설 가운데 무엇이 옳은지 결정적 실험으로 가립니다.</p>
+        <span class="std-chip">10과탐1-02-02</span><div class="std-note"><b>[10과탐1-02-02]</b> 가설 설정을 포함한 과학사의 대표적인 탐구 실험을 수행하고, 연역적 탐구 방법의 특징을 예증할 수 있다.</div><div class="terms"><b>빛의 분산</b><b>굴절률</b><b>결정적 실험</b><b>재결합</b></div>
       </div>
-      <div class="stage-card">
-        <div class="canvas-wrap">
-          <canvas id="t1" width="900" height="420"></canvas>
-        </div>
-        <div class="controls">
-          <div class="ctrl-group">
-            <div class="ctrl-label">플라스크 목 모양</div>
-            <div class="seg" id="t1-type">
-              <button class="on" data-t="swan">S자형 백조목</button>
-              <button data-t="straight">곧은 목</button>
-            </div>
-          </div>
-          <div class="ctrl-group">
-            <div class="ctrl-label">경과 시간(일)<span class="val" id="t1-day-val">0</span></div>
-            <input type="range" id="t1-day" min="0" max="14" step="1" value="0">
-          </div>
-        </div>
-        <div class="info-card" id="t1-info"></div>
-      </div>
-      <p class="foot-note">S자형 목은 공기는 통과시키지만, 공기 중의 먼지·미생물은 굽은 부분에 가라앉아 액체까지 도달하지 못합니다. 목을 부러뜨리면(현실 실험) 곧은 목과 같은 결과가 나타나, 오염의 원인이 '공기 자체'가 아니라 '먼지 속 미생물'임을 증명했습니다.</p>
 
-      <div class="stage-head">
-        <div class="eyebrow">🔎 미션 · 고기즙의 상태 예측하기</div>
-        <h2 class="display" style="font-size:18px;">이 조건에서 고기즙은 상할까, 상하지 않을까?</h2>
+      <div class="episode" id="ep2">
+        <section class="scene" data-title="어두운 방의 무지개">
+          <div class="story narr"><div class="who">🌈</div><div class="say"><span class="name">이야기</span>덧문 구멍으로 들어온 흰 햇빛이 프리즘을 지나자 벽에 길쭉한 무지개 띠가 생겼습니다. 당시 학자들은 ‘유리가 흰빛을 조금씩 물들여 색을 만든다’고 설명했지요.</div></div>
+          <div class="story"><div class="who">🧑‍🔬</div><div class="say"><span class="name">뉴턴</span>“나는 반대로 생각해. 흰빛 속에 원래 여러 색이 섞여 있고, 프리즘은 그 색들을 서로 다른 각도로 꺾어 나눌 뿐이라고. 두 생각 가운데 무엇이 옳은지 가리려면 어떻게 해야 할까?”</div></div>
+          <div class="gate loose" id="g2"></div>
+        </section>
+
+        <section class="scene" data-title="빛을 펼치기">
+          <div class="story"><div class="who">🔦</div><div class="say"><span class="name">뉴턴</span>“색을 하나씩 골라내려면 벽 위의 무지개가 넓게 펼쳐져야 해. 프리즘의 유리 종류와 빛을 비추는 각도를 바꿔, 빨강과 보라가 <b>3° 이상</b> 벌어지게 해 주게. 너무 비스듬하면 빛이 프리즘 안에서 갇혀 나오지 못하니 조심하고.”</div></div>
+          <div class="stage-card">
+            <div class="canvas-wrap"><canvas id="b-c-disp" width="900" height="300"></canvas></div>
+            <div class="controls">
+              <div class="ctrl-group">
+                <div class="ctrl-label">프리즘 유리</div>
+                <div class="seg" id="b-glass"><button class="on" data-v="crown">보통 유리</button><button data-v="flint">납 유리</button></div>
+              </div>
+              <div class="ctrl-group">
+                <div class="ctrl-label">빛이 들어가는 각도<span class="val" id="b-i-val">60°</span></div>
+                <input type="range" id="b-i" min="30" max="80" step="5" value="60">
+              </div>
+            </div>
+            <div class="info-card" id="b-disp-info"></div>
+          </div>
+          <div class="mission" id="m2-2">빨강과 보라가 3° 이상 벌어지도록 펼치세요.</div>
+        </section>
+
+        <section class="scene" data-title="결정적 실험">
+          <div class="story"><div class="who">🔺</div><div class="say"><span class="name">뉴턴</span>“유리가 빛을 물들인다면, 한 가지 색만 골라 <b>두 번째 프리즘</b>에 통과시켰을 때 또 새로운 색이 생겨야 해. 내 가설이 옳다면 그 색은 그대로 남겠지. 판자의 작은 구멍으로 색을 하나씩 골라 두 번째 프리즘에 보내 보게. 그리고 흩어진 빛 전부를 뒤집은 프리즘에 모으면 어떻게 될지도.”</div></div>
+          <div class="stage-card">
+            <div class="canvas-wrap"><canvas id="b-c-crux" width="900" height="280"></canvas></div>
+            <div class="controls">
+              <div class="ctrl-group">
+                <div class="ctrl-label">판자 구멍으로 고른 빛</div>
+                <div class="seg" id="b-slit"><button class="on" data-v="all">흩어진 빛 전부</button><button data-v="red">빨강만</button><button data-v="green">초록만</button><button data-v="violet">보라만</button></div>
+              </div>
+              <div class="ctrl-group">
+                <div class="ctrl-label">두 번째 프리즘</div>
+                <div class="seg" id="b-p2"><button class="on" data-v="none">없음</button><button data-v="same">같은 방향</button><button data-v="flip">뒤집어서</button></div>
+              </div>
+            </div>
+            <div class="info-card" id="b-crux-info"></div>
+          </div>
+          <div id="b-crux-pick"></div>
+          <div class="mission" id="m2-3"><ul><li id="m2-3a">한 가지 색을 두 번째 프리즘에 통과시키기(두 가지 색 이상)</li><li id="m2-3b">흩어진 빛을 다시 흰빛으로 모으기</li><li id="m2-3c">결정적 실험의 결론 고르기</li></ul></div>
+        </section>
+
+        <section class="scene" data-title="뉴턴의 실험 노트">
+          <div class="story"><div class="who">📓</div><div class="say"><span class="name">뉴턴</span>“왕립 학회에 보낼 편지를 정리해야겠어. 노트의 문장들을 탐구 과정의 단계에 따라 나눠 주게.”</div></div>
+          <div class="stage-card"><div id="b-sort"></div></div>
+          <div class="mission" id="m2-4">여덟 문장을 가설·예측·결과·결론으로 나누세요.</div>
+        </section>
+
+        <section class="scene" data-title="결말 — 왕립 학회에 보낸 편지">
+          <div class="ending">
+            <h4>🔺 색은 빛 속에 원래 있었다</h4>
+            <p>한 가지 색만 골라 두 번째 프리즘에 보내자 꺾이기만 할 뿐 색은 그대로였고, 흩어진 빛을 뒤집은 프리즘에 모으자 다시 흰빛이 되었습니다. ‘유리가 색을 만든다’면 나타나야 할 결과가 나오지 않고, 뉴턴의 가설이 예측한 결과가 나온 것이지요. 뉴턴은 이 실험을 ‘결정적 실험(experimentum crucis)’이라 불렀습니다. <b>흰빛은 여러 색의 빛이 섞인 것</b>이고, 색마다 유리에서 꺾이는 정도(굴절률)가 달라 나뉩니다.</p>
+            <div class="vs" id="e2-vs"></div>
+            <span class="stamp">탐구 보고서 ② 완성</span>
+          </div>
+          <div class="info-card" style="margin:14px 0">📎 과학자의 눈: 뉴턴은 1672년 이 결과를 왕립 학회에 보냈지만, 후크 등과 오랜 논쟁을 치렀습니다. 다른 이들이 같은 실험을 재현하기 어려웠던 까닭 중 하나는 프리즘의 유리 품질이 제각각이었기 때문입니다. 굴절각 계산은 꼭지각 60° 프리즘으로 한 것입니다.</div>
+          <div class="stage-card" style="padding:6px 0 4px;margin-top:16px"><div id="wk2"></div></div>
+        </section>
       </div>
-      <div class="stage-card">
-        <div class="info-card" id="t1m-data"></div>
-        <div class="seg" id="t1m-choices">
-          <button data-c="fresh">상하지 않는다(미생물이 자라지 않는다)</button>
-          <button data-c="spoiled">상한다(미생물이 자란다)</button>
-        </div>
-        <div class="toggle-row" style="margin:14px 20px;">
-          <button class="btn" id="t1m-check">정답 확인</button>
-          <button class="btn" id="t1m-new">새 문제</button>
-        </div>
-        <div class="info-card" id="t1m-info"></div>
-      </div>
+      <p class="teacher-note">교사용: 주소 끝에 <a href="?open=1">?open=1</a> 을 붙이면 모든 장면이 열립니다.</p>
     </section>
 
-    <!-- TAB 2 : 뉴턴의 프리즘 실험 -->
+    <!-- =====================================================================
+         03 기후 변화 빅데이터 — 이야기 「추운 겨울의 반론」
+         ===================================================================== -->
     <section class="tab-panel" data-panel="2" hidden>
       <div class="stage-head">
-        <div class="eyebrow">03 · 손전등을 이용하여 뉴턴의 프리즘 실험 구현하기</div>
-        <h2 class="display">흰빛은 사실 여러 색의 조합</h2>
-        <p>손전등의 각도를 조절해 프리즘에 흰빛을 통과시켜 보세요. 두 번째 프리즘을 켜면 흩어진 빛이 다시 하나의 흰빛으로 모이는 것도 확인할 수 있습니다.</p>
+        <div class="eyebrow">03 · 관측 자료(빅데이터)를 활용하여 한반도의 기후 변화 경향성 파악하기 · 이야기 한 편</div>
+        <h2 class="display">추운 겨울의 반론</h2>
+        <p>“이번 겨울이 이렇게 추운데 무슨 지구 온난화?” 학교 신문 과학면을 맡은 기자가 되어, 50년 동안의 한반도 연평균 기온 자료를 분석하고, 같은 자료를 여러 방법으로 나타내 친구들에게 정확하게 전합니다.</p>
+        <span class="std-chip">10과탐1-02-03</span><div class="std-note"><b>[10과탐1-02-03]</b> 탐구 수행에서 얻은 정성적 혹은 정량적 데이터를 분석하고 그 결과를 다양하게 표상하고 소통할 수 있다.</div><div class="terms"><b>추세선</b><b>평균</b><b>편차</b><b>정량적·정성적 데이터</b></div>
       </div>
-      <div class="stage-card">
-        <div class="canvas-wrap">
-          <canvas id="t2" width="900" height="420"></canvas>
-        </div>
-        <div class="controls">
-          <div class="ctrl-group">
-            <div class="ctrl-label">손전등 각도<span class="val" id="t2-angle-val">0°</span></div>
-            <input type="range" id="t2-angle" min="-20" max="20" step="1" value="0">
-          </div>
-          <div class="ctrl-group">
-            <div class="ctrl-label">두 번째 프리즘</div>
-            <div class="seg" id="t2-second">
-              <button class="on" data-v="off">끄기</button>
-              <button data-v="on">켜기 (재결합)</button>
+
+      <div class="episode" id="ep3">
+        <section class="scene" data-title="게시판의 댓글">
+          <div class="story narr"><div class="who">💬</div><div class="say"><span class="name">이야기</span>학교 누리집 게시판에 댓글이 달렸습니다. “올겨울 영하 15도 찍었음. 5년 전보다 더 추움. 온난화는 과장된 거 아님?” 좋아요가 백 개를 넘었습니다.</div></div>
+          <div class="story"><div class="who">🧑‍💻</div><div class="say"><span class="name">과학면 편집장</span>“이 댓글에 기사로 답해 보자. 기후가 변하고 있는지 판단하려면 무엇을 봐야 할까?”</div></div>
+          <div class="gate loose" id="g3"></div>
+        </section>
+
+        <section class="scene" data-title="구간을 고르면 달라지는 추세">
+          <div class="story"><div class="who">📈</div><div class="say"><span class="name">편집장</span>“1974 ~ 2023년 한반도 연평균 기온 자료야. 분석 구간을 바꿔 가며 추세선을 그려 보자. 댓글처럼 <b>짧은 구간(10년 이하)</b>만 고르면 오히려 기온이 내려가는 것처럼 보이는 구간도 있을까? 찾았다면, <b>50년 전체</b>의 추세와 비교해 보자.”</div></div>
+          <div class="stage-card">
+            <div class="canvas-wrap"><canvas id="c-c-tr" width="900" height="300"></canvas></div>
+            <div class="controls">
+              <div class="ctrl-group">
+                <div class="ctrl-label">분석 시작 연도<span class="val" id="c-s-val">1974</span></div>
+                <input type="range" id="c-s" min="1974" max="2022" step="1" value="1990">
+              </div>
+              <div class="ctrl-group">
+                <div class="ctrl-label">분석 끝 연도<span class="val" id="c-e-val">2023</span></div>
+                <input type="range" id="c-e" min="1975" max="2023" step="1" value="2000">
+              </div>
             </div>
+            <div class="btn-row" style="padding:0 20px 12px"><button class="btn" id="c-all" type="button">50년 전체 보기 (1974 ~ 2023)</button></div>
+            <div class="info-card" id="c-tr-info"></div>
           </div>
-        </div>
-        <div class="info-card" id="t2-info">첫 번째 프리즘이 흰빛을 굴절률 차이에 따라 빨강~보라의 스펙트럼으로 분산시킵니다.</div>
+          <div id="c-tr-pick"></div>
+          <div class="mission" id="m3-2"><ul><li id="m3-2a">10년 이하 구간에서 기온이 내려가는 것처럼 보이는 구간 찾기</li><li id="m3-2b">50년 전체(1974 ~ 2023)의 추세 확인하기</li><li id="m3-2c">자료에서 끌어낼 수 있는 결론 고르기</li></ul></div>
+        </section>
+
+        <section class="scene" data-title="같은 자료, 세 가지 그림">
+          <div class="story"><div class="who">🎨</div><div class="say"><span class="name">편집장</span>“기사에 넣을 그림을 정하자. 같은 50년 자료를 <b>세 가지 방법</b>으로 모두 그려 보고, 각각 무엇이 잘 보이는지 비교해 봐.”</div></div>
+          <div class="stage-card">
+            <div class="canvas-wrap"><canvas id="c-c-rep" width="900" height="280"></canvas></div>
+            <div class="controls">
+              <div class="ctrl-group" style="flex:1 1 100%">
+                <div class="ctrl-label">나타내는 방법</div>
+                <div class="seg" id="c-rep"><button class="on" data-v="pts">연도별 점과 추세선</button><button data-v="dec">10년 평균 막대</button><button data-v="str">기후 줄무늬 (평균과의 차)</button></div>
+              </div>
+            </div>
+            <div class="info-card" id="c-rep-info"></div>
+          </div>
+          <div id="c-rep-pick"></div>
+          <div class="mission" id="m3-3"><ul><li id="m3-3a">세 가지 방법으로 모두 나타내 보기</li><li id="m3-3b">10년 평균 막대에서 기온 차이 읽기</li></ul></div>
+        </section>
+
+        <section class="scene" data-title="정량적 자료와 정성적 자료">
+          <div class="story"><div class="who">🗂️</div><div class="say"><span class="name">편집장</span>“기사를 쓰려고 모은 자료들이야. 숫자로 잰 <b>정량적</b> 자료와 말·그림·특징으로 나타낸 <b>정성적</b> 자료로 나눠 두자.”</div></div>
+          <div class="stage-card"><div id="c-sort"></div></div>
+          <div class="mission" id="m3-4">여덟 가지 자료를 정량적·정성적 자료로 나누세요.</div>
+        </section>
+
+        <section class="scene" data-title="결말 — 과학면 기사">
+          <div class="ending">
+            <h4>🌡️ 날씨는 하루, 기후는 수십 년</h4>
+            <p>짧은 구간만 골라 보면 기온이 내려가는 것처럼 보이는 때도 있지만, 50년 전체의 추세선은 10년에 약 0.3 °C 씩 올랐고, 10년 평균으로 보면 1970년대보다 2010년대가 약 1.1 °C 높았습니다. 한 해의 추운 겨울은 <b>날씨</b>, 수십 년의 경향은 <b>기후</b>입니다. 자료를 분석할 때는 충분히 긴 기간을 보고, 목적에 맞는 방법(추세선, 평균 막대, 줄무늬)으로 <b>나타내고 소통</b>해야 합니다. 원하는 결론에 맞는 구간만 골라 보여 주는 것은 자료를 왜곡하는 일이에요.</p>
+            <div class="vs" id="e3-vs"></div>
+            <span class="stamp">탐구 보고서 ③ 완성</span>
+          </div>
+          <div class="info-card" style="margin:14px 0">📎 과학자의 눈: 이 화면의 기온은 실제 기상청 관측값의 흐름을 본떠 만든 예시 자료입니다. 실제로 기상청은 우리나라의 연평균 기온이 지난 100여 년 동안 약 1.6 °C 올랐다고 발표했습니다. ‘기후 줄무늬’는 2018년 영국의 기후 과학자 에드 호킨스가 처음 만든 표현 방법입니다.</div>
+          <div class="stage-card" style="padding:6px 0 4px;margin-top:16px"><div id="wk3"></div></div>
+        </section>
       </div>
+      <p class="teacher-note">교사용: 주소 끝에 <a href="?open=1">?open=1</a> 을 붙이면 모든 장면이 열립니다.</p>
     </section>
 
-    <!-- TAB 3 : 기후 변화 빅데이터 -->
+    <!-- =====================================================================
+         04 천연 항생물질과 과학 마술 — 이야기 「마늘 대 세균」
+         ===================================================================== -->
     <section class="tab-panel" data-panel="3" hidden>
       <div class="stage-head">
-        <div class="eyebrow">04 · 관측 자료(빅데이터)를 활용하여 한반도의 기후 변화 경향성 파악하기</div>
-        <h2 class="display">한반도는 얼마나 더워졌을까?</h2>
-        <p>1974~2023년 한반도 연평균 기온(예시 데이터)입니다. 분석 구간을 조절해 원하는 기간의 상승 경향(추세선)을 계산해 보세요.</p>
+        <div class="eyebrow">04 · 우리 주변에서 천연 항생물질 찾기 · 화학 반응 과학 마술 · 이야기 한 편</div>
+        <h2 class="display">마늘 대 세균</h2>
+        <p>생명과학 동아리와 화학 동아리가 처음으로 함께 탐구를 합니다. 주제는 “우리 주변 식물에도 항생물질이 있을까?” 역할을 나누어 디스크 확산법으로 추출물의 효과를 재고, 과학 축제에서 화학 반응 마술로 결과를 소개합니다.</p>
+        <span class="std-chip">10과탐1-02-04</span><span class="std-chip">10과탐1-02-03</span><div class="std-note"><b>[10과탐1-02-04]</b> 흥미와 호기심을 갖고 과학 탐구에 참여하고, 분야 간 협동 연구 등을 통해 협력적 탐구 활동을 수행할 수 있다.<br><b>[10과탐1-02-03]</b> 탐구 수행에서 얻은 정성적 혹은 정량적 데이터를 분석하고 그 결과를 다양하게 표상하고 소통할 수 있다.</div><div class="terms"><b>디스크 확산법</b><b>억제대</b><b>대조군</b><b>지시약</b></div>
       </div>
-      <div class="stage-card">
-        <div class="canvas-wrap">
-          <canvas id="t3" width="900" height="380"></canvas>
-        </div>
-        <div class="controls">
-          <div class="ctrl-group">
-            <div class="ctrl-label">분석 시작 연도<span class="val" id="t3-start-val">1974</span></div>
-            <input type="range" id="t3-start" min="1974" max="2022" step="1" value="1974">
+
+      <div class="episode" id="ep4">
+        <section class="scene" data-title="두 동아리의 첫 회의">
+          <div class="story narr"><div class="who">🤝</div><div class="say"><span class="name">이야기</span>생명과학 동아리는 세균을 기를 줄 알고, 화학 동아리는 식물에서 성분을 뽑아낼 줄 압니다. 그런데 첫 회의부터 서로 “우리 방식대로 하자”며 목소리가 높아졌습니다.</div></div>
+          <div class="story"><div class="who">🧑‍🏫</div><div class="say"><span class="name">지도 교사</span>“두 동아리가 잘 협력하려면 무엇부터 정해야 할까?”</div></div>
+          <div class="gate loose" id="g4"></div>
+        </section>
+
+        <section class="scene" data-title="디스크 확산법">
+          <div class="story"><div class="who">🧫</div><div class="say"><span class="name">생명과학 동아리장</span>“세균을 고르게 바른 배지에 추출물을 적신 종이 디스크(지름 6 mm)를 올려 두면, 효과가 있는 추출물 둘레에는 세균이 자라지 못하는 <b>억제대</b>가 생겨. 먼저 에탄올만 적신 <b>대조군</b>으로 억제대가 없는지 확인하고, 마늘·편백·녹차 세 가지를 <b>같은 농도, 같은 배양 시간</b>(24시간 이상, 농도 50% 이상)에서 재어 비교해 줘.”</div></div>
+          <div class="stage-card">
+            <div class="canvas-wrap"><canvas id="d-c-disk" width="900" height="300"></canvas></div>
+            <div class="controls">
+              <div class="ctrl-group" style="flex:1 1 100%">
+                <div class="ctrl-label">디스크에 적신 것</div>
+                <div class="seg" id="d-plant"><button class="on" data-v="garlic">마늘 추출물</button><button data-v="cypress">편백나무 추출물</button><button data-v="tea">녹차 추출물</button><button data-v="control">대조군 (에탄올)</button></div>
+              </div>
+              <div class="ctrl-group">
+                <div class="ctrl-label">추출물 농도<span class="val" id="d-c-val">30%</span></div>
+                <input type="range" id="d-c" min="0" max="100" step="10" value="30">
+              </div>
+              <div class="ctrl-group">
+                <div class="ctrl-label">배양 시간<span class="val" id="d-t-val">12시간</span></div>
+                <input type="range" id="d-t" min="0" max="72" step="12" value="12">
+              </div>
+            </div>
+            <div class="info-card" id="d-disk-info"></div>
           </div>
-          <div class="ctrl-group">
-            <div class="ctrl-label">분석 종료 연도<span class="val" id="t3-end-val">2023</span></div>
-            <input type="range" id="t3-end" min="1975" max="2023" step="1" value="2023">
+          <div class="mission" id="m4-2"><ul><li id="m4-2a">대조군(에탄올)에 억제대가 없는지 24시간 이상 배양해 확인하기</li><li id="m4-2b">세 추출물을 같은 조건(농도 50% 이상, 24시간 이상)에서 모두 재기</li></ul></div>
+        </section>
+
+        <section class="scene" data-title="과학 축제 — 색이 바뀌는 물">
+          <div class="story"><div class="who">🎩</div><div class="say"><span class="name">화학 동아리장</span>“과학 축제 부스에서 관객의 눈길을 끌 마술을 준비했어. BTB 용액은 산성에서 노랑, 중성에서 초록, 염기성에서 파랑이 돼. 초록 물에 숨을 불어넣거나 베이킹소다를 넣어서 <b>노랑 → 초록 → 파랑</b> 세 가지 색을 모두 보여 주자!”</div></div>
+          <div class="stage-card">
+            <div class="canvas-wrap"><canvas id="d-c-btb" width="900" height="260"></canvas></div>
+            <div class="btn-row" style="padding:12px 20px 0">
+              <button class="btn primary" id="d-breath" type="button">빨대로 숨 불어넣기 (이산화 탄소)</button>
+              <button class="btn" id="d-soda" type="button">베이킹소다 한 숟갈</button>
+              <button class="btn" id="d-reset" type="button">처음 용액으로</button>
+            </div>
+            <div class="info-card" id="d-btb-info"></div>
           </div>
-        </div>
-        <div class="stat-row">
-          <div class="stat-box"><div class="lbl">구간 내 상승률</div><div class="num" id="t3-rate">—</div></div>
-          <div class="stat-box"><div class="lbl">구간 평균 기온</div><div class="num" id="t3-avg">—</div></div>
-        </div>
-        <div class="info-card">회색 점은 연평균 기온, 노란 음영은 선택한 분석 구간, 붉은 선은 그 구간의 선형 추세선입니다. 실제 기상청 관측값과는 다른 예시 데이터입니다.</div>
+          <div id="d-btb-pick"></div>
+          <div class="mission" id="m4-3"><ul><li id="m4-3a">노랑·초록·파랑 세 가지 색 모두 보여 주기</li><li id="m4-3b">마술의 원리 고르기</li></ul></div>
+        </section>
+
+        <section class="scene" data-title="함께한 탐구의 순서">
+          <div class="story"><div class="who">📋</div><div class="say"><span class="name">지도 교사</span>“두 동아리가 함께 걸어온 과정을 순서대로 정리해 두자. 다음 합동 탐구의 설계도가 될 거야.”</div></div>
+          <div class="stage-card"><div id="d-order"></div></div>
+          <div class="mission" id="m4-4">협력 탐구의 여섯 단계를 순서대로 놓으세요.</div>
+        </section>
+
+        <section class="scene" data-title="결말 — 축제의 마지막 발표">
+          <div class="ending">
+            <h4>🧄 혼자라면 못 했을 탐구</h4>
+            <p>마늘 추출물 둘레의 억제대가 가장 컸고, 편백과 녹차가 뒤를 이었으며, 에탄올만 적신 대조군에는 억제대가 없었습니다. 추출하는 법은 화학 동아리가, 세균을 기르고 재는 법은 생명과학 동아리가 맡았기에 가능한 탐구였지요. 두 동아리는 같은 실험 설계를 공유하고, 서로의 자료를 검토하며 되풀이해 쟀습니다. 과학 축제에서는 색이 바뀌는 마술로 관객의 호기심을 끌어 결과를 소개했습니다. 분야가 다른 사람들이 <b>역할을 나누고, 자료를 공유하고, 서로 검토하는 것</b>이 협력적 탐구입니다.</p>
+            <div class="vs" id="e4-vs"></div>
+            <span class="stamp">탐구 보고서 ④ 완성</span>
+          </div>
+          <div class="info-card" style="margin:14px 0">📎 과학자의 눈: 마늘의 알리신은 항균 작용이 알려진 성분입니다. 다만 실험실 배지에서 억제대가 생긴다고 해서 사람 몸속에서 약처럼 듣는 것은 아니며, 이 화면의 억제대 크기는 원리를 보이기 위한 모형 값입니다. 세균 실험은 반드시 선생님의 지도 아래 안전 수칙을 지켜 해야 합니다.</div>
+          <div class="stage-card" style="padding:6px 0 4px;margin-top:16px"><div id="wk4"></div></div>
+        </section>
       </div>
+      <p class="teacher-note">교사용: 주소 끝에 <a href="?open=1">?open=1</a> 을 붙이면 모든 장면이 열립니다.</p>
     </section>
 
-    <!-- TAB 4 : 화학 반응 과학 마술 -->
+    <!-- ===================================================================== 05 수준별 문제 -->
     <section class="tab-panel" data-panel="4" hidden>
       <div class="stage-head">
-        <div class="eyebrow">05 · 화학 반응을 활용한 과학 마술 시나리오 개발 및 시연하기</div>
-        <h2 class="display">화학 반응으로 만드는 마술</h2>
-        <p>마술로 활용할 수 있는 화학 반응을 선택하고 [시연]을 눌러 색이 바뀌는 과정을 관찰해 보세요.</p>
+        <div class="eyebrow">05 · 기본 · 발전 · 심화</div>
+        <h2 class="display">수준별 문제</h2>
+        <p>이 단원의 학습 목표를 세 단계로 확인합니다. <b>1단계 기본</b>은 용어와 핵심 개념, <b>2단계 발전</b>은 자료 해석과 계산, <b>3단계 심화</b>는 처음 보는 상황에 적용하고 근거를 들어 설명하기입니다. 자기 수준에 맞는 단계부터 시작하세요. 두 번 틀리면 정답과 해설을 볼 수 있어요.</p>
       </div>
-      <div class="stage-card">
-        <div class="card-grid" id="t4-grid" style="padding-top:16px;"></div>
-        <div class="canvas-wrap" style="margin-top:6px;">
-          <canvas id="t4" width="900" height="360"></canvas>
-        </div>
-        <div class="controls" id="t4-controls"></div>
-        <div class="info-card" id="t4-info">위에서 반응을 선택해 보세요.</div>
-      </div>
+      <div id="quiz"></div>
     </section>
 
-    <!-- TAB 5 : 천연 항생물질 탐구 -->
+    <!-- ===================================================================== 06 응용 실험실 -->
     <section class="tab-panel" data-panel="5" hidden>
       <div class="stage-head">
-        <div class="eyebrow">06 · 우리 주변에서 천연 항생물질 찾기</div>
-        <h2 class="display">디스크 확산법으로 항생 효과 측정하기</h2>
-        <p>식물 추출물을 적신 종이 디스크를 세균 배지 위에 올리면, 항생 효과가 있는 추출물 주위에는 세균이 자라지 못하는 <b>억제대</b>가 생깁니다. 식물 종류와 농도, 배양 시간을 바꾸어 보세요.</p>
+        <div class="eyebrow">06 · 배운 것을 처음 보는 상황에</div>
+        <h2 class="display">응용 실험실</h2>
+        <p>이야기에서 찾아낸 개념을 전혀 다른 상황에 써 봅니다. 사례마다 <b>먼저 예상하고 → 직접 조작해 → 판정받고 → 까닭을 확인</b>합니다. 세 번 틀리면 풀이를 볼 수 있어요.</p>
       </div>
-      <div class="stage-card">
-        <div class="canvas-wrap">
-          <canvas id="t5" width="900" height="480"></canvas>
-        </div>
-        <div class="controls">
-          <div class="ctrl-group">
-            <div class="ctrl-label">식물 추출물</div>
-            <div class="seg" id="t5-plant">
-              <button class="on" data-p="garlic">마늘</button>
-              <button data-p="cypress">편백나무</button>
-              <button data-p="tea">녹차</button>
-              <button data-p="control">대조군(에탄올)</button>
-            </div>
-          </div>
-          <div class="ctrl-group">
-            <div class="ctrl-label">추출물 농도(%)<span class="val" id="t5-conc-val">50</span></div>
-            <input type="range" id="t5-conc" min="0" max="100" step="5" value="50">
-          </div>
-          <div class="ctrl-group">
-            <div class="ctrl-label">배양 시간(시간)<span class="val" id="t5-time-val">24</span></div>
-            <input type="range" id="t5-time" min="0" max="72" step="4" value="24">
-          </div>
-        </div>
-        <div class="stat-row">
-          <div class="stat-box"><div class="lbl">A 억제대 지름</div><div class="num" id="t5-d0">0.0 mm</div></div>
-          <div class="stat-box"><div class="lbl">B 억제대 지름</div><div class="num" id="t5-d1">0.0 mm</div></div>
-          <div class="stat-box"><div class="lbl">C 억제대 지름</div><div class="num" id="t5-d2">0.0 mm</div></div>
-        </div>
-        <div class="info-card" id="t5-info">농도와 배양 시간이 늘어날수록 억제대가 커집니다. 대조군(에탄올만 적신 디스크)은 억제대가 거의 생기지 않아야 이 실험의 결과를 신뢰할 수 있습니다.</div>
-      </div>
+      <div id="lab"></div>
     </section>
 
+    <!-- ===================================================================== 07 정리하기 -->
     <section class="tab-panel" data-panel="6" hidden>
       <div class="stage-head">
-        <div class="eyebrow">07 · 오늘 알아낸 것을 문장으로</div>
+        <div class="eyebrow">07 · 네 보고서를 하나로</div>
         <h2 class="display">정리하기</h2>
-        <p>조작한 것을 말이나 글로 옮기지 않으면 남지 않습니다. 아래를 채우고 <b>답안 복사</b>를 눌러 제출하세요. 쓰는 동안 자동으로 저장됩니다.</p>
+        <p>네 이야기의 결과가 아래에 모입니다. 네 보고서를 꿰는 한 문장을 쓰고 <b>답안 복사</b>를 눌러 제출하세요. 쓰는 동안 자동으로 저장됩니다.</p>
       </div>
       <div class="stage-card" style="padding:6px 0 4px"><div id="wk"></div></div>
     </section>
-  
+
     <!-- ===================================================================== 08 우리 반 -->
     <section class="tab-panel" data-panel="7" hidden>
       <div class="stage-head">
         <div class="eyebrow">08 · 같은 반 친구들과 나누기</div>
         <h2 class="display">우리 반</h2>
-        <p>정리하기에 쓴 것을 우리 반에 올리고, 같은 반 친구들이 어디까지 했는지 함께 보세요. <b>올리기 버튼을 눌렀을 때만</b> 공유됩니다. 실명 대신 별명을 쓰고, 글까지 올릴지는 직접 고르세요.</p>
+        <p>내가 완성한 탐구 보고서와 찾아낸 답을 우리 반에 올리고, 친구들은 탐구 과정을 어떻게 설명했는지 살펴보세요. <b>올리기 버튼을 눌렀을 때만</b> 공유됩니다. 실명 대신 별명을 쓰세요.</p>
       </div>
       <div class="stage-card"><div id="share"></div></div>
     </section>
-
   </main>
 </div>
 
 <button class="theme-toggle" id="themeToggle">라이트 모드</button>
 <script src="../assets/theme.js"></script>
+<script src="../assets/story.js"></script>
+<script src="../assets/quiz.js"></script>
+<script src="../assets/lab.js"></script>
 <script src="../assets/share-config.js"></script>
 <script src="../assets/share.js"></script>
-<script>
-"use strict";
-
-/* ===== TAB 0 : 귀납적 탐구 (백조) ===== */
-(function () {
-  var addBtn = document.getElementById("t0-add");
-  var resetBtn = document.getElementById("t0-reset");
-  var blackBtn = document.getElementById("t0-blackswan");
-  var box = document.getElementById("t0-swans");
-  var countEl = document.getElementById("t0-count");
-  var concl = document.getElementById("t0-concl");
-  var count = 0;
-  var revealed = false;
-
-  function addSwan() {
-    if (revealed) return;
-    count++;
-    countEl.textContent = count;
-    var s = document.createElement("span");
-    s.textContent = "🦢";
-    box.appendChild(s);
-    if (count < 3) {
-      concl.textContent = "관찰 " + count + "회 — 아직 결론을 내리기엔 이릅니다. 관찰을 더 쌓아 보세요.";
-    } else {
-      concl.innerHTML = "관찰 " + count + "회, 지금까지 만난 백조가 <b>모두 흰색</b>이었습니다. 이를 근거로 '모든 백조는 흰색이다'라는 결론을 귀납적으로 이끌어낼 수 있습니다.";
-    }
-    if (count >= 8) {
-      blackBtn.disabled = false;
-    }
-  }
-  addBtn.addEventListener("click", addSwan);
-  blackBtn.addEventListener("click", function () {
-    revealed = true;
-    var s = document.createElement("span");
-    s.textContent = "🦢";
-    s.className = "black";
-    box.appendChild(s);
-    concl.innerHTML = "1697년, 네덜란드 탐험가 빌럼 데 블라밍이 <b>오스트레일리아에서 검은 백조</b>를 발견했습니다! 아무리 많은 관찰을 쌓아도 <b>단 하나의 반례</b>로 귀납적 결론은 뒤집힐 수 있습니다 — 이것이 귀납적 탐구의 한계입니다.";
-    blackBtn.disabled = true;
-    addBtn.disabled = true;
-  });
-  resetBtn.addEventListener("click", function () {
-    count = 0; revealed = false;
-    countEl.textContent = 0;
-    box.innerHTML = "";
-    addBtn.disabled = false;
-    blackBtn.disabled = true;
-    concl.textContent = "아직 관찰을 시작하지 않았습니다. [관찰 추가]를 눌러 보세요.";
-  });
-})();
-
-/* ===== TAB 1 : 파스퇴르 백조목 플라스크 ===== */
-(function () {
-  var canvas = document.getElementById("t1");
-  var ctx = window.setupCanvas(canvas);
-  var W = canvas._w, H = canvas._h;
-  var typeSeg = document.getElementById("t1-type");
-  var daySlider = document.getElementById("t1-day");
-  var dayVal = document.getElementById("t1-day-val");
-  var info = document.getElementById("t1-info");
-  var type = "swan";
-
-  typeSeg.querySelectorAll("button").forEach(function (b) {
-    b.addEventListener("click", function () {
-      typeSeg.querySelectorAll("button").forEach(function (x) { x.classList.remove("on"); });
-      b.classList.add("on");
-      type = b.getAttribute("data-t");
-      render();
-    });
-  });
-  daySlider.addEventListener("input", render);
-
-  function neckPath(type) {
-    // returns array of points describing the neck centerline from opening (left, high) to bulb top (right)
-    var bulbCx = 620, bulbTopY = 250;
-    if (type === "straight") {
-      return [[140, 90], [300, 140], [460, 200], [bulbCx, bulbTopY]];
-    }
-    return [
-      [140, 90], [230, 95], [300, 130], [330, 190], [300, 250],
-      [340, 300], [430, 300], [500, 260], [bulbCx, bulbTopY]
-    ];
-  }
-
-  function render() {
-    var day = +daySlider.value;
-    dayVal.textContent = day;
-    ctx.clearRect(0, 0, W, H);
-
-    var pts = neckPath(type);
-    // neck tube
-    ctx.strokeStyle = window.cssVar("--mist");
-    ctx.lineWidth = 10;
-    ctx.lineCap = "round";
-    ctx.lineJoin = "round";
-    ctx.beginPath();
-    ctx.moveTo(pts[0][0], pts[0][1]);
-    for (var i = 1; i < pts.length; i++) ctx.lineTo(pts[i][0], pts[i][1]);
-    ctx.stroke();
-    ctx.strokeStyle = window.cssVar("--panel-2");
-    ctx.lineWidth = 6;
-    ctx.stroke();
-
-    // opening label
-    ctx.fillStyle = window.cssVar("--mist");
-    ctx.font = "12px sans-serif";
-    ctx.fillText("공기 중 먼지·미생물", pts[0][0] - 30, pts[0][1] - 14);
-    window.drawArrow(ctx, pts[0][0] - 20, pts[0][1] - 6, pts[0][0] + 4, pts[0][1] + 4, 6);
-
-    // bulb
-    var bulbCx = 620, bulbCy = 340, bulbR = 110;
-    ctx.beginPath();
-    ctx.arc(bulbCx, bulbCy, bulbR, 0, Math.PI * 2);
-    ctx.strokeStyle = window.cssVar("--mist");
-    ctx.lineWidth = 6;
-    ctx.stroke();
-
-    // contamination logic
-    var reaches = (type === "straight") && day >= 3;
-    var turbidity = reaches ? Math.min(1, (day - 3) / 6) : 0;
-
-    // liquid
-    var liquidTopY = bulbCy + 10;
-    ctx.save();
-    ctx.beginPath();
-    ctx.arc(bulbCx, bulbCy, bulbR - 4, 0, Math.PI * 2);
-    ctx.clip();
-    var baseColor = [230, 200, 130]; // amber
-    var murkyColor = [120, 92, 60];
-    var col = baseColor.map(function (c, i) { return Math.round(c + (murkyColor[i] - c) * turbidity); });
-    ctx.fillStyle = "rgb(" + col.join(",") + ")";
-    ctx.fillRect(bulbCx - bulbR, liquidTopY, bulbR * 2, bulbR);
-    if (turbidity > 0.1) {
-      var seed = 7;
-      function hash(i) { var x = Math.sin(i * 999.7 + seed) * 10000; return x - Math.floor(x); }
-      ctx.fillStyle = "rgba(60,40,20,0.5)";
-      for (var k = 0; k < Math.floor(turbidity * 40); k++) {
-        var rx = bulbCx - bulbR + 8 + hash(k) * (bulbR * 2 - 16);
-        var ry = liquidTopY + 8 + hash(k + 50) * (bulbR - 16);
-        ctx.beginPath(); ctx.arc(rx, ry, 2, 0, Math.PI * 2); ctx.fill();
-      }
-    }
-    ctx.restore();
-
-    // dust particles along neck (deterministic positions revealed progressively with day)
-    var maxDust = 26;
-    var shown = Math.min(maxDust, day * 2);
-    function pointAtT(t) {
-      var seg = t * (pts.length - 1);
-      var i0 = Math.floor(seg);
-      if (i0 >= pts.length - 1) i0 = pts.length - 2;
-      var f = seg - i0;
-      var p0 = pts[i0], p1 = pts[i0 + 1];
-      return [p0[0] + (p1[0] - p0[0]) * f, p0[1] + (p1[1] - p0[1]) * f];
-    }
-    ctx.fillStyle = "#5b3a20";
-    for (var d = 0; d < shown; d++) {
-      var t;
-      if (type === "swan") {
-        // cluster near the low bend (~55% along path) — never reaches bulb
-        t = 0.35 + (d % 13) / 13 * 0.28;
-      } else {
-        // travels steadily toward bulb
-        t = Math.min(0.98, (d / maxDust) * 1.05);
-      }
-      var p = pointAtT(t);
-      ctx.beginPath();
-      ctx.arc(p[0] + ((d % 5) - 2), p[1] + ((d % 3) - 1), 2.2, 0, Math.PI * 2);
-      ctx.fill();
-    }
-
-    ctx.fillStyle = window.cssVar("--foam");
-    ctx.font = "bold 13px sans-serif";
-    ctx.fillText(type === "swan" ? "S자형 백조목" : "곧은 목", bulbCx - 30, 90);
-
-    if (day === 0) {
-      info.innerHTML = "슬라이더를 움직여 시간을 흘려보내 보세요.";
-    } else if (type === "swan") {
-      info.innerHTML = "<b>" + day + "일 경과 —</b> 먼지는 S자 굽이의 낮은 곳에 가라앉아 고이고, 액체까지 도달하지 못합니다. 액체는 계속 <b>맑게</b> 유지됩니다 → 미생물이 저절로 생기지 않았습니다.";
-    } else if (day < 3) {
-      info.innerHTML = "<b>" + day + "일 경과 —</b> 먼지가 곧은 목을 따라 아래로 이동하고 있습니다.";
-    } else {
-      info.innerHTML = "<b>" + day + "일 경과 —</b> 먼지(미생물)가 액체에 도달해 액체가 점점 <b>혼탁해집니다</b>. 미생물이 증식하고 있다는 뜻입니다 → 자연발생이 아니라 공기 중 미생물의 오염입니다.";
-    }
-  }
-
-  render();
-})();
-
-/* TAB1 미션 — 고기즙 상태 예측 */
-(function () {
-  var dataBox = document.getElementById("t1m-data");
-  var seg = document.getElementById("t1m-choices");
-  var checkBtn = document.getElementById("t1m-check");
-  var newBtn = document.getElementById("t1m-new");
-  var info = document.getElementById("t1m-info");
-  var type, day, key, picked = null;
-
-  function newQuestion() {
-    type = Math.random() < 0.5 ? "swan" : "straight";
-    day = 3 + Math.floor(Math.random() * 12);
-    key = type === "swan" ? "fresh" : "spoiled";
-    picked = null;
-    dataBox.innerHTML = "플라스크 목 모양: <b>" + (type === "swan" ? "S자형 백조목" : "곧은 목") + "</b>, 경과 시간: <b>" + day + "일</b>. 이 고기즙은 어떻게 될까요?";
-    seg.querySelectorAll("button").forEach(function (x) { x.classList.remove("on"); });
-    info.innerHTML = "";
-    info.style.color = "";
-  }
-
-  seg.querySelectorAll("button").forEach(function (btn) {
-    btn.addEventListener("click", function () {
-      picked = btn.dataset.c;
-      seg.querySelectorAll("button").forEach(function (x) { x.classList.toggle("on", x === btn); });
-    });
-  });
-
-  checkBtn.addEventListener("click", function () {
-    if (!picked) { info.innerHTML = "먼저 보기를 하나 선택하세요."; info.style.color = "var(--coral)"; return; }
-    if (picked === key) {
-      info.innerHTML = key === "fresh"
-        ? "✅ 정답! S자형 목에서는 먼지 속 미생물이 굽은 곳에 가라앉아 액체까지 도달하지 못해 고기즙이 상하지 않습니다."
-        : "✅ 정답! 곧은 목에서는 먼지(미생물)가 바로 액체에 도달해 시간이 지나면 고기즙이 상합니다.";
-      info.style.color = "var(--teal)";
-    } else {
-      info.innerHTML = "❌ 틀렸습니다. 정답은 '" + (key === "fresh" ? "상하지 않는다" : "상한다") + "' 입니다.";
-      info.style.color = "var(--coral)";
-    }
-  });
-
-  newBtn.addEventListener("click", newQuestion);
-  newQuestion();
-})();
-
-/* ===== TAB 2 : 뉴턴 프리즘 ===== */
-(function () {
-  var canvas = document.getElementById("t2");
-  var ctx = window.setupCanvas(canvas);
-  var W = canvas._w, H = canvas._h;
-  var angleSlider = document.getElementById("t2-angle");
-  var angleVal = document.getElementById("t2-angle-val");
-  var secondSeg = document.getElementById("t2-second");
-  var info = document.getElementById("t2-info");
-  var second = false;
-
-  secondSeg.querySelectorAll("button").forEach(function (b) {
-    b.addEventListener("click", function () {
-      secondSeg.querySelectorAll("button").forEach(function (x) { x.classList.remove("on"); });
-      b.classList.add("on");
-      second = b.getAttribute("data-v") === "on";
-      render();
-      info.innerHTML = second
-        ? "두 번째 프리즘이 흩어진 빛을 반대 방향으로 굴절시켜 <b>다시 흰빛으로 재결합</b>시킵니다. 이는 흰빛이 원래 여러 색의 혼합임을 다시 확인시켜 줍니다."
-        : "첫 번째 프리즘이 흰빛을 굴절률 차이에 따라 빨강~보라의 스펙트럼으로 <b>분산</b>시킵니다.";
-    });
-  });
-  angleSlider.addEventListener("input", function () {
-    angleVal.textContent = angleSlider.value + "°";
-    render();
-  });
-
-  var colors = ["#e8483a", "#f2965c", "#eede4e", "#3fc9b0", "#6fa8e0", "#7c5cc4"];
-
-  function render() {
-    ctx.clearRect(0, 0, W, H);
-    var angle = +angleSlider.value;
-    var midY = H / 2;
-    var srcX = 70, srcY = midY - angle * 2;
-    var prism1X = 380;
-
-    // flashlight
-    ctx.fillStyle = window.cssVar("--panel-2");
-    ctx.strokeStyle = window.cssVar("--mist");
-    ctx.lineWidth = 2;
-    window.roundRect(ctx, srcX - 40, srcY - 16, 40, 32, 6);
-    ctx.fill(); ctx.stroke();
-    ctx.fillStyle = window.cssVar("--mist");
-    ctx.font = "11px sans-serif";
-    ctx.fillText("손전등", srcX - 38, srcY + 34);
-
-    // incoming white beam
-    ctx.strokeStyle = "#ffffff";
-    ctx.lineWidth = 4;
-    ctx.beginPath();
-    ctx.moveTo(srcX, srcY);
-    ctx.lineTo(prism1X, midY);
-    ctx.stroke();
-
-    // prism 1 (triangle)
-    function triangle(cx, cy, flip) {
-      var s = 70;
-      ctx.beginPath();
-      if (!flip) {
-        ctx.moveTo(cx, cy - s);
-        ctx.lineTo(cx - s * 0.9, cy + s * 0.6);
-        ctx.lineTo(cx + s * 0.9, cy + s * 0.6);
-      } else {
-        ctx.moveTo(cx, cy + s);
-        ctx.lineTo(cx - s * 0.9, cy - s * 0.6);
-        ctx.lineTo(cx + s * 0.9, cy - s * 0.6);
-      }
-      ctx.closePath();
-      ctx.fillStyle = "rgba(63,201,176,0.12)";
-      ctx.fill();
-      ctx.strokeStyle = window.cssVar("--teal-dim");
-      ctx.lineWidth = 2;
-      ctx.stroke();
-    }
-    triangle(prism1X, midY, false);
-
-    var spread = 0.55 + Math.abs(angle) / 40;
-    var screenX = 850;
-
-    if (!second) {
-      colors.forEach(function (c, i) {
-        var dy = (i - (colors.length - 1) / 2) * 16 * spread;
-        ctx.strokeStyle = c; ctx.lineWidth = 3;
-        ctx.beginPath();
-        ctx.moveTo(prism1X, midY);
-        ctx.lineTo(screenX, midY + dy);
-        ctx.stroke();
-      });
-      // screen band
-      var grad = ctx.createLinearGradient(0, midY - 60, 0, midY + 60);
-      colors.forEach(function (c, i) { grad.addColorStop(i / (colors.length - 1), c); });
-      ctx.fillStyle = grad;
-      ctx.fillRect(screenX, midY - 60, 14, 120);
-      ctx.fillStyle = window.cssVar("--mist");
-      ctx.font = "11px sans-serif";
-      ctx.fillText("스크린(스펙트럼)", screenX - 30, midY + 90);
-    } else {
-      var prism2X = 640;
-      colors.forEach(function (c) {
-        ctx.strokeStyle = c; ctx.lineWidth = 3; ctx.globalAlpha = 0.85;
-        ctx.beginPath();
-        ctx.moveTo(prism1X, midY);
-        ctx.lineTo(prism2X, midY);
-        ctx.stroke();
-      });
-      ctx.globalAlpha = 1;
-      triangle(prism2X, midY, true);
-      ctx.strokeStyle = "#ffffff";
-      ctx.lineWidth = 4;
-      ctx.beginPath();
-      ctx.moveTo(prism2X, midY);
-      ctx.lineTo(screenX, midY);
-      ctx.stroke();
-      ctx.fillStyle = "#ffffff";
-      ctx.beginPath(); ctx.arc(screenX + 6, midY, 8, 0, Math.PI * 2); ctx.fill();
-      ctx.fillStyle = window.cssVar("--mist");
-      ctx.font = "11px sans-serif";
-      ctx.fillText("다시 흰빛으로", screenX - 20, midY + 30);
-    }
-  }
-  render();
-})();
-
-/* ===== TAB 3 : 기후 변화 빅데이터 ===== */
-(function () {
-  var canvas = document.getElementById("t3");
-  var ctx = window.setupCanvas(canvas);
-  var W = canvas._w, H = canvas._h;
-  var startSlider = document.getElementById("t3-start");
-  var endSlider = document.getElementById("t3-end");
-  var startVal = document.getElementById("t3-start-val");
-  var endVal = document.getElementById("t3-end-val");
-  var rateEl = document.getElementById("t3-rate");
-  var avgEl = document.getElementById("t3-avg");
-
-  var years = [];
-  var temps = [];
-  function hash(i) { var x = Math.sin(i * 12.9898 + 4.1) * 43758.5453; return x - Math.floor(x); }
-  for (var y = 1974; y <= 2023; y++) {
-    years.push(y);
-    var base = 12.3 + (y - 1974) * 0.028;
-    var noise = (hash(y - 1974) - 0.5) * 1.1;
-    temps.push(+(base + noise).toFixed(2));
-  }
-
-  var padL = 55, padR = 20, padT = 20, padB = 34;
-  function xOf(i) { return padL + (i / (years.length - 1)) * (W - padL - padR); }
-  function yOf(t) { return H - padB - ((t - 10.5) / (16 - 10.5)) * (H - padT - padB); }
-
-  function linreg(xs, ys) {
-    var n = xs.length;
-    var sx = 0, sy = 0, sxy = 0, sxx = 0;
-    for (var i = 0; i < n; i++) { sx += xs[i]; sy += ys[i]; sxy += xs[i] * ys[i]; sxx += xs[i] * xs[i]; }
-    var slope = (n * sxy - sx * sy) / (n * sxx - sx * sx);
-    var intercept = (sy - slope * sx) / n;
-    return { slope: slope, intercept: intercept };
-  }
-
-  function render() {
-    var startY = Math.min(+startSlider.value, +endSlider.value - 1);
-    var endY = Math.max(+endSlider.value, startY + 1);
-    startSlider.value = startY; endSlider.value = endY;
-    startVal.textContent = startY;
-    endVal.textContent = endY;
-
-    ctx.clearRect(0, 0, W, H);
-    // axes
-    ctx.strokeStyle = window.cssVar("--line");
-    ctx.lineWidth = 1;
-    for (var t = 11; t <= 15; t++) {
-      var yy = yOf(t);
-      ctx.beginPath(); ctx.moveTo(padL, yy); ctx.lineTo(W - padR, yy); ctx.stroke();
-      ctx.fillStyle = window.cssVar("--mist");
-      ctx.font = "10.5px sans-serif";
-      ctx.fillText(t + "°C", 8, yy + 4);
-    }
-    [1974, 1985, 1995, 2005, 2015, 2023].forEach(function (yr) {
-      var idx = yr - 1974;
-      var xx = xOf(idx);
-      ctx.fillStyle = window.cssVar("--mist");
-      ctx.fillText(yr, xx - 12, H - 12);
-    });
-
-    // selected range shading
-    var i0 = startY - 1974, i1 = endY - 1974;
-    ctx.fillStyle = "rgba(242,150,92,0.14)";
-    ctx.fillRect(xOf(i0), padT, xOf(i1) - xOf(i0), H - padT - padB);
-
-    // data points + line
-    ctx.strokeStyle = window.cssVar("--mist");
-    ctx.lineWidth = 1.4;
-    ctx.beginPath();
-    years.forEach(function (yr, i) {
-      var x = xOf(i), y = yOf(temps[i]);
-      if (i === 0) ctx.moveTo(x, y); else ctx.lineTo(x, y);
-    });
-    ctx.stroke();
-    years.forEach(function (yr, i) {
-      var x = xOf(i), y = yOf(temps[i]);
-      ctx.beginPath();
-      ctx.arc(x, y, 2.4, 0, Math.PI * 2);
-      ctx.fillStyle = (i >= i0 && i <= i1) ? window.cssVar("--teal") : window.cssVar("--mist");
-      ctx.fill();
-    });
-
-    // regression over selected range
-    var xs = [], ys = [];
-    for (var i = i0; i <= i1; i++) { xs.push(years[i]); ys.push(temps[i]); }
-    var r = linreg(xs, ys);
-    ctx.strokeStyle = window.cssVar("--coral");
-    ctx.lineWidth = 2.5;
-    ctx.beginPath();
-    ctx.moveTo(xOf(i0), yOf(r.slope * years[i0] + r.intercept));
-    ctx.lineTo(xOf(i1), yOf(r.slope * years[i1] + r.intercept));
-    ctx.stroke();
-
-    var perDecade = r.slope * 10;
-    rateEl.textContent = (perDecade >= 0 ? "+" : "") + perDecade.toFixed(2) + " °C/10년";
-    var avg = ys.reduce(function (a, b) { return a + b; }, 0) / ys.length;
-    avgEl.textContent = avg.toFixed(2) + " °C";
-  }
-
-  startSlider.addEventListener("input", render);
-  endSlider.addEventListener("input", render);
-  render();
-})();
-
-/* ===== TAB 4 : 화학 반응 과학 마술 ===== */
-(function () {
-  var canvas = document.getElementById("t4");
-  var ctx = window.setupCanvas(canvas);
-  var W = canvas._w, H = canvas._h;
-  var grid = document.getElementById("t4-grid");
-  var controlsWrap = document.getElementById("t4-controls");
-  var info = document.getElementById("t4-info");
-
-  var reactions = [
-    {
-      id: "iodine", ico: "⏱️", name: "아이오딘 시계 반응",
-      desc: "두 무색 용액을 섞으면 처음엔 투명하다가, 일정 시간이 지나면 마치 시계처럼 갑자기 짙은 청남색으로 변합니다. 반응 중간체가 임계 농도에 도달하는 순간 색이 급변합니다.",
-      progressLabel: "반응 진행", mode: "progress"
-    },
-    {
-      id: "flame", ico: "🔥", name: "불꽃 반응",
-      desc: "금속 이온을 불꽃에 넣으면 이온마다 고유한 색의 불꽃을 냅니다. 전자가 에너지를 흡수했다가 다시 방출하며 빛을 내는 원리입니다.",
-      mode: "flame"
-    },
-    {
-      id: "btb", ico: "🧪", name: "BTB 지시약 색 변화",
-      desc: "브로모티몰블루(BTB) 용액은 산성에서 노랑, 중성에서 초록, 염기성에서 파랑으로 변합니다. 날숨(이산화 탄소)을 불어넣으면 산성이 되어 색이 변하는 마술처럼 보여줄 수 있습니다.",
-      progressLabel: "pH (산성 ← → 염기성)", mode: "ph"
-    },
-    {
-      id: "volcano", ico: "🌋", name: "화산 반응",
-      desc: "탄산수소나트륨(베이킹소다)과 아세트산(식초)이 반응하면 이산화 탄소 기체가 발생해 거품이 화산처럼 분출됩니다.",
-      progressLabel: "반응 진행", mode: "progress"
-    }
-  ];
-  var current = reactions[0];
-  var flameIon = "Na";
-  var progress = 0;
-  var playing = false;
-
-  reactions.forEach(function (r) {
-    var card = document.createElement("button");
-    card.className = "pick-card";
-    if (r.id === current.id) card.classList.add("on");
-    card.innerHTML = '<span class="ico">' + r.ico + '</span><div class="t">' + r.name + '</div>';
-    card.addEventListener("click", function () {
-      current = r; progress = 0; playing = false;
-      grid.querySelectorAll(".pick-card").forEach(function (c) { c.classList.remove("on"); });
-      card.classList.add("on");
-      info.innerHTML = r.desc;
-      buildControls();
-      draw();
-    });
-    grid.appendChild(card);
-  });
-
-  function buildControls() {
-    controlsWrap.innerHTML = "";
-    if (current.mode === "flame") {
-      var group = document.createElement("div");
-      group.className = "ctrl-group";
-      group.innerHTML = '<div class="ctrl-label">금속 이온</div>';
-      var seg = document.createElement("div");
-      seg.className = "seg";
-      [["Li", "리튬(빨강)"], ["Na", "나트륨(노랑)"], ["K", "칼륨(보라)"], ["Cu", "구리(청록)"], ["Ca", "칼슘(주황)"]].forEach(function (p) {
-        var b = document.createElement("button");
-        b.textContent = p[1];
-        if (p[0] === flameIon) b.classList.add("on");
-        b.addEventListener("click", function () {
-          flameIon = p[0];
-          seg.querySelectorAll("button").forEach(function (x) { x.classList.remove("on"); });
-          b.classList.add("on");
-          draw();
-        });
-        seg.appendChild(b);
-      });
-      group.appendChild(seg);
-      controlsWrap.appendChild(group);
-    } else {
-      var group2 = document.createElement("div");
-      group2.className = "ctrl-group";
-      group2.innerHTML = '<div class="ctrl-label">' + current.progressLabel + '<span class="val" id="t4-prog-val">0</span></div>';
-      var slider = document.createElement("input");
-      slider.type = "range"; slider.min = 0; slider.max = 100; slider.value = 0;
-      slider.addEventListener("input", function () { progress = +slider.value; draw(); });
-      group2.appendChild(slider);
-      controlsWrap.appendChild(group2);
-
-      var btnRow = document.createElement("div");
-      btnRow.className = "btn-row";
-      var playBtn = document.createElement("button");
-      playBtn.className = "btn primary";
-      playBtn.textContent = "시연 ▶";
-      playBtn.addEventListener("click", function () {
-        progress = 0; playing = true;
-        var timer = setInterval(function () {
-          progress += 2;
-          slider.value = progress;
-          draw();
-          if (progress >= 100) { clearInterval(timer); playing = false; }
-        }, 40);
-      });
-      btnRow.appendChild(playBtn);
-      controlsWrap.appendChild(btnRow);
-    }
-  }
-
-  function draw() {
-    ctx.clearRect(0, 0, W, H);
-    var progLabel = document.getElementById("t4-prog-val");
-    if (progLabel) progLabel.textContent = progress;
-
-    if (current.id === "iodine") {
-      var color = progress < 70 ? "rgba(230,230,235,0.5)" : "#1a2450";
-      drawBeaker(color);
-      note(progress < 70 ? "아직 무색 투명합니다…" : "짙은 청남색으로 급변했습니다! (전분-아이오딘 반응)");
-    } else if (current.id === "btb") {
-      var pct = progress / 100;
-      var col = pct < 0.5
-        ? lerpColor([234, 221, 78], [63, 201, 176], pct / 0.5)
-        : lerpColor([63, 201, 176], [64, 120, 220], (pct - 0.5) / 0.5);
-      drawBeaker("rgb(" + col.join(",") + ")");
-      var ph = 3 + pct * 8;
-      note("pH ≈ " + ph.toFixed(1) + " — " + (ph < 6 ? "산성(노랑)" : ph < 8 ? "중성(초록)" : "염기성(파랑)"));
-    } else if (current.id === "volcano") {
-      drawVolcano(progress);
-      note(progress < 30 ? "반응 준비 중…" : progress < 70 ? "이산화 탄소 기체가 발생하며 거품이 올라옵니다." : "거품이 화산처럼 분출합니다!");
-    } else if (current.id === "flame") {
-      drawFlame(flameIon);
-      var names = { Li: "리튬 — 빨강", Na: "나트륨 — 노랑", K: "칼륨 — 보라", Cu: "구리 — 청록", Ca: "칼슘 — 주황" };
-      note(names[flameIon] + " 불꽃 반응");
-    }
-  }
-
-  function lerpColor(a, b, t) {
-    return [0, 1, 2].map(function (i) { return Math.round(a[i] + (b[i] - a[i]) * t); });
-  }
-
-  function note(txt) {
-    ctx.fillStyle = window.cssVar("--mist");
-    ctx.font = "13px sans-serif";
-    ctx.fillText(txt, 20, H - 16);
-  }
-
-  function drawBeaker(fillColor) {
-    var cx = W / 2, top = 60, bot = 300, halfW = 90;
-    ctx.strokeStyle = window.cssVar("--mist");
-    ctx.lineWidth = 4;
-    ctx.beginPath();
-    ctx.moveTo(cx - halfW, top);
-    ctx.lineTo(cx - halfW - 10, bot);
-    ctx.lineTo(cx + halfW + 10, bot);
-    ctx.lineTo(cx + halfW, top);
-    ctx.stroke();
-    ctx.fillStyle = fillColor;
-    ctx.beginPath();
-    ctx.moveTo(cx - halfW + 6, top + 40);
-    ctx.lineTo(cx - halfW - 4, bot - 4);
-    ctx.lineTo(cx + halfW + 4, bot - 4);
-    ctx.lineTo(cx + halfW - 6, top + 40);
-    ctx.closePath();
-    ctx.fill();
-  }
-
-  function drawVolcano(p) {
-    var cx = W / 2, baseY = 320;
-    ctx.fillStyle = window.cssVar("--panel-2");
-    ctx.strokeStyle = window.cssVar("--mist");
-    ctx.lineWidth = 3;
-    ctx.beginPath();
-    ctx.moveTo(cx - 150, baseY);
-    ctx.lineTo(cx - 35, 90);
-    ctx.lineTo(cx + 35, 90);
-    ctx.lineTo(cx + 150, baseY);
-    ctx.closePath();
-    ctx.fill(); ctx.stroke();
-    if (p > 20) {
-      var foamH = Math.min(140, (p - 20) * 2);
-      ctx.fillStyle = "#f4ead0";
-      for (var i = 0; i < foamH / 6; i++) {
-        var fx = cx + (Math.sin(i * 12.9) * 30);
-        var fy = 90 - i * 6;
-        ctx.beginPath();
-        ctx.arc(fx, fy, 14, 0, Math.PI * 2);
-        ctx.fill();
-      }
-    }
-  }
-
-  function drawFlame(ion) {
-    var colors = { Li: "#e8483a", Na: "#eede4e", K: "#b79cf0", Cu: "#3fc9b0", Ca: "#f2965c" };
-    var cx = W / 2, baseY = 320;
-    ctx.strokeStyle = window.cssVar("--mist");
-    ctx.lineWidth = 3;
-    ctx.beginPath(); ctx.moveTo(cx - 10, baseY); ctx.lineTo(cx - 6, baseY - 60); ctx.lineTo(cx + 6, baseY - 60); ctx.lineTo(cx + 10, baseY); ctx.stroke();
-    ctx.fillStyle = colors[ion];
-    ctx.beginPath();
-    ctx.moveTo(cx, baseY - 60);
-    ctx.quadraticCurveTo(cx - 46, baseY - 150, cx, baseY - 250);
-    ctx.quadraticCurveTo(cx + 46, baseY - 150, cx, baseY - 60);
-    ctx.closePath();
-    ctx.globalAlpha = 0.85;
-    ctx.fill();
-    ctx.globalAlpha = 1;
-  }
-
-  buildControls();
-  info.innerHTML = current.desc;
-  draw();
-})();
-
-/* ===== TAB 5 : 천연 항생물질 디스크 확산법 ===== */
-(function () {
-  var canvas = document.getElementById("t5");
-  var ctx = window.setupCanvas(canvas);
-  var W = canvas._w, H = canvas._h;
-  var plantSeg = document.getElementById("t5-plant");
-  var concSlider = document.getElementById("t5-conc");
-  var timeSlider = document.getElementById("t5-time");
-  var concVal = document.getElementById("t5-conc-val");
-  var timeVal = document.getElementById("t5-time-val");
-  var d0El = document.getElementById("t5-d0"), d1El = document.getElementById("t5-d1"), d2El = document.getElementById("t5-d2");
-
-  var effect = { garlic: 1.0, cypress: 0.7, tea: 0.5, control: 0.06 };
-  var plant = "garlic";
-
-  plantSeg.querySelectorAll("button").forEach(function (b) {
-    b.addEventListener("click", function () {
-      plantSeg.querySelectorAll("button").forEach(function (x) { x.classList.remove("on"); });
-      b.classList.add("on");
-      plant = b.getAttribute("data-p");
-      render();
-    });
-  });
-  concSlider.addEventListener("input", render);
-  timeSlider.addEventListener("input", render);
-
-  function hash(i) { var x = Math.sin(i * 78.233) * 43758.5453; return x - Math.floor(x); }
-
-  function render() {
-    var conc = +concSlider.value;
-    var time = +timeSlider.value;
-    concVal.textContent = conc;
-    timeVal.textContent = time;
-
-    ctx.clearRect(0, 0, W, H);
-    var cx = W / 2, cy = H / 2 + 10, dishR = 200;
-
-    // dish
-    ctx.fillStyle = window.cssVar("--panel-2");
-    ctx.strokeStyle = window.cssVar("--mist");
-    ctx.lineWidth = 4;
-    ctx.beginPath(); ctx.arc(cx, cy, dishR, 0, Math.PI * 2); ctx.fill(); ctx.stroke();
-
-    // bacterial lawn stipple
-    ctx.fillStyle = "rgba(169,195,202,0.45)";
-    for (var i = 0; i < 900; i++) {
-      var ang = hash(i) * Math.PI * 2;
-      var r = Math.sqrt(hash(i + 500)) * (dishR - 8);
-      var x = cx + Math.cos(ang) * r, y = cy + Math.sin(ang) * r;
-      ctx.beginPath(); ctx.arc(x, y, 1.1, 0, Math.PI * 2); ctx.fill();
-    }
-
-    var eff = effect[plant];
-    var maxZone = 95;
-    var timeFactor = Math.min(1, time / 48);
-    var radiusPx = 14 + eff * (conc / 100) * timeFactor * maxZone;
-    var diameterMm = (radiusPx / dishR) * 90 * 2 * eff > 0 ? ((radiusPx * 2) / dishR * 45).toFixed(1) : "0.0";
-
-    var discPositions = [
-      [cx - dishR * 0.5, cy - dishR * 0.05],
-      [cx + dishR * 0.5, cy - dishR * 0.05],
-      [cx, cy + dishR * 0.55]
-    ];
-    var labels = ["A", "B", "C"];
-    var diamEls = [d0El, d1El, d2El];
-
-    discPositions.forEach(function (p, i) {
-      // inhibition zone (clear halo)
-      ctx.beginPath();
-      ctx.arc(p[0], p[1], radiusPx, 0, Math.PI * 2);
-      ctx.fillStyle = window.cssVar("--panel-2");
-      ctx.fill();
-      ctx.strokeStyle = "rgba(63,201,176,0.5)";
-      ctx.lineWidth = 1.5;
-      ctx.stroke();
-      // disc
-      ctx.beginPath();
-      ctx.arc(p[0], p[1], 12, 0, Math.PI * 2);
-      ctx.fillStyle = "#fdfaf2";
-      ctx.fill();
-      ctx.strokeStyle = window.cssVar("--line");
-      ctx.lineWidth = 1;
-      ctx.stroke();
-      ctx.fillStyle = window.cssVar("--ink");
-      ctx.font = "bold 11px sans-serif";
-      ctx.fillText(labels[i], p[0] - 3, p[1] + 4);
-
-      diamEls[i].textContent = diameterMm + " mm";
-    });
-
-    ctx.fillStyle = window.cssVar("--foam");
-    ctx.font = "12px sans-serif";
-    var plantNames = { garlic: "마늘 추출물", cypress: "편백나무 추출물", tea: "녹차 추출물", control: "대조군(에탄올)" };
-    ctx.fillText(plantNames[plant] + " · 농도 " + conc + "% · 배양 " + time + "시간", cx - 110, cy - dishR - 12);
-  }
-
-  render();
-})();
-</script>
-
-<script>
-(function () {
-  window.sthUnit("gt1-1-4");
-  window.sthWork({
-    mount: "wk",
-    unitLabel: "[과학탐구실험1 Ⅱ] 과학 탐구의 과정과 절차",
-    items: [
-      {
-            "id": "w1",
-            "label": "귀납과 연역이 갈리는 지점",
-            "hint": "이 단원의 탐구 하나를 골라, 그것이 귀납적 탐구인지 연역적 탐구인지 판단하고 근거를 쓰세요.",
-            "ph": "내가 고른 탐구: …  /  판단: …  /  근거: …"
-      },
-      {
-            "id": "w2",
-            "label": "가설이 갖추어야 할 조건",
-            "hint": "파스퇴르의 백조목 실험에서 검증된 가설을 한 문장으로 쓰고, 그 가설이 왜 “검증 가능한” 가설인지 설명하세요.",
-            "ph": ""
-      },
-      {
-            "id": "w3",
-            "label": "통제해야 했던 변인",
-            "hint": "그 실험에서 무엇을 같게 두고 무엇만 다르게 두었는지 쓰세요.",
-            "ph": ""
-      },
-      {
-            "id": "w4",
-            "label": "아직 헷갈리는 것",
-            "hint": "다음 시간에 여기서부터 시작합니다.",
-            "ph": ""
-      }
-]
-  });
-  window.sthShare({
-    mount: "share",
-    unit: "gt1-1-4",
-    unitLabel: "[과학탐구실험1 Ⅱ] 과학 탐구의 과정과 절차",
-    works: [
-      { id: "w1", label: "귀납과 연역이 갈리는 지점" },
-      { id: "w2", label: "가설이 갖추어야 할 조건" },
-      { id: "w3", label: "통제해야 했던 변인" }
-    ]
-  });
-})();
-</script>
+<script src="episodes.js"></script>
+<script src="quiz-items.js"></script>
+<script src="lab-cases.js"></script>
 </body>
 </html>
