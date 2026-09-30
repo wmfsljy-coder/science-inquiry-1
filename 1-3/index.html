@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Ⅰ. 과학의 본성과 역사 속의 과학 탐구 — 관측 스테이션</title>
 <link rel="stylesheet" href="../assets/theme.css">
-<link rel="stylesheet" href="../assets/share.css">
+<link rel="stylesheet" href="../assets/story.css">
 </head>
 <body>
 
@@ -17,739 +17,293 @@
       <h1 class="display">역사 속의<br>과학 탐구</h1>
     </div>
     <button class="tab-btn active" data-tab="0"><span class="num">01</span> 갈릴레이의 낙하 실험</button>
-    <button class="tab-btn" data-tab="1"><span class="num">02</span> 도량형의 역사</button>
-    <button class="tab-btn" data-tab="2"><span class="num">03</span> 우리 선조의 과학 기술</button>
-    <button class="tab-btn" data-tab="3"><span class="num">04</span> 멘델레예프의 주기율표</button>
-    <button class="tab-btn" data-tab="4"><span class="num">05</span> 동시 발견 이야기</button>
+    <button class="tab-btn" data-tab="1"><span class="num">02</span> 도량형과 우리 선조의 과학</button>
+    <button class="tab-btn" data-tab="2"><span class="num">03</span> 주기율표와 동시 발견</button>
+    <button class="tab-btn" data-tab="3"><span class="num">04</span> 수준별 문제</button>
+    <button class="tab-btn" data-tab="4"><span class="num">05</span> 응용 실험실</button>
     <button class="tab-btn" data-tab="5"><span class="num">06</span> 정리하기</button>
     <button class="tab-btn" data-tab="6"><span class="num">07</span> 우리 반</button>
   </nav>
 
   <main>
-    <!-- TAB 0 : 갈릴레이의 경사면 낙하 실험 -->
+    <!-- =====================================================================
+         01 갈릴레이의 낙하 실험 — 이야기 「빗면 위의 종소리」
+         ===================================================================== -->
     <section class="tab-panel" data-panel="0">
       <div class="stage-head">
-        <div class="eyebrow">01 · 갈릴레이의 경사면을 이용한 낙하 운동 실험</div>
-        <h2 class="display">질량이 다른 물체는 같이 떨어질까?</h2>
-        <p>아리스토텔레스는 "무거운 물체가 더 빨리 떨어진다"라고 주장했습니다. 갈릴레이는 경사면에서 공을 굴려 이를 반박했습니다. 공기 저항을 켜고 끄면서 두 공의 도착 시간이 어떻게 달라지는지 관찰해 보세요.</p>
-      
+        <div class="eyebrow">01 · 갈릴레이의 경사면을 이용한 낙하 운동 실험 · 이야기 한 편</div>
+        <h2 class="display">빗면 위의 종소리</h2>
+        <p>1600년대 초 파도바. 갈릴레이의 조수가 되어, 너무 빨라 잴 수 없던 낙하 운동을 빗면으로 느리게 만들어 재고, 빗면에 매단 종이 고르게 울리게 하며 ‘무거운 것이 빨리 떨어진다’는 2000년 된 생각을 시험합니다.</p>
         <span class="std-chip">10과탐1-01-01</span><span class="std-chip">10과탐1-01-02</span><div class="std-note"><b>[10과탐1-01-01]</b> 과학사에서 패러다임의 전환을 가져온 결정적 실험을 따라 해 보고, 과학의 발전 과정에 관해 설명할 수 있다.<br><b>[10과탐1-01-02]</b> 과학사의 다양한 사례들로부터 과학의 본성을 추론할 수 있다.</div><div class="terms"><b>갈릴레이 낙하 실험</b><b>도량형</b><b>주기율표</b><b>동시 발견</b></div>
       </div>
-      <div class="gate loose" id="gt"></div>
-      <div class="stage-card">
-        <div class="canvas-wrap" style="position:relative">
-          <canvas id="c0" width="900" height="480"></canvas>
-          <div class="badge-row"><span class="badge" id="c0-state">준비됨</span><div class="veil" id="vl"><p>예상을 고르면 화면이 열립니다.</p></div></div>
-        </div>
-        <div class="controls">
-          <div class="ctrl-group">
-            <div class="ctrl-label">경사각<span class="val" id="c0-angle-val">30°</span></div>
-            <input type="range" id="c0-angle" min="10" max="60" step="1" value="30">
-          </div>
-          <div class="ctrl-group">
-            <div class="ctrl-label">환경</div>
-            <div class="seg" id="c0-env">
-              <button class="on" data-env="vacuum">공기 저항 없음(진공)</button>
-              <button data-env="air">공기 저항 있음</button>
-            </div>
-          </div>
-          <div class="btn-row">
-            <button class="btn primary" id="c0-play">굴리기 ▶</button>
-            <button class="btn" id="c0-reset">리셋</button>
-          </div>
-        </div>
-        <div class="stat-row">
-          <div class="stat-box"><div class="lbl">무거운 공 A (3kg) 도착 시간</div><div class="num" id="c0-timeA">—</div></div>
-          <div class="stat-box"><div class="lbl">가벼운 공 B (1kg) 도착 시간</div><div class="num" id="c0-timeB">—</div></div>
-        </div>
-        <div class="info-card" id="c0-info">경사각과 환경을 정한 뒤 [굴리기]를 눌러 보세요. 진공(공기 저항 없음)에서는 질량과 상관없이 항상 같은 시간에 도착합니다.</div>
-      </div>
-      <p class="foot-note">실제 갈릴레이의 사고 실험은 진공 개념 없이 마찰이 작은 경사면으로 낙하를 "늦춰서" 관찰한 것입니다. 이 모식도는 공기 저항의 유무에 따른 차이를 이해하기 쉽도록 단순화했습니다.</p>
 
-      <div class="stage-head">
-        <div class="eyebrow">🔎 미션 · 도착 순서 예측하기</div>
-        <h2 class="display" style="font-size:18px;">이 조건에서는 어느 공이 먼저 도착할까?</h2>
+      <div class="episode" id="ep1">
+        <section class="scene" data-title="사탑 이야기의 진실">
+          <div class="story narr"><div class="who">🏛️</div><div class="say"><span class="name">이야기</span>아리스토텔레스 이후 2000년 동안 사람들은 ‘무거운 물체일수록 빨리 떨어진다’고 믿었습니다. 흔히 갈릴레이가 피사의 사탑에서 무거운 공과 가벼운 공을 떨어뜨려 이를 뒤집었다고들 하지요.</div></div>
+          <div class="story"><div class="who">🧑‍🎓</div><div class="say"><span class="name">새로 온 조수</span>“선생님, 사탑에서 공을 떨어뜨리시던 날 저도 보고 싶었어요!” 갈릴레이가 웃습니다. “사탑이라고?”</div></div>
+          <div class="gate loose" id="g1"></div>
+        </section>
+
+        <section class="scene" data-title="낙하를 느리게 — 빗면 실험">
+          <div class="story"><div class="who">👨‍🔬</div><div class="say"><span class="name">갈릴레이</span>“공을 그냥 떨어뜨리면 1초 만에 끝나 버려. 우리 물시계는 0.1초쯤 어긋나니 그걸로는 잴 수가 없지. 길이 5 m 빗면의 기울기를 줄여 공이 굴러 내려가는 시간을 늘려 보게. 시간 오차가 <b>4% 이하</b>가 되도록. 그리고 무거운 쇠공과 가벼운 나무공을 <b>같은 기울기에서</b> 둘 다 굴려 비교해 보게.”</div></div>
+          <div class="stage-card">
+            <div class="canvas-wrap"><canvas id="a-c-inc" width="900" height="300"></canvas></div>
+            <div class="controls">
+              <div class="ctrl-group">
+                <div class="ctrl-label">빗면의 기울기<span class="val" id="a-ang-val">40°</span></div>
+                <input type="range" id="a-ang" min="3" max="45" step="1" value="40">
+              </div>
+              <div class="ctrl-group">
+                <div class="ctrl-label">굴릴 공</div>
+                <div class="seg" id="a-ball"><button class="on" data-v="iron">무거운 쇠공 (3 kg)</button><button data-v="wood">가벼운 나무공 (1 kg)</button></div>
+              </div>
+            </div>
+            <div class="info-card" id="a-inc-info"></div>
+          </div>
+          <div class="mission" id="m1-2"><ul><li id="m1-2a">시간 오차 4% 이하로 잴 수 있는 기울기 찾기</li><li id="m1-2b">그 기울기에서 두 공을 모두 굴려 비교하기</li></ul></div>
+        </section>
+
+        <section class="scene" data-title="고르게 울리는 종">
+          <div class="story"><div class="who">🔔</div><div class="say"><span class="name">갈릴레이</span>“빗면에 작은 종을 달아, 공이 지나가면 ‘딩’ 울리게 했네. 종소리가 <b>똑같은 박자로</b> 울리게 하려면 종을 어떤 간격으로 달아야 할까? 박자가 고르면 같은 시간 동안 공이 간 거리를 알 수 있지. 음악가의 귀는 박자가 조금만 어긋나도 알아채거든.”</div></div>
+          <div class="stage-card">
+            <div class="canvas-wrap"><canvas id="a-c-bell" width="900" height="270"></canvas></div>
+            <div class="controls">
+              <div class="ctrl-group" style="flex:1 1 100%">
+                <div class="ctrl-label">출발점에서 종까지의 거리 (첫 종까지를 1칸으로)</div>
+                <div class="seg" id="a-rule"><button class="on" data-v="lin">1, 2, 3, 4 칸 (같은 간격)</button><button data-v="dbl">1, 2, 4, 8 칸 (두 배씩)</button><button data-v="sq">1, 4, 9, 16 칸 (제곱수)</button></div>
+              </div>
+            </div>
+            <div class="info-card" id="a-bell-info"></div>
+          </div>
+          <div id="a-bell-pick"></div>
+          <div class="mission" id="m1-3"><ul><li id="m1-3a">종소리가 고른 박자로 울리는 간격 찾기</li><li id="m1-3b">처음 3박자 동안 간 거리 어림하기</li></ul></div>
+        </section>
+
+        <section class="scene" data-title="누구의 생각일까">
+          <div class="story"><div class="who">📜</div><div class="say"><span class="name">갈릴레이</span>“내 책 『새로운 두 과학』은 두 사람의 대화로 되어 있네. 옛 생각을 대변하는 사람과 새 생각을 말하는 사람. 이 문장들이 누구의 생각인지 나눠 보게.”</div></div>
+          <div class="stage-card"><div id="a-sort"></div></div>
+          <div class="mission" id="m1-4">여덟 문장을 아리스토텔레스와 갈릴레이의 생각으로 나누세요.</div>
+        </section>
+
+        <section class="scene" data-title="결말 — 사탑 대신 빗면">
+          <div class="ending">
+            <h4>⚖️ 떨어지는 빠르기는 무게와 상관없다</h4>
+            <p>갈릴레이는 사탑이 아니라 <b>빗면</b>에서 공을 굴려 낙하 운동을 느리게 만들었습니다. 기울기가 같으면 무거운 공과 가벼운 공이 같은 시간에 내려왔고, 같은 시간 동안 간 거리는 1 : 3 : 5 : 7 … 로 늘어 <b>거리는 시간의 제곱에 비례</b>했습니다. 여기에 ‘무거운 돌과 가벼운 돌을 묶으면?’이라는 <b>사고 실험</b>의 모순까지 더해, 무게가 낙하 빠르기를 정한다는 아리스토텔레스의 생각을 무너뜨렸습니다. 측정할 수 있게 실험을 설계하고, 수학으로 규칙을 나타낸 이 방법이 근대 과학의 출발점이 되었습니다.</p>
+            <div class="vs" id="e1-vs"></div>
+            <span class="stamp">실험 일지 ① 완성</span>
+          </div>
+          <div class="miscon loose"><span class="tag">오개념 지도</span><br><b>갈릴레이의 피사의 사탑 일화</b><br>갈릴레이가 피사의 사탑에서 무거운 공과 가벼운 공을 동시에 낙하시켜 두 공이 동시에 떨어진다는 것을 실험으로 증명하였다는 일화는 <b>후대에 만들어진 것으로 근거가 명확하지 않다.</b> 갈릴레이가 실제로 쓴 것은 사고 실험과 빗면 실험이었다.<cite>과학탐구실험1 교사용 교과서, 오개념 지도</cite></div>
+          <div class="info-card" style="margin:14px 0">📎 과학자의 눈: 구르는 공은 미끄러지는 물체보다 조금 느리게(가속도가 약 5/7) 내려가지만, 질량과는 상관이 없습니다. 공기 저항이 큰 깃털이나 종이는 늦게 떨어지는데, 1971년 아폴로 15호 우주인이 공기가 없는 달에서 망치와 깃털을 떨어뜨려 동시에 떨어지는 것을 보여 주었습니다.</div>
+          <div class="stage-card" style="padding:6px 0 4px;margin-top:16px"><div id="wk1"></div></div>
+        </section>
       </div>
-      <div class="stage-card">
-        <div class="info-card" id="c0m-data"></div>
-        <div class="seg" id="c0m-choices">
-          <button data-c="same">두 공은 동시에 도착한다</button>
-          <button data-c="heavy">무거운 공 A가 먼저 도착한다</button>
-          <button data-c="light">가벼운 공 B가 먼저 도착한다</button>
-        </div>
-        <div class="toggle-row" style="margin:14px 20px;">
-          <button class="btn" id="c0m-check">정답 확인</button>
-          <button class="btn" id="c0m-new">새 문제</button>
-        </div>
-        <div class="info-card" id="c0m-info"></div>
-      </div>
-      <div class="miscon loose"><span class="tag">오개념 지도</span><br><b>갈릴레이의 피사의 사탑 일화</b><br>갈릴레이가 피사의 사탑에서 무거운 공과 가벼운 공을 동시에 낙하시켜 두 공이 동시에 떨어진다는 것을 실험으로 증명하였다는 일화는 <b>후대에 만들어진 것으로 근거가 명확하지 않다.</b> 갈릴레이가 실제로 쓴 것은 사고 실험과 빗면 실험이었다.<cite>과학탐구실험1 교사용 교과서, 오개념 지도</cite></div>
+      <p class="teacher-note">교사용: 주소 끝에 <a href="?open=1">?open=1</a> 을 붙이면 모든 장면이 열립니다.</p>
     </section>
 
-    <!-- TAB 1 : 도량형의 역사 -->
+    <!-- =====================================================================
+         02 도량형과 우리 선조의 과학 — 이야기 「빗물을 재는 그릇」
+         ===================================================================== -->
     <section class="tab-panel" data-panel="1" hidden>
       <div class="stage-head">
-        <div class="eyebrow">02 · 과학의 단위 및 도량형의 역사 추적하기</div>
-        <h2 class="display">"1m"는 시대마다 달랐다</h2>
-        <p>슬라이더를 움직여 도량형이 변화해 온 역사를 따라가 보세요. 몸의 일부를 기준으로 하던 단위가 어떻게 전 세계가 합의한 표준 단위로 바뀌었는지 확인할 수 있습니다.</p>
+        <div class="eyebrow">02 · 과학의 단위 및 도량형의 역사 · 우리 선조들의 과학 기술 · 이야기 한 편</div>
+        <h2 class="display">빗물을 재는 그릇</h2>
+        <p>1441년 조선. 가뭄과 홍수를 대비하려고 고을마다 비의 양을 보고하는데, 재는 방법이 제각각입니다. 세종의 관리가 되어 누구나 같은 값을 얻는 측우기를 설계하고, 사람의 몸에서 빛의 속력까지 이어진 단위의 역사를 따라가며 ‘같은 기준’이 과학에 왜 필요한지 알아냅니다.</p>
+        <span class="std-chip">10과탐1-01-02</span><div class="std-note"><b>[10과탐1-01-02]</b> 과학사의 다양한 사례들로부터 과학의 본성을 추론할 수 있다.</div><div class="terms"><b>표준 단위</b><b>측우기</b><b>미터법</b><b>국제단위계(SI)</b></div>
       </div>
-      <div class="stage-card">
-        <div class="canvas-wrap">
-          <canvas id="c1" width="900" height="260"></canvas>
-        </div>
-        <div class="timeline-wrap">
-          <div class="ctrl-label">시대<span class="val" id="c1-era-val">고대 이집트</span></div>
-          <div class="timeline-track"><div class="timeline-fill" id="c1-fill"></div></div>
-          <input type="range" id="c1-slider" min="0" max="5" step="1" value="0" style="width:100%">
-          <div class="timeline-ticks">
-            <span>약 BC3000</span><span>BC221</span><span>중세</span><span>1799</span><span>1875</span><span>2019</span>
+
+      <div class="episode" id="ep2">
+        <section class="scene" data-title="제각각인 비 보고">
+          <div class="story narr"><div class="who">📜</div><div class="say"><span class="name">이야기</span>호조에 여러 고을의 보고가 올라옵니다. “흙이 한 뼘 젖었습니다.” “호미 날이 다 들어갈 만큼 스몄습니다.” 같은 날 같은 비가 왔는데, 어느 고을에 비가 더 왔는지 알 수가 없습니다.</div></div>
+          <div class="story"><div class="who">🤴</div><div class="say"><span class="name">세자(뒤의 문종)</span>“흙마다 물이 스미는 깊이가 다르니 이래서는 비교할 수가 없구나. 어떻게 하면 온 나라의 비를 견줄 수 있겠느냐?”</div></div>
+          <div class="gate loose" id="g2"></div>
+        </section>
+
+        <section class="scene" data-title="측우기 설계">
+          <div class="story"><div class="who">🏺</div><div class="say"><span class="name">장영실</span>“비가 30 mm 내렸다고 합시다. 그릇 모양과 크기를 바꿔 가며, 그릇에 고인 물의 깊이가 <b>실제 내린 비의 양과 늘 같아지는</b> 그릇을 찾아보십시오. 고을마다 그릇 크기가 조금씩 달라도 같은 값이 나와야 합니다. 크기를 <b>두 가지 이상</b> 바꿔 확인해 주십시오.”</div></div>
+          <div class="stage-card">
+            <div class="canvas-wrap"><canvas id="b-c-rain" width="900" height="280"></canvas></div>
+            <div class="controls">
+              <div class="ctrl-group">
+                <div class="ctrl-label">그릇 모양</div>
+                <div class="seg" id="b-shape"><button class="on" data-v="bowl">위가 넓은 사발</button><button data-v="bottle">위가 좁은 병</button><button data-v="cyl">곧은 원통</button></div>
+              </div>
+              <div class="ctrl-group">
+                <div class="ctrl-label">그릇 입구의 지름<span class="val" id="b-d-val">14 cm</span></div>
+                <input type="range" id="b-d" min="10" max="30" step="2" value="14">
+              </div>
+            </div>
+            <div class="info-card" id="b-rain-info"></div>
           </div>
-        </div>
-        <div class="detail-panel" id="c1-detail"></div>
+          <div id="b-rain-pick"></div>
+          <div class="mission" id="m2-2"><ul><li id="m2-2a">크기가 달라도 비의 양을 그대로 보여 주는 그릇 찾기</li><li id="m2-2b">측우기와 함께 ‘주척’이라는 자를 정한 까닭 고르기</li></ul></div>
+        </section>
+
+        <section class="scene" data-title="1 m 의 역사">
+          <div class="story"><div class="who">📏</div><div class="say"><span class="name">과학관 해설사 (오늘날)</span>“측우기의 깊이도 결국 ‘자’로 잽니다. 그 자의 기준은 어떻게 정해 왔을까요? 사람의 팔에서 빛의 속력까지, 단위의 역사를 끝까지 따라가 보세요.”</div></div>
+          <div class="stage-card">
+            <div class="canvas-wrap"><canvas id="b-c-era" width="900" height="250"></canvas></div>
+            <div class="controls">
+              <div class="ctrl-group" style="flex:1 1 100%">
+                <div class="ctrl-label">시대<span class="val" id="b-era-val">고대 이집트</span></div>
+                <input type="range" id="b-era" min="0" max="6" step="1" value="0">
+              </div>
+            </div>
+            <div class="info-card" id="b-era-info"></div>
+          </div>
+          <div id="b-era-pick"></div>
+          <div class="mission" id="m2-3"><ul><li id="m2-3a">단위의 역사를 오늘날(2019년)까지 따라가기</li><li id="m2-3b">단위를 자연 상수로 정의하게 된 까닭 고르기</li></ul></div>
+        </section>
+
+        <section class="scene" data-title="우리 선조의 과학 유산">
+          <div class="story"><div class="who">🗂️</div><div class="say"><span class="name">과학관 해설사</span>“측우기 옆 진열장에 놓을 유물들이에요. 각 유물이 무엇을 위해 만들어졌는지에 따라 나눠 주세요.”</div></div>
+          <div class="stage-card"><div id="b-sort"></div></div>
+          <div class="mission" id="m2-4">여덟 가지 과학 유산을 쓰임에 따라 나누세요.</div>
+        </section>
+
+        <section class="scene" data-title="결말 — 모두가 같은 자로">
+          <div class="ending">
+            <h4>🌧️ 같은 기준이 있어야 비교할 수 있다</h4>
+            <p>1441년 조선은 곧은 원통 모양의 <b>측우기</b>를 만들고, 깊이를 재는 자(주척)의 기준까지 정해 전국에 나누어 주었습니다. 원통은 입구가 크든 작든 고인 물의 깊이가 내린 비의 양과 같아서, 어느 고을에서 재도 서로 견줄 수 있었지요. 사람의 몸을 기준으로 하던 단위가 국가의 표준, 국제 원기를 거쳐 <b>누구나 어디서나 재현할 수 있는 자연 상수</b>로 바뀐 것도 같은 까닭입니다. 과학 지식은 여러 사람이 같은 기준으로 잰 자료를 모아 비교하고 검증하며 쌓입니다.</p>
+            <div class="vs" id="e2-vs"></div>
+            <span class="stamp">실험 일지 ② 완성</span>
+          </div>
+          <div class="info-card" style="margin:14px 0">📎 과학자의 눈: 조선은 측우기로 잰 강우량을 꼼꼼히 기록했고, 서울에는 1777년부터 1907년까지 130년 넘게 이어진 측우기 기록이 남아 있습니다. 유럽에서는 1639년 이탈리아의 카스텔리가 강우량계를 만들었다는 기록이 있습니다. 1983년부터 1 m 는 빛이 진공에서 1/299 792 458 초 동안 가는 거리이고, 2019년에는 킬로그램도 플랑크 상수로 다시 정의되었습니다.</div>
+          <div class="stage-card" style="padding:6px 0 4px;margin-top:16px"><div id="wk2"></div></div>
+        </section>
       </div>
+      <p class="teacher-note">교사용: 주소 끝에 <a href="?open=1">?open=1</a> 을 붙이면 모든 장면이 열립니다.</p>
     </section>
 
-    <!-- TAB 2 : 우리 선조의 과학 기술 -->
+    <!-- =====================================================================
+         03 주기율표와 동시 발견 — 이야기 「두 사람의 주기율표」
+         ===================================================================== -->
     <section class="tab-panel" data-panel="2" hidden>
       <div class="stage-head">
-        <div class="eyebrow">03 · 우리 선조들의 과학 기술 발전 사례 찾기</div>
-        <h2 class="display">한반도의 과학 유산</h2>
-        <p>카드를 눌러 우리 선조들이 남긴 과학 기술의 원리와 의의를 살펴보세요.</p>
+        <div class="eyebrow">03 · 멘델레예프의 주기율표 만들기 · 과학사의 동시 발견 · 이야기 한 편</div>
+        <h2 class="display">두 사람의 주기율표</h2>
+        <p>1869년, 러시아의 멘델레예프와 독일의 마이어가 서로 모른 채 거의 같은 표를 만들었습니다. 원소 카드를 늘어놓아 주기성을 찾고, 빈칸에 들어갈 원소를 예측하며, 과학사의 동시 발견들을 비교해 과학 지식이 만들어지는 조건을 추론합니다.</p>
+        <span class="std-chip">10과탐1-01-02</span><div class="std-note"><b>[10과탐1-01-02]</b> 과학사의 다양한 사례들로부터 과학의 본성을 추론할 수 있다.</div><div class="terms"><b>주기성</b><b>원자량</b><b>예측과 검증</b><b>동시 발견</b></div>
       </div>
-      <div class="stage-card">
-        <div class="card-grid" id="c2-grid"></div>
-        <div class="detail-panel" id="c2-detail"><span class="hint">위에서 카드를 하나 선택해 보세요.</span></div>
+
+      <div class="episode" id="ep3">
+        <section class="scene" data-title="같은 해, 같은 표">
+          <div class="story narr"><div class="who">📰</div><div class="say"><span class="name">이야기</span>1869년 3월 멘델레예프가 원소를 원자량 순으로 늘어놓은 표를 발표했습니다. 그런데 같은 해 독일의 로타어 마이어도 거의 같은 표를 완성해 두었지요. 두 사람은 서로의 연구를 몰랐습니다.</div></div>
+          <div class="story"><div class="who">🧑‍🎓</div><div class="say"><span class="name">화학과 학생</span>“서로 모르는 두 사람이 어떻게 같은 해에 같은 걸 발견할 수 있죠? 우연일까요?”</div></div>
+          <div class="gate loose" id="g3"></div>
+        </section>
+
+        <section class="scene" data-title="원소 카드 늘어놓기">
+          <div class="story"><div class="who">🃏</div><div class="say"><span class="name">멘델레예프</span>“원소 이름, 원자량, 성질을 카드에 적어 원자량 순으로 늘어놓았네. 한 줄에 몇 장씩 끊어 놓아야 <b>성질이 비슷한 원소들이 세로로 나란히</b> 설까? 같은 색은 성질이 비슷한 원소 가족이야.”</div></div>
+          <div class="stage-card">
+            <div class="canvas-wrap"><canvas id="c-c-tab" width="900" height="290"></canvas></div>
+            <div class="controls">
+              <div class="ctrl-group">
+                <div class="ctrl-label">한 줄에 놓는 카드 수<span class="val" id="c-w-val">6장</span></div>
+                <input type="range" id="c-w" min="4" max="10" step="1" value="6">
+              </div>
+            </div>
+            <div class="info-card" id="c-tab-info"></div>
+          </div>
+          <div class="mission" id="m3-2">같은 가족의 원소가 모두 세로로 나란히 서는 줄 길이를 찾으세요.</div>
+        </section>
+
+        <section class="scene" data-title="빈칸의 원소 — 에카규소">
+          <div class="story"><div class="who">❓</div><div class="say"><span class="name">멘델레예프</span>“규소 아래 칸이 비어 있네. 아직 발견되지 않은 원소가 있다는 뜻이지. 나는 이것을 ‘에카규소’라 부르겠네. 위·아래, 왼쪽·오른쪽 이웃의 원자량을 보고 이 원소의 원자량을 예측해 보게. 실제로 발견되면 확인할 수 있을 걸세.”</div></div>
+          <div class="stage-card">
+            <div class="canvas-wrap"><canvas id="c-c-eka" width="900" height="260"></canvas></div>
+            <div class="controls">
+              <div class="ctrl-group">
+                <div class="ctrl-label">예측한 원자량<span class="val" id="c-m-val">50.0</span></div>
+                <input type="range" id="c-m" min="40" max="110" step="0.5" value="50">
+              </div>
+            </div>
+            <div class="info-card" id="c-eka-info"></div>
+          </div>
+          <div id="c-eka-pick"></div>
+          <div class="mission" id="m3-3"><ul><li id="m3-3a">이웃 원소로 에카규소의 원자량 예측하기(실제 값 ± 1.5)</li><li id="m3-3b">예측이 맞은 것이 주기율표에 준 영향 고르기</li></ul></div>
+        </section>
+
+        <section class="scene" data-title="과학사의 동시 발견들">
+          <div class="story"><div class="who">⏳</div><div class="say"><span class="name">과학사 교수</span>“주기율표만 그런 게 아니에요. 서로 다른 사람들이 비슷한 때 같은 발견을 한 사례를 <b>네 가지 모두</b> 살펴보고, 공통점을 찾아보세요.”</div></div>
+          <div class="stage-card">
+            <div class="controls" style="padding-bottom:0">
+              <div class="ctrl-group" style="flex:1 1 100%">
+                <div class="ctrl-label">사례</div>
+                <div class="seg" id="c-case"><button class="on" data-v="0">미적분학</button><button data-v="1">자연선택설</button><button data-v="2">전화기</button><button data-v="3">산소의 발견</button></div>
+              </div>
+            </div>
+            <div class="canvas-wrap"><canvas id="c-c-sim" width="900" height="260"></canvas></div>
+            <div class="info-card" id="c-sim-info"></div>
+          </div>
+          <div id="c-sim-pick"></div>
+          <div class="mission" id="m3-4"><ul><li id="m3-4a">동시 발견 사례 네 가지 모두 살펴보기</li><li id="m3-4b">동시 발견이 일어나는 까닭 고르기</li></ul></div>
+        </section>
+
+        <section class="scene" data-title="결말 — 1886년의 게르마늄">
+          <div class="ending">
+            <h4>🧪 시대가 무르익으면 발견은 여러 곳에서</h4>
+            <p>1886년 독일의 빙클러가 새 원소 <b>게르마늄</b>을 찾았습니다. 원자량 72.6, 멘델레예프가 17년 전 예측한 에카규소 그대로였지요. 예측이 검증되자 주기율표는 널리 받아들여졌습니다. 멘델레예프와 마이어가 같은 해 같은 표를 만든 것은 우연이 아니었습니다. 1860년 카를스루에 회의에서 원자량을 정하는 방법이 정리되고 원소 자료가 쌓이자, 여러 과학자가 같은 문제를 풀 준비가 되어 있었던 것입니다. 과학 지식은 한 천재의 번뜩임이 아니라 <b>그 시대에 쌓인 지식과 기술, 과학자 공동체의 소통</b> 속에서 만들어집니다.</p>
+            <div class="vs" id="e3-vs"></div>
+            <span class="stamp">실험 일지 ③ 완성</span>
+          </div>
+          <div class="info-card" style="margin:14px 0">📎 과학자의 눈: 멘델레예프는 원자량 순서를 따르지 않고 텔루륨(127.6)을 아이오딘(126.9) 앞에 두었습니다. 성질이 맞도록 둔 것인데, 뒤에 원소의 순서를 정하는 것은 원자량이 아니라 원자 번호(양성자 수)라는 것이 밝혀졌습니다. 비활성 기체는 1890년대에 발견되어 뒤에 표에 더해졌고, 이 화면의 카드에는 이해를 돕기 위해 넣었습니다.</div>
+          <div class="stage-card" style="padding:6px 0 4px;margin-top:16px"><div id="wk3"></div></div>
+        </section>
       </div>
+      <p class="teacher-note">교사용: 주소 끝에 <a href="?open=1">?open=1</a> 을 붙이면 모든 장면이 열립니다.</p>
     </section>
 
-    <!-- TAB 3 : 멘델레예프의 주기율표 만들기 -->
+    <!-- ===================================================================== 04 수준별 문제 -->
     <section class="tab-panel" data-panel="3" hidden>
       <div class="stage-head">
-        <div class="eyebrow">04 · 프로젝트 · 멘델레예프의 주기율표 만들기</div>
-        <h2 class="display">원자량 순으로 늘어놓으면?</h2>
-        <p>멘델레예프처럼 원소를 원자량 순서로 정렬해 보세요. 8개마다 성질이 비슷한 원소가 다시 나타나는 <b>주기성</b>을 확인할 수 있습니다.</p>
+        <div class="eyebrow">04 · 기본 · 발전 · 심화</div>
+        <h2 class="display">수준별 문제</h2>
+        <p>이 단원의 학습 목표를 세 단계로 확인합니다. <b>1단계 기본</b>은 용어와 핵심 개념, <b>2단계 발전</b>은 자료 해석과 계산, <b>3단계 심화</b>는 처음 보는 상황에 적용하고 근거를 들어 설명하기입니다. 자기 수준에 맞는 단계부터 시작하세요. 두 번 틀리면 정답과 해설을 볼 수 있어요.</p>
       </div>
-      <div class="stage-card">
-        <div class="controls" style="padding-bottom:0;">
-          <div class="btn-row">
-            <button class="btn primary" id="c3-sort">원자량 순으로 정렬</button>
-            <button class="btn" id="c3-shuffle">다시 섞기</button>
-          </div>
-        </div>
-        <div class="card-grid" id="c3-grid" style="grid-template-columns: repeat(8, 1fr); padding: 16px 20px 4px;"></div>
-        <div class="legend-row">
-          <span><span class="sw" style="background:var(--coral)"></span>알칼리 금속(1족)</span>
-          <span><span class="sw" style="background:var(--cold)"></span>알칼리 토금속(2족)</span>
-          <span><span class="sw" style="background:var(--teal)"></span>할로젠(17족)</span>
-          <span><span class="sw" style="background:var(--violet)"></span>비활성 기체(18족)</span>
-        </div>
-        <div class="info-card" id="c3-info">정렬 버튼을 눌러 원자량 순으로 배열해 보세요. 8칸마다 같은 색(비슷한 성질)의 원소가 반복되는 것이 보이나요? 멘델레예프는 이 규칙성을 이용해 아직 발견되지 않은 원소의 자리까지 예측했습니다.</div>
-      </div>
+      <div id="quiz"></div>
     </section>
 
-    <!-- TAB 4 : 동시 발견 이야기 -->
+    <!-- ===================================================================== 05 응용 실험실 -->
     <section class="tab-panel" data-panel="4" hidden>
       <div class="stage-head">
-        <div class="eyebrow">05 · 과학사에서 동시 발견으로 이룬 과학 발전 추적하기</div>
-        <h2 class="display">같은 생각, 다른 두 사람</h2>
-        <p>과학사에는 서로 다른 두 사람(또는 그룹)이 비슷한 시기에 같은 발견을 한 사례가 여럿 있습니다. 사례를 선택해 두 사람의 연구 시간선을 비교해 보세요.</p>
+        <div class="eyebrow">05 · 배운 것을 처음 보는 상황에</div>
+        <h2 class="display">응용 실험실</h2>
+        <p>이야기에서 찾아낸 개념을 전혀 다른 상황에 써 봅니다. 사례마다 <b>먼저 예상하고 → 직접 조작해 → 판정받고 → 까닭을 확인</b>합니다. 세 번 틀리면 풀이를 볼 수 있어요.</p>
       </div>
-      <div class="stage-card">
-        <div class="controls" style="padding-bottom:0;">
-          <div class="seg" id="c4-case">
-            <button class="on" data-case="0">미적분학</button>
-            <button data-case="1">자연선택설</button>
-            <button data-case="2">전화기</button>
-            <button data-case="3">산소의 발견</button>
-          </div>
-        </div>
-        <div class="canvas-wrap" style="border-radius:0;">
-          <canvas id="c4" width="900" height="260"></canvas>
-        </div>
-        <div class="detail-panel" id="c4-detail"></div>
-      </div>
-      <p class="foot-note">과학적 발견이 특정 천재 한 사람만의 것이 아니라, 그 시대의 지식과 기술이 쌓여 여러 사람이 비슷한 결론에 도달하는 경우가 많다는 것을 보여 주는 사례들입니다. (다중 발견, multiple discovery)</p>
+      <div id="lab"></div>
     </section>
 
+    <!-- ===================================================================== 06 정리하기 -->
     <section class="tab-panel" data-panel="5" hidden>
       <div class="stage-head">
-        <div class="eyebrow">06 · 오늘 알아낸 것을 문장으로</div>
+        <div class="eyebrow">06 · 세 일지를 하나로</div>
         <h2 class="display">정리하기</h2>
-        <p>조작한 것을 말이나 글로 옮기지 않으면 남지 않습니다. 아래를 채우고 <b>답안 복사</b>를 눌러 제출하세요. 쓰는 동안 자동으로 저장됩니다.</p>
+        <p>세 이야기의 결과가 아래에 모입니다. 세 실험 일지를 꿰는 한 문장을 쓰고 <b>답안 복사</b>를 눌러 제출하세요. 쓰는 동안 자동으로 저장됩니다.</p>
       </div>
       <div class="stage-card" style="padding:6px 0 4px"><div id="wk"></div></div>
     </section>
-  
+
     <!-- ===================================================================== 07 우리 반 -->
     <section class="tab-panel" data-panel="6" hidden>
       <div class="stage-head">
         <div class="eyebrow">07 · 같은 반 친구들과 나누기</div>
         <h2 class="display">우리 반</h2>
-        <p>정리하기에 쓴 것을 우리 반에 올리고, 같은 반 친구들이 어디까지 했는지 함께 보세요. <b>올리기 버튼을 눌렀을 때만</b> 공유됩니다. 실명 대신 별명을 쓰고, 글까지 올릴지는 직접 고르세요.</p>
+        <p>내가 완성한 실험 일지와 찾아낸 답을 우리 반에 올리고, 친구들은 역사 속 탐구에서 무엇을 배웠는지 살펴보세요. <b>올리기 버튼을 눌렀을 때만</b> 공유됩니다. 실명 대신 별명을 쓰세요.</p>
       </div>
       <div class="stage-card"><div id="share"></div></div>
     </section>
-
   </main>
 </div>
 
 <button class="theme-toggle" id="themeToggle">라이트 모드</button>
 <script src="../assets/theme.js"></script>
+<script src="../assets/story.js"></script>
+<script src="../assets/quiz.js"></script>
+<script src="../assets/lab.js"></script>
 <script src="../assets/share-config.js"></script>
 <script src="../assets/share.js"></script>
-<script>
-"use strict";
-
-/* ===== TAB 0 : 갈릴레이 낙하 실험 ===== */
-(function () {
-  var canvas = document.getElementById("c0");
-  var ctx = window.setupCanvas(canvas);
-  var W = canvas._w, H = canvas._h;
-  var angleInput = document.getElementById("c0-angle");
-  var angleVal = document.getElementById("c0-angle-val");
-  var envSeg = document.getElementById("c0-env");
-  var playBtn = document.getElementById("c0-play");
-  var resetBtn = document.getElementById("c0-reset");
-  var stateBadge = document.getElementById("c0-state");
-  var timeA = document.getElementById("c0-timeA");
-  var timeB = document.getElementById("c0-timeB");
-  var infoCard = document.getElementById("c0-info");
-
-  var env = "vacuum";
-  var angle = 30;
-  var running = false;
-  var t = 0;
-  var posA = 0, posB = 0, vA = 0, vB = 0;
-  var doneA = false, doneB = false;
-  var trackLen = 640;
-  var lastTs = null;
-  var rafId = null;
-
-  envSeg.querySelectorAll("button").forEach(function (b) {
-    b.addEventListener("click", function () {
-      envSeg.querySelectorAll("button").forEach(function (x) { x.classList.remove("on"); });
-      b.classList.add("on");
-      env = b.getAttribute("data-env");
-      resetSim();
-    });
-  });
-  angleInput.addEventListener("input", function () {
-    angle = +angleInput.value;
-    angleVal.textContent = angle + "°";
-    draw();
-  });
-  playBtn.addEventListener("click", function () {
-    if (running) return;
-    running = true;
-    stateBadge.textContent = "굴러가는 중";
-    lastTs = null;
-    rafId = requestAnimationFrame(step);
-  });
-  resetBtn.addEventListener("click", resetSim);
-
-  function resetSim() {
-    running = false;
-    if (rafId) cancelAnimationFrame(rafId);
-    t = 0; posA = 0; posB = 0; vA = 0; vB = 0;
-    doneA = false; doneB = false;
-    stateBadge.textContent = "준비됨";
-    timeA.textContent = "—";
-    timeB.textContent = "—";
-    infoCard.textContent = env === "vacuum"
-      ? "경사각과 환경을 정한 뒤 [굴리기]를 눌러 보세요. 진공(공기 저항 없음)에서는 질량과 상관없이 항상 같은 시간에 도착합니다."
-      : "공기 저항이 있으면 가벼운 공(B)이 공기 저항의 영향을 더 크게 받아 무거운 공(A)보다 늦게 도착합니다.";
-    draw();
-  }
-
-  function step(ts) {
-    if (!running) return;
-    if (lastTs === null) lastTs = ts;
-    var dt = Math.min((ts - lastTs) / 1000, 0.033);
-    lastTs = ts;
-    t += dt;
-    var g = 260; // px/s^2 scale
-    var rad = angle * Math.PI / 180;
-    var aGrav = g * Math.sin(rad);
-    var massA = 3, massB = 1;
-    var dragK = env === "air" ? 90 : 0;
-
-    if (!doneA) {
-      var aA = aGrav - (dragK * vA) / massA;
-      vA += aA * dt;
-      posA += vA * dt;
-      if (posA >= trackLen) { posA = trackLen; doneA = true; timeA.textContent = t.toFixed(2) + " 초"; }
-    }
-    if (!doneB) {
-      var aB = aGrav - (dragK * vB) / massB;
-      vB += aB * dt;
-      posB += vB * dt;
-      if (posB >= trackLen) { posB = trackLen; doneB = true; timeB.textContent = t.toFixed(2) + " 초"; }
-    }
-    draw();
-    if (doneA && doneB) {
-      running = false;
-      stateBadge.textContent = "도착!";
-      var diff = Math.abs(parseFloat(timeA.textContent) - parseFloat(timeB.textContent));
-      infoCard.innerHTML = env === "vacuum"
-        ? "<b>공기 저항이 없으면</b> 질량에 관계없이 두 공이 동시에 도착합니다. 이것이 갈릴레이가 통찰한 낙하 운동의 핵심입니다."
-        : "<b>공기 저항이 있으면</b> 가벼운 공은 상대적으로 더 큰 저항을 받아 무거운 공보다 " + diff.toFixed(2) + "초 늦게 도착했습니다. 아리스토텔레스가 관찰했던 현상이 바로 이런 경우입니다.";
-      return;
-    }
-    rafId = requestAnimationFrame(step);
-  }
-
-  function draw() {
-    ctx.clearRect(0, 0, W, H);
-    var rad = angle * Math.PI / 180;
-    var originX = 90, originY = 90;
-    var endX = originX + trackLen * Math.cos(rad);
-    var endY = originY + trackLen * Math.sin(rad);
-
-    ctx.strokeStyle = window.cssVar("--line");
-    ctx.lineWidth = 1;
-    ctx.beginPath(); ctx.moveTo(0, H - 40); ctx.lineTo(W, H - 40); ctx.stroke();
-
-    // incline
-    ctx.strokeStyle = window.cssVar("--mist");
-    ctx.lineWidth = 6;
-    ctx.lineCap = "round";
-    ctx.beginPath();
-    ctx.moveTo(originX, originY);
-    ctx.lineTo(endX, endY);
-    ctx.stroke();
-    ctx.beginPath();
-    ctx.moveTo(originX, originY);
-    ctx.lineTo(originX, endY);
-    ctx.lineTo(endX, endY);
-    ctx.closePath();
-    ctx.strokeStyle = window.cssVar("--line");
-    ctx.lineWidth = 1;
-    ctx.stroke();
-
-    function ballAt(pos, color, r, lane) {
-      var x = originX + (pos) * Math.cos(rad) + lane * Math.sin(rad);
-      var y = originY + (pos) * Math.sin(rad) - lane * Math.cos(rad);
-      ctx.beginPath();
-      ctx.arc(x, y, r, 0, Math.PI * 2);
-      ctx.fillStyle = color;
-      ctx.fill();
-      ctx.strokeStyle = window.cssVar("--panel");
-      ctx.lineWidth = 2;
-      ctx.stroke();
-      return { x: x, y: y };
-    }
-    var pa = ballAt(posA, window.cssVar("--coral"), 16, 20);
-    ctx.fillStyle = window.cssVar("--foam");
-    ctx.font = "bold 12px sans-serif";
-    ctx.fillText("A 3kg", pa.x - 16, pa.y - 22);
-
-    var pb = ballAt(posB, window.cssVar("--cold"), 10, -18);
-    ctx.fillText("B 1kg", pb.x - 16, pb.y - 20);
-  }
-
-  resetSim();
-})();
-
-/* TAB0 미션 — 도착 순서 예측하기 */
-(function () {
-  var dataBox = document.getElementById("c0m-data");
-  var seg = document.getElementById("c0m-choices");
-  var checkBtn = document.getElementById("c0m-check");
-  var newBtn = document.getElementById("c0m-new");
-  var info = document.getElementById("c0m-info");
-  var labels = { same: "두 공은 동시에 도착한다", heavy: "무거운 공 A가 먼저 도착한다", light: "가벼운 공 B가 먼저 도착한다" };
-  var env, angle, key, picked = null;
-
-  function newQuestion() {
-    env = Math.random() < 0.5 ? "vacuum" : "air";
-    angle = 10 + Math.floor(Math.random() * 51);
-    key = env === "vacuum" ? "same" : "heavy";
-    picked = null;
-    dataBox.innerHTML = "경사각 " + angle + "°, 환경: <b>" + (env === "vacuum" ? "공기 저항 없음(진공)" : "공기 저항 있음") + "</b>인 경사면에서 무거운 공 A(3kg)와 가벼운 공 B(1kg)를 동시에 굴렸습니다. 어느 공이 먼저 도착할까요?";
-    seg.querySelectorAll("button").forEach(function (x) { x.classList.remove("on"); });
-    info.innerHTML = "";
-    info.style.color = "";
-  }
-
-  seg.querySelectorAll("button").forEach(function (btn) {
-    btn.addEventListener("click", function () {
-      picked = btn.dataset.c;
-      seg.querySelectorAll("button").forEach(function (x) { x.classList.toggle("on", x === btn); });
-    });
-  });
-
-  checkBtn.addEventListener("click", function () {
-    if (!picked) { info.innerHTML = "먼저 보기를 하나 선택하세요."; info.style.color = "var(--coral)"; return; }
-    if (picked === key) {
-      info.innerHTML = "✅ 정답! " + (key === "same" ? "진공에서는 공기 저항이 없어 질량과 상관없이 같은 가속도로 떨어지므로 동시에 도착합니다." : "공기 중에서는 가벼운 공이 공기 저항의 상대적 영향을 더 크게 받아 무거운 공이 먼저 도착합니다.");
-      info.style.color = "var(--teal)";
-    } else {
-      info.innerHTML = "❌ 틀렸습니다. 정답은 '" + labels[key] + "' 입니다.";
-      info.style.color = "var(--coral)";
-    }
-  });
-
-  newBtn.addEventListener("click", newQuestion);
-  newQuestion();
-})();
-
-/* ===== TAB 1 : 도량형의 역사 ===== */
-(function () {
-  var canvas = document.getElementById("c1");
-  var ctx = window.setupCanvas(canvas);
-  var W = canvas._w, H = canvas._h;
-  var slider = document.getElementById("c1-slider");
-  var eraVal = document.getElementById("c1-era-val");
-  var fill = document.getElementById("c1-fill");
-  var detail = document.getElementById("c1-detail");
-
-  var eras = [
-    {
-      name: "고대 이집트 (약 BC 3000)", unit: "큐빗(cubit)",
-      desc: "파라오의 팔꿈치부터 가운뎃손가락 끝까지의 길이를 '왕실 큐빗'으로 정해 피라미드 건설 등에 사용했습니다. 사람마다 팔 길이가 달라 기준이 되는 표준 막대(큐빗 자)를 만들어 관리했습니다.",
-      icon: "arm"
-    },
-    {
-      name: "중국 진(秦) — BC 221", unit: "도량형 통일",
-      desc: "진시황이 중국을 통일한 뒤 나라마다 달랐던 자·되·저울을 하나로 통일했습니다. 상거래와 세금 징수, 도로·수레 규격까지 표준화되며 통치 효율이 크게 높아졌습니다.",
-      icon: "scale"
-    },
-    {
-      name: "중세 유럽", unit: "야드·인치·파운드",
-      desc: "국왕의 팔 길이(야드), 엄지손가락 너비(인치)처럼 신체를 기준으로 한 단위가 지역마다 조금씩 다르게 쓰였습니다. 국가·지역 간 교역이 늘면서 단위 불일치로 인한 혼란이 커졌습니다.",
-      icon: "arm2"
-    },
-    {
-      name: "프랑스 혁명 — 1799", unit: "미터법 제정",
-      desc: "지구 자오선(북극~적도) 길이의 1000만분의 1을 1미터로 정의했습니다. '자연에서 유래해 누구도 소유할 수 없는' 단위를 만들자는 혁명 정신이 반영되었습니다.",
-      icon: "earth"
-    },
-    {
-      name: "미터협약 — 1875", unit: "국제 표준 원기",
-      desc: "17개국이 미터협약에 서명하고, 백금-이리듐 합금으로 만든 '국제 미터원기'를 표준으로 삼았습니다. 이후 100년 넘게 실물 막대가 1m의 기준이 되었습니다.",
-      icon: "bar"
-    },
-    {
-      name: "국제단위계(SI) 재정의 — 2019", unit: "물리 상수 기준",
-      desc: "더 이상 실물에 의존하지 않고, 빛의 속도·플랑크 상수 등 변하지 않는 자연 상수로 모든 단위를 정의합니다. 1미터는 '빛이 진공에서 1/299,792,458초 동안 이동한 거리'로 정의됩니다.",
-      icon: "atom"
-    }
-  ];
-
-  function render() {
-    var i = Math.round(+slider.value);
-    var e = eras[i];
-    eraVal.textContent = e.name;
-    fill.style.width = (i / (eras.length - 1) * 100) + "%";
-    detail.innerHTML = "<h4>" + e.unit + "</h4>" + e.desc;
-    drawIcon(e.icon);
-  }
-
-  function drawIcon(kind) {
-    ctx.clearRect(0, 0, W, H);
-    var cx = W / 2, cy = H / 2 - 10;
-    ctx.strokeStyle = window.cssVar("--teal");
-    ctx.fillStyle = window.cssVar("--teal");
-    ctx.lineWidth = 4;
-    ctx.lineCap = "round";
-    if (kind === "arm" || kind === "arm2") {
-      ctx.beginPath();
-      ctx.moveTo(cx - 160, cy + 40);
-      ctx.lineTo(cx - 20, cy - 30);
-      ctx.lineTo(cx + 160, cy - 30);
-      ctx.stroke();
-      ctx.beginPath(); ctx.arc(cx - 160, cy + 40, 14, 0, Math.PI * 2); ctx.fill();
-      ctx.fillStyle = window.cssVar("--mist");
-      ctx.font = "13px sans-serif";
-      ctx.fillText(kind === "arm" ? "팔꿈치 ~ 손끝 = 1큐빗" : "팔 길이 = 1야드", cx - 60, cy - 45);
-    } else if (kind === "scale") {
-      ctx.beginPath(); ctx.moveTo(cx, cy - 40); ctx.lineTo(cx, cy + 30); ctx.stroke();
-      ctx.beginPath(); ctx.moveTo(cx - 90, cy - 20); ctx.lineTo(cx + 90, cy - 20); ctx.stroke();
-      [-90, 90].forEach(function (dx) {
-        ctx.beginPath(); ctx.moveTo(cx + dx, cy - 20); ctx.lineTo(cx + dx, cy + 5); ctx.stroke();
-        ctx.beginPath(); ctx.arc(cx + dx, cy + 15, 22, 0, Math.PI, false); ctx.stroke();
-      });
-      ctx.fillStyle = window.cssVar("--mist");
-      ctx.font = "13px sans-serif";
-      ctx.fillText("전국 표준 저울·되·자", cx - 70, cy + 55);
-    } else if (kind === "earth") {
-      ctx.beginPath(); ctx.arc(cx, cy, 55, 0, Math.PI * 2); ctx.stroke();
-      ctx.beginPath(); ctx.ellipse(cx, cy, 55, 20, 0, 0, Math.PI * 2); ctx.stroke();
-      ctx.setLineDash([4, 4]);
-      ctx.beginPath(); ctx.moveTo(cx, cy - 55); ctx.lineTo(cx, cy + 55); ctx.stroke();
-      ctx.setLineDash([]);
-      ctx.fillStyle = window.cssVar("--mist");
-      ctx.font = "13px sans-serif";
-      ctx.fillText("자오선의 1/10,000,000 = 1m", cx - 110, cy + 85);
-    } else if (kind === "bar") {
-      window.roundRect(ctx, cx - 120, cy - 8, 240, 16, 4);
-      ctx.fillStyle = window.cssVar("--teal"); ctx.fill();
-      ctx.fillStyle = window.cssVar("--mist");
-      ctx.font = "13px sans-serif";
-      ctx.fillText("백금-이리듐 국제 미터원기", cx - 90, cy + 40);
-    } else {
-      for (var i = 0; i < 3; i++) {
-        ctx.beginPath();
-        ctx.ellipse(cx, cy, 50 + i * 18, 18 + i * 6, i * 0.6, 0, Math.PI * 2);
-        ctx.strokeStyle = window.cssVar(i === 0 ? "--teal" : "--mist");
-        ctx.stroke();
-      }
-      ctx.fillStyle = window.cssVar("--teal");
-      ctx.beginPath(); ctx.arc(cx, cy, 6, 0, Math.PI * 2); ctx.fill();
-      ctx.fillStyle = window.cssVar("--mist");
-      ctx.font = "13px sans-serif";
-      ctx.fillText("빛의 속도 c 로 정의된 1m", cx - 90, cy + 80);
-    }
-  }
-
-  slider.addEventListener("input", render);
-  render();
-})();
-
-/* ===== TAB 2 : 우리 선조의 과학 기술 ===== */
-(function () {
-  var items = [
-    { ico: "🌞", name: "앙부일구", era: "조선 세종", desc: "가마솥 모양의 해시계로, 그림자의 위치로 시각과 절기(24절기)를 함께 읽을 수 있게 설계했습니다. 백성 누구나 읽기 쉽도록 시각을 동물 그림으로 표시했습니다." },
-    { ico: "💧", name: "자격루", era: "조선 세종(1434)", desc: "물의 흐름으로 스스로 종·북·징을 울려 시각을 알리는 자동 물시계입니다. 정밀한 부력 장치와 지렛대 구조를 이용한 당대 최고 수준의 자동제어 기술입니다." },
-    { ico: "🌧️", name: "측우기", era: "조선 세종(1441)", desc: "표준화된 원통형 그릇으로 강우량을 정량적으로 측정한 세계 최초의 공인 강우량계입니다. 유럽보다 약 200년 앞선 과학적 관측 도구입니다." },
-    { ico: "🔭", name: "혼천의", era: "조선 세종", desc: "해·달·별의 움직임을 관측하고 위치를 계산하는 천문 관측기구입니다. 여러 개의 둥근 고리가 하늘의 적도·황도 좌표계를 입체적으로 표현합니다." },
-    { ico: "🚢", name: "거북선", era: "조선 선조(1592)", desc: "판옥선을 개량해 갑판을 덮고 쇠못·창검을 꽂아 적의 접근과 화공을 막은 돌격형 전함입니다. 구조 역학과 화포 운용 기술이 결합된 결과물입니다." },
-    { ico: "📖", name: "금속활자", era: "고려(1377, 직지심체요절)", desc: "구텐베르크의 금속활자(1450년경)보다 70여 년 앞선 세계 최초의 금속활자 인쇄술입니다. 청동 주조 기술과 인쇄 기술의 결합으로 지식의 대량 복제가 가능해졌습니다." }
-  ];
-  var grid = document.getElementById("c2-grid");
-  var detail = document.getElementById("c2-detail");
-  items.forEach(function (it, idx) {
-    var btn = document.createElement("button");
-    btn.className = "pick-card";
-    btn.innerHTML = '<span class="ico">' + it.ico + '</span><div class="t">' + it.name + '</div><div class="d">' + it.era + '</div>';
-    btn.addEventListener("click", function () {
-      grid.querySelectorAll(".pick-card").forEach(function (c) { c.classList.remove("on"); });
-      btn.classList.add("on");
-      detail.innerHTML = "<h4>" + it.ico + " " + it.name + " · " + it.era + "</h4>" + it.desc;
-    });
-    grid.appendChild(btn);
-  });
-})();
-
-/* ===== TAB 3 : 멘델레예프의 주기율표 ===== */
-(function () {
-  var elements = [
-    { s: "H", m: 1.008, cat: "" }, { s: "He", m: 4.003, cat: "noble" },
-    { s: "Li", m: 6.94, cat: "alkali" }, { s: "Be", m: 9.012, cat: "alk-earth" },
-    { s: "B", m: 10.81, cat: "" }, { s: "C", m: 12.011, cat: "" },
-    { s: "N", m: 14.007, cat: "" }, { s: "O", m: 15.999, cat: "" },
-    { s: "F", m: 18.998, cat: "halogen" }, { s: "Ne", m: 20.180, cat: "noble" },
-    { s: "Na", m: 22.990, cat: "alkali" }, { s: "Mg", m: 24.305, cat: "alk-earth" },
-    { s: "Al", m: 26.982, cat: "" }, { s: "Si", m: 28.085, cat: "" },
-    { s: "P", m: 30.974, cat: "" }, { s: "S", m: 32.06, cat: "" },
-    { s: "Cl", m: 35.45, cat: "halogen" }, { s: "Ar", m: 39.948, cat: "noble" }
-  ];
-  var catColor = { alkali: "--coral", "alk-earth": "--cold", halogen: "--teal", noble: "--violet" };
-  var grid = document.getElementById("c3-grid");
-  var sortBtn = document.getElementById("c3-sort");
-  var shuffleBtn = document.getElementById("c3-shuffle");
-  var info = document.getElementById("c3-info");
-  var current = elements.slice();
-
-  function shuffle(arr) {
-    var a = arr.slice();
-    for (var i = a.length - 1; i > 0; i--) {
-      var j = Math.floor(Math.random() * (i + 1));
-      var tmp = a[i]; a[i] = a[j]; a[j] = tmp;
-    }
-    return a;
-  }
-
-  function render() {
-    grid.innerHTML = "";
-    current.forEach(function (el) {
-      var card = document.createElement("div");
-      card.className = "pick-card";
-      card.style.textAlign = "center";
-      card.style.padding = "10px 4px";
-      card.style.cursor = "default";
-      if (el.cat && catColor[el.cat]) {
-        card.style.borderColor = "var(" + catColor[el.cat] + ")";
-        card.style.background = "color-mix(in srgb, var(" + catColor[el.cat] + ") 16%, var(--panel-2))";
-      }
-      card.innerHTML = '<div style="font-size:17px;font-weight:800;">' + el.s + '</div><div style="font-size:10.5px;color:var(--mist);margin-top:2px;">' + el.m + '</div>';
-      grid.appendChild(card);
-    });
-  }
-
-  sortBtn.addEventListener("click", function () {
-    current = elements.slice().sort(function (a, b) { return a.m - b.m; });
-    render();
-    info.innerHTML = "<b>원자량 순 정렬 완료.</b> 왼쪽부터 8칸마다 같은 색 원소(같은 족)가 다시 나타납니다 — 이것이 멘델레예프가 발견한 <b>주기율</b>입니다.";
-  });
-  shuffleBtn.addEventListener("click", function () {
-    current = shuffle(elements);
-    render();
-    info.textContent = "원소가 뒤섞였습니다. 다시 [원자량 순으로 정렬] 버튼을 눌러 규칙을 찾아보세요.";
-  });
-
-  render();
-})();
-
-/* ===== TAB 4 : 동시 발견 이야기 ===== */
-(function () {
-  var canvas = document.getElementById("c4");
-  var ctx = window.setupCanvas(canvas);
-  var W = canvas._w, H = canvas._h;
-  var seg = document.getElementById("c4-case");
-  var detail = document.getElementById("c4-detail");
-
-  var cases = [
-    {
-      title: "미적분학의 발견",
-      range: [1660, 1690],
-      a: { name: "아이작 뉴턴 (영국)", events: [[1665, "유율법(미분) 아이디어 착안"], [1666, "역유율법(적분) 정리"], [1687, "「프린키피아」 출간, 물리학에 적용"]] },
-      b: { name: "고트프리트 라이프니츠 (독일)", events: [[1675, "독자적으로 미적분 개념 정리"], [1684, "미분 논문 최초 출판"], [1686, "적분 논문 출판"]] },
-      note: "두 사람은 서로 교류 없이 독립적으로 미적분을 완성했습니다. 이후 '누가 먼저인가'를 두고 오랜 우선권 논쟁이 벌어졌지만, 오늘날에는 각자의 독창적 발견으로 인정받으며 라이프니츠의 표기법(dx, ∫)이 현재도 널리 쓰입니다."
-    },
-    {
-      title: "자연선택에 의한 진화설",
-      range: [1830, 1860],
-      a: { name: "찰스 다윈 (영국)", events: [[1831, "비글호 항해 시작"], [1838, "자연선택 아이디어 구상"], [1859, "「종의 기원」 출간"]] },
-      b: { name: "앨프리드 러셀 월리스 (영국)", events: [[1848, "아마존·말레이 제도 탐사"], [1858, "다윈에게 자연선택 이론 편지 발송"], [1858, "다윈-월리스 공동 논문 발표"]] },
-      note: "월리스가 다윈과 거의 동일한 결론에 도달한 논문을 보내오자, 두 사람의 이론은 1858년 런던 린네 학회에서 공동으로 먼저 발표되었고, 이듬해 다윈이 「종의 기원」을 출간했습니다."
-    },
-    {
-      title: "실용적인 전화기의 발명",
-      range: [1874, 1877],
-      a: { name: "알렉산더 그레이엄 벨 (미국)", events: [[1875, "음성을 전기 신호로 변환하는 실험"], [1876, "2월 14일 특허 출원"], [1876, "3월 최초 통화 성공"]] },
-      b: { name: "일라이셔 그레이 (미국)", events: [[1874, "전화 관련 장치 연구 시작"], [1876, "2월 14일 벨과 같은 날 특허 예고(caveat) 제출"], [1876, "우선권 분쟁 패소"]] },
-      note: "벨과 그레이는 공교롭게도 1876년 2월 14일 같은 날, 같은 특허청에 전화 관련 서류를 제출했습니다. 몇 시간 차이로 벨이 먼저 접수되어 전화의 발명자로 공식 인정받았습니다."
-    },
-    {
-      title: "산소의 발견",
-      range: [1770, 1780],
-      a: { name: "칼 빌헬름 셸레 (스웨덴)", events: [[1771, "산화수은 가열로 '불의 공기' 분리"], [1772, "실험 결과 기록"], [1777, "논문 출판 지연으로 뒤늦게 발표"]] },
-      b: { name: "조지프 프리스틀리 (영국)", events: [[1774, "산화수은 가열 실험으로 기체 분리"], [1774, "발견 사실 신속히 발표"], [1775, "'탈플로지스톤 공기'로 명명"]] },
-      note: "셸레가 프리스틀리보다 먼저 산소를 분리했지만 출판이 늦어져 프리스틀리가 먼저 공식 발표자로 알려졌습니다. 이후 라부아지에가 이 기체에 '산소'라는 이름을 붙이고 연소 이론을 재정립했습니다."
-    }
-  ];
-
-  var idx = 0;
-  seg.querySelectorAll("button").forEach(function (b, i) {
-    b.addEventListener("click", function () {
-      seg.querySelectorAll("button").forEach(function (x) { x.classList.remove("on"); });
-      b.classList.add("on");
-      idx = i;
-      render();
-    });
-  });
-
-  function render() {
-    var c = cases[idx];
-    drawTimeline(c);
-    var html = "<h4>" + c.title + "</h4>";
-    html += '<div style="margin-bottom:10px;"><b style="color:var(--coral)">' + c.a.name + "</b><br>" +
-      c.a.events.map(function (e) { return e[0] + " — " + e[1]; }).join("<br>") + "</div>";
-    html += '<div style="margin-bottom:10px;"><b style="color:var(--cold)">' + c.b.name + "</b><br>" +
-      c.b.events.map(function (e) { return e[0] + " — " + e[1]; }).join("<br>") + "</div>";
-    html += "<div>" + c.note + "</div>";
-    detail.innerHTML = html;
-  }
-
-  function drawTimeline(c) {
-    ctx.clearRect(0, 0, W, H);
-    var padL = 60, padR = 40;
-    var y0 = 90, y1 = 180;
-    var t0 = c.range[0], t1 = c.range[1];
-    function xOf(year) { return padL + (year - t0) / (t1 - t0) * (W - padL - padR); }
-
-    [y0, y1].forEach(function (y) {
-      ctx.strokeStyle = window.cssVar("--line");
-      ctx.lineWidth = 2;
-      ctx.beginPath(); ctx.moveTo(padL, y); ctx.lineTo(W - padR, y); ctx.stroke();
-    });
-
-    ctx.fillStyle = window.cssVar("--mist");
-    ctx.font = "11px sans-serif";
-    ctx.fillText(t0, padL - 10, y0 + 30);
-    ctx.fillText(t1, W - padR - 15, y0 + 30);
-
-    function plot(events, y, color, name) {
-      ctx.fillStyle = window.cssVar("--mist");
-      ctx.font = "bold 12px sans-serif";
-      ctx.fillText(name, padL, y - 16);
-      events.forEach(function (e) {
-        var x = xOf(e[0]);
-        ctx.beginPath();
-        ctx.arc(x, y, 6, 0, Math.PI * 2);
-        ctx.fillStyle = window.cssVar(color);
-        ctx.fill();
-        ctx.strokeStyle = window.cssVar("--panel");
-        ctx.lineWidth = 2;
-        ctx.stroke();
-      });
-    }
-    plot(c.a.events, y0, "--coral", c.a.name.split(" ")[0] + " " + c.a.name.split(" ")[1] || c.a.name);
-    plot(c.b.events, y1, "--cold", c.b.name.split(" ")[0] + " " + c.b.name.split(" ")[1] || c.b.name);
-  }
-
-  render();
-})();
-</script>
-
-<script>
-(function () {
-  window.sthUnit("gt1-1-3");
-  window.sthWork({
-    mount: "wk",
-    unitLabel: "[과학탐구실험1 Ⅰ] 역사 속의 과학 탐구",
-    items: [
-      {
-            "id": "w1",
-            "label": "갈릴레이가 실제로 한 것",
-            "hint": "사탑 일화가 아니라면 갈릴레이는 무엇으로 결론을 얻었는지 쓰세요.",
-            "ph": ""
-      },
-      {
-            "id": "w2",
-            "label": "같은 발견이 동시에",
-            "hint": "같은 시기에 여러 사람이 같은 것을 발견한 사례를 하나 들고, 왜 그런 일이 생기는지 생각을 쓰세요.",
-            "ph": ""
-      },
-      {
-            "id": "w3",
-            "label": "아직 헷갈리는 것",
-            "hint": "다음 시간에 여기서부터 시작합니다.",
-            "ph": ""
-      }
-]
-  });
-})();
-</script>
-
-<script>
-(function () {
-  window.sthGate({
-    gate: "gt", veil: "vl", key: "galileo",
-    question: "갈릴레이가 <b>피사의 사탑에서 두 공을 떨어뜨린 실험</b>은 실제로 있었을까요?",
-    options: ["㉠ 실제로 있었고 기록도 남아 있다", "㉡ 근거가 명확하지 않은 후대의 이야기다", "㉢ 다른 사람이 한 실험이다", "㉣ 실패한 실험이었다"],
-    onPick: function (i) {
-      var ok = (i === 1);
-      window.sthState("galileoOK", ok ? "맞음" : "어긋남");
-      var msg = (ok ? "<b>맞았습니다.</b> " : "<b>정답은 ㉡ 입니다.</b> ") + "이 일화는 <b>후대에 만들어진 것으로 근거가 명확하지 않습니다.</b>" + " " + "갈릴레이가 실제로 쓴 것은 <b>사고 실험</b>과 <b>빗면 실험</b>이었습니다. 낙하는 너무 빨라 당시 기술로 잴 수 없었기에, 빗면으로 <b>느리게 만들어</b> 측정했습니다.";
-      var g = document.getElementById("gt");
-      var box = g.parentNode.querySelector(".info-card");
-      if (box) box.innerHTML = msg;
-      else { var d = document.createElement("div"); d.className = "info-card"; d.style.margin = "18px 0 0";
-             d.innerHTML = msg; g.insertAdjacentElement("afterend", d); }
-    }
-  });
-  window.sthShare({
-    mount: "share",
-    unit: "gt1-1-3",
-    unitLabel: "[과학탐구실험1 Ⅰ] 역사 속의 과학 탐구",
-    works: [
-      { id: "w1", label: "갈릴레이가 실제로 한 것" },
-      { id: "w2", label: "같은 발견이 동시에" }
-    ]
-  });
-})();
-</script>
+<script src="episodes.js"></script>
+<script src="quiz-items.js"></script>
+<script src="lab-cases.js"></script>
 </body>
 </html>
