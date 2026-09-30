@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>과학의 본성과 역사 속의 과학 탐구 — 관측 스테이션</title>
 <link rel="stylesheet" href="../assets/theme.css">
-<link rel="stylesheet" href="../assets/share.css">
+<link rel="stylesheet" href="../assets/story.css">
 </head>
 <body>
 
@@ -18,325 +18,208 @@
     </div>
     <button class="tab-btn active" data-tab="0"><span class="num">01</span> 과학의 본성</button>
     <button class="tab-btn" data-tab="1"><span class="num">02</span> 역사 속 과학 탐구 사례</button>
-    <button class="tab-btn" data-tab="2"><span class="num">03</span> 정리하기</button>
-    <button class="tab-btn" data-tab="3"><span class="num">04</span> 우리 반</button>
+    <button class="tab-btn" data-tab="2"><span class="num">03</span> 수준별 문제</button>
+    <button class="tab-btn" data-tab="3"><span class="num">04</span> 응용 실험실</button>
+    <button class="tab-btn" data-tab="4"><span class="num">05</span> 정리하기</button>
+    <button class="tab-btn" data-tab="5"><span class="num">06</span> 우리 반</button>
   </nav>
 
   <main>
+    <!-- =====================================================================
+         01 과학의 본성 — 이야기 「빛보다 빠른 중성미자」
+         ===================================================================== -->
     <section class="tab-panel" data-panel="0">
       <div class="stage-head">
-        <div class="eyebrow">01 · 과학은 어떻게 지식을 만드는가</div>
-        <h2 class="display">과학의 본성</h2>
-        <p>카드를 클릭해 과학 지식이 만들어지는 과정의 특징을 확인해 보세요.</p>
-      
+        <div class="eyebrow">01 · 과학은 어떻게 지식을 만드는가 · 이야기 한 편</div>
+        <h2 class="display">빛보다 빠른 중성미자</h2>
+        <p>2011년 “빛보다 빠른 입자를 찾았다”는 발표가 세계를 흔들었습니다. 과학 기자가 되어 60 나노초의 수수께끼를 계산으로 따라가고, 동료 검토가 오류를 걸러 내는 힘을 모의실험으로 확인하며, 과학 지식이 만들어지는 방식의 특징을 정리합니다.</p>
         <span class="std-chip">10과탐1-01-01</span><span class="std-chip">10과탐1-01-02</span><div class="std-note"><b>[10과탐1-01-01]</b> 과학사에서 패러다임의 전환을 가져온 결정적 실험을 따라 해 보고, 과학의 발전 과정에 관해 설명할 수 있다.<br><b>[10과탐1-01-02]</b> 과학사의 다양한 사례들로부터 과학의 본성을 추론할 수 있다.</div><p class="std-note" style="margin-top:6px">※ 같은 영역의 실습편이 <b>Ⅰ. 역사 속의 과학 탐구</b>(1-3)에 따로 있습니다. 이 화면은 개관이고, 실제 탐구는 그쪽에서 합니다.</p><div class="terms"><b>과학의 본성</b><b>결정적 실험</b><b>패러다임</b></div>
       </div>
-      <div class="stage-card">
-        <div class="canvas-wrap"><canvas id="c0" width="900" height="380"></canvas></div>
-        <div class="info-card" id="c0-info">카드를 클릭해 보세요.</div>
-      </div>
 
-      <div class="stage-card" style="margin-top:14px;">
-        <div class="stage-head" style="padding:16px 20px 0;">
-          <div class="eyebrow">심화 · '사회적 합의 과정' 체험하기</div>
-          <h2 class="display" style="font-size:20px;">동료 검토(peer review) 시뮬레이터</h2>
-          <p>한 명의 검토자가 논문의 오류를 발견할 확률을 30%라고 가정할 때, 검토자 수를 늘리면 오류를 걸러낼 확률이 어떻게 달라지는지 확인해 보세요.</p>
-        </div>
-        <div class="canvas-wrap"><canvas id="c0b" width="900" height="260"></canvas></div>
-        <div class="controls">
-          <div class="ctrl-group">
-            <div class="ctrl-label">검토자 수(명)<span class="val" id="c0b-n-val">1</span></div>
-            <input type="range" id="c0b-n" min="1" max="20" step="1" value="1">
+      <div class="episode" id="ep1">
+        <section class="scene" data-title="속보 — 아인슈타인이 틀렸다?">
+          <div class="story narr"><div class="who">📰</div><div class="say"><span class="name">이야기</span>2011년 9월, 스위스 CERN 에서 약 730 km 떨어진 이탈리아 그란사소 지하 실험실로 쏜 중성미자가 <b>빛보다 약 60 나노초(1억분의 6초) 먼저</b> 도착했다는 발표가 나왔습니다. 사실이라면 “빛보다 빠른 것은 없다”는 상대성 이론이 흔들리는 일입니다.</div></div>
+          <div class="story"><div class="who">🧑‍💼</div><div class="say"><span class="name">과학부 데스크</span>“1면에 ‘아인슈타인이 틀렸다’로 갈까? 연구팀도 발표했으니 이제 사실이 된 거지?”</div></div>
+          <div class="case-file"><b class="k">연구팀의 발표문</b> “우리는 이 결과를 설명할 오류를 찾지 못했다. 다른 연구자들이 검토하고 독립적으로 측정해 주기를 요청한다.”</div>
+          <div class="gate loose" id="g1"></div>
+        </section>
+
+        <section class="scene" data-title="60 나노초의 수수께끼">
+          <div class="story"><div class="who">⏱️</div><div class="say"><span class="name">물리학자 인터뷰</span>“빛은 730 km 를 약 2.435 밀리초에 갑니다. 중성미자가 60 나노초 빨랐다는 건 빛보다 겨우 10만분의 2.5 빠르다는 뜻이에요. 그런데 만약 장비의 시계가 <b>몇십 나노초</b>만 어긋나 있었다면? 측정 장비의 시간 오차를 바꿔 보며, 중성미자의 속력이 <b>정확히 빛과 같아지는</b> 오차를 찾아보세요.”</div></div>
+          <div class="stage-card">
+            <div class="canvas-wrap"><canvas id="a-c-nu" width="900" height="280"></canvas></div>
+            <div class="controls">
+              <div class="ctrl-group">
+                <div class="ctrl-label">측정 장비가 도착 시각을 이르게 잰 오차<span class="val" id="a-e-val">0 ns</span></div>
+                <input type="range" id="a-e" min="0" max="100" step="5" value="0">
+              </div>
+            </div>
+            <div class="info-card" id="a-nu-info"></div>
           </div>
-        </div>
-        <div class="info-card" id="c0b-info"></div>
-      </div>
+          <div id="a-nu-pick"></div>
+          <div class="mission" id="m1-2"><ul><li id="m1-2a">중성미자의 속력이 빛과 같아지는 장비 오차 찾기</li><li id="m1-2b">연구팀이 다른 과학자들에게 검증을 요청한 까닭 고르기</li></ul></div>
+        </section>
 
-      <div class="stage-head">
-        <div class="eyebrow">🔎 미션 · 동료 검토 확률 어림하기</div>
-        <h2 class="display" style="font-size:18px;">검토자가 n명일 때 오류를 걸러낼 확률은?</h2>
+        <section class="scene" data-title="동료 검토 — 몇 명이 보아야 걸러질까">
+          <div class="story"><div class="who">🧑‍🔬</div><div class="say"><span class="name">학술지 편집자</span>“한 명의 검토자가 논문 속 오류를 발견할 확률이 30% 라고 해 봅시다. 여러 명이 <b>따로따로</b> 검토하면 적어도 한 명이 오류를 찾을 확률은 1 − 0.7ⁿ 이에요. 오류를 <b>95% 이상</b> 걸러 내려면 검토자가 적어도 몇 명 필요할까요? 너무 많이 부르면 심사가 한없이 늦어지니 가장 적은 수를 찾아 주세요.”</div></div>
+          <div class="stage-card">
+            <div class="canvas-wrap"><canvas id="a-c-pr" width="900" height="260"></canvas></div>
+            <div class="controls">
+              <div class="ctrl-group">
+                <div class="ctrl-label">검토자 수(명)<span class="val" id="a-pr-n-val">1</span></div>
+                <input type="range" id="a-pr-n" min="1" max="20" step="1" value="1">
+              </div>
+            </div>
+            <div class="info-card" id="a-pr-info"></div>
+          </div>
+          <div id="a-pr-pick"></div>
+          <div class="mission" id="m1-3"><ul><li id="m1-3a">오류를 95% 이상 걸러 내는 가장 적은 검토자 수 찾기</li><li id="m1-3b">검토자 5명일 때의 확률 어림하기</li></ul></div>
+        </section>
+
+        <section class="scene" data-title="취재 메모 정리 — 과학의 본성">
+          <div class="story"><div class="who">🗒️</div><div class="say"><span class="name">기자의 취재 수첩</span>“이번 사건은 과학이 지식을 만드는 방식을 고스란히 보여 줬다.” 메모를 과학의 본성 네 가지로 나눠 기사 뼈대를 세우세요.</div></div>
+          <div class="stage-card"><div id="a-sort"></div></div>
+          <div class="mission" id="m1-4">취재 메모 8장을 과학의 본성 네 가지로 나누세요.</div>
+        </section>
+
+        <section class="scene" data-title="결말 — 2012년 2월의 정정 보도">
+          <div class="ending">
+            <h4>📰 “빛보다 빠른 중성미자, 느슨한 케이블 때문이었다”</h4>
+            <p>몇 달 뒤 연구팀은 시계 신호를 전하는 <b>광섬유 케이블의 연결이 헐거웠던 것</b>을 찾아냈고, 같은 경로로 측정한 다른 연구팀(ICARUS)은 중성미자의 속력이 빛과 다르지 않음을 확인했습니다. 결과는 철회되었고 상대성 이론은 그대로 남았습니다. 이 사건은 과학 지식이 <b>경험적 증거</b>에 기초하고, 새 증거로 언제든 고쳐질 수 있는 <b>잠정적</b> 지식이며, 동료 검토와 재현이라는 <b>사회적 합의 과정</b>을 거쳐야 인정받고, 관측·실험·추론 같은 <b>다양한 방법</b>으로 탐구된다는 것을 보여 줍니다. 오류를 찾아 스스로 고치는 힘이 과학의 강점입니다.</p>
+            <div class="vs" id="e1-vs"></div>
+            <span class="stamp">사건 파일 ① 해결</span>
+          </div>
+          <div class="info-card" style="margin:14px 0">📎 과학자의 눈: 실제로는 헐거운 케이블 연결과 시계 장치의 작은 오차가 함께 영향을 주었고, 두 효과를 합친 결과가 약 60 나노초의 차이로 나타났습니다. 동료 검토 모형은 검토자들이 서로 독립적으로, 같은 확률로 오류를 찾는다고 가정한 단순한 계산입니다.</div>
+          <div class="stage-card" style="padding:6px 0 4px;margin-top:16px"><div id="wk1"></div></div>
+        </section>
       </div>
-      <div class="stage-card">
-        <div class="info-card" id="c0m-data"></div>
-        <div class="seg" id="c0m-choices"></div>
-        <div class="toggle-row" style="margin:14px 20px;">
-          <button class="btn" id="c0m-check">정답 확인</button>
-          <button class="btn" id="c0m-new">새 문제</button>
-        </div>
-        <div class="info-card" id="c0m-info"></div>
-      </div>
+      <p class="teacher-note">교사용: 주소 끝에 <a href="?open=1">?open=1</a> 을 붙이면 모든 장면이 열립니다.</p>
     </section>
 
+    <!-- =====================================================================
+         02 역사 속 과학 탐구 사례 — 이야기 「보름달 금성」
+         ===================================================================== -->
     <section class="tab-panel" data-panel="1" hidden>
       <div class="stage-head">
-        <div class="eyebrow">02 · 관찰과 증거로 세계관이 바뀐 순간들</div>
-        <h2 class="display">역사 속 과학 탐구 사례</h2>
-        <p>타임라인의 사례를 클릭해, 새로운 증거와 탐구가 어떻게 기존의 과학적 설명을 바꾸었는지 확인해 보세요.</p>
+        <div class="eyebrow">02 · 관찰과 증거로 세계관이 바뀐 순간들 · 이야기 한 편</div>
+        <h2 class="display">보름달 금성</h2>
+        <p>과학관의 ‘세계관이 바뀐 순간’ 특별전을 준비하는 해설사가 되어, 갈릴레이가 망원경으로 본 금성의 모양이 왜 천동설을 무너뜨렸는지 두 모형으로 직접 확인하고, 허블처럼 은하의 자료로 우주의 팽창을 읽어 냅니다.</p>
+        <span class="std-chip">10과탐1-01-01</span><div class="std-note"><b>[10과탐1-01-01]</b> 과학사에서 패러다임의 전환을 가져온 결정적 실험을 따라 해 보고, 과학의 발전 과정에 관해 설명할 수 있다.</div><div class="terms"><b>패러다임 전환</b><b>결정적 관측</b><b>천동설·지동설</b><b>팽창 우주</b></div>
       </div>
-      <div class="stage-card">
-        <div class="canvas-wrap"><canvas id="c1" width="900" height="380"></canvas></div>
-        <div class="info-card" id="c1-info">타임라인의 점을 클릭해 보세요.</div>
+
+      <div class="episode" id="ep2">
+        <section class="scene" data-title="특별전의 빈 진열장">
+          <div class="story narr"><div class="who">🏛️</div><div class="say"><span class="name">이야기</span>과학관 특별전 ‘세계관이 바뀐 순간’의 첫 진열장이 비어 있습니다. 설명판에는 한 줄만 적혀 있습니다. “1610년, 한 사람이 망원경으로 금성을 보았다. 그리고 우주의 중심이 바뀌었다.”</div></div>
+          <div class="story"><div class="who">👧</div><div class="say"><span class="name">초등학생 관람객</span>“금성 모양 하나 보고 우주의 중심이 바뀌었다고요? 사람들이 그냥 생각을 바꾼 거 아니에요?”</div></div>
+          <div class="gate loose" id="g2"></div>
+        </section>
+
+        <section class="scene" data-title="금성의 위상 — 두 모형의 예측">
+          <div class="story"><div class="who">🔭</div><div class="say"><span class="name">천문 해설사</span>“천동설에서 금성은 늘 지구와 태양 <b>사이</b>의 작은 원(주전원)을 돌아요. 지동설에서는 금성이 태양 둘레를 돌지요. 두 모형에서 금성이 햇빛을 받는 모양을 시간에 따라 비교해 보세요. 갈릴레이는 금성이 <b>거의 보름달처럼 둥글게</b> 보이는 때를 관측했습니다. 어느 모형에서 그런 모양이 나올까요?”</div></div>
+          <div class="stage-card">
+            <div class="canvas-wrap"><canvas id="b-c-ven" width="900" height="300"></canvas></div>
+            <div class="controls">
+              <div class="ctrl-group">
+                <div class="ctrl-label">우주 모형</div>
+                <div class="seg" id="b-model"><button class="on" data-v="p">천동설 (프톨레마이오스)</button><button data-v="h">지동설 (코페르니쿠스)</button></div>
+              </div>
+              <div class="ctrl-group">
+                <div class="ctrl-label">지난 날수 (금성이 한 바퀴 돌아오는 데 584일)<span class="val" id="b-t-val">60일</span></div>
+                <input type="range" id="b-t" min="0" max="584" step="4" value="60">
+              </div>
+            </div>
+            <div class="info-card" id="b-ven-info"></div>
+          </div>
+          <div id="b-ven-pick"></div>
+          <div class="mission" id="m2-2"><ul><li id="m2-2a">금성이 90% 넘게 밝게 보이는 때 찾기</li><li id="m2-2b">갈릴레이의 관측이 어느 모형을 반박했는지 고르기</li></ul></div>
+        </section>
+
+        <section class="scene" data-title="허블의 그래프 — 멀수록 빨리 멀어진다">
+          <div class="story"><div class="who">🌌</div><div class="say"><span class="name">우주론 해설사</span>“300년 뒤, 또 한 번 세계관이 바뀝니다. 우주는 영원히 그대로라고 믿던 때, 허블은 먼 은하일수록 빨리 멀어진다는 관측 자료를 내놓았어요. 은하 여덟 개의 거리와 멀어지는 속력에 가장 잘 맞는 직선(속력 = H × 거리)의 기울기 H 를 찾아 주세요.”</div></div>
+          <div class="stage-card">
+            <div class="canvas-wrap"><canvas id="b-c-hub" width="900" height="290"></canvas></div>
+            <div class="controls">
+              <div class="ctrl-group">
+                <div class="ctrl-label">직선의 기울기 H (km/s/Mpc)<span class="val" id="b-h-val">40</span></div>
+                <input type="range" id="b-h" min="30" max="110" step="1" value="40">
+              </div>
+            </div>
+            <div class="info-card" id="b-hub-info"></div>
+          </div>
+          <div class="mission" id="m2-3">은하 자료와의 차이가 가장 작은 기울기 H 를 찾으세요(± 2).</div>
+        </section>
+
+        <section class="scene" data-title="세계관이 바뀐 순간들 — 연표 세우기">
+          <div class="story"><div class="who">📜</div><div class="say"><span class="name">큐레이터</span>“특별전의 나머지 진열장도 채워야 해요. 새로운 증거가 기존의 설명을 바꾼 순간들을 일어난 순서대로 놓아 주세요.”</div></div>
+          <div class="stage-card"><div id="b-order"></div></div>
+          <div class="mission" id="m2-4">여섯 사건을 일어난 순서대로 놓으세요.</div>
+        </section>
+
+        <section class="scene" data-title="결말 — 진열장에 붙인 설명판">
+          <div class="ending">
+            <h4>🔭 생각이 아니라 증거가 바꾸었다</h4>
+            <p>천동설로는 금성이 늘 초승달처럼 가늘게만 보여야 했지만, 갈릴레이는 망원경으로 금성이 보름달 모양까지 차고 기우는 것을 관측했습니다. 기존 설명으로는 도저히 설명할 수 없는 <b>결정적 관측</b>이 나오자 태양 중심의 우주관이 힘을 얻었지요. 허블의 은하 자료도 정지한 우주를 <b>팽창하는 우주</b>로 바꾸었습니다. 이처럼 과학에서는 새로운 증거가 쌓여 기존의 틀로 설명할 수 없게 될 때, 세계를 보는 틀 전체가 바뀌는 <b>패러다임 전환</b>이 일어납니다.</p>
+            <div class="vs" id="e2-vs"></div>
+            <span class="stamp">사건 파일 ② 해결</span>
+          </div>
+          <div class="info-card" style="margin:14px 0">📎 과학자의 눈: 천동설 모형은 금성의 주전원 중심이 늘 지구–태양 사이에 있다고 본 프톨레마이오스의 모형을 단순하게 그린 것입니다. 금성의 위상만으로는 튀코 브라헤의 절충 모형과 지동설을 구별할 수 없었고, 지동설은 뒤에 케플러의 법칙과 뉴턴 역학으로 더 확고해졌습니다. 은하 자료는 원리를 보이기 위해 만든 값입니다.</div>
+          <div class="stage-card" style="padding:6px 0 4px;margin-top:16px"><div id="wk2"></div></div>
+        </section>
       </div>
+      <p class="teacher-note">교사용: 주소 끝에 <a href="?open=1">?open=1</a> 을 붙이면 모든 장면이 열립니다.</p>
     </section>
 
+    <!-- ===================================================================== 03 수준별 문제 -->
     <section class="tab-panel" data-panel="2" hidden>
       <div class="stage-head">
-        <div class="eyebrow">03 · 오늘 알아낸 것을 문장으로</div>
+        <div class="eyebrow">03 · 기본 · 발전 · 심화</div>
+        <h2 class="display">수준별 문제</h2>
+        <p>이 단원의 학습 목표를 세 단계로 확인합니다. <b>1단계 기본</b>은 용어와 핵심 개념, <b>2단계 발전</b>은 자료 해석과 계산, <b>3단계 심화</b>는 처음 보는 상황에 적용하고 근거를 들어 설명하기입니다. 자기 수준에 맞는 단계부터 시작하세요. 두 번 틀리면 정답과 해설을 볼 수 있어요.</p>
+      </div>
+      <div id="quiz"></div>
+    </section>
+
+    <!-- ===================================================================== 04 응용 실험실 -->
+    <section class="tab-panel" data-panel="3" hidden>
+      <div class="stage-head">
+        <div class="eyebrow">04 · 배운 것을 처음 보는 상황에</div>
+        <h2 class="display">응용 실험실</h2>
+        <p>이야기에서 찾아낸 개념을 전혀 다른 상황에 써 봅니다. 사례마다 <b>먼저 예상하고 → 직접 조작해 → 판정받고 → 까닭을 확인</b>합니다. 세 번 틀리면 풀이를 볼 수 있어요.</p>
+      </div>
+      <div id="lab"></div>
+    </section>
+
+    <!-- ===================================================================== 05 정리하기 -->
+    <section class="tab-panel" data-panel="4" hidden>
+      <div class="stage-head">
+        <div class="eyebrow">05 · 두 사건을 하나로</div>
         <h2 class="display">정리하기</h2>
-        <p>조작한 것을 말이나 글로 옮기지 않으면 남지 않습니다. 아래를 채우고 <b>답안 복사</b>를 눌러 제출하세요. 쓰는 동안 자동으로 저장됩니다.</p>
+        <p>두 이야기의 결과가 아래에 모입니다. 두 사건을 꿰는 한 문장을 쓰고 <b>답안 복사</b>를 눌러 제출하세요. 쓰는 동안 자동으로 저장됩니다.</p>
       </div>
       <div class="stage-card" style="padding:6px 0 4px"><div id="wk"></div></div>
     </section>
-  
-    <!-- ===================================================================== 04 우리 반 -->
-    <section class="tab-panel" data-panel="3" hidden>
+
+    <!-- ===================================================================== 06 우리 반 -->
+    <section class="tab-panel" data-panel="5" hidden>
       <div class="stage-head">
-        <div class="eyebrow">04 · 같은 반 친구들과 나누기</div>
+        <div class="eyebrow">06 · 같은 반 친구들과 나누기</div>
         <h2 class="display">우리 반</h2>
-        <p>정리하기에 쓴 것을 우리 반에 올리고, 같은 반 친구들이 어디까지 했는지 함께 보세요. <b>올리기 버튼을 눌렀을 때만</b> 공유됩니다. 실명 대신 별명을 쓰고, 글까지 올릴지는 직접 고르세요.</p>
+        <p>내가 해결한 사건과 찾아낸 답을 우리 반에 올리고, 친구들은 과학의 본성을 어떻게 설명했는지 살펴보세요. <b>올리기 버튼을 눌렀을 때만</b> 공유됩니다. 실명 대신 별명을 쓰세요.</p>
       </div>
       <div class="stage-card"><div id="share"></div></div>
     </section>
-
   </main>
 </div>
 
 <button class="theme-toggle" id="themeToggle">라이트 모드</button>
 <script src="../assets/theme.js"></script>
+<script src="../assets/story.js"></script>
+<script src="../assets/quiz.js"></script>
+<script src="../assets/lab.js"></script>
 <script src="../assets/share-config.js"></script>
 <script src="../assets/share.js"></script>
-<script>
-(function () {
-"use strict";
-
-/* TAB0 과학의 본성 */
-(function () {
-  var canvas = document.getElementById("c0");
-  var ctx = setupCanvas(canvas);
-  var W = canvas._w, H = canvas._h;
-  var info = document.getElementById("c0-info");
-  var cards = [
-    { icon: "🔍", name: "경험적 증거에 기초", desc: "과학은 관찰과 실험으로 얻은 경험적 증거를 근거로 주장을 펼칩니다.", x: 130 },
-    { icon: "🔄", name: "잠정적 지식", desc: "과학 지식은 절대 불변이 아니라, 새로운 증거가 나오면 수정되거나 대체될 수 있습니다.", x: 380 },
-    { icon: "🤝", name: "사회적 합의 과정", desc: "과학자 사회의 동료 검토(peer review)와 토론을 거쳐 지식으로 인정받습니다.", x: 630 },
-    { icon: "🧭", name: "다양한 탐구 방법", desc: "관찰, 실험, 귀납, 연역 등 문제에 따라 다양한 방법으로 지식을 탐구합니다.", x: 850 }
-  ];
-  canvas.addEventListener("click", function (e) {
-    var rect = canvas.getBoundingClientRect();
-    var scaleX = canvas._w / rect.width;
-    var mx = (e.clientX - rect.left) * scaleX;
-    cards.forEach(function (c) { if (Math.abs(mx - c.x) < 110) info.innerHTML = "<b>" + c.icon + " " + c.name + "</b> — " + c.desc; });
-  });
-  function render() {
-    ctx.clearRect(0, 0, W, H);
-    ctx.fillStyle = cssVar("--panel"); ctx.fillRect(0, 0, W, H);
-    cards.forEach(function (c) {
-      ctx.save();
-      ctx.strokeStyle = cssVar("--line"); ctx.fillStyle = cssVar("--panel-2");
-      ctx.fillRect(c.x - 100, 100, 200, 160);
-      ctx.strokeRect(c.x - 100, 100, 200, 160);
-      ctx.restore();
-      ctx.font = "40px Segoe UI"; ctx.textAlign = "center"; ctx.fillText(c.icon, c.x, 190);
-      ctx.font = "700 12px Segoe UI"; ctx.fillStyle = cssVar("--foam");
-      wrapText(ctx, c.name, c.x, 225, 170, 15);
-    });
-    function wrapText(ctx, text, x, y, maxW, lh) {
-      var line = "", lines = [];
-      for (var i = 0; i < text.length; i++) {
-        var test = line + text[i];
-        if (ctx.measureText(test).width > maxW && line.length > 0) { lines.push(line); line = text[i]; } else line = test;
-      }
-      lines.push(line);
-      lines.forEach(function (l, i) { ctx.fillText(l, x, y + i * lh); });
-    }
-  }
-  render();
-})();
-
-/* TAB0-b 동료 검토 시뮬레이터 */
-(function () {
-  var canvas = document.getElementById("c0b");
-  var ctx = setupCanvas(canvas);
-  var W = canvas._w, H = canvas._h;
-  var slider = document.getElementById("c0b-n");
-  var val = document.getElementById("c0b-n-val");
-  var info = document.getElementById("c0b-info");
-  var P_MISS = 0.7; // 한 명의 검토자가 오류를 놓칠 확률
-
-  function render(n, pCatch) {
-    ctx.clearRect(0, 0, W, H);
-    ctx.fillStyle = cssVar("--panel"); ctx.fillRect(0, 0, W, H);
-    var x0 = 60, x1 = W - 60, y0 = 30, y1 = H - 50;
-    ctx.strokeStyle = cssVar("--line"); ctx.beginPath(); ctx.moveTo(x0, y0); ctx.lineTo(x0, y1); ctx.lineTo(x1, y1); ctx.stroke();
-    ctx.font = "11px Segoe UI"; ctx.fillStyle = cssVar("--mist"); ctx.textAlign = "center";
-    ctx.fillText("검토자 수 →", (x0 + x1) / 2, y1 + 26);
-    ctx.save(); ctx.translate(20, (y0 + y1) / 2); ctx.rotate(-Math.PI / 2); ctx.fillText("오류를 걸러낼 확률", 0, 0); ctx.restore();
-
-    ctx.beginPath();
-    for (var k = 1; k <= 20; k++) {
-      var p = 1 - Math.pow(P_MISS, k);
-      var xx = x0 + (k - 1) / 19 * (x1 - x0);
-      var yy = y1 - p * (y1 - y0);
-      if (k === 1) ctx.moveTo(xx, yy); else ctx.lineTo(xx, yy);
-    }
-    ctx.strokeStyle = cssVar("--teal"); ctx.lineWidth = 2.5; ctx.stroke();
-
-    var selX = x0 + (n - 1) / 19 * (x1 - x0);
-    var selY = y1 - pCatch * (y1 - y0);
-    ctx.fillStyle = cssVar("--coral");
-    ctx.beginPath(); ctx.arc(selX, selY, 6, 0, Math.PI * 2); ctx.fill();
-  }
-
-  function update() {
-    var n = +slider.value;
-    val.textContent = n;
-    var pCatch = 1 - Math.pow(P_MISS, n);
-    render(n, pCatch);
-    info.innerHTML = "검토자 한 명이 오류를 놓칠 확률을 70%(= 발견 확률 30%)라 하면, <b>n</b>명이 독립적으로 검토했을 때 적어도 한 명이 오류를 발견할 확률은 <b>1 − 0.7ⁿ</b> 입니다. 검토자가 <b>" + n + "명</b>일 때 오류를 걸러낼 확률은 약 <b>" + (pCatch * 100).toFixed(1) + "%</b>입니다. 이렇게 여러 명의 독립적인 동료 검토를 거치는 <b>사회적 합의 과정</b>이, 한 사람의 오류나 편견이 그대로 '과학 지식'으로 굳어지는 것을 막아 줍니다. 다만 검토자가 아무리 많아도 확률이 100%가 되지는 않기 때문에, 과학 지식은 항상 <b>잠정적</b>입니다.";
-  }
-  slider.addEventListener("input", update);
-  update();
-})();
-
-/* TAB0 미션 — 동료 검토 확률 어림하기 */
-(function () {
-  var dataBox = document.getElementById("c0m-data");
-  var seg = document.getElementById("c0m-choices");
-  var checkBtn = document.getElementById("c0m-check");
-  var newBtn = document.getElementById("c0m-new");
-  var info = document.getElementById("c0m-info");
-  var n, answer, picked = null;
-  var P_MISS = 0.7;
-
-  function newQuestion() {
-    var nVals = [1, 2, 3, 5, 10];
-    n = nVals[Math.floor(Math.random() * nVals.length)];
-    answer = Math.round((1 - Math.pow(P_MISS, n)) * 100);
-    picked = null;
-    dataBox.innerHTML = "검토자 한 명이 오류를 발견할 확률이 30%(놓칠 확률 70%)라고 할 때, 검토자 <b>" + n + "명</b>이 독립적으로 검토하면 적어도 한 명이 오류를 발견할 확률(%)은 얼마에 가장 가까울까요?";
-    var opts = [answer];
-    while (opts.length < 4) {
-      var decoy = Math.max(1, Math.min(99, answer + Math.round((Math.random() - 0.5) * 40)));
-      if (opts.indexOf(decoy) === -1) opts.push(decoy);
-    }
-    opts.sort(function () { return Math.random() - 0.5; });
-    seg.innerHTML = "";
-    opts.forEach(function (o) {
-      var b = document.createElement("button");
-      b.textContent = o + "%";
-      b.addEventListener("click", function () {
-        picked = o;
-        seg.querySelectorAll("button").forEach(function (x) { x.classList.toggle("on", x === b); });
-      });
-      seg.appendChild(b);
-    });
-    info.innerHTML = "";
-    info.style.color = "";
-  }
-
-  checkBtn.addEventListener("click", function () {
-    if (picked === null) { info.innerHTML = "먼저 보기를 하나 선택하세요."; info.style.color = "var(--coral)"; return; }
-    if (picked === answer) {
-      info.innerHTML = "✅ 정답! 1 − 0.7" + "^" + n + " ≈ " + answer + "%";
-      info.style.color = "var(--teal)";
-    } else {
-      info.innerHTML = "❌ 틀렸습니다. 1 − 0.7^" + n + " ≈ " + answer + "% 입니다.";
-      info.style.color = "var(--coral)";
-    }
-  });
-
-  newBtn.addEventListener("click", newQuestion);
-  newQuestion();
-})();
-
-/* TAB1 역사속사례 */
-(function () {
-  var canvas = document.getElementById("c1");
-  var ctx = setupCanvas(canvas);
-  var W = canvas._w, H = canvas._h;
-  var info = document.getElementById("c1-info");
-  var events = [
-    { name: "천동설 → 지동설", who: "코페르니쿠스·갈릴레이·케플러", desc: "지구가 우주의 중심이라는 오랜 믿음이, 행성의 관측 자료와 망원경 관측이라는 새로운 증거로 태양 중심설로 바뀌었습니다.", frac: 0.1 },
-    { name: "낙하 운동의 재해석", who: "갈릴레이", desc: "무거운 물체가 더 빨리 떨어진다는 아리스토텔레스의 주장을, 실험(사고 실험과 경사면 실험)으로 반박하고 모든 물체가 같은 가속도로 떨어짐을 밝혔습니다.", frac: 0.32 },
-    { name: "자연발생설 반박", who: "파스퇴르", desc: "백조목 플라스크 실험으로, 생물이 무생물에서 저절로 생겨난다는 자연발생설을 반박하고 미생물도 기존 생물에서만 생겨남을 증명했습니다.", frac: 0.55 },
-    { name: "대륙 이동설 → 판구조론", who: "베게너 이후 여러 과학자", desc: "대륙이 이동한다는 베게너의 가설은 당시 증거 부족으로 받아들여지지 않았지만, 이후 해저 지형·고지자기 자료 등 새 증거가 쌓이며 판구조론으로 발전했습니다.", frac: 0.78 },
-    { name: "우주 팽창의 발견", who: "허블", desc: "먼 은하일수록 빠르게 멀어진다는 관측(적색 이동)으로, 정적인 우주관에서 팽창하는 우주관으로 바뀌었습니다.", frac: 0.95 }
-  ];
-  canvas.addEventListener("click", function (e) {
-    var rect = canvas.getBoundingClientRect();
-    var scaleX = canvas._w / rect.width;
-    var mx = (e.clientX - rect.left) * scaleX;
-    var x0 = 60, x1 = W - 60;
-    events.forEach(function (ev) { if (Math.abs((x0 + ev.frac * (x1 - x0)) - mx) < 22) info.innerHTML = "<b>" + ev.name + "</b> (" + ev.who + ") — " + ev.desc; });
-  });
-  function render() {
-    ctx.clearRect(0, 0, W, H);
-    ctx.fillStyle = cssVar("--panel"); ctx.fillRect(0, 0, W, H);
-    var x0 = 60, x1 = W - 60, y = H / 2;
-    ctx.strokeStyle = cssVar("--line"); ctx.lineWidth = 2;
-    ctx.beginPath(); ctx.moveTo(x0, y); ctx.lineTo(x1, y); ctx.stroke();
-    events.forEach(function (ev, i) {
-      var x = x0 + ev.frac * (x1 - x0);
-      var up = i % 2 === 0;
-      ctx.save(); ctx.fillStyle = cssVar("--teal"); ctx.beginPath(); ctx.arc(x, y, 9, 0, 7); ctx.fill(); ctx.restore();
-      ctx.font = "700 11px Segoe UI"; ctx.fillStyle = cssVar("--foam"); ctx.textAlign = "center";
-      wrapText(ctx, ev.name, x, up ? y - 46 : y + 34, 130, 14);
-      ctx.font = "10px Segoe UI"; ctx.fillStyle = cssVar("--mist");
-      ctx.fillText(ev.who, x, up ? y - 20 : y + 60);
-    });
-    function wrapText(ctx, text, x, y, maxW, lh) {
-      var line = "", lines = [];
-      for (var i = 0; i < text.length; i++) {
-        var test = line + text[i];
-        if (ctx.measureText(test).width > maxW && line.length > 0) { lines.push(line); line = text[i]; } else line = test;
-      }
-      lines.push(line);
-      lines.forEach(function (l, i) { ctx.fillText(l, x, y + i * lh); });
-    }
-  }
-  render();
-})();
-
-})();
-</script>
-
-<script>
-(function () {
-  window.sthUnit("gt1-1-1");
-  window.sthWork({
-    mount: "wk",
-    unitLabel: "[과학탐구실험1 Ⅰ] 과학의 본성과 역사 속의 과학 탐구 — 개관",
-    items: [
-      {
-            "id": "w1",
-            "label": "과학은 어떻게 바뀌는가",
-            "hint": "이 단원에서 본 사례 하나를 골라, 무엇이 있었기에 기존 설명이 바뀌었는지 쓰세요.",
-            "ph": ""
-      },
-      {
-            "id": "w2",
-            "label": "과학의 본성 한 가지",
-            "hint": "사례에서 읽어 낸 과학의 본성을 한 문장으로 쓰고, 근거가 된 장면을 적으세요.",
-            "ph": ""
-      },
-      {
-            "id": "w3",
-            "label": "아직 헷갈리는 것",
-            "hint": "다음 시간에 여기서부터 시작합니다.",
-            "ph": ""
-      }
-]
-  });
-  window.sthShare({
-    mount: "share",
-    unit: "gt1-1-1",
-    unitLabel: "[과학탐구실험1 Ⅰ] 과학의 본성과 역사 속의 과학 탐구 — 개관",
-    works: [
-      { id: "w1", label: "과학은 어떻게 바뀌는가" },
-      { id: "w2", label: "과학의 본성 한 가지" }
-    ]
-  });
-})();
-</script>
+<script src="episodes.js"></script>
+<script src="quiz-items.js"></script>
+<script src="lab-cases.js"></script>
 </body>
 </html>
