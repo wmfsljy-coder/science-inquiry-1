@@ -52,7 +52,7 @@ function orderDone(mount, steps) {
   });
 
   var N = [11, 13, 15, 17, 19, 20, 22, 24, 12, 16, 18, 21];
-  var E = [-0.5, 0.6, -0.4, 0.9, -0.6, 0.3, -0.9, 0.5, 0.7, -0.3, 0.4, -0.5];
+  var E = [-0.5, 0.6, -0.4, 0.9, -0.6, 0.3, -0.9, 0.5, 0.4, -0.3, 0.4, -0.5];
   var T = N.map(function (n, i) { return n + 5 + E[i]; });
 
   /* 장면 2 — 열두 밤의 기록 */
@@ -120,25 +120,25 @@ function orderDone(mount, steps) {
       var x0 = 60, x1 = 560, y = 120;
       function X(tt) { return x0 + (tt - 0) / 36 * (x1 - x0); }
       text(ctx, "기온 눈금", x0, 40, { s: 11.5, w: "700", c: v("--mist") });
-      ctx.fillStyle = A(v("--teal"), 0.2); ctx.fillRect(X(15.5), y - 26, X(29) - X(15.5), 52);
-      text(ctx, "관찰한 범위 15.5 ~ 29 °C", (X(15.5) + X(29)) / 2, y - 34, { s: 11, w: "800", a: "center", c: v("--teal-700") });
+      ctx.fillStyle = A(v("--teal"), 0.2); ctx.fillRect(X(15.5), y - 26, X(29.5) - X(15.5), 52);
+      text(ctx, "관찰한 범위 15.5 ~ 29.5 °C", (X(15.5) + X(29.5)) / 2, y - 34, { s: 11, w: "800", a: "center", c: v("--teal-700") });
       seg(ctx, x0, y, x1, y, v("--line"), 2);
       [0, 10, 20, 30].forEach(function (tt) { seg(ctx, X(tt), y - 5, X(tt), y + 5, v("--line"), 1.5); text(ctx, tt + "°C", X(tt), y + 20, { s: 10, a: "center", c: v("--mist") }); });
       var c = chirp(t), pred = c + 5, bad = t < 13;
       dot(ctx, X(t), y, 8, v("--ink"));
       text(ctx, "실제 " + t + "°C", X(t), y + 44, { s: 11.5, w: "800", a: "center" });
-      dot(ctx, X(pred), y, 7, bad ? v("--coral-700") : v("--brand"));
-      text(ctx, "규칙이 맞힌 " + pred + "°C", X(pred), y - 50 < 20 ? 20 : y + 64, { s: 11.5, w: "800", a: "center", c: bad ? v("--coral-700") : v("--brand-700") });
+      if (!bad) dot(ctx, X(pred), y, 7, v("--brand"));
+      if (!bad) text(ctx, "규칙이 맞힌 " + pred + "°C", X(pred), y - 50 < 20 ? 20 : y + 64, { s: 11.5, w: "800", a: "center", c: bad ? v("--coral-700") : v("--brand-700") });
       text(ctx, "🦗", 640, 90, { s: 34, a: "center" });
       text(ctx, c > 0 ? "8초에 " + c + "번 운다" : "울지 않는다", 700, 84, { s: 15, w: "900", c: c > 0 ? v("--ink") : v("--coral-700") });
       text(ctx, "규칙: " + c + " + 5 = " + pred + " °C", 700, 112, { s: 13, w: "800", c: v("--brand-700") });
-      text(ctx, "어긋남 " + Math.abs(t - pred) + " °C", 700, 140, { s: 13, w: "800", c: bad ? v("--coral-700") : v("--green-700") });
+      text(ctx, bad ? "울지 않아 규칙을 쓸 수 없음" : "어긋남 " + Math.abs(t - pred) + " °C", 700, 140, { s: 13, w: "800", c: bad ? v("--coral-700") : v("--green-700") });
       return bad;
     }
     function update() {
       var bad = draw(), c = chirp(t);
       put("a-lim-info", "실제 기온 " + t + " °C 인 밤, 귀뚜라미는 " + (c > 0 ? "8초에 " + c + "번 울고 규칙은 " + (c + 5) + " °C 라고 알려 줍니다." : "<b>울지 않습니다</b>. 규칙은 늘 5 °C 라고 알려 줄 뿐이에요.")
-        + (bad ? " ✅ 규칙이 통하지 않는 밤입니다. 귀뚜라미는 약 13 °C 아래에서는 울지 않아요. 관찰하지 않은 범위였지요." : (t < 15.5 || t > 29 ? " 관찰한 범위 밖이지만 아직은 맞습니다. 더 추운 밤은 어떨까요?" : " 관찰한 범위 안에서는 잘 맞습니다.")));
+        + (bad ? " ✅ 규칙이 통하지 않는 밤입니다. 귀뚜라미는 약 13 °C 아래에서는 울지 않아요. 관찰하지 않은 범위였지요." : (t < 15.5 || t > 29.5 ? " 관찰한 범위 밖이지만 아직은 맞습니다. 더 추운 밤은 어떨까요?" : " 관찰한 범위 안에서는 잘 맞습니다.")));
       if (bad && !got.a) { got.a = true; window.sthState("limGot", got); mission(); }
     }
     function mission() {
@@ -170,7 +170,7 @@ function orderDone(mount, steps) {
       { t: "열두 밤 관찰해 보니 기온이 높을수록 귀뚜라미가 빨리 울었다. 그러니 우는 빠르기는 기온에 따라 달라진다", a: "ind", why: "개별 관찰에서 규칙을 이끌어 냈습니다." },
       { t: "까마귀 100마리를 관찰했더니 모두 검었다. 그러므로 까마귀는 검다", a: "ind", why: "관찰한 사례들을 일반화했습니다." },
       { t: "구리, 철, 알루미늄을 가열해 보니 모두 늘어났다. 금속은 가열하면 팽창한다", a: "ind", why: "여러 사례에서 공통점을 찾았습니다." },
-      { t: "멘델이 완두 수천 그루의 교배 결과를 세어 3 : 1 의 규칙을 찾았다", a: "ind", why: "많은 관찰 자료에서 규칙을 발견했습니다.", hint: "규칙이 먼저인가요, 관찰이 먼저인가요?" },
+      { t: "케플러는 튀코 브라헤가 수십 년 동안 모은 화성 관측 자료에서 행성이 타원 궤도를 돈다는 규칙을 찾았다", a: "ind", why: "많은 관찰 자료에서 규칙을 발견했습니다.", hint: "규칙이 먼저인가요, 관찰이 먼저인가요?" },
       { t: "‘우는 횟수 + 5 = 기온’이므로, 8초에 20번 울면 기온은 약 25 °C 일 것이다", a: "ded", why: "이미 아는 규칙을 새 상황에 적용했습니다." },
       { t: "금속은 가열하면 팽창하므로, 이 철로도 여름에 늘어날 것이다. 그래서 이음새에 틈을 둔다", a: "ded", why: "일반 법칙에서 구체적인 결론을 이끌어 냈습니다." },
       { t: "만유인력 법칙으로 천왕성의 궤도를 계산해, 보이지 않는 행성(해왕성)의 위치를 예측했다", a: "ded", why: "이론에서 예측을 이끌어 내고 관측으로 확인했습니다." },
@@ -320,7 +320,7 @@ function orderDone(mount, steps) {
       if (got.a) done("m2-3a"); if (got.q) done("m2-3b");
       if (got.a && got.q) {
         window.sthState("fairBest", "손 씻기만 다르게, 계절·산모 수는 같게");
-        window.sthMission("m2-3", true, "<span class='m-tag'>미션 완료</span>" + window.sthState("fairBest") + ". 일부러 바꾸는 조건이 독립변인, 그 결과로 재는 것이 종속변인, 같게 유지하는 조건이 통제변인입니다.");
+        window.sthMission("m2-3", true, "<span class='m-tag'>미션 완료</span>" + window.sthState("fairBest") + ". 일부러 바꾸는 조건이 조작 변인, 같게 유지하는 조건이 통제 변인(둘을 합쳐 독립 변인), 그 결과로 재는 것이 종속 변인입니다.");
         ep.clear(2);
       }
     }
@@ -330,10 +330,10 @@ function orderDone(mount, steps) {
     $("b-f-n").addEventListener("input", function (ev) { n = +ev.target.value; $("b-f-n-val").textContent = n + "명"; update(); });
     window.sthPick({
       mount: "b-fair-pick",
-      q: "이 검증 실험에서 종속변인(결과로 재는 것)은 무엇일까요?",
+      q: "이 검증 실험에서 종속 변인(결과로 재는 것)은 무엇일까요?",
       options: ["손 씻기를 하는지 하지 않는지", "실험하는 계절", "산모의 사망률"],
       answer: 2,
-      why: ["일부러 다르게 한 조건, 독립변인입니다.", "같게 유지한 조건, 통제변인입니다.", "독립변인(손 씻기)에 따라 달라지는지 재는 값이 종속변인입니다."],
+      why: ["일부러 다르게 한 조건, 조작 변인입니다.", "같게 유지한 조건, 통제 변인입니다.", "조작 변인(손 씻기)에 따라 달라지는지 재는 값이 종속 변인입니다."],
       onDone: function () { got.q = true; window.sthState("fairGot", got); mission(); }
     });
     update(); mission();
@@ -433,7 +433,7 @@ function orderDone(mount, steps) {
       "1pie": "✅ 원그래프 — 병으로 죽은 병사가 전체의 84% 라는 것이 한눈에 보입니다.",
       "1sc": "산점도는 두 변인의 관계를 볼 때 씁니다. 원인은 수치 변인이 아니에요.",
       "2bar": "달마다의 값은 보이지만, 늘고 줄어드는 흐름은 선그래프가 더 잘 보여 줍니다.",
-      "2line": "✅ 선그래프 — 겨울로 갈수록 병으로 죽은 병사가 급격히 늘었다가 3월에 줄어드는 흐름이 보입니다.",
+      "2line": "✅ 선그래프 — 겨울로 갈수록 병으로 죽은 병사가 급격히 늘어 1월에 가장 많았다가 2월부터 줄어드는 흐름이 보입니다.",
       "2pie": "열두 달을 조각으로 나누면 달마다의 변화 순서가 보이지 않습니다.",
       "2sc": "점만 찍으면 변화의 흐름을 따라가기 어렵습니다. 시간에 따른 변화는 점을 이은 선그래프로 그려요."
     };
@@ -491,7 +491,7 @@ function orderDone(mount, steps) {
       if (got.a) done("m3-3a"); if (got.q) done("m3-3b");
       if (got.a && got.q) {
         window.sthState("axBest", "축을 95% 에서 시작하면 1.02 배 차이가 3 배로 보인다");
-        window.sthMission("m3-3", true, "<span class='m-tag'>미션 완료</span>" + window.sthState("axBest") + ". 그래프를 읽을 때는 먼저 축의 눈금부터 확인하세요.");
+        window.sthMission("m3-3", true, "<span class='m-tag'>미션 완료</span>" + window.sthState("axBest") + ". 그래프를 읽을 때는 먼저 축의 눈금부터 확인하세요. 다만 같은 자료를 사망률(4% → 2%)로 보면 절반이 된 것이니, 무엇을 비교하는지도 함께 따져야 합니다.");
         ep.clear(2);
       }
     }

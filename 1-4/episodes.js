@@ -260,7 +260,7 @@ function orderDone(mount, steps) {
     }
     function update() {
       var ok = draw(), g = GL[glass], dr = dev(g.r, inc), dv = dev(g.v, inc);
-      put("b-disp-info", (dr === null || dv === null) ? "빛이 너무 비스듬히 들어가 두 번째 면에서 빠져나오지 못하고 전부 반사됩니다. 각도를 키워 보세요."
+      put("b-disp-info", (dr === null || dv === null) ? "빛이 첫 면에 너무 곧게 들어가, 두 번째 면에 비스듬히 닿아 빠져나오지 못하고 전부 반사됩니다. 들어가는 각을 키워 보세요."
         : g.n + ", 들어가는 각 " + inc + "°: 빨강과 보라가 " + (dv - dr).toFixed(2) + "° 벌어집니다. " + (ok ? "✅ 색을 하나씩 골라낼 만큼 넓게 펼쳐졌습니다. 납 유리는 색에 따른 굴절률 차이가 더 커요." : "아직 좁습니다. 유리 종류와 각도를 바꿔 보세요."));
       if (ok && !got) { got = true; window.sthState("dispGot", true); mission(); }
     }
@@ -511,7 +511,7 @@ function orderDone(mount, steps) {
     function mission() {
       if (got.seen.length >= 3) done("m3-3a"); if (got.q) done("m3-3b");
       if (got.seen.length >= 3 && got.q && !ep.cleared(2)) {
-        window.sthState("repBest", "10년 평균: 1970년대 12.5 °C → 2010년대 13.6 °C (약 1.1 °C 상승)");
+        window.sthState("repBest", "10년 평균: 1974~83년 12.5 °C → 2014~23년 13.6 °C (약 1.1 °C 상승)");
         window.sthMission("m3-3", true, "<span class='m-tag'>미션 완료</span>" + window.sthState("repBest") + ". 같은 자료라도 누구에게 무엇을 전할지에 따라 알맞은 표상이 다릅니다.");
         ep.clear(2);
       } else if (got.seen.length >= 3 && got.q) window.sthMission("m3-3", true);
@@ -596,7 +596,7 @@ function orderDone(mount, steps) {
       }
       if (z > 6.05) { ctx.strokeStyle = A(v("--brand"), 0.6); ctx.setLineDash([4, 3]); ctx.beginPath(); ctx.arc(cx, cy, rz, 0, Math.PI * 2); ctx.stroke(); ctx.setLineDash([]); }
       dot(ctx, cx, cy, 6 / 2 / 45 * R, "#ffffff"); ctx.strokeStyle = v("--ink"); ctx.lineWidth = 1; ctx.beginPath(); ctx.arc(cx, cy, 6 / 2 / 45 * R, 0, Math.PI * 2); ctx.stroke();
-      text(ctx, NM[plant] + " · " + conc + "% · " + hrs + "시간", 360, 40, { s: 14, w: "900" });
+      text(ctx, NM[plant] + " · " + (plant === "control" ? "에탄올만" : conc + "%") + " · " + hrs + "시간", 360, 40, { s: 14, w: "900" });
       text(ctx, "억제대 지름 " + z.toFixed(1) + " mm" + (z <= 6.05 ? " (디스크만 — 억제대 없음)" : ""), 360, 70, { s: 14, w: "800", c: z > 6.05 ? v("--brand-700") : v("--mist") });
       /* 같은 조건 기록표 */
       var key = conc + "|" + hrs, rec = got.sets[key] || {};
