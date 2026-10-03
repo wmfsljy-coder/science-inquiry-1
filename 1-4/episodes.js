@@ -725,7 +725,8 @@ window.sthWork({
     { key: "r3", label: "③ 추운 겨울의 반론" },
     { key: "r4", label: "④ 마늘 대 세균" },
     { key: "rQuiz", label: "수준별 문제" },
-    { key: "rLab", label: "응용 실험실" }
+    { key: "rLab", label: "응용 실험실" },
+    { key: "rReal", label: "실제 자료" }
   ],
   items: [
     { id: "all", label: "네 보고서를 꿰는 한 문장", hint: "플라스크, 프리즘, 기온 자료, 억제대. 네 이야기를 ‘가설’, ‘자료’, ‘협력’ 가운데 두 말 이상을 넣어 한 문장으로 이어 보세요." },
@@ -743,7 +744,8 @@ window.sthShare({
     { key: "r3", label: "③ 추운 겨울의 반론" },
     { key: "r4", label: "④ 마늘 대 세균" },
     { key: "rQuiz", label: "수준별 문제" },
-    { key: "rLab", label: "응용 실험실" }
+    { key: "rLab", label: "응용 실험실" },
+    { key: "rReal", label: "실제 자료" }
   ],
   line: { id: "all", label: "네 보고서를 꿰는 한 문장" }
 });

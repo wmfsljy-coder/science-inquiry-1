@@ -549,7 +549,8 @@ window.sthWork({
     { key: "r2", label: "② 손을 씻으시오" },
     { key: "r3", label: "③ 장미 도표" },
     { key: "rQuiz", label: "수준별 문제" },
-    { key: "rLab", label: "응용 실험실" }
+    { key: "rLab", label: "응용 실험실" },
+    { key: "rReal", label: "실제 자료" }
   ],
   items: [
     { id: "all", label: "세 기록을 꿰는 한 문장", hint: "귀뚜라미, 손 씻기, 장미 도표. 세 이야기를 ‘관찰’, ‘가설’, ‘자료’라는 말을 넣어 한 문장으로 이어 보세요." },
@@ -565,7 +566,8 @@ window.sthShare({
     { key: "r2", label: "② 손을 씻으시오" },
     { key: "r3", label: "③ 장미 도표" },
     { key: "rQuiz", label: "수준별 문제" },
-    { key: "rLab", label: "응용 실험실" }
+    { key: "rLab", label: "응용 실험실" },
+    { key: "rReal", label: "실제 자료" }
   ],
   line: { id: "all", label: "세 기록을 꿰는 한 문장" }
 });
