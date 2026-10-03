@@ -7,10 +7,10 @@
 var V = window.REAL_VENUS || { rows: [] };
 var R = V.rows;                                      /* [날짜, 밝은 부분 %, 지름 ″, 거리 AU, 이각 °, T/L] */
 var FULL = 0, NEAR = 0;
-R.forEach(function (r, i) { if (r[1] > R[FULL][1]) FULL = i; if (r[2] > R[NEAR][2]) NEAR = i; });
+R.forEach(function (r, i) { if (r[4] < R[FULL][4]) FULL = i; if (r[2] > R[NEAR][2]) NEAR = i; });   /* FULL = 태양과 가장 가까운 날(외합) */
 var AU = 149597871, ASEC = Math.PI / 648000;
 function dia(r) { return r[2] * ASEC * r[3] * AU; }
-var LAST = R.length - 1, DN = R.length ? dia(R[NEAR]) : 12104, DF = R.length ? dia(R[LAST]) : 12104;
+var LAST = R.length - 1, DN = R.length ? dia(R[NEAR]) : 12104, DF = R.length ? dia(R[FULL]) : 12104;
 var SRC = "<small>출처: 미국 항공우주국 제트추진연구소(NASA JPL) Horizons 천체력 — 지구 중심에서 본 금성, 2025년 1월 1일 ~ 2026년 7월 1일, 5일 간격(밝게 보이는 부분 %, 겉보기 지름 ″, 지구와의 거리 AU, 태양과 벌어진 각). 사본은 data/venus-2025.js.</small>";
 function ko(d) { var p = d.split("-"); return p[0] + "년 " + (+p[1]) + "월 " + (+p[2]) + "일"; }
 
@@ -49,7 +49,7 @@ window.sthLab({
     say: "“갈릴레이는 망원경으로 금성이 달처럼 차고 기우는 것을 보았어요. 아래는 NASA 가 계산한 <b>2025 ~ 2026년 금성</b>의 실제 모습입니다. 금성이 <b>가장 둥글게(보름달꼴)</b> 보이는 날을 찾고, 그때 금성이 <b>태양의 어느 쪽</b>에 있는지 골라 주세요.”",
     predict: {
       q: "금성이 보름달처럼 둥글게 보일 때, 금성은 지구에서 가까울까요, 멀까요?",
-      options: ["㉠ 가장 가깝다", "㉡ 가장 멀다 — 그래서 작게 보인다", "㉢ 거리는 늘 같다"],
+      options: ["㉠ 가장 가깝다", "㉡ 가장 멀다", "㉢ 거리는 늘 같다"],
       answer: 1
     },
     task: "날짜를 옮겨 밝은 부분이 가장 큰 날을 고르고, 그때 금성의 자리를 고르세요.",
@@ -70,7 +70,7 @@ window.sthLab({
       draw();
       return {
         judge: function () {
-          if (Math.abs(i - FULL) > 1) return { ok: false, msg: (R[i] ? ko(R[i][0]) : "") + "의 밝은 부분은 " + (R[i] ? R[i][1].toFixed(1) : 0) + "% 입니다. 더 둥근 날이 있어요." };
+          if (!R[i] || R[i][1] < R[FULL][1] - 0.15) return { ok: false, msg: (R[i] ? ko(R[i][0]) : "") + "의 밝은 부분은 " + (R[i] ? R[i][1].toFixed(1) : 0) + "% 입니다. 더 둥근 날이 있어요." };
           if (side !== "back") return { ok: false, msg: "날은 맞았습니다. 그때 겉보기 지름이 " + R[FULL][2].toFixed(1) + "″ 로 가장 작아요. 지구에서 가장 멀다면 금성은 어디에 있을까요?" };
           return { ok: true, msg: ko(R[FULL][0]) + " 밝은 부분 " + R[FULL][1].toFixed(1) + "%, 지름 " + R[FULL][2].toFixed(1) + "″, 거리 " + R[FULL][3].toFixed(2) + " AU — 태양 너머에 있을 때 둥글고 작게 보입니다. 가장 크게 보인 " + ko(R[NEAR][0]) + "(" + R[NEAR][2].toFixed(1) + "″)에는 밝은 부분이 " + R[NEAR][1].toFixed(1) + "% 인 가는 초승달이었어요." };
         }
@@ -78,7 +78,7 @@ window.sthLab({
     },
     hints: ["주황 선이 가장 높은 곳으로 날짜를 옮기세요. 그날 파랑 선은 어떤가요?", "가장 작게 보인다 = 가장 멀다. 지구에서 가장 먼 금성의 자리는 태양 너머입니다."],
     solution: "<b>" + (R[FULL] ? ko(R[FULL][0]) : "2026년 1월") + " 무렵</b>, 금성은 <b>태양 뒤쪽</b>에 있다.",
-    why: "천동설(프톨레마이오스)에서는 금성이 늘 지구와 태양 사이에서 맴돌아, 지구에서는 초승달 모양만 보여야 합니다. 그런데 갈릴레이는 1610년, 금성이 작을 때는 둥글고 클 때는 가는 초승달이 되는 것을 보았어요. 금성이 태양 둘레를 돌아 태양 너머로도 간다는 뜻이고, 이것이 지동설을 받쳐 준 결정적 관측이 되었습니다.<br>"
+    why: "천동설(프톨레마이오스)에서는 금성이 늘 지구와 태양 사이에서 맴돌아, 지구에서는 초승달 모양만 보여야 합니다. 그런데 갈릴레이는 1610년, 금성이 작을 때는 둥글고 클 때는 가는 초승달이 되는 것을 보았어요. 금성이 태양 둘레를 돌아 태양 너머로도 간다는 뜻입니다. 프톨레마이오스의 천동설로는 설명할 수 없는 관측이었고(태양 둘레를 도는 금성을 인정한 티코 브라헤의 체계로는 설명되어 지동설의 완전한 증명은 아니었어요), 지동설 쪽으로 무게를 크게 옮겨 놓았습니다.<br>"
       + "실제 자료에서도 둥근 금성(약 100%)은 지름이 약 10″ 로 가장 작고, 가는 초승달 금성은 약 60″ 로 여섯 배쯤 큽니다. 모양과 크기가 함께 바뀐다는 것이 핵심이에요."
   },
   {
@@ -93,14 +93,14 @@ window.sthLab({
     task: "금성의 지름을 슬라이더로 맞추세요(± 300 km).",
     build: function (stage, api) {
       var H = api.h, cv = api.canvas(250), ctx = cv.ctx, W = cv.W, g = 8000;
-      var n = R[NEAR] || ["", 1, 59.5, 0.281], f = R[LAST] || ["", 70, 15.9, 1.051];
+      var n = R[NEAR] || ["", 1, 59.5, 0.281], f = R[FULL] || ["", 100, 9.8, 1.711];
       function draw() {
         H.paper(ctx, W, cv.H);
         phase(H, ctx, 120, 120, n[2] * 1.4, n[1] / 100);
         phase(H, ctx, 290, 120, f[2] * 1.4, f[1] / 100);
         H.text(ctx, ko(n[0]), 120, 225, { s: 11, w: "800", a: "center", c: H.v("--mist") });
         H.text(ctx, ko(f[0]), 290, 225, { s: 11, w: "800", a: "center", c: H.v("--mist") });
-        H.rows(ctx, 420, 30, [["가장 크게 보인 날", "지름 " + n[2].toFixed(1) + "″ · 거리 " + n[3].toFixed(3) + " AU"], ["비교: 마지막 날", "지름 " + f[2].toFixed(1) + "″ · 거리 " + f[3].toFixed(3) + " AU"], ["내 답 (금성 지름)", g.toLocaleString() + " km", null, true]], 60);
+        H.rows(ctx, 420, 30, [["가장 크게 보인 날", "지름 " + n[2].toFixed(1) + "″ · 거리 " + n[3].toFixed(3) + " AU"], ["비교: 가장 작게 보인 날", "지름 " + f[2].toFixed(1) + "″ · 거리 " + f[3].toFixed(3) + " AU"], ["내 답 (금성 지름)", g.toLocaleString() + " km", null, true]], 60);
       }
       cv.canvas._redraw = draw;
       api.slider({ label: "금성의 지름", min: 4000, max: 20000, step: 100, value: 8000, fmt: function (x) { return x.toLocaleString() + " km"; }, onInput: function (x) { g = x; api.changed(); draw(); } });
@@ -108,7 +108,7 @@ window.sthLab({
       draw();
       return {
         judge: function () {
-          if (Math.abs(g - DN) <= 300) return { ok: true, msg: "(" + n[2].toFixed(1) + " ÷ 206,265) × " + n[3].toFixed(3) + " × 1억 4960만 ≈ " + Math.round(DN).toLocaleString() + " km. 마지막 날 값으로 구해도 " + Math.round(DF).toLocaleString() + " km — 거의 같습니다. 크기가 달라 보인 것은 거리가 달랐기 때문이에요." };
+          if (Math.abs(g - DN) <= 300) return { ok: true, msg: "(" + n[2].toFixed(1) + " ÷ 206,265) × " + n[3].toFixed(3) + " × 1억 4960만 ≈ " + Math.round(DN).toLocaleString() + " km. 가장 작게 보인 날 값으로 구해도 " + Math.round(DF).toLocaleString() + " km — 거의 같습니다. 크기가 달라 보인 것은 거리가 달랐기 때문이에요." };
           return { ok: false, msg: g.toLocaleString() + " km 는 " + (g < DN ? "작습니다" : "큽니다") + ". 거리를 km 로 바꾼 뒤 각(라디안)을 곱하세요." };
         }
       };

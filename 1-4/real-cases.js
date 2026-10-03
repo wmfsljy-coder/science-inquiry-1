@@ -45,7 +45,7 @@ window.sthLab({
     build: function (stage, api) {
       var H = api.h, cv = api.canvas(270), ctx = cv.ctx, W = cv.W, g = 0;
       function draw() {
-        var c = chart(H, ctx, W, cv.H, T.annual, 9, 14, null, [[1981, 1990], [2015, 2024]], "서울의 한 해 평균 기온 (°C)");
+        var c = chart(H, ctx, W, cv.H, T.annual, 9, 14, null, [[1981, 1990], [2015, 2024]], "서울의 한 해 평균 기온 (°C) — 세로축은 9 °C 부터");
         H.dash(ctx, c.X(1980.5), c.Y(M1), c.X(1990.5), c.Y(M1), H.v("--ink"), 2);
         H.dash(ctx, c.X(2014.5), c.Y(M2), c.X(2024.5), c.Y(M2), H.v("--ink"), 2);
         H.rows(ctx, 640, 40, [["1981 ~ 1990 평균", M1.toFixed(2) + " °C"], ["2015 ~ 2024 평균", M2.toFixed(2) + " °C"], ["내 답 (오른 정도)", "+" + g.toFixed(1) + " °C", null, true]], 62);
@@ -53,7 +53,7 @@ window.sthLab({
       cv.canvas._redraw = draw;
       api.slider({ label: "오른 기온", min: 0, max: 3, step: 0.1, value: 0, fmt: function (x) { return "+" + x.toFixed(1) + " °C"; }, onInput: function (x) { g = x; api.changed(); draw(); } });
       api.info("점선이 두 기간의 평균입니다. " + SRC
-        + "<div data-link='{\"id\":\"climate-go\",\"title\":\"기후정보포털\",\"src\":\"기상청\",\"url\":\"http://www.climate.go.kr/\",\"ask\":\"기후정보포털에서 우리 지역(또는 서울)의 기온 변화 자료를 찾아, 1980년대와 최근 10년의 평균 기온이 얼마나 다른지 적어 오세요. 이 사례의 값과 비교해 보세요.\"}'></div>");
+        + "<div data-link='{\"id\":\"climate-go\",\"title\":\"기후정보포털\",\"src\":\"기상청\",\"url\":\"https://www.climate.go.kr/\",\"ask\":\"기후정보포털에서 우리 지역(또는 서울)의 기온 변화 자료를 찾아, 1980년대와 최근 10년의 평균 기온이 얼마나 다른지 적어 오세요. 이 사례의 값과 비교해 보세요.\"}'></div>");
       draw();
       return {
         judge: function () {
@@ -64,7 +64,7 @@ window.sthLab({
     },
     hints: ["오른쪽 판에 두 평균이 있습니다.", M2.toFixed(2) + " − " + M1.toFixed(2) + " = ?"],
     solution: "약 <b>+" + D.toFixed(1) + " °C</b>.",
-    why: "기온은 엘니뇨, 화산 폭발, 그해 날씨 같은 까닭으로 해마다 0.5 °C 넘게 오르내립니다. 이런 ‘잡음’ 속에서 추세를 보려면 여러 해를 묶어 평균을 내야 해요. 서울은 지구 평균(같은 기간 약 0.8 °C)보다 빨리 더워졌는데, 육지가 바다보다 빨리 데워지고 도시가 커지며 열이 갇히는 효과(열섬)가 더해졌기 때문으로 봅니다.<br>"
+    why: "기온은 엘니뇨, 화산 폭발, 그해 날씨 같은 까닭으로 해마다 0.5 °C 넘게 오르내립니다. 이런 ‘잡음’ 속에서 추세를 보려면 여러 해를 묶어 평균을 내야 해요. 서울은 지구 평균(같은 기간 약 0.7 ~ 0.8 °C)보다 빨리 더워졌는데, 육지가 바다보다 빨리 데워지기 때문으로 봅니다(도심 관측소 값에는 도시 열섬 효과가 더해집니다).<br>"
       + "변화를 말할 때는 비교한 기간과 방법을 함께 밝혀야 다른 사람이 같은 결론에 이르는지 확인할 수 있습니다."
   },
   {
@@ -86,7 +86,7 @@ window.sthLab({
       cv.canvas._redraw = draw;
       api.slider({ label: "연도", min: 2001, max: 2024, step: 1, value: 2001, fmt: function (x) { return x + "년"; }, onInput: function (x) { y = x; api.changed(); draw(); } });
       api.seg({ label: "그해부터 10년 평균은 1981 ~ 1990년보다", value: "none", options: [{ v: "hi", t: "높다" }, { v: "lo", t: "낮다" }, { v: "eq", t: "같다" }], onPick: function (x) { cmp = x; api.changed(); } });
-      api.info("막대는 −9 °C 를 바닥으로 위로 올라갑니다 — 추운 1월일수록 막대가 짧아요. 오른쪽 숫자로 확인하세요. 10년 평균은 r1 의 그래프에서 읽을 수 있어요. " + SRC);
+      api.info("막대는 −9 °C 를 바닥으로 위로 올라갑니다 — 추운 1월일수록 막대가 짧아요. 오른쪽 숫자로 확인하세요. 연도를 옮기면 오른쪽에 그해 한 해 평균이 나옵니다. 10년치를 더해 10 으로 나누세요. " + SRC);
       draw();
       return {
         judge: function () {
