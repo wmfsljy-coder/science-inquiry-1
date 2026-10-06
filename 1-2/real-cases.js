@@ -1,6 +1,6 @@
 /* 과학탐구실험1 Ⅰ 탐구 방법과 절차 — 실제 자료
-   r1 손 씻기 전과 뒤, 열두 달씩 — 빈 종합병원 제1병동의 달마다 산모 사망(1841 ~ 1849)
-   r2 장미 도표가 말한 것 — 크림 전쟁 영국군 사망 원인(1854 ~ 1856)
+   r1 손 씻기 전과 뒤, 열두 달씩 — 빈 종합병원 제1병동의 달마다 산모 사망(1841~1849)
+   r2 장미 도표가 말한 것 — 크림 전쟁 영국군 사망 원인(1854~1856)
    r3 병사가 가장 많이 죽은 달과 그 뒤 — 군인 1000명당 한 달 병 사망
    자료: data/semmelweis.js (제멜바이스 1861), data/nightingale.js (나이팅게일 1858) */
 (function () {
@@ -55,12 +55,12 @@ window.sthLab({
         H.rows(ctx, 640, 30, [["전 12달 출산 · 사망", BEF[0].toLocaleString() + " · " + BEF[1]], ["뒤 12달 출산 · 사망", AFT[0].toLocaleString() + " · " + AFT[1]], ["내 답 (몇 분의 1)", g.toFixed(1) + " 분의 1", null, true]], 62);
       }
       cv.canvas._redraw = draw;
-      api.slider({ label: "사망률이 몇 분의 1 로 줄었나", min: 1, max: 10, step: 0.1, value: 1, fmt: function (x) { return x.toFixed(1); }, onInput: function (x) { g = x; api.changed(); draw(); } });
+      api.slider({ label: "사망률이 몇 분의 1로 줄었나", min: 1, max: 10, step: 0.1, value: 1, fmt: function (x) { return x.toFixed(1); }, onInput: function (x) { g = x; api.changed(); draw(); } });
       api.info("사망률 = 사망 ÷ 출산 × 100. 1847년 초 몇 달은 손 씻기 전인데도 낮았어요 — 한두 달만 보면 잘못 판단하기 쉬운 까닭입니다. " + SRC1);
       draw();
       return {
         judge: function () {
-          if (Math.abs(g - FOLD) <= 0.4) return { ok: true, msg: "전 " + BEF[1] + " ÷ " + BEF[0].toLocaleString() + " ≈ " + RB.toFixed(1) + "%, 뒤 " + AFT[1] + " ÷ " + AFT[0].toLocaleString() + " ≈ " + RA.toFixed(1) + "% — 약 " + FOLD.toFixed(1) + " 분의 1 로 줄었습니다." };
+          if (Math.abs(g - FOLD) <= 0.4) return { ok: true, msg: "전 " + BEF[1] + " ÷ " + BEF[0].toLocaleString() + " ≈ " + RB.toFixed(1) + "%, 뒤 " + AFT[1] + " ÷ " + AFT[0].toLocaleString() + " ≈ " + RA.toFixed(1) + "% — 약 " + FOLD.toFixed(1) + " 분의 1로 줄었습니다." };
           return { ok: false, msg: g.toFixed(1) + " 는 맞지 않습니다. 두 기간의 사망률(%)을 각각 구해 나누세요." };
         }
       };
@@ -104,13 +104,13 @@ window.sthLab({
       return {
         judge: function () {
           if (Math.abs(g - SHARE) <= 2) return { ok: true, msg: TD.toLocaleString() + " ÷ " + (TD + TW + TO).toLocaleString() + " ≈ " + SHARE.toFixed(1) + "% — 다섯 명 가운데 네 명이 부상이 아니라 막을 수 있었던 병으로 죽었습니다." };
-          return { ok: false, msg: g + "% 는 " + (g < SHARE ? "작습니다" : "큽니다") + ". 병 ÷ (병 + 부상 + 기타) × 100." };
+          return { ok: false, msg: g + "%는 " + (g < SHARE ? "작습니다" : "큽니다") + ". 병 ÷ (병 + 부상 + 기타) × 100." };
         }
       };
     },
     hints: ["전체 = " + TD + " + " + TW + " + " + TO + " = " + (TD + TW + TO) + " 명.", TD + " ÷ " + (TD + TW + TO) + " × 100 ≈ ?"],
     solution: "약 <b>" + Math.round(SHARE) + "%</b>.",
-    why: "나이팅게일은 간호사이면서 통계학자였습니다. 그는 사망 원인을 꼼꼼히 세어 대부분이 더러운 병원 환경에서 생긴 병이라는 것을 보이고, 정부를 설득해 위생 개혁을 이끌었어요. 같은 사실도 숫자와 그림으로 보여 줄 때 힘을 얻는다는 것을 보여 준 사례입니다.<br>"
+    why: "나이팅게일은 간호사이면서 통계학자였습니다. 그는 사망 원인을 꼼꼼히 세어 대부분이 더러운 병원 환경에서 생긴 병이라는 것을 보이고, 정부를 설득해 위생 개혁을 이끌었습니다. 같은 사실도 숫자와 그림으로 보여 줄 때 힘을 얻는다는 것을 보여 준 사례입니다.<br>"
       + "그는 영국 왕립 통계학회(당시 런던 통계학회, 1858년)의 첫 여성 회원이 되었고, 그의 도표는 오늘날 ‘데이터 시각화’의 고전으로 꼽힙니다."
   },
   {
@@ -147,8 +147,8 @@ window.sthLab({
       draw();
       return {
         judge: function () {
-          if (i !== PEAK) return { ok: false, msg: (NR[i] ? nko(NR[i][0]) : "") + "은 " + (NR[i] ? rate(NR[i]).toFixed(1) : 0) + " 명입니다. 더 높은 달이 있어요." };
-          if (why !== "san") return { ok: false, msg: "달은 맞았습니다. " + (why === "war" ? "빨간 선을 보세요 — 부상 사망은 1855년 6월·9월에 오히려 늘었습니다. 전투는 계속되었어요." : why === "few" ? "오른쪽 표를 보세요 — 그 뒤 군인 수는 오히려 늘었습니다." : "까닭을 골라 주세요.") };
+          if (i !== PEAK) return { ok: false, msg: (NR[i] ? nko(NR[i][0]) : "") + "은 " + (NR[i] ? rate(NR[i]).toFixed(1) : 0) + " 명입니다. 더 높은 달이 있습니다." };
+          if (why !== "san") return { ok: false, msg: "달은 맞았습니다. " + (why === "war" ? "빨간 선을 보세요 — 부상 사망은 1855년 6월·9월에 오히려 늘었습니다. 전투는 계속되었습니다." : why === "few" ? "오른쪽 표를 보세요 — 그 뒤 군인 수는 오히려 늘었습니다." : "까닭을 골라 주세요.") };
           var last = NR[NR.length - 1];
           return { ok: true, msg: nko(NR[PEAK][0]) + " " + rate(NR[PEAK]).toFixed(1) + " 명 — 한 달에 군인 열두 명 가운데 한 명꼴로 병으로 죽었습니다. 위생 위원회가 온 뒤 줄어 " + nko(last[0]) + "에는 " + rate(last).toFixed(1) + " 명이 되었어요." };
         }
@@ -156,8 +156,8 @@ window.sthLab({
     },
     hints: ["파란 선의 가장 높은 곳으로 달을 옮기세요.", "그 뒤 빨간 선(부상)과 군인 수가 어떻게 되었는지 보세요."],
     solution: "<b>" + (NR[PEAK] ? nko(NR[PEAK][0]) : "1855년 1월") + "</b>, 위생 위원회의 개혁 뒤로 줄었다.",
-    why: "위생 위원회는 병원 밑의 막힌 하수도를 뚫고, 환기를 고치고, 물을 깨끗이 하고, 죽은 동물을 치웠습니다. 그 뒤 병으로 죽는 군인이 크게 줄었어요. 같은 시기 전투는 계속되어 부상 사망은 줄지 않았으므로, ‘전쟁이 끝나서’는 설명이 되지 못합니다.<br>"
-      + "나이팅게일은 이렇게 ‘비율’로 비교하고 다른 설명을 하나씩 지워 가며, 위생이 생명을 구한다는 주장을 숫자로 뒷받침했습니다. 다만 사망률은 위원회가 오기 전인 1855년 2월부터 이미 줄기 시작했으니, 보급·막사 개선이나 날씨가 풀린 것도 한몫했을 수 있어요. 그래도 이듬해 겨울(1855 ~ 1856)에는 다시 늘지 않았습니다."
+    why: "위생 위원회는 병원 밑의 막힌 하수도를 뚫고, 환기를 고치고, 물을 깨끗이 하고, 죽은 동물을 치웠습니다. 그 뒤 병으로 죽는 군인이 크게 줄었습니다. 같은 시기 전투는 계속되어 부상 사망은 줄지 않았으므로, ‘전쟁이 끝나서’는 설명이 되지 못합니다.<br>"
+      + "나이팅게일은 이렇게 ‘비율’로 비교하고 다른 설명을 하나씩 지워 가며, 위생이 생명을 구한다는 주장을 숫자로 뒷받침했습니다. 다만 사망률은 위원회가 오기 전인 1855년 2월부터 이미 줄기 시작했으니, 보급·막사 개선이나 날씨가 풀린 것도 한몫했을 수 있습니다. 그래도 이듬해 겨울(1855~1856)에는 다시 늘지 않았습니다."
   }
   ]
 });
