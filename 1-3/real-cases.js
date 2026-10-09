@@ -90,7 +90,7 @@ window.sthLab({
       cv.canvas._redraw = draw;
       api.slider({ label: "6 ~ 8월 비의 비율", min: 0, max: 100, step: 1, value: 25, fmt: function (x) { return x + "%"; }, onInput: function (x) { g = x; api.changed(); draw(); } });
       api.info("측우기는 지름이 일정한 원통이라, 고인 물의 깊이만 재면 비의 양을 비교할 수 있습니다. 오늘날 강수량도 ‘mm’(물이 고인 깊이)로 나타내요. " + SRC2
-        + "<div data-map='{\"id\":\"kma-museum\",\"name\":\"국립기상박물관 (서울 종로구 송월동)\",\"lat\":37.5713,\"lng\":126.9658,\"zoom\":17,\"ask\":\"국립기상박물관과 바로 옆 서울기상관측소 둘레를 지도로 살펴보세요. 비를 재는 그릇은 건물·나무와 얼마나 떨어진 곳에 두어야 할지, 그 까닭과 함께 적어 오세요.\"}'></div>");
+        + "<div data-map='{\"id\":\"kma-museum\",\"name\":\"국립기상박물관 (서울 종로구 송월동)\",\"lat\":37.5713,\"lng\":126.9658,\"zoom\":17,\"ask\":\"국립기상박물관과 바로 옆 서울기상관측소 둘레를 지도로 살펴보세요. 비를 재는 그릇은 둘레의 건물·나무 높이의 2배 이상 떨어진 빈터에 두는 것이 원칙입니다. 그런 빈터가 어디쯤 있는지 지도에서 찾아, 왜 떨어뜨려야 하는지 까닭과 함께 적어 오세요.\"}'></div>");
       draw();
       return {
         judge: function () {
