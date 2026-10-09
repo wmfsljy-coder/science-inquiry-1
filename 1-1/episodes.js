@@ -82,7 +82,7 @@ function orderDone(mount, steps) {
       if (e > 0) {
         ctx.save(); ctx.strokeStyle = v("--brand"); ctx.fillStyle = v("--brand"); ctx.lineWidth = 2;
         window.drawArrow(ctx, X(-EARLY), by + 58, X(nuT), by + 58, 8); ctx.restore();
-        text(ctx, "장비 오차 " + e + " ns 를 바로잡으면", (X(-EARLY) + X(nuT)) / 2, by + 76, { s: 11, w: "700", a: "center", c: v("--brand-700") });
+        text(ctx, "장비 오차 " + e + " ns를 바로잡으면", (X(-EARLY) + X(nuT)) / 2, by + 76, { s: 11, w: "700", a: "center", c: v("--brand-700") });
       }
       var r = ratio(), ex = (r - 1) * 1e5;
       text(ctx, "속력 ÷ 빛의 속력 = " + r.toFixed(7), 70, 262, { s: 13.5, w: "900", c: Math.abs(ex) < 0.05 ? v("--green-700") : v("--ink") });
@@ -91,16 +91,16 @@ function orderDone(mount, steps) {
     }
     function update() {
       var ok = draw(), r = ratio();
-      put("a-nu-info", "빛은 730 km 를 약 " + (TL / 1e6).toFixed(3) + " ms 에 갑니다. 장비 오차를 " + e + " ns 로 바로잡으면 중성미자는 빛보다 "
+      put("a-nu-info", "빛은 730 km를 약 " + (TL / 1e6).toFixed(3) + " ms에 갑니다. 장비 오차를 " + e + " ns로 바로잡으면 중성미자는 빛보다 "
         + (Math.abs(EARLY - e) < 1 ? "빠르지도 느리지도 않습니다" : ((EARLY - e) > 0 ? (EARLY - e) + " ns 먼저 도착합니다" : (e - EARLY) + " ns 늦게 도착합니다"))
-        + " (속력 비 " + r.toFixed(7) + "). " + (ok ? "✅ 시계가 60 나노초만 어긋나도 ‘빛보다 빠른’ 결과가 나옵니다." : "속력 비가 정확히 1 이 되는 오차를 찾아보세요."));
+        + " (속력 비 " + r.toFixed(7) + "). " + (ok ? "✅ 시계가 60 나노초만 어긋나도 ‘빛보다 빠른’ 결과가 나옵니다." : "속력 비가 정확히 1이 되는 오차를 찾아보세요."));
       if (ok && !got.a) { got.a = true; window.sthState("nuGot", got); mission(); }
     }
     function mission() {
       if (got.a) done("m1-2a"); if (got.q) done("m1-2b");
       if (got.a && got.q) {
-        window.sthState("nuBest", "장비 오차 60 ns 면 속력 비 1 (빛과 같다)");
-        window.sthMission("m1-2", true, "<span class='m-tag'>미션 완료</span>" + window.sthState("nuBest") + ". 2.4 밀리초 중 60 나노초, 4만분의 1 도 안 되는 오차가 결론을 뒤집을 수 있습니다. 그래서 과학자들은 결과를 다른 이들에게 검증받습니다.");
+        window.sthState("nuBest", "장비 오차 60 ns면 속력 비 1 (빛과 같다)");
+        window.sthMission("m1-2", true, "<span class='m-tag'>미션 완료</span>" + window.sthState("nuBest") + ". 2.4 밀리초 중 60 나노초, 4만분의 1도 안 되는 오차가 결론을 뒤집을 수 있습니다. 그래서 과학자들은 결과를 다른 이들에게 검증받습니다.");
         ep.clear(1);
       }
     }
@@ -111,7 +111,7 @@ function orderDone(mount, steps) {
       q: "연구팀이 결과를 발표하면서 다른 과학자들에게 검토와 재측정을 요청한 가장 중요한 까닭은?",
       options: ["자기 팀의 실력을 자랑하려고", "스스로 찾지 못한 오류가 있을 수 있어, 독립적인 확인을 거쳐야 과학 지식으로 인정받을 수 있기 때문에", "상대성 이론이 틀렸다는 것을 이미 확신했기 때문에"],
       answer: 1,
-      why: ["자랑이 목적이었다면 검토를 요청하지 않았겠지요.", "과학 지식은 한 팀의 주장만으로 확정되지 않습니다. 다른 과학자들의 검토와 재현을 거치는 사회적 합의 과정이 필요합니다.", "연구팀도 오류를 찾지 못했을 뿐 확신하지 않았습니다. 그래서 검토를 부탁했지요."],
+      why: ["자랑이 목적이었다면 검토를 요청하지 않았겠지요.", "과학 지식은 한 팀의 주장만으로 확정되지 않습니다. 다른 과학자들의 검토와 재현을 거치는 사회적 합의 과정이 필요합니다.", "연구팀도 오류를 찾지 못했을 뿐 확신하지 않았습니다. 그래서 검토를 부탁했습니다."],
       onDone: function () { got.q = true; window.sthState("nuGot", got); mission(); }
     });
     update(); mission();
@@ -154,8 +154,8 @@ function orderDone(mount, steps) {
     }
     function update() {
       var ok = draw();
-      put("a-pr-info", "검토자 " + n + "명이 따로 검토하면 오류를 적어도 한 명이 찾을 확률은 1 − 0.7<sup>" + n + "</sup> = " + (P(n) * 100).toFixed(1) + "% 입니다. "
-        + (ok ? "✅ 95% 를 넘기는 가장 적은 수입니다. 한 사람은 30% 밖에 못 찾아도, 여럿이 독립적으로 보면 오류가 걸러집니다." : (P(n) >= 0.95 ? "95% 는 넘었지만 더 적은 수로도 됩니다." : "아직 95% 에 못 미칩니다.")));
+      put("a-pr-info", "검토자 " + n + "명이 따로 검토하면 오류를 적어도 한 명이 찾을 확률은 1 − 0.7<sup>" + n + "</sup> = " + (P(n) * 100).toFixed(1) + "%입니다. "
+        + (ok ? "✅ 95%를 넘기는 가장 적은 수입니다. 한 사람은 30% 밖에 못 찾아도, 여럿이 독립적으로 보면 오류가 걸러집니다." : (P(n) >= 0.95 ? "95%는 넘었지만 더 적은 수로도 됩니다." : "아직 95%에 못 미칩니다.")));
       if (ok && !got.a) { got.a = true; window.sthState("prGot", got); mission(); }
     }
     function mission() {
@@ -173,7 +173,7 @@ function orderDone(mount, steps) {
       q: "검토자가 5명이면 오류를 적어도 한 명이 찾을 확률은 대략 얼마일까요? (0.7⁵ ≈ 0.17)",
       options: ["약 30%", "약 50%", "약 83%", "100%"],
       answer: 2,
-      why: ["한 명일 때의 확률입니다.", "두 명일 때(51%)에 가깝습니다.", "1 − 0.7⁵ = 1 − 0.168 ≈ 0.83, 약 83% 입니다.", "검토자가 아무리 많아도 놓칠 확률은 0 이 되지 않습니다. 과학 지식이 잠정적인 까닭 하나입니다."],
+      why: ["한 명일 때의 확률입니다.", "두 명일 때(51%)에 가깝습니다.", "1 − 0.7⁵ = 1 − 0.168 ≈ 0.83, 약 83%입니다.", "검토자가 아무리 많아도 놓칠 확률은 0이 되지 않습니다. 과학 지식이 잠정적인 까닭 하나입니다."],
       onDone: function () { got.q = true; window.sthState("prGot", got); mission(); }
     });
     update(); mission();
@@ -279,7 +279,7 @@ function orderDone(mount, steps) {
     }
     function update() {
       var ok = draw(), f = lit();
-      put("b-ven-info", (model === "p" ? "천동설" : "지동설") + " 모형, " + t + "일째: 금성의 밝은 부분은 " + (f * 100).toFixed(0) + "% 입니다. "
+      put("b-ven-info", (model === "p" ? "천동설" : "지동설") + " 모형, " + t + "일째: 금성의 밝은 부분은 " + (f * 100).toFixed(0) + "%입니다. "
         + (ok ? "✅ 갈릴레이가 본 ‘보름달에 가까운 금성’입니다. 금성이 태양 <b>너머</b>에 있을 때만 이렇게 보입니다(완전히 둥글 때는 태양 바로 뒤라 보이지 않습니다)." : (model === "p" ? "천동설에서는 날짜를 아무리 바꿔도 금성이 태양 너머로 가지 않습니다. 모형을 바꿔 보세요." : "금성이 태양 건너편으로 가는 날짜를 찾아보세요.")));
       if (ok && !got.a) { got.a = true; window.sthState("venGot", got); mission(); }
     }
@@ -299,7 +299,7 @@ function orderDone(mount, steps) {
       q: "갈릴레이가 망원경으로 금성이 초승달부터 보름달 모양까지 차고 기우는 것을 관측했습니다. 이 관측의 의미는?",
       options: ["천동설과 지동설 모두와 잘 맞는다", "금성이 태양 너머로 갈 수 없는 천동설(프톨레마이오스)로는 설명할 수 없다", "금성이 스스로 빛을 낸다는 증거이다"],
       answer: 1,
-      why: ["천동설 모형에서는 금성의 밝은 부분이 22% 를 넘지 못했습니다.", "천동설은 보름달 금성이 ‘나올 수 없다’고 예측했습니다. 예측과 어긋나는 관측이 천동설을 무너뜨린 결정적 증거가 되었습니다.", "금성이 스스로 빛난다면 차고 기우는 모양이 생기지 않습니다. 위상은 햇빛을 반사하기 때문에 생깁니다."],
+      why: ["천동설 모형에서는 금성의 밝은 부분이 22%를 넘지 못했습니다.", "천동설은 보름달 금성이 ‘나올 수 없다’고 예측했습니다. 예측과 어긋나는 관측이 천동설을 무너뜨린 결정적 증거가 되었습니다.", "금성이 스스로 빛난다면 차고 기우는 모양이 생기지 않습니다. 위상은 햇빛을 반사하기 때문에 생깁니다."],
       onDone: function () { got.q = true; window.sthState("venGot", got); mission(); }
     });
     update(); mission();
@@ -337,7 +337,7 @@ function orderDone(mount, steps) {
     }
     function update() {
       var ok = draw();
-      put("b-hub-info", "기울기 H = " + h + " 일 때 직선과 은하 자료의 평균 어긋남은 " + rms(h).toFixed(0) + " km/s 입니다. "
+      put("b-hub-info", "기울기 H = " + h + " 일 때 직선과 은하 자료의 평균 어긋남은 " + rms(h).toFixed(0) + " km/s입니다. "
         + (ok ? "✅ 자료에 가장 잘 맞는 기울기입니다. 먼 은하일수록 빨리 멀어진다는 것은 우주 전체가 팽창한다는 뜻입니다." : (h < 70 ? "직선이 먼 은하들 아래로 지나갑니다." : "직선이 먼 은하들 위로 지나갑니다.")));
       if (ok && !got) { got = true; window.sthState("hubGot", true); mission(); }
     }
@@ -363,7 +363,7 @@ function orderDone(mount, steps) {
       "허블, 은하의 거리–속력 관계 — 팽창하는 우주의 발견",
       "해저 확장과 고지자기 연구 — 대륙 이동설에서 판구조론으로"
     ];
-    function ok() { window.sthMission("m2-4", true, "<span class='m-tag'>미션 완료</span>1543 → 1610 → 1638 → 1861 → 1929 → 1960년대. 어느 경우에도 권위나 유행이 아니라 새로운 관측과 실험이 세계관을 바꾸었습니다. 대륙 이동설은 1912년 베게너가 제안했지만 증거가 쌓인 1960년대에야 받아들여졌지요."); ep.clear(3); ep.clear(4); }
+    function ok() { window.sthMission("m2-4", true, "<span class='m-tag'>미션 완료</span>1543 → 1610 → 1638 → 1861 → 1929 → 1960년대. 어느 경우에도 권위나 유행이 아니라 새로운 관측과 실험이 세계관을 바꾸었습니다. 대륙 이동설은 1912년 베게너가 제안했지만 증거가 쌓인 1960년대에야 받아들여졌습니다."); ep.clear(3); ep.clear(4); }
     if (ep.cleared(3)) { orderDone("b-order", STEPS); window.sthMission("m2-4", true); }
     else window.sthOrder({ mount: "b-order", steps: STEPS, onDone: ok });
   })();
