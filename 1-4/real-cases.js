@@ -1,7 +1,8 @@
 /* 과학탐구실험1 Ⅱ 과학 탐구의 과정과 절차 — 실제 자료
    r1 서울은 얼마나 더워졌나 — 1981~1990년과 2015~2024년의 한 해 평균 기온
    r2 추운 겨울의 반론 — 가장 추운 1월이 온난화를 뒤집을까
-   자료: data/seoul-temp.js (NASA POWER) */
+   r3 평균이 감춘 것 — 창원(155)의 여름은 더워지고 겨울은 추워졌다
+   자료: data/seoul-temp.js (NASA POWER), data/cw155.js (기상청 창원 155) */
 (function () {
 "use strict";
 var T = window.REAL_SEOUL || { annual: [], monthly: [] };
@@ -13,6 +14,15 @@ var J = {}; JAN.forEach(function (r) { J[r[0]] = r[2]; });
 var COLD = 2001; for (var y = 2001; y <= 2024; y++) if (J[y] != null && J[y] < J[COLD]) COLD = y;
 var DEC = avg(COLD, COLD + 9);
 var SRC = "<small>출처: 미국 항공우주국(NASA) POWER 자료 서비스 — 서울(북위 37.57°, 동경 126.98°) 지상 2 m 기온의 해 평균·달 평균, 1981~2024. 위성·관측을 합친 약 50 km 격자 평균이라 도심의 서울 관측소 값보다 1~2 °C 낮게 나옵니다. 변화의 크기를 보는 데 쓰세요. 사본은 data/seoul-temp.js.</small>";
+var CWD = window.REAL_CW155 || { rows: [], season: [] };
+var CWSE = (CWD.season || []).filter(function (r) { return r[0] >= 1987 && r[0] <= 2025 && r[2] != null; });   /* [연도, 여름(6~8월) 평균, 겨울(앞해 12월~2월) 평균] */
+var CWR = (CWD.rows || []).filter(function (r) { return r[0] >= 1987 && r[0] <= 2025; });
+function cwM(a, j) { var s = 0; a.forEach(function (r) { s += r[j]; }); return a.length ? s / a.length : 0; }
+var CW_S0 = cwM(CWSE.slice(0, 10), 1), CW_S1 = cwM(CWSE.slice(-10), 1), CW_W0 = cwM(CWSE.slice(0, 10), 2), CW_W1 = cwM(CWSE.slice(-10), 2);
+var CW_A0 = cwM(CWR.slice(0, 10), 1), CW_A1 = cwM(CWR.slice(-10), 1), CW_DS = CW_S1 - CW_S0;
+var CW_COLD = CWSE.slice().sort(function (a, b) { return a[2] - b[2]; }).slice(0, 4).map(function (r) { return r[0]; }).sort();
+var CW_Y0 = CWSE.length ? CWSE[0][0] : 1987, CW_YL = CWSE.length ? CWSE[CWSE.length - 1][0] : 2025;
+var SRC_CW = "<small>출처: 기상청 날씨누리 과거 관측 일별 자료, 창원(155) 일평균 기온으로 해마다 여름(6 ~ 8월)·겨울(앞해 12월 ~ 그해 2월) 평균을 냈습니다(" + CW_Y0 + " ~ " + CW_YL + "). 위 서울 자료(격자 값)와 달리 관측소 한 곳의 실제 관측입니다. 사본은 data/cw155.js.</small>";
 
 function chart(H, ctx, W, CH, pts, lo, hi, pick, shade, label) {
   H.paper(ctx, W, CH);
@@ -101,6 +111,56 @@ window.sthLab({
     solution: "<b>" + COLD + "년</b>, 그해부터 10년 평균은 1980년대보다 <b>높다</b>.",
     why: "날씨는 하루하루, 한 해 한 해의 대기 상태이고, 기후는 30년쯤의 평균적인 상태입니다. 온난화가 진행되어도 북극의 찬 공기가 내려오는 해에는 몹시 추운 겨울이 올 수 있습니다. 한 해, 한 달의 예외는 추세를 뒤집는 증거가 되지 못하고, 반론을 검토할 때는 같은 기준(여러 해의 평균)으로 비교해야 합니다.<br>"
       + "과학 탐구에서 반론은 소중합니다. 다만 반론도 증거로 시험해야 하며, 이 경우 증거는 ‘추세는 그대로’라는 쪽을 가리킵니다."
+  },
+  {
+    id: "r3", tag: "실제 자료 · 우리 동네 기온", title: "평균이 감춘 것 — 창원의 여름과 겨울", short: "여름과 겨울",
+    who: "📍", name: "창원기상대(기상청)",
+    say: "“진해와 가까운 <b>창원기상대</b>의 한 해 평균 기온은 처음 10년(" + CW_Y0 + " ~ " + (CW_Y0 + 9) + ") " + CW_A0.toFixed(1) + " °C, 마지막 10년(" + (CW_YL - 9) + " ~ " + CW_YL + ") " + CW_A1.toFixed(1) + " °C로 거의 그대로예요. 그런데 계절로 나눠 보면 이야기가 달라집니다. 빨간 선은 해마다 <b>여름(6 ~ 8월)</b> 평균, 파란 선은 <b>겨울(12 ~ 2월)</b> 평균이에요. 여름 평균은 처음 10년보다 마지막 10년이 몇 °C 달라졌는지 구해 주세요.”",
+    predict: {
+      q: "한 해 평균이 거의 그대로인 곳에서 여름과 겨울은 어떻게 되었을까요?",
+      options: ["㉠ 둘 다 거의 그대로다", "㉡ 여름은 더워지고 겨울은 오히려 조금 추워져서, 평균에서는 서로 지워졌다", "㉢ 겨울만 크게 따뜻해졌다"],
+      answer: 1
+    },
+    task: "오른쪽 두 기간의 여름 평균을 읽고 <b>마지막 10년 − 처음 10년</b>을 슬라이더로 맞추세요(± 0.1 °C).",
+    build: function (stage, api) {
+      var H = api.h, cv = api.canvas(300), ctx = cv.ctx, W = cv.W, dt = 0;
+      var x0 = 50, x1 = 640, y0 = 20, y1 = 262;
+      function X(y) { return x0 + (y - (CW_Y0 - 1)) / (CW_YL - CW_Y0 + 2) * (x1 - x0); }
+      var top = [22, 28], bot = [0, 6];        /* 위: 여름 °C, 아래: 겨울 °C */
+      function YS(t) { return y0 + (top[1] - t) / (top[1] - top[0]) * 110; }
+      function YW(t) { return y1 - 10 - (t - bot[0]) / (bot[1] - bot[0]) * 100; }
+      function draw() {
+        H.paper(ctx, W, cv.H); H.axes(ctx, x0, y0, x1, y1);
+        [23, 25, 27].forEach(function (t) { H.text(ctx, t + "°", x0 - 8, YS(t) + 4, { s: 10, a: "right", c: H.v("--coral-700") }); H.dash(ctx, x0, YS(t), x1, YS(t), H.v("--line"), 0.5); });
+        [1, 3, 5].forEach(function (t) { H.text(ctx, t + "°", x0 - 8, YW(t) + 4, { s: 10, a: "right", c: H.v("--brand") }); H.dash(ctx, x0, YW(t), x1, YW(t), H.v("--line"), 0.5); });
+        H.text(ctx, "여름 6 ~ 8월", x0 + 6, y0 + 12, { s: 11, w: "800", c: H.v("--coral-700") });
+        H.text(ctx, "겨울 12 ~ 2월", x0 + 6, YW(bot[1]) + 4, { s: 11, w: "800", c: H.v("--brand") });
+        H.line(ctx, CWSE.map(function (r) { return [X(r[0]), YS(r[1])]; }), H.v("--coral-700"), 2);
+        H.line(ctx, CWSE.map(function (r) { return [X(r[0]), YW(r[2])]; }), H.v("--brand"), 2);
+        [[CW_Y0, CW_Y0 + 9], [CW_YL - 9, CW_YL]].forEach(function (p, i) {
+          var s = i ? CW_S1 : CW_S0, w = i ? CW_W1 : CW_W0;
+          H.line(ctx, [[X(p[0]), YS(s)], [X(p[1]), YS(s)]], H.v("--ink"), 3);
+          H.line(ctx, [[X(p[0]), YW(w)], [X(p[1]), YW(w)]], H.v("--ink"), 3);
+        });
+        [1990, 2000, 2010, 2020].forEach(function (y) { H.text(ctx, y, X(y), y1 + 15, { s: 10, a: "center", c: H.v("--mist") }); });
+        H.rows(ctx, 680, 34, [["여름 처음 → 마지막 10년", CW_S0.toFixed(2) + " → " + CW_S1.toFixed(2) + " °C", "--coral-700"], ["겨울 처음 → 마지막 10년", CW_W0.toFixed(2) + " → " + CW_W1.toFixed(2) + " °C", "--brand"], ["검은 막대", "10년 평균"], ["내 답 (여름)", (dt >= 0 ? "+" : "") + dt.toFixed(2) + " °C", null, true]], 54);
+      }
+      cv.canvas._redraw = draw;
+      api.slider({ label: "여름 평균의 변화", min: -1.5, max: 1.5, step: 0.05, value: 0, fmt: function (x) { return (x >= 0 ? "+" : "") + x.toFixed(2) + " °C"; }, onInput: function (x) { dt = x; api.changed(); draw(); } });
+      api.info("나중 값 − 처음 값. 오르면 +, 내리면 − 입니다. 겨울도 같은 방법으로 구해 보세요. " + SRC_CW);
+      draw();
+      return {
+        judge: function () {
+          if (Math.abs(dt - CW_DS) <= 0.1) return { ok: true, msg: "여름은 " + (CW_DS >= 0 ? "+" : "") + CW_DS.toFixed(2) + " °C, 겨울은 " + (CW_W1 - CW_W0 >= 0 ? "+" : "") + (CW_W1 - CW_W0).toFixed(2) + " °C — 둘이 서로를 지워 한 해 평균은 " + (CW_A1 - CW_A0 >= 0 ? "+" : "") + (CW_A1 - CW_A0).toFixed(2) + " °C밖에 안 바뀌었습니다." };
+          if (Math.abs(dt + CW_DS) <= 0.1) return { ok: false, msg: "부호가 거꾸로입니다. 마지막 10년 값에서 처음 10년 값을 빼세요." };
+          return { ok: false, msg: (dt >= 0 ? "+" : "") + dt.toFixed(2) + " °C는 " + (dt < CW_DS ? "작습니다" : "큽니다") + ". 오른쪽 여름 두 값의 차이를 구하세요." };
+        }
+      };
+    },
+    hints: ["여름: " + CW_S1.toFixed(2) + " − " + CW_S0.toFixed(2) + " = ?", "같은 방법으로 겨울도: " + CW_W1.toFixed(2) + " − " + CW_W0.toFixed(2)],
+    solution: "여름 " + CW_S1.toFixed(2) + " − " + CW_S0.toFixed(2) + " = <b>" + (CW_DS >= 0 ? "+" : "") + CW_DS.toFixed(2) + " °C</b> (겨울은 " + (CW_W1 - CW_W0).toFixed(2) + " °C).",
+    why: "평균 하나는 많은 것을 감춥니다. 창원의 여름은 " + CW_DS.toFixed(1) + " °C쯤 더워졌는데(폭염일도 크게 늘었습니다), 겨울은 오히려 " + (CW_W0 - CW_W1).toFixed(1) + " °C쯤 추워져서 한 해 평균에서는 둘이 거의 지워졌습니다. 겨울이 가장 추웠던 해는 " + CW_COLD.join("·") + "년으로, 모두 마지막 15년 안에 있습니다.<br>"
+      + "그렇다면 ‘창원은 온난화가 없다’고 말할 수 있을까요? 위의 ‘추운 겨울의 반론’에서 본 것처럼, 추운 겨울 몇 해로 지구 전체의 추세를 뒤집을 수는 없습니다. 관측소 한 곳의 기록은 그 둘레의 땅 이용 변화나 해마다의 날씨에도 크게 흔들립니다. 이런 자료를 볼 때 탐구자는 ① 계절·극단으로 나눠 보고 ② 비교 기간을 바꿔 보고 ③ 다른 관측소와 견주어 보아야 합니다."
   }
   ]
 });
