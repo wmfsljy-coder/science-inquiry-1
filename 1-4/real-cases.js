@@ -63,7 +63,7 @@ window.sthLab({
       cv.canvas._redraw = draw;
       api.slider({ label: "오른 기온", min: 0, max: 3, step: 0.1, value: 0, fmt: function (x) { return "+" + x.toFixed(1) + " °C"; }, onInput: function (x) { g = x; api.changed(); draw(); } });
       api.info("점선이 두 기간의 평균입니다. " + SRC
-        + "<div data-link='{\"id\":\"climate-go\",\"title\":\"기후정보포털\",\"src\":\"기상청\",\"url\":\"https://www.climate.go.kr/\",\"ask\":\"기후정보포털에서 ‘기온’ 그래프(우리 지역 또는 서울의 연평균 기온)를 찾아, 1980년대와 최근 10년의 평균 기온이 대략 얼마나 다른지 그래프에서 읽어 적어 오세요. 이 사례의 값과 비교해 보세요.\"}'></div>");
+        + "<div data-link='{\"id\":\"climate-go\",\"title\":\"기후정보포털 — 지점별 관측자료\",\"src\":\"기상청\",\"url\":\"https://www.climate.go.kr/home/CCS/contents_2021/37_2_past_analysis_recent.php\",\"ask\":\"요소는 ‘평균기온’, 지역은 ‘지점별’에서 서울을 고르고, 비교 기간을 ‘임의 기간’으로 바꿔 1981~1990년과 2015~2024년을 넣어 조회하세요. 두 기간 서울 평균 기온이 몇 °C 다른지 읽어, 이 사례의 값과 비교해 오세요.\"}'></div>");
       draw();
       return {
         judge: function () {
