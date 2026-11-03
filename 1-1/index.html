@@ -47,11 +47,13 @@
         <section class="scene" data-title="60 나노초의 수수께끼">
           <div class="story"><div class="who">⏱️</div><div class="say"><span class="name">물리학자 인터뷰</span>“빛은 730 km를 약 2.435 밀리초에 갑니다. 중성미자가 60 나노초 빨랐다는 건 빛보다 겨우 0.0025 %(약 4만분의 1) 빠르다는 뜻이에요. 그런데 만약 장비의 시계가 <b>몇십 나노초</b>만 어긋나 있었다면? 측정 장비의 시간 오차를 바꿔 보며, 중성미자의 속력이 <b>정확히 빛과 같아지는</b> 오차를 찾아보세요.”</div></div>
           <div class="stage-card">
-            <div class="canvas-wrap"><canvas id="a-c-nu" width="900" height="280"></canvas></div>
-            <div class="controls">
+            <div class="canvas-wrap stage"><canvas id="a-c-nu" width="900" height="320"></canvas></div>
+            <div class="sim-side">
+              <div class="readout" id="a-nu-read"></div>
               <div class="ctrl-group">
                 <div class="ctrl-label">측정 장비가 도착 시각을 이르게 잰 오차<span class="val" id="a-e-val">0 ns</span></div>
                 <input type="range" id="a-e" min="0" max="100" step="5" value="0">
+                <button type="button" class="btn sm" id="a-nu-play" style="margin-top:12px">⏸ 중성미자 멈추기</button>
               </div>
             </div>
             <div class="info-card" id="a-nu-info"></div>
@@ -63,8 +65,9 @@
         <section class="scene" data-title="동료 검토 — 몇 명이 보아야 걸러질까">
           <div class="story"><div class="who">🧑‍🔬</div><div class="say"><span class="name">학술지 편집자</span>“한 명의 검토자가 논문 속 오류를 발견할 확률이 30%라고 해 봅시다. 여러 명이 <b>따로따로</b> 검토하면 적어도 한 명이 오류를 찾을 확률은 1 − 0.7ⁿ이에요. 오류를 <b>95% 이상</b> 걸러 내려면 검토자가 적어도 몇 명 필요할까요? 너무 많이 부르면 심사가 한없이 늦어지니 가장 적은 수를 찾아 주세요.”</div></div>
           <div class="stage-card">
-            <div class="canvas-wrap"><canvas id="a-c-pr" width="900" height="260"></canvas></div>
-            <div class="controls">
+            <div class="canvas-wrap stage"><canvas id="a-c-pr" width="900" height="280"></canvas></div>
+            <div class="sim-side">
+              <div class="readout" id="a-pr-read"></div>
               <div class="ctrl-group">
                 <div class="ctrl-label">검토자 수(명)<span class="val" id="a-pr-n-val">1</span></div>
                 <input type="range" id="a-pr-n" min="1" max="20" step="1" value="1">
@@ -117,8 +120,9 @@
         <section class="scene" data-title="금성의 위상 — 두 모형의 예측">
           <div class="story"><div class="who">🔭</div><div class="say"><span class="name">천문 해설사</span>“천동설에서 금성은 늘 지구와 태양 <b>사이</b>의 작은 원(주전원)을 돌아요. <span data-view="law:지동설">지동설</span>에서는 금성이 태양 둘레를 돌지요. 두 모형에서 금성이 햇빛을 받는 모양을 시간에 따라 비교해 보세요. 갈릴레이는 금성이 <b>거의 보름달처럼 둥글게</b> 보이는 때를 관측했습니다. 어느 모형에서 그런 모양이 나올까요?”</div></div>
           <div class="stage-card">
-            <div class="canvas-wrap"><canvas id="b-c-ven" width="900" height="300"></canvas></div>
-            <div class="controls">
+            <div class="canvas-wrap stage"><canvas id="b-c-ven" width="900" height="330"></canvas></div>
+            <div class="sim-side">
+              <div class="readout" id="b-ven-read"></div>
               <div class="ctrl-group">
                 <div class="ctrl-label">우주 모형</div>
                 <div class="seg" id="b-model"><button class="on" data-v="p">천동설 (프톨레마이오스)</button><button data-v="h">지동설 (코페르니쿠스)</button></div>
@@ -137,11 +141,13 @@
         <section class="scene" data-title="허블의 그래프 — 멀수록 빨리 멀어진다">
           <div class="story"><div class="who">🌌</div><div class="say"><span class="name">우주론 해설사</span>“300년 뒤, 또 한 번 세계관이 바뀝니다. 우주는 영원히 그대로라고 믿던 때, 허블은 먼 은하일수록 빨리 멀어진다는 관측 자료를 내놓았어요. 은하 여덟 개의 거리와 멀어지는 속력에 가장 잘 맞는 직선(속력 = H × 거리)의 기울기 H를 찾아 주세요.”</div></div>
           <div class="stage-card">
-            <div class="canvas-wrap"><canvas id="b-c-hub" width="900" height="290"></canvas></div>
-            <div class="controls">
+            <div class="canvas-wrap stage"><canvas id="b-c-hub" width="900" height="300"></canvas></div>
+            <div class="sim-side">
+              <div class="readout" id="b-hub-read"></div>
               <div class="ctrl-group">
                 <div class="ctrl-label">직선의 기울기 H (km/s/Mpc)<span class="val" id="b-h-val">40</span></div>
                 <input type="range" id="b-h" min="30" max="110" step="1" value="40">
+                <button type="button" class="btn sm" id="b-hub-play" style="margin-top:12px">⏸ 팽창 멈추기</button>
               </div>
             </div>
             <div class="info-card" id="b-hub-info"></div>
@@ -224,6 +230,7 @@
 <script src="../assets/account.js"></script>
 <script src="episodes.js"></script>
 <script src="worked.js"></script>
+<script src="handoff.js"></script>
 <script src="quiz-items.js"></script>
 <script src="../assets/review.js"></script>
 <script src="../assets/peer.js"></script>

@@ -47,8 +47,9 @@
         <section class="scene" data-title="낙하를 느리게 — 빗면 실험">
           <div class="story"><div class="who">👨‍🔬</div><div class="say"><span class="name">갈릴레이</span>“공을 그냥 떨어뜨리면 1초 만에 끝나 버려. 우리 물시계는 0.1초쯤 어긋나니 그걸로는 잴 수가 없지. 길이 5 m 빗면의 기울기를 줄여 공이 굴러 내려가는 시간을 늘려 보게. 시간 오차가 <b>4% 이하</b>가 되도록. 그리고 무거운 쇠공과 가벼운 나무공을 <b>같은 기울기에서</b> 둘 다 굴려 비교해 보게.”</div></div>
           <div class="stage-card">
-            <div class="canvas-wrap"><canvas id="a-c-inc" width="900" height="300"></canvas></div>
-            <div class="controls">
+            <div class="canvas-wrap stage"><canvas id="a-c-inc" width="900" height="300"></canvas></div>
+            <div class="sim-side">
+              <div class="readout" id="a-inc-read"></div>
               <div class="ctrl-group">
                 <div class="ctrl-label">빗면의 기울기<span class="val" id="a-ang-val">40°</span></div>
                 <input type="range" id="a-ang" min="3" max="45" step="1" value="40">
@@ -56,6 +57,7 @@
               <div class="ctrl-group">
                 <div class="ctrl-label">굴릴 공</div>
                 <div class="seg" id="a-ball"><button class="on" data-v="iron">무거운 쇠공 (3 kg)</button><button data-v="wood">가벼운 나무공 (1 kg)</button></div>
+                <button type="button" class="btn sm" id="a-inc-play" style="margin-top:12px">⏸ 공 멈추기</button>
               </div>
             </div>
             <div class="info-card" id="a-inc-info"></div>
@@ -66,11 +68,12 @@
         <section class="scene" data-title="고르게 울리는 종">
           <div class="story"><div class="who">🔔</div><div class="say"><span class="name">갈릴레이</span>“빗면에 작은 종을 달아, 공이 지나가면 ‘딩’ 울리게 했네. 종소리가 <b>똑같은 박자로</b> 울리게 하려면 종을 어떤 간격으로 달아야 할까? 박자가 고르면 같은 시간 동안 공이 간 거리를 알 수 있지. 음악가의 귀는 박자가 조금만 어긋나도 알아채거든.” <small style="color:var(--mist)">※ 종을 단 빗면은 갈릴레이의 기록이 아니라 후대 과학사가들의 복원입니다.</small></div></div>
           <div class="stage-card">
-            <div class="canvas-wrap"><canvas id="a-c-bell" width="900" height="270"></canvas></div>
+            <div class="canvas-wrap stage"><canvas id="a-c-bell" width="900" height="270"></canvas></div>
             <div class="controls">
               <div class="ctrl-group" style="flex:1 1 100%">
                 <div class="ctrl-label">출발점에서 종까지의 거리 (첫 종까지를 1칸으로)</div>
                 <div class="seg" id="a-rule"><button class="on" data-v="lin">1, 2, 3, 4 칸 (같은 간격)</button><button data-v="dbl">1, 2, 4, 8 칸 (두 배씩)</button><button data-v="sq">1, 4, 9, 16 칸 (제곱수)</button></div>
+                <button type="button" class="btn sm" id="a-bell-play" style="margin-top:12px">⏸ 공 멈추기</button>
               </div>
             </div>
             <div class="info-card" id="a-bell-info"></div>
@@ -121,8 +124,9 @@
         <section class="scene" data-title="측우기 설계">
           <div class="story"><div class="who">🏺</div><div class="say"><span class="name">세자(뒤의 문종)</span>“비가 30 mm 내렸다고 합시다. 그릇 모양과 크기를 바꿔 가며, 그릇에 고인 물의 깊이가 <b>실제 내린 비의 양과 늘 같아지는</b> 그릇을 찾아보십시오. 고을마다 그릇 크기가 조금씩 달라도 같은 값이 나와야 합니다. 크기를 <b>두 가지 이상</b> 바꿔 확인해 주십시오.”</div></div>
           <div class="stage-card">
-            <div class="canvas-wrap"><canvas id="b-c-rain" width="900" height="280"></canvas></div>
-            <div class="controls">
+            <div class="canvas-wrap stage"><canvas id="b-c-rain" width="900" height="280"></canvas></div>
+            <div class="sim-side">
+              <div class="readout" id="b-rain-read"></div>
               <div class="ctrl-group">
                 <div class="ctrl-label">그릇 모양</div>
                 <div class="seg" id="b-shape"><button class="on" data-v="bowl">위가 넓은 사발</button><button data-v="bottle">위가 좁은 병</button><button data-v="cyl">곧은 원통</button></div>
@@ -130,6 +134,7 @@
               <div class="ctrl-group">
                 <div class="ctrl-label">그릇 입구의 지름<span class="val" id="b-d-val">14 cm</span></div>
                 <input type="range" id="b-d" min="10" max="30" step="2" value="14">
+                <button type="button" class="btn sm" id="b-rain-play" style="margin-top:12px">⏸ 비 멈추기</button>
               </div>
             </div>
             <div class="info-card" id="b-rain-info"></div>
@@ -141,7 +146,7 @@
         <section class="scene" data-title="1 m의 역사">
           <div class="story"><div class="who">📏</div><div class="say"><span class="name">과학관 해설사 (오늘날)</span>“측우기의 깊이도 결국 ‘자’로 잽니다. 그 자의 기준은 어떻게 정해 왔을까요? 사람의 팔에서 빛의 속력까지, 단위의 역사를 끝까지 따라가 보세요.”</div></div>
           <div class="stage-card">
-            <div class="canvas-wrap"><canvas id="b-c-era" width="900" height="250"></canvas></div>
+            <div class="canvas-wrap stage"><canvas id="b-c-era" width="900" height="250"></canvas></div>
             <div class="controls">
               <div class="ctrl-group" style="flex:1 1 100%">
                 <div class="ctrl-label">시대<span class="val" id="b-era-val">고대 이집트</span></div>
@@ -195,7 +200,7 @@
         <section class="scene" data-title="원소 카드 늘어놓기">
           <div class="story"><div class="who">🃏</div><div class="say"><span class="name">멘델레예프</span>“원소 이름, 원자량, 성질을 카드에 적어 원자량 순으로 늘어놓았네. 한 줄에 몇 장씩 끊어 놓아야 <b>성질이 비슷한 원소들이 세로로 나란히</b> 설까? 같은 색은 성질이 비슷한 원소 가족이야.”</div></div>
           <div class="stage-card">
-            <div class="canvas-wrap"><canvas id="c-c-tab" width="900" height="290"></canvas></div>
+            <div class="canvas-wrap stage"><canvas id="c-c-tab" width="900" height="290"></canvas></div>
             <div class="controls">
               <div class="ctrl-group">
                 <div class="ctrl-label">한 줄에 놓는 카드 수<span class="val" id="c-w-val">6장</span></div>
@@ -210,8 +215,9 @@
         <section class="scene" data-title="빈칸의 원소 — 에카규소">
           <div class="story"><div class="who">❓</div><div class="say"><span class="name">멘델레예프</span>“규소 아래 칸이 비어 있네. 아직 발견되지 않은 원소가 있다는 뜻이지. 나는 이것을 ‘에카규소’라 부르겠네. 위·아래, 왼쪽·오른쪽 이웃의 원자량을 보고 이 원소의 원자량을 예측해 보게. 실제로 발견되면 확인할 수 있을 걸세. (그때는 왼쪽 갈륨도 아직 빈칸이었지만, 여기서는 오늘날의 값으로 해 보세.)”</div></div>
           <div class="stage-card">
-            <div class="canvas-wrap"><canvas id="c-c-eka" width="900" height="260"></canvas></div>
-            <div class="controls">
+            <div class="canvas-wrap stage"><canvas id="c-c-eka" width="900" height="260"></canvas></div>
+            <div class="sim-side">
+              <div class="readout" id="c-eka-read"></div>
               <div class="ctrl-group">
                 <div class="ctrl-label">예측한 원자량<span class="val" id="c-m-val">50.0</span></div>
                 <input type="range" id="c-m" min="40" max="110" step="0.5" value="50">
@@ -232,7 +238,7 @@
                 <div class="seg" id="c-case"><button class="on" data-v="0">미적분학</button><button data-v="1">자연선택설</button><button data-v="2">전화기</button><button data-v="3">산소의 발견</button></div>
               </div>
             </div>
-            <div class="canvas-wrap"><canvas id="c-c-sim" width="900" height="260"></canvas></div>
+            <div class="canvas-wrap stage"><canvas id="c-c-sim" width="900" height="260"></canvas></div>
             <div class="info-card" id="c-sim-info"></div>
           </div>
           <div id="c-sim-pick"></div>
@@ -308,6 +314,7 @@
 <script src="../assets/account.js"></script>
 <script src="episodes.js"></script>
 <script src="worked.js"></script>
+<script src="handoff.js"></script>
 <script src="quiz-items.js"></script>
 <script src="../assets/review.js"></script>
 <script src="../assets/peer.js"></script>
