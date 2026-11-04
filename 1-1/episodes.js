@@ -85,50 +85,103 @@ function playBtn(id, onLabel, offLabel, get, set) {
     var ph = 0, playing = !REDUCE;
     function ratio() { var tn = TL - EARLY + e; return TL / tn; }   // v/c
     function surf(x) { var u = (x - 450) / 420; return 64 - 26 * (1 - u * u); }   // 땅 표면(굽음 과장)
+    /* ── 블록 모형: x = CERN(왼쪽 위) → 그란사소(오른쪽 아래). 앞면(y = D)을 따라 중성미자가 바위 속을 지난다 ── */
+    var TH = 420;
+    var I = K.iso({ ox: 380, oy: 104, s: 0.6, L: 760, D: 150 });
+    var LL = I.L, DD = I.D, XC = 52, XG = LL - 64;
+    function arch(x) { var u = x / LL; return 92 + 170 * u * (1 - u); }          /* 지구의 굽음(크게 과장) */
+    function zOf(x, y) {
+      var z = arch(x) + 3 * Math.sin(x / 37) * Math.cos(y / 29);
+      z += 34 * Math.exp(-Math.pow((x - 230) / 70, 2) - Math.pow((y - 70) / 60, 2));   /* 알프스 */
+      z += 60 * Math.exp(-Math.pow((x - XG) / 48, 2) - Math.pow((y - 90) / 55, 2));    /* 그란사소 산 */
+      return z;
+    }
+    var ZC = zOf(XC, DD) - 16, ZG = arch(XG) - 10;                                     /* 빔 출발점, 지하 실험실 */
+    function colOf(x, y, z, light) {
+      var c = z > 156 ? "#eef1f5" : (z > 140 ? "#8d8173" : (z > 128 ? "#7f9a5a" : ((Math.sin(x / 23) + Math.cos(y / 17)) > 0 ? "#6f9e4c" : "#5d8f43")));
+      return K.tint(c, light);
+    }
+    function rockFace(side) {
+      var zf = side === "front" ? function (u) { return zOf(u, DD); } : function (u) { return zOf(LL, u); };
+      I.face(ctx, side, function (Lw) {
+        I.profile(ctx, side, zf, 0);
+        var g = ctx.createLinearGradient(0, 0, 0, 180); g.addColorStop(0, "#2c1d14"); g.addColorStop(.6, "#5a3f2a"); g.addColorStop(1, "#7a5a3c");
+        ctx.fillStyle = g; ctx.fill();
+        ctx.save(); I.profile(ctx, side, zf, 0); ctx.clip();
+        ctx.strokeStyle = "rgba(255,220,180,.13)"; ctx.lineWidth = 1;
+        [18, 40, 64, 88].forEach(function (k) { ctx.beginPath(); for (var u = 0; u <= Lw; u += 8) { var zz = zf(u) - k - 4 * Math.sin(u / 60 + k); if (u) ctx.lineTo(u, zz); else ctx.moveTo(u, zz); } ctx.stroke(); });
+        var R = K.rng(side === "front" ? 41 : 43);
+        for (var i = 0; i < Lw * 1.2; i++) { ctx.fillStyle = R() > .5 ? "rgba(255,255,255,.12)" : "rgba(20,10,5,.25)"; ctx.fillRect(R() * Lw, R() * 170, 1.5, 1.5); }
+        ctx.restore();
+      });
+    }
+    function sat(x, y) {
+      ctx.save(); ctx.translate(x, y);
+      ctx.fillStyle = "#3d6fb8"; ctx.fillRect(-26, -5, 17, 10); ctx.fillRect(9, -5, 17, 10);
+      ctx.strokeStyle = "rgba(255,255,255,.6)"; ctx.lineWidth = 1; ctx.strokeRect(-26, -5, 17, 10); ctx.strokeRect(9, -5, 17, 10);
+      var b = ctx.createLinearGradient(-8, 0, 8, 0); b.addColorStop(0, "#c9a24a"); b.addColorStop(1, "#7a5a1e");
+      ctx.fillStyle = b; ctx.fillRect(-8, -8, 16, 16); ctx.restore();
+    }
     function draw() {
       ctx.clearRect(0, 0, W, H);
-      /* ── 위: 땅속을 지나는 길 ── */
-      var TH = 168, i;
-      K.stage(ctx, 0, 0, W, TH, "earth", { seed: 5 });
+      var i, d = e - EARLY, box = [0, W];
+      /* ── 위: 알프스 아래 730 km를 잘라 낸 블록 ── */
+      K.studio(ctx, 0, 0, W, TH, { x: 560, y: 345, rx: 320, ry: 56 });
       ctx.save(); ctx.beginPath(); ctx.roundRect(0, 0, W, TH, 14); ctx.clip();
-      var sky = ctx.createLinearGradient(0, 0, 0, 70); sky.addColorStop(0, "#0a0f2e"); sky.addColorStop(1, "#1d2a5a");
-      ctx.fillStyle = sky; ctx.fillRect(0, 0, W, 70);
-      var R0 = K.rng(9);
-      for (i = 0; i < 40; i++) { ctx.globalAlpha = .3 + R0() * .5; ctx.fillStyle = "#fff"; ctx.fillRect(R0() * W, R0() * 40, 1.2, 1.2); }
-      ctx.globalAlpha = 1;
-      /* 바위층 */
-      ctx.beginPath(); ctx.moveTo(0, surf(0)); for (var x = 0; x <= W; x += 10) ctx.lineTo(x, surf(x)); ctx.lineTo(W, TH); ctx.lineTo(0, TH); ctx.closePath();
-      var rock = ctx.createLinearGradient(0, 30, 0, TH); rock.addColorStop(0, "#7a5a3c"); rock.addColorStop(.35, "#5a3f2a"); rock.addColorStop(1, "#2c1d14");
-      ctx.fillStyle = rock; ctx.fill();
-      ctx.strokeStyle = "rgba(120,200,110,.85)"; ctx.lineWidth = 3; ctx.beginPath(); for (x = 0; x <= W; x += 10) { if (x) ctx.lineTo(x, surf(x)); else ctx.moveTo(x, surf(x)); } ctx.stroke();
-      ctx.strokeStyle = "rgba(255,220,180,.10)"; ctx.lineWidth = 1;
-      [18, 40, 64, 90].forEach(function (dd) { ctx.beginPath(); for (var xx = 0; xx <= W; xx += 10) { var yy = surf(xx) + dd; if (xx) ctx.lineTo(xx, yy); else ctx.moveTo(xx, yy); } ctx.stroke(); });
-      /* 그란사소 산 */
-      var mg = ctx.createLinearGradient(0, 18, 0, 70); mg.addColorStop(0, "#d9d4cc"); mg.addColorStop(.25, "#8b7a66"); mg.addColorStop(1, "#5a4632");
-      ctx.fillStyle = mg; ctx.beginPath(); ctx.moveTo(735, surf(735) + 2); ctx.lineTo(800, 22); ctx.lineTo(828, 36); ctx.lineTo(848, 26); ctx.lineTo(900, surf(900) + 2); ctx.closePath(); ctx.fill();
-      ctx.restore();
-      var A0 = { x: 92, y: 78 }, B0 = { x: 822, y: 78 };
-      /* CERN 가속기(링) */
-      ctx.save(); ctx.shadowColor = KC.blue; ctx.shadowBlur = 12; ctx.strokeStyle = KC.blue; ctx.lineWidth = 2.5;
-      ctx.beginPath(); ctx.ellipse(A0.x - 30, A0.y, 34, 9, 0, 0, 6.2832); ctx.stroke(); ctx.restore();
-      /* 실험실 굴 */
-      var lab = ctx.createLinearGradient(B0.x - 22, 0, B0.x + 22, 0); lab.addColorStop(0, "#3b4a6e"); lab.addColorStop(.5, "#8fb0e8"); lab.addColorStop(1, "#3b4a6e");
-      ctx.fillStyle = lab; ctx.beginPath(); ctx.roundRect(B0.x - 4, B0.y - 12, 40, 24, 6); ctx.fill();
-      K.glow(ctx, B0.x + 16, B0.y, 3, "rgba(160,230,255,.95)", 4);
-      /* 빔 길 */
-      K.line(ctx, A0, B0, "rgba(127,211,255,.55)", 1.6, [6, 5]);
+      I.field(ctx, zOf, colOf, 84, 18);
+      rockFace("front"); rockFace("right");
+      I.shade(ctx, "front", function (u) { return zOf(u, DD); });
+      I.shade(ctx, "right", function (u) { return zOf(LL, u); });
+      I.edges(ctx, zOf(LL, DD), zOf(LL, DD));
+      [[150, 40], [320, 120], [410, 60], [470, 130], [560, 30], [120, 110]].forEach(function (t, k) { I.tree(ctx, t[0], t[1], zOf(t[0], t[1]), .8 + (k % 3) * .1); });
+      /* CERN: 가속기 고리와 건물, 빔이 내려가는 굴 */
+      var ring = [];
+      for (i = 0; i <= 40; i++) { var a = i / 40 * 6.2832, rx = XC + 36 + 34 * Math.cos(a), ry = DD - 52 + 26 * Math.sin(a); ring.push(I.P(rx, ry, zOf(rx, ry) + 1)); }
+      ctx.save(); ctx.shadowColor = "#7fd3ff"; ctx.shadowBlur = 10; ctx.strokeStyle = "#5ab8ff"; ctx.lineWidth = 2.6;
+      ctx.beginPath(); ring.forEach(function (p, k) { if (k) ctx.lineTo(p.x, p.y); else ctx.moveTo(p.x, p.y); }); ctx.stroke(); ctx.restore();
+      I.house(ctx, XC + 18, DD - 22, zOf(XC + 24, DD - 16), 14, 12, 10, "#3f6fb5");
+      var s0 = I.P(XC, DD, zOf(XC, DD)), s1 = I.P(XC, DD, ZC);
+      K.line(ctx, s0, s1, "rgba(220,230,255,.75)", 3);
+      /* 그란사소 지하 실험실(앞면 단면) */
+      var q0 = I.P(XG - 30, DD, ZG - 11), q1 = I.P(XG + 26, DD, ZG - 11), q2 = I.P(XG + 26, DD, ZG + 13), q3 = I.P(XG - 30, DD, ZG + 13);
+      I.quad(ctx, q0, q1, q2, q3, "#16233f", "rgba(160,200,255,.6)");
+      for (i = 1; i < 7; i++) { var a0 = I.P(XG - 30 + i * 8, DD, ZG - 8), a1 = I.P(XG - 30 + i * 8, DD, ZG + 10); K.line(ctx, a0, a1, "rgba(150,190,255,.55)", 1.6); }
+      /* 빔 길과 중성미자 */
+      var B0 = I.P(XC, DD, ZC), B1 = I.P(XG - 30, DD, ZG);
+      K.line(ctx, B0, B1, "rgba(255,150,170,.75)", 1.8, [6, 5]);
+      var hit = false;
       for (i = 0; i < 3; i++) {
-        var u = (ph + i / 3) % 1, px = A0.x + (B0.x - A0.x) * u;
-        K.glow(ctx, px, A0.y, 3.2, "rgba(255,140,160,.95)", 4.2);
+        var u = (ph + i / 3) % 1; if (u > .95) hit = true;
+        K.glow(ctx, B0.x + (B1.x - B0.x) * u, B0.y + (B1.y - B0.y) * u, 3.4, "rgba(255,140,160,.95)", 4.4);
       }
-      K.pill(ctx, "CERN (스위스) · 중성미자를 쏜다", 16, 28, { s: 12.5, c: KC.blue });
-      K.pill(ctx, "그란사소 지하 실험실 (이탈리아)", W - 16, 28, { s: 12.5, a: "right", c: KC.yellow });
-      K.pill(ctx, "중성미자는 바위를 거의 그대로 뚫고 지나갑니다", 450, 104, { s: 11, a: "center", c: "#ffc2cc" });
-      K.bracket(ctx, A0.x, B0.x, 122, KC.mute, "730 km · 빛이라면 약 2.435 ms", false);
-      K.warn(ctx, 14, 160, "⚠ 땅의 굽음과 깊이는 크게 과장했습니다");
+      var lc = I.P(XG, DD, ZG);
+      K.glow(ctx, lc.x, lc.y, hit ? 6 : 3, hit ? "rgba(160,235,255,.98)" : "rgba(160,235,255,.7)", hit ? 5 : 3.5);
+      /* 두 곳의 시계를 맞추는 GPS */
+      var gA = { x: 70, y: 150 }, gB = { x: 842, y: 120 }, cA = I.P(XC + 24, DD - 16, zOf(XC + 24, DD - 16) + 12), cB = I.P(XG + 40, DD - 6, zOf(XG + 40, DD - 6) + 2);
+      K.line(ctx, gA, cA, "rgba(40,90,170,.55)", 1.4, [4, 4]); K.line(ctx, gB, cB, "rgba(40,90,170,.55)", 1.4, [4, 4]);
+      sat(gA.x, gA.y); sat(gB.x, gB.y);
+      /* 길이 표시(앞 아래 모서리와 나란히) */
+      var m0 = I.P(XC, DD + 40, 0), m1 = I.P(XG, DD + 40, 0);
+      K.line(ctx, m0, m1, "rgba(30,40,70,.6)", 1.4, [5, 4]);
+      K.line(ctx, I.P(XC, DD + 30, 0), I.P(XC, DD + 50, 0), "rgba(30,40,70,.7)", 1.6);
+      K.line(ctx, I.P(XG, DD + 30, 0), I.P(XG, DD + 50, 0), "rgba(30,40,70,.7)", 1.6);
+      ctx.restore();
+      /* 이름표 */
+      I.label(ctx, XC, DD - 52, zOf(XC, DD - 52) + 2, "CERN (스위스) · 중성미자를 쏜다", -24, 58, "#bfe6ff", box);
+      I.label(ctx, 230, 70, zOf(230, 70) + 2, "알프스", -22, -28, "#f4f0e6", box);
+      I.label(ctx, XG, DD, ZG, "그란사소 지하 실험실 ⏱", 34, 50, "#ffe08a", box);
+      K.pill(ctx, "중성미자는 바위를 거의 그대로 뚫고 지나갑니다", (B0.x + B1.x) / 2 + 6, (B0.y + B1.y) / 2 + 26, { s: 11, a: "center", c: "#ffc2cc", box: box });
+      K.pill(ctx, "730 km · 빛이라면 약 2.435 ms", (m0.x + m1.x) / 2 - 10, (m0.y + m1.y) / 2 + 20, { s: 11.5, a: "center", c: "#e8ecff", box: box });
+      K.pill(ctx, "GPS 위성 신호로 두 곳의 시계를 맞춥니다", W - 14, 158, { s: 11, a: "right", c: "#bfe6ff", box: box });
+      K.warn(ctx, W - 14, 30, "⚠ 땅의 굽음과 깊이는 크게 과장 (실제 가장 깊은 곳 약 11 km)", "right");
+      /* 큰 글자 */
+      if (Math.abs(d) < 1) { K.bigText(ctx, "빛과 같은 순간에 도착", 22, 52, 27, "#ffd35a"); K.bigText(ctx, "빛보다 빠르지 않다", 22, 86, 18, "#ffffff"); }
+      else if (e === 0) { K.bigText(ctx, "빛보다 60 ns 빨랐다?", 22, 52, 27, "#ffffff"); K.bigText(ctx, "730 km 경주의 승자는", 22, 86, 18, "#ffd35a"); }
+      else if (d < 0) { K.bigText(ctx, "아직 빛보다 " + (-d) + " ns 빠르다", 22, 52, 27, "#ffffff"); K.bigText(ctx, "오차 " + e + " ns를 바로잡음", 22, 86, 18, "#ffd35a"); }
+      else { K.bigText(ctx, "이번엔 빛보다 " + d + " ns 늦다", 22, 52, 27, "#ff9aac"); K.bigText(ctx, "오차를 너무 많이 뺐다", 22, 86, 18, "#ffffff"); }
 
       /* ── 아래: 결승선 확대 ── */
-      var Y0 = TH + 8, bx0 = 140, bx1 = 760, by = Y0 + 80;
+      var Y0 = TH + 8, bx0 = 140, bx1 = 760, by = Y0 + 86;
       K.stage(ctx, 0, Y0, W, H - Y0, "lab", { seed: 6, title: "결승선 근처를 1억 배 확대 (빛의 도착 = 0 ns)" });
       function X(ns) { return bx0 + (ns + 100) / 200 * (bx1 - bx0); }
       ctx.strokeStyle = KC.line; ctx.lineWidth = 1.5; ctx.beginPath(); ctx.moveTo(bx0, by); ctx.lineTo(bx1, by); ctx.stroke();
@@ -139,7 +192,7 @@ function playBtn(id, onLabel, offLabel, get, set) {
       /* 빛의 결승선 */
       ctx.save(); ctx.shadowColor = KC.yellow; ctx.shadowBlur = 12; ctx.strokeStyle = KC.yellow; ctx.lineWidth = 3;
       ctx.beginPath(); ctx.moveTo(X(0), by - 30); ctx.lineTo(X(0), by + 8); ctx.stroke(); ctx.restore();
-      K.pill(ctx, "빛 도착 (0 ns)", X(0) + 10, by - 36, { s: 11.5, c: KC.yellow });
+      K.pill(ctx, "빛 도착 (0 ns)", X(0) + 10, by - 44, { s: 11.5, c: KC.yellow });
       var nuT = -EARLY + e, fast = nuT < -0.5, nc = fast ? KC.red : KC.green;
       K.glow(ctx, X(nuT), by, 7, rgba(nc, .95), 3.4);
       K.pill(ctx, "중성미자 " + (nuT > 0 ? "+" : "") + nuT + " ns", X(nuT), by - 16, { s: 11.5, a: "center", c: nc });

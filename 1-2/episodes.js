@@ -435,15 +435,19 @@ function thermo(ctx, x, y, h, f) {
     update(); mission();
   })();
 
-  /* 장면 3 — 공정한 비교 */
+  /* 장면 3 — 공정한 비교 (두 병동을 잘라 본 블록 모형 + 조건 비교표) */
   (function () {
     var canvas = $("b-c-fair"), ctx = window.setupCanvas(canvas), W = canvas._w, H = canvas._h;
     var wash = "1", season = "w", n = 80;
     var got = window.sthState("fairGot") || { a: false, q: false };
     var REF = { wash: "0", season: "s", n: 160 };
+    var ph = 0, playing = !REDUCE;
     function diffs() {
       return { wash: wash !== REF.wash, season: season !== REF.season, n: n !== REF.n };
     }
+    /* 블록 모형: 병동 하나 = 앞벽·옆벽을 잘라 낸 방. x 오른쪽 아래, y 왼쪽 아래, z 위 */
+    var DH = 420, L = 250, D = 150, WH = 86, S = 0.92;
+    var IA = K.iso({ ox: 150, oy: 215, s: S, L: L, D: D }), IB = K.iso({ ox: 590, oy: 215, s: S, L: L, D: D });
     function rowIcon(k, val, x, y) {
       var i;
       if (k === "wash") {
@@ -459,37 +463,141 @@ function thermo(ctx, x, y, h, f) {
         K.planet(ctx, x - 4, y - 3, 4.5, "#f3c7a2", "#8a5636"); K.planet(ctx, x + 5, y + 2, 4.5, "#f3c7a2", "#8a5636");
       }
     }
+    /* 벽의 창문: side "y" 는 뒷벽(y = 6), "x" 는 옆벽(x = 6) 안쪽 면 */
+    function win(I, side, a0, a1, z0, z1, summer, seed) {
+      function M(u, v) { var a = a0 + (a1 - a0) * u, z = z0 + (z1 - z0) * v; return side === "y" ? I.P(a, 6.5, z) : I.P(6.5, a, z); }
+      var p00 = M(0, 0), p10 = M(1, 0), p11 = M(1, 1), p01 = M(0, 1), i;
+      function quad() { ctx.beginPath(); ctx.moveTo(p00.x, p00.y); ctx.lineTo(p10.x, p10.y); ctx.lineTo(p11.x, p11.y); ctx.lineTo(p01.x, p01.y); ctx.closePath(); }
+      ctx.save(); quad();
+      var g = ctx.createLinearGradient(0, Math.min(p01.y, p11.y), 0, Math.max(p00.y, p10.y));
+      if (summer) { g.addColorStop(0, "#4fb0f2"); g.addColorStop(1, "#d6efff"); } else { g.addColorStop(0, "#7f8ca0"); g.addColorStop(1, "#dfe5ec"); }
+      ctx.fillStyle = g; ctx.fill(); ctx.clip();
+      if (summer) {
+        var sp = M(0.72, 0.76); K.glow(ctx, sp.x, sp.y, 4.5, "rgba(255,236,150,.98)", 4 + Math.sin(ph * 2) * 0.4);
+        for (i = 0; i < 6; i++) { var tp = M(0.05 + i * 0.19, 0.06); ctx.fillStyle = i % 2 ? "#3f8f3a" : "#5aa845"; ctx.beginPath(); ctx.arc(tp.x, tp.y, 7 + (i % 2) * 2 + Math.sin(ph * 1.5 + i) * 0.7, 0, 6.2832); ctx.fill(); }
+      } else {
+        var s0 = M(0, 0), s1 = M(1, 0), s2 = M(1, 0.18), s3 = M(0, 0.18);
+        ctx.fillStyle = "#f4f7fb"; ctx.beginPath(); ctx.moveTo(s0.x, s0.y); ctx.lineTo(s1.x, s1.y); ctx.lineTo(s2.x, s2.y); ctx.lineTo(s3.x, s3.y); ctx.closePath(); ctx.fill();
+        var R = K.rng(seed);
+        for (i = 0; i < 16; i++) {
+          var u = R(), v0 = R(), sp2 = 0.6 + R() * 0.6, vv = 1 - ((v0 + ph * 0.12 * sp2) % 1);
+          var q = M(u + Math.sin(ph + i) * 0.02, vv);
+          ctx.fillStyle = "rgba(255,255,255,.95)"; ctx.beginPath(); ctx.arc(q.x, q.y, 1.5, 0, 6.2832); ctx.fill();
+        }
+      }
+      ctx.restore();
+      ctx.strokeStyle = "#7a5a3a"; ctx.lineWidth = 3; quad(); ctx.stroke();
+      ctx.lineWidth = 1.8;
+      var m0 = M(0.5, 0), m1 = M(0.5, 1), m2 = M(0, 0.5), m3 = M(1, 0.5);
+      ctx.beginPath(); ctx.moveTo(m0.x, m0.y); ctx.lineTo(m1.x, m1.y); ctx.moveTo(m2.x, m2.y); ctx.lineTo(m3.x, m3.y); ctx.stroke();
+    }
+    function bedXs(cnt) {
+      var cols = Math.ceil(cnt / 2), sp = 176 / cols, bw = Math.min(22, sp - 5), out = [], i;
+      for (i = 0; i < cnt; i++) out.push({ x: 66 + (i % cols) * sp + (sp - bw) / 2, y: i < cols ? 10 : 82, w: bw });
+      return out;
+    }
+    function room(I, isWash, summer, num, seed) {
+      var i;
+      /* 바닥 판 */
+      I.box(ctx, 0, 0, -10, L, D, 0, "#c9a57a", "#9c7a52", "#7d5f3e");
+      ctx.strokeStyle = "rgba(90,60,30,.22)"; ctx.lineWidth = 1;
+      for (i = 15; i < D; i += 15) { var f0 = I.P(6, i, 0), f1 = I.P(L, i, 0); ctx.beginPath(); ctx.moveTo(f0.x, f0.y); ctx.lineTo(f1.x, f1.y); ctx.stroke(); }
+      /* 벽 두 장(앞벽·오른쪽 벽은 잘라 냄) */
+      I.box(ctx, 0, 0, 0, L, 6, WH, "#e3ddd2", "#f4efe6", "#cfc7b9");
+      I.box(ctx, 0, 0, 0, 6, D, WH, "#e3ddd2", "#d8d0c2", "#ece6dc");
+      I.quad(ctx, I.P(6, 6.2, 0), I.P(L, 6.2, 0), I.P(L, 6.2, 20), I.P(6, 6.2, 20), "#a9bdb5");
+      I.quad(ctx, I.P(6.2, 6, 0), I.P(6.2, D, 0), I.P(6.2, D, 20), I.P(6.2, 6, 20), "#9fb3ab");
+      win(I, "y", 118, 188, 30, 72, summer, seed);
+      win(I, "x", 36, 92, 30, 72, summer, seed + 7);
+      /* 여름 햇살 / 겨울 찬 기운 */
+      if (summer) I.quad(ctx, I.P(116, 14, 0.3), I.P(192, 14, 0.3), I.P(214, 74, 0.3), I.P(138, 74, 0.3), "rgba(255,226,140,.30)");
+      else I.quad(ctx, I.P(6, 6, 0.3), I.P(L, 6, 0.3), I.P(L, D, 0.3), I.P(6, D, 0.3), "rgba(150,180,230,.13)");
+      /* 깊이 순서대로 그릴 것들 */
+      var items = [];
+      bedXs(Math.round(num / 20)).forEach(function (b) {
+        items.push({ d: b.x + b.y + 30, f: function () {
+          var x0 = b.x, y0 = b.y, x1 = b.x + b.w;
+          I.box(ctx, x0, y0, 0, x0 + 2, y0 + 3, 24, "#6b7486", "#5b6474", "#4a5262");
+          I.box(ctx, x1 - 2, y0, 0, x1, y0 + 3, 24, "#6b7486", "#5b6474", "#4a5262");
+          I.box(ctx, x0, y0 + 1, 18, x1, y0 + 3, 22, "#7b8496", "#5b6474", "#4a5262");
+          I.box(ctx, x0, y0 + 3, 0, x1, y0 + 42, 11, "#f7f7f2", "#d9dee6", "#bfc6d2");
+          I.box(ctx, x0 + 1, y0 + 16, 11, x1 - 1, y0 + 42, 14, "#9fb6d6", "#7f97ba", "#6a819f");
+          I.box(ctx, x0 + 3, y0 + 5, 11, x1 - 3, y0 + 13, 14, "#ffffff", "#e7e9ee", "#d3d7df");
+          var hp = I.P(b.x + b.w / 2, y0 + 10, 17.5);
+          K.planet(ctx, hp.x, hp.y, 3.6, "#f3c7a2", "#8a5636");
+        } });
+      });
+      items.push({ d: 28 + 120, f: function () {
+        I.box(ctx, 21, 113, 0, 35, 127, 30, "#eef0f3", "#cfd5dd", "#b5bdc8");
+        I.box(ctx, 6, 117, 50, 22, 121, 53, "#a8b0bb", "#8a929e", "#737b86");
+        var c = I.P(28, 120, 31);
+        ctx.fillStyle = "#f7f8fa"; ctx.beginPath(); ctx.ellipse(c.x, c.y, 13 * S, 6.5 * S, 0, 0, 6.2832); ctx.fill();
+        ctx.strokeStyle = "#9aa3ae"; ctx.lineWidth = 1.2; ctx.stroke();
+        if (isWash) {
+          ctx.save(); ctx.shadowColor = "#4fc3ff"; ctx.shadowBlur = 10;
+          ctx.fillStyle = "rgba(110,200,235,.92)"; ctx.beginPath(); ctx.ellipse(c.x, c.y + 0.5, 10 * S, 4.8 * S, 0, 0, 6.2832); ctx.fill(); ctx.restore();
+          var a = I.P(22, 119, 51), bt = I.P(26, 119, 33);
+          for (var k = 0; k < 3; k++) { var t = (ph * 1.4 + k / 3) % 1; ctx.fillStyle = "rgba(120,210,255,.95)"; ctx.beginPath(); ctx.arc(a.x + (bt.x - a.x) * t, a.y + (bt.y - a.y) * t, 1.7, 0, 6.2832); ctx.fill(); }
+        } else {
+          ctx.fillStyle = "rgba(160,150,130,.35)"; ctx.beginPath(); ctx.ellipse(c.x, c.y + 0.5, 10 * S, 4.8 * S, 0, 0, 6.2832); ctx.fill();
+          ctx.strokeStyle = "#e5485f"; ctx.lineWidth = 2.4; ctx.beginPath(); ctx.moveTo(c.x - 7, c.y - 9); ctx.lineTo(c.x + 7, c.y + 3); ctx.moveTo(c.x + 7, c.y - 9); ctx.lineTo(c.x - 7, c.y + 3); ctx.stroke();
+        }
+      } });
+      items.push({ d: 46 + 136, f: function () { I.person(ctx, 46, 136, 0, "#2f3542", 1.8); } });
+      items.sort(function (p, q) { return p.d - q.d; });
+      items.forEach(function (it) { it.f(); });
+      I.edges(ctx, 0, 0);
+    }
     function draw() {
       ctx.clearRect(0, 0, W, H);
-      var d = diffs(), rowsY = [100, 144, 188];
+      var d = diffs(), keys = ["wash", "season", "n"];
+      var other = (d.season ? 1 : 0) + (d.n ? 1 : 0), ok = d.wash && other === 0;
+      var mix = []; if (d.season) mix.push("계절"); if (d.n) mix.push("산모 수");
+      /* ── 위: 두 병동 블록 모형 ── */
+      K.studio(ctx, 0, 0, W, DH, { x: 450, y: 392, rx: 420, ry: 40 });
+      ctx.save(); ctx.beginPath(); ctx.roundRect(0, 0, W, DH, 14); ctx.clip();
+      room(IA, false, true, REF.n, 11);
+      room(IB, wash === "1", season === "s", n, 23);
+      ctx.restore();
+      var box = [0, W];
+      function col(k, isB) { if (!isB || !d[k]) return "#eef1ff"; return k === "wash" ? "#9fd8ff" : "#ff9aac"; }
+      [[IA, false], [IB, true]].forEach(function (pr) {
+        var I = pr[0], isB = pr[1], tp = I.P(0, 0, WH);
+        K.pill(ctx, isB ? "나 병동 (새 방법)" : "가 병동 (비교 기준)", tp.x, tp.y - 12, { s: 12.5, a: "center", c: isB ? KC.blue : KC.violet, box: box });
+        var ws = isB ? (wash === "1" ? "소독수로 씻음" : "씻지 않음") : "씻지 않음";
+        var ss = isB ? (season === "s" ? "여름" : "겨울") : "여름";
+        var ns = isB ? n : REF.n;
+        I.label(ctx, 160, 6, 74, "계절: " + ss, 34, -24, col("season", isB), box);
+        I.label(ctx, 28, 120, 36, "손 씻기: " + ws, -16, 66, col("wash", isB), box);
+        var bs = bedXs(Math.round(ns / 20)), lb = bs[bs.length - 1];
+        I.label(ctx, lb.x + lb.w / 2, lb.y + 40, 14, "산모 " + ns + "명/달", 22, 22, col("n", isB), box);
+      });
+      if (ok) { K.bigText(ctx, "공정한 비교 완성", 22, 48, 28, "#7cf0b5"); K.bigText(ctx, "손 씻기 말고는 두 병동이 같다", 22, 82, 18, "#ffffff"); }
+      else if (!d.wash) { K.bigText(ctx, "비교할 차이가 없다", 22, 48, 28, "#ffffff"); K.bigText(ctx, "두 병동 모두 손을 씻지 않는다", 22, 82, 18, "#ffd35a"); }
+      else { K.bigText(ctx, "다른 조건이 섞였다", 22, 48, 28, "#ff9aac"); K.bigText(ctx, mix.join("·") + "까지 두 병동이 다르다", 22, 82, 18, "#ffffff"); }
+      K.pill(ctx, "파랑 = 일부러 바꾼 조건", W - 14, 30, { s: 11, a: "right", c: KC.blue });
+      K.pill(ctx, "빨강 = 섞인 다른 조건", W - 14, 56, { s: 11, a: "right", c: KC.red });
+      K.warn(ctx, W - 14, 84, "⚠ 병동을 잘라서 줄인 모형 · 침대 1개 = 산모 20명", "right");
+
+      /* ── 아래: 조건 비교표 ── */
+      var Y0 = DH + 8, rowsY = [Y0 + 66, Y0 + 100, Y0 + 134];
       var lab = ["손 씻기", "실험하는 계절", "한 달 산모 수"];
       var a = ["씻지 않음", "여름", REF.n + "명"], b = [wash === "1" ? "소독수로 씻음" : "씻지 않음", season === "s" ? "여름" : "겨울", n + "명"];
-      var keys = ["wash", "season", "n"], NUM = [REF.n, n];
-      K.stage(ctx, 0, 0, W, H, "lab", { seed: 29, title: "두 병동의 조건 비교표" });
+      K.stage(ctx, 0, Y0, W, H - Y0, "lab", { seed: 29 });
+      K.pill(ctx, "두 병동의 조건 비교표", 18, Y0 + 28, { s: 12.5, c: KC.ink });
+      K.t(ctx, "가 병동 (비교 기준)", 186, Y0 + 30, { s: 11.5, w: "800", c: KC.violet });
+      K.t(ctx, "나 병동 (새 방법)", 426, Y0 + 30, { s: 11.5, w: "800", c: KC.blue });
       keys.forEach(function (k, i) {
-        K.t(ctx, lab[i], 24, rowsY[i] + 5, { s: 12, c: KC.mute });
         if (d[k]) {
           var hc = k === "wash" ? KC.blue : KC.red;
-          ctx.save(); ctx.shadowColor = hc; ctx.shadowBlur = 14; ctx.fillStyle = rgba(hc, .16); ctx.beginPath(); ctx.roundRect(148, rowsY[i] - 18, 580, 34, 8); ctx.fill(); ctx.restore();
-          ctx.strokeStyle = rgba(hc, .7); ctx.lineWidth = 1.4; ctx.beginPath(); ctx.roundRect(148, rowsY[i] - 18, 580, 34, 8); ctx.stroke();
+          ctx.save(); ctx.shadowColor = hc; ctx.shadowBlur = 12; ctx.fillStyle = rgba(hc, .16); ctx.beginPath(); ctx.roundRect(170, rowsY[i] - 18, 470, 30, 8); ctx.fill(); ctx.restore();
+          ctx.strokeStyle = rgba(hc, .7); ctx.lineWidth = 1.4; ctx.beginPath(); ctx.roundRect(170, rowsY[i] - 18, 470, 30, 8); ctx.stroke();
         }
+        K.t(ctx, lab[i], 24, rowsY[i] + 2, { s: 12, c: KC.mute });
+        rowIcon(k, a[i], 196, rowsY[i] - 3); K.t(ctx, a[i], 214, rowsY[i] + 2, { s: 13, w: "800", c: KC.ink });
+        rowIcon(k, b[i], 436, rowsY[i] - 3); K.t(ctx, b[i], 454, rowsY[i] + 2, { s: 13, w: "800", c: KC.ink });
       });
-      function ward(x, title, vals, tc, num) {
-        glass(ctx, x, 46, 260, 168, tc, 12);
-        K.pill(ctx, title, x + 14, 72, { s: 12.5, c: tc });
-        vals.forEach(function (s, i) {
-          rowIcon(keys[i], s, x + 26, rowsY[i]);
-          K.t(ctx, s, x + 46, rowsY[i] + 5, { s: 13, w: "800", c: KC.ink });
-        });
-        var cnt = Math.round(num / 20), i;
-        for (i = 0; i < cnt; i++) K.planet(ctx, x + 112 + i * 9.5, rowsY[2], 3.6, "#f3c7a2", "#8a5636");
-      }
-      ward(156, "가 병동 (비교 기준)", a, KC.violet, NUM[0]);
-      ward(462, "나 병동 (새 방법)", b, KC.blue, NUM[1]);
-      var other = (d.season ? 1 : 0) + (d.n ? 1 : 0), ok = d.wash && other === 0;
-      K.pill(ctx, ok ? "✔ 공정한 비교" : (d.wash ? "✘ 다른 조건 " + other + "개가 섞였다" : "✘ 비교할 차이가 없다"), 156, H - 14, { s: 13.5, c: ok ? KC.green : KC.red, bg: ok ? "rgba(20,70,50,.6)" : "rgba(80,20,30,.6)" });
-      K.pill(ctx, "파랑 = 일부러 바꾼 조건", 744, 130, { s: 11, c: KC.blue });
-      K.pill(ctx, "빨강 = 섞인 다른 조건", 744, 158, { s: 11, c: KC.red });
+      K.pill(ctx, ok ? "✔ 공정한 비교" : (d.wash ? "✘ 다른 조건 " + other + "개가 섞였다" : "✘ 비교할 차이가 없다"), 662, rowsY[1] + 4, { s: 13.5, c: ok ? KC.green : KC.red, bg: ok ? "rgba(20,70,50,.6)" : "rgba(80,20,30,.6)", box: [650, W - 6] });
       return ok;
     }
     function update() {
@@ -511,6 +619,8 @@ function thermo(ctx, x, y, h, f) {
     segWire("b-f-wash", "data-v", function (x) { wash = x; update(); });
     segWire("b-f-season", "data-v", function (x) { season = x; update(); });
     $("b-f-n").addEventListener("input", function (ev) { n = +ev.target.value; $("b-f-n-val").textContent = n + "명"; update(); });
+    playBtn("b-fair-play", "⏸ 움직임 멈추기", "▶ 움직임 보기", function () { return playing; }, function (x) { playing = x; });
+    K.animate(canvas, function (dt) { if (!playing) return; ph += dt / 1000; draw(); }, 24);
     window.sthPick({
       mount: "b-fair-pick",
       q: "이 검증 실험에서 종속 변인(결과로 재는 것)은 무엇일까요?",

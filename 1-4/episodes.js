@@ -371,47 +371,202 @@ function beam(ctx, x0, y0, x1, y1, c, w) {
     update(); mission();
   })();
 
-  /* 장면 3 — 결정적 실험 */
+  /* 장면 3 — 결정적 실험 : 뉴턴의 어두운 방을 블록처럼 잘라 본 아이소메트릭 모형(위) + 정면에서 본 벽(아래) */
   (function () {
     var canvas = $("b-c-crux"), ctx = window.setupCanvas(canvas), W = canvas._w, H = canvas._h, slit = "all", p2 = "none";
     var got = window.sthState("cruxGot") || { cols: [], rec: false, q: false };
     if (!got.cols) got.cols = [];
-    var CI = { red: 0, green: 3, violet: 6 }, CN = { red: "빨강", green: "초록", violet: "보라" };
-    function draw() {
-      ctx.clearRect(0, 0, W, H);
-      var p1x = 150, py = 140, bx = 400, p2x = 560, SX = 862;
-      K.stage(ctx, 0, 0, W, H, "night", { seed: 79, title: "뉴턴의 결정적 실험 · 두 번째 프리즘" });
-      var ys = SPEC.map(function (c, k) { return 80 + k * 20; }), hits = [];
-      K.glow(ctx, 14, py - 10, 4, "rgba(255,250,230,.95)", 4);
-      beam(ctx, 14, py - 10, p1x - 30, py + 4, "#fffbe8", 5);
-      SPEC.forEach(function (c, k) { if (slit === "all" || CI[slit] === k) beam(ctx, p1x + 30, py + 4, bx, ys[k], c, 3); else K.line(ctx, { x: p1x + 30, y: py + 4 }, { x: bx, y: ys[k] }, rgba(c, .3), 2); });
-      if (slit === "all") {
-        if (p2 === "none") SPEC.forEach(function (c, k) { beam(ctx, bx + 8, ys[k], SX, 60 + k * 28, c, 3); hits.push([60 + k * 28, c]); });
-        else {
-          SPEC.forEach(function (c, k) { beam(ctx, bx + 8, ys[k], p2x - 30, 140, c, 2.5); });
-          if (p2 === "flip") { beam(ctx, p2x + 30, 140, SX, 140, "#fffbe8", 6); hits.push([140, "#ffffff"]); }
-          else SPEC.forEach(function (c, k) { beam(ctx, p2x + 30, 140, SX, 20 + k * 40, c, 3); hits.push([20 + k * 40, c]); });
-        }
+    var CI = { red: 0, green: 3, violet: 6 }, CN = { red: "빨강", green: "초록", violet: "보라" }, CJ = { red: "빨강은", green: "초록은", violet: "보라는" };
+    /* 모형 좌표: x = 방의 길이(햇빛은 오른쪽 덧문에서 왼쪽 벽 쪽, −x 방향으로 간다), y = 깊이, z = 높이 */
+    var DH = 432, ph = 0, playing = !REDUCE;
+    var I = K.iso({ ox: 470, oy: 160, s: 0.58, L: 640, D: 220 });
+    var L = I.L, D = I.D, HZ = 240, Y0 = 110, TZ = 70, WT = 12, YR = Y0 + 48;
+    var HOLE = 196, P1 = 520, BX = 390, P2 = 230, ZC = 150, PA = 20, PY = 38;
+    /* 첫 프리즘(꼭짓점이 아래)을 나온 뒤 색마다의 기울기 — 들어온 빛보다 모두 위로 꺾이고, 보라가 가장 많이 꺾인다(그림용 값) */
+    var SL = SPEC.map(function (c, k) { return -0.19 + k * 0.04; });
+    var IN_SL = (HOLE - ZC) / (L - (P1 + PA / 2));
+    function zAt(k, x) { return ZC + (P1 - PA / 2 - x) * SL[k]; }
+    function P(x, z, y) { return I.P(x, y == null ? Y0 : y, z); }
+    function quad(a, b, c, d, fill, stroke) { I.quad(ctx, a, b, c, d, fill, stroke); }
+    function tri(a, b, c, fill, stroke) {
+      ctx.beginPath(); ctx.moveTo(a.x, a.y); ctx.lineTo(b.x, b.y); ctx.lineTo(c.x, c.y); ctx.closePath();
+      ctx.fillStyle = fill; ctx.fill(); ctx.strokeStyle = stroke; ctx.lineWidth = 1.2; ctx.stroke();
+    }
+    function flow(a, b, c) {
+      if (!playing) return;
+      var len = Math.hypot(b.x - a.x, b.y - a.y), n = Math.max(1, Math.round(len / 46));
+      for (var i = 0; i < n; i++) { var t = (ph * 0.55 + i / n) % 1; K.glow(ctx, a.x + (b.x - a.x) * t, a.y + (b.y - a.y) * t, 1.6, rgba(c, .95), 2.2); }
+    }
+    function ray(s) { var a = P(s.x0, s.z0), b = P(s.x1, s.z1); beam(ctx, a.x, a.y, b.x, b.y, s.c, s.w); flow(a, b, s.c); }
+
+    /* 지금 고른 판자 구멍·두 번째 프리즘으로 빛길을 정한다 */
+    function rays() {
+      var R = { a: [], b1: [], b2: [], board: [], wall: [], band: null, in2: null };
+      var one = slit !== "all", k0 = one ? CI[slit] : -1, x1 = P1 - PA / 2, e2 = P2 + PA / 2, o2 = P2 - PA / 2;
+      SPEC.forEach(function (c, k) {
+        var zb = zAt(k, BX);
+        R.a.push({ x0: x1, z0: ZC, x1: BX, z1: zb, c: c, w: 2.4 });
+        if (one && k !== k0) R.board.push({ z: zb, c: c });
+      });
+      var pass = one ? [k0] : [0, 1, 2, 3, 4, 5, 6];
+      if (p2 === "none") {
+        pass.forEach(function (k) { var zw = zAt(k, 0); R.b2.push({ x0: BX - 7, z0: zAt(k, BX - 7), x1: 0, z1: zw, c: SPEC[k], w: one ? 3.4 : 2.4 }); R.wall.push({ z: zw, c: SPEC[k] }); });
+        if (!one) R.band = [zAt(0, 0), zAt(6, 0)];
       } else {
-        var k0 = CI[slit], c0 = SPEC[k0];
-        if (p2 === "none") { beam(ctx, bx + 8, ys[k0], SX, ys[k0], c0, 4); hits.push([ys[k0], c0]); }
-        else { beam(ctx, bx + 8, ys[k0], p2x - 30, 140, c0, 4); var ye = p2 === "flip" ? 100 : 190; beam(ctx, p2x + 30, 140, SX, ye, c0, 4); hits.push([ye, c0]); }
+        pass.forEach(function (k) { R.b1.push({ x0: BX - 7, z0: zAt(k, BX - 7), x1: e2, z1: ZC, c: SPEC[k], w: one ? 3.4 : 2.2 }); });
+        R.in2 = one ? SPEC[k0] : "#fffbe8";
+        if (!one && p2 === "flip") { R.b2.push({ x0: o2, z0: ZC, x1: 0, z1: ZC, c: "#fffbe8", w: 5 }); R.wall.push({ z: ZC, c: "#ffffff", white: true }); }
+        else if (!one) { SPEC.forEach(function (c, k) { var zw = 60 + k * 28; R.b2.push({ x0: o2, z0: ZC, x1: 0, z1: zw, c: c, w: 2.4 }); R.wall.push({ z: zw, c: c }); }); R.band = [60, 228]; }
+        else { var zw = p2 === "flip" ? 100 : 205; R.b2.push({ x0: o2, z0: ZC, x1: 0, z1: zw, c: SPEC[k0], w: 3.4 }); R.wall.push({ z: zw, c: SPEC[k0] }); }
       }
-      prism(ctx, p1x, py, 100, false);
-      if (p2 !== "none") prism(ctx, p2x, 140, 110, p2 === "flip");
-      /* 판자 */
-      var wg = ctx.createLinearGradient(bx, 0, bx + 10, 0); wg.addColorStop(0, "#8a5a30"); wg.addColorStop(.5, "#c08850"); wg.addColorStop(1, "#5e3b1d");
-      ctx.fillStyle = wg; ctx.fillRect(bx, 50, 10, 196);
-      if (slit !== "all") { ctx.fillStyle = "#0a0d24"; ctx.fillRect(bx, ys[CI[slit]] - 3, 10, 6); }
-      K.pill(ctx, "판자" + (slit === "all" ? "" : " · 구멍"), bx + 5, 66 - 22, { s: 11, a: "center", c: KC.mute });
-      /* 화면 */
-      var sg = ctx.createLinearGradient(SX, 0, SX + 14, 0); sg.addColorStop(0, "#3a4060"); sg.addColorStop(1, "#1a1e34");
-      ctx.fillStyle = sg; ctx.fillRect(SX, 14, 14, 252);
-      hits.forEach(function (q) { K.glow(ctx, SX + 2, q[0], 4, rgba(q[1], .95), 3); });
-      var res = slit === "all" ? (p2 === "flip" ? "다시 흰빛이 되었다" : (p2 === "same" ? "더 넓게 펼쳐진 무지개" : "무지개 띠")) : (p2 === "none" ? CN[slit] + " 한 줄기" : CN[slit] + " 그대로 — 새 색이 생기지 않았다");
-      var good = (slit !== "all" && p2 !== "none") || (slit === "all" && p2 === "flip");
-      K.pill(ctx, "화면: " + res, 640, H - 14, { s: 13, a: "center", c: good ? KC.green : KC.ink, bg: good ? "rgba(20,70,50,.6)" : null });
-      K.pill(ctx, "덧문 구멍의 햇빛", 16, py + 66, { s: 11, c: "#fff4d6" });
+      return R;
+    }
+
+    function room() {
+      var fl = I.P(L / 2, D, 0);
+      K.studio(ctx, 0, 0, W, DH, { x: fl.x - 40, y: fl.y + 20, rx: 380, ry: 56 });
+      /* 바닥 판(잘린 면은 회벽) */
+      I.box(ctx, -WT, -WT, -16, L + WT, D, 0, "#4a3426", "#d7cbb6", "#bfb29b");
+      ctx.strokeStyle = "rgba(0,0,0,.28)"; ctx.lineWidth = 1;
+      for (var yy = 22; yy < D; yy += 22) { var a = I.P(0, yy, 0), b = I.P(L, yy, 0); ctx.beginPath(); ctx.moveTo(a.x, a.y); ctx.lineTo(b.x, b.y); ctx.stroke(); }
+      /* 뒷벽·왼쪽 벽(안쪽 면은 어둡게 — 덧문을 닫은 방) */
+      var bw = ctx.createLinearGradient(I.P(0, 0, HZ).x, 0, I.P(L, 0, HZ).x, 0); bw.addColorStop(0, "#1f2438"); bw.addColorStop(1, "#2c3350");
+      quad(I.P(0, 0, 0), I.P(L, 0, 0), I.P(L, 0, HZ), I.P(0, 0, HZ), bw);
+      quad(I.P(0, 0, 0), I.P(0, D, 0), I.P(0, D, HZ), I.P(0, 0, HZ), "#2a3150");
+      quad(I.P(-WT, D, 0), I.P(0, D, 0), I.P(0, D, HZ), I.P(-WT, D, HZ), "#cfc3ad");
+      quad(I.P(-WT, -WT, HZ), I.P(0, -WT, HZ), I.P(0, D, HZ), I.P(-WT, D, HZ), "#e6dcc8");
+      quad(I.P(0, -WT, HZ), I.P(L, -WT, HZ), I.P(L, 0, HZ), I.P(0, 0, HZ), "#e6dcc8");
+      ctx.strokeStyle = "rgba(0,0,0,.25)"; ctx.lineWidth = 1;
+      [80, 160].forEach(function (z) { var a = I.P(0, 0, z), b = I.P(L, 0, z); ctx.beginPath(); ctx.moveTo(a.x, a.y); ctx.lineTo(b.x, b.y); ctx.stroke(); });
+    }
+    function wallLight(R) {
+      if (R.band) {
+        var a = P(0, R.band[0]), b = P(0, R.band[1]), g = ctx.createLinearGradient(0, a.y, 0, b.y);
+        SPEC.forEach(function (c, k) { g.addColorStop(k / 6, rgba(c, .55)); });
+        ctx.save(); ctx.globalCompositeOperation = "lighter";
+        quad(P(0, R.band[0], Y0 - 12), P(0, R.band[0], Y0 + 12), P(0, R.band[1], Y0 + 12), P(0, R.band[1], Y0 - 12), g);
+        ctx.restore();
+      }
+      R.wall.forEach(function (s) { var p = P(0, s.z); if (s.white) K.glow(ctx, p.x, p.y, 9, "rgba(255,255,250,.98)", 3.4); else K.glow(ctx, p.x, p.y, 4, rgba(s.c, .95), 3); });
+    }
+    function table() {
+      var x0 = 160, x1 = 600, y0 = Y0 - 55, y1 = Y0 + 55;
+      [[x0 + 6, y0 + 6], [x1 - 14, y0 + 6], [x0 + 6, y1 - 14], [x1 - 14, y1 - 14]].forEach(function (q) { I.box(ctx, q[0], q[1], 0, q[0] + 8, q[1] + 8, 62, "#7a4d2b", "#6b4426", "#553620"); });
+      I.box(ctx, x0, y0, 62, x1, y1, TZ, "#8f5f36", "#6b4426", "#5a381f");
+    }
+    function stand(xc, ztop) {
+      I.box(ctx, xc - 14, Y0 - 14, TZ, xc + 14, Y0 + 14, TZ + 4, "#b8bec7", "#9aa0a8", "#80868f");
+      I.box(ctx, xc - 3, Y0 - 3, TZ + 4, xc + 3, Y0 + 3, ztop, "#c6ccd4", "#9aa0a8", "#6f757e");
+    }
+    /* 삼각 프리즘(축이 y 방향) — up 이면 꼭짓점이 위 */
+    function prism3(xc, up, innerC) {
+      var y0 = Y0 - PY, y1 = Y0 + PY, a = PA, b = PA, zc = ZC;
+      stand(xc, zc - b);
+      if (innerC) { var e = P(xc + a / 2, zc), o = P(xc - a / 2, zc); beam(ctx, e.x, e.y, o.x, o.y, innerC, 2.6); }
+      var gF = "rgba(190,225,255,.30)", gT = "rgba(225,242,255,.40)", gE = "rgba(214,236,255,.45)", ed = "rgba(240,250,255,.95)";
+      if (!up) {
+        quad(P(xc, zc - b, y0), P(xc + a, zc + b, y0), P(xc + a, zc + b, y1), P(xc, zc - b, y1), gF, ed);
+        quad(P(xc - a, zc + b, y0), P(xc + a, zc + b, y0), P(xc + a, zc + b, y1), P(xc - a, zc + b, y1), gT, ed);
+        tri(P(xc, zc - b, y1), P(xc - a, zc + b, y1), P(xc + a, zc + b, y1), gE, ed);
+      } else {
+        quad(P(xc, zc + b, y0), P(xc + a, zc - b, y0), P(xc + a, zc - b, y1), P(xc, zc + b, y1), gF, ed);
+        tri(P(xc, zc + b, y1), P(xc - a, zc - b, y1), P(xc + a, zc - b, y1), gE, ed);
+      }
+    }
+    function board(R) {
+      var y0 = Y0 - 58, y1 = Y0 + 58, z0 = TZ, z1 = 212, T = 7, one = slit !== "all";
+      quad(P(BX - T, z0, y1), P(BX, z0, y1), P(BX, z1, y1), P(BX - T, z1, y1), "#5e3b1d");
+      quad(P(BX - T, z1, y0), P(BX, z1, y0), P(BX, z1, y1), P(BX - T, z1, y1), "#b07a48");
+      var hz0, hz1, hy0, hy1;
+      if (one) { var zh = zAt(CI[slit], BX); hz0 = zh - 4; hz1 = zh + 4; hy0 = Y0 - 5; hy1 = Y0 + 5; }
+      else { hz0 = 112; hz1 = 172; hy0 = Y0 - 34; hy1 = Y0 + 34; }
+      var c = [P(BX, z0, y0), P(BX, z0, y1), P(BX, z1, y1), P(BX, z1, y0)], h = [P(BX, hz0, hy0), P(BX, hz1, hy0), P(BX, hz1, hy1), P(BX, hz0, hy1)];
+      var g = ctx.createLinearGradient(c[3].x, c[3].y, c[1].x, c[1].y); g.addColorStop(0, "#a87244"); g.addColorStop(1, "#6e4726");
+      ctx.beginPath(); c.forEach(function (p, i) { if (i) ctx.lineTo(p.x, p.y); else ctx.moveTo(p.x, p.y); }); ctx.closePath();
+      h.forEach(function (p, i) { if (i) ctx.lineTo(p.x, p.y); else ctx.moveTo(p.x, p.y); }); ctx.closePath();
+      ctx.fillStyle = g; ctx.fill("evenodd");
+      ctx.strokeStyle = "rgba(40,22,8,.55)"; ctx.lineWidth = 1; ctx.stroke();
+      R.board.forEach(function (s) { var p = P(BX, s.z); K.glow(ctx, p.x, p.y, 2.6, rgba(s.c, .95), 2.6); });
+    }
+    function shutterWall() {
+      I.box(ctx, L, -WT, 0, L + WT, YR, HZ, "#e6dcc8", "#cfc3ad", "#d9cfbd");
+      var X = L + WT;
+      quad(P(X, HOLE - 46, Y0 - 38), P(X, HOLE - 46, Y0 + 38), P(X, HOLE + 40, Y0 + 38), P(X, HOLE + 40, Y0 - 38), "#7a5130", "rgba(40,22,8,.6)");
+      ctx.strokeStyle = "rgba(40,22,8,.45)"; ctx.lineWidth = 1;
+      var m0 = P(X, HOLE - 46, Y0 + 18), m1 = P(X, HOLE + 40, Y0 + 18); ctx.beginPath(); ctx.moveTo(m0.x, m0.y); ctx.lineTo(m1.x, m1.y); ctx.stroke();
+      quad(P(X, HOLE - 4, Y0 - 4), P(X, HOLE - 4, Y0 + 4), P(X, HOLE + 4, Y0 + 4), P(X, HOLE + 4, Y0 - 4), "#05060c");
+    }
+    function headline() {
+      var one = slit !== "all";
+      if (!one) {
+        if (p2 === "flip") return ["다시 흰빛이 되었다", "펼친 색을 모두 한데 모으자"];
+        if (p2 === "same") return ["더 넓게 펼쳐졌다", "같은 방향으로 한 번 더 꺾이자"];
+        return ["흰빛이 무지개로 펼쳐졌다", "판자 구멍으로 색을 골라 보세요"];
+      }
+      if (p2 === "none") return [CN[slit] + " 한 줄기만 지나갔다", "두 번째 프리즘에 보내 보세요"];
+      return [CJ[slit] + " " + CN[slit] + " 그대로", "꺾이기만 하고 새 색은 없다"];
+    }
+    function result() {
+      return slit === "all" ? (p2 === "flip" ? "다시 흰빛이 되었다" : (p2 === "same" ? "더 넓게 펼쳐진 무지개" : "무지개 띠")) : (p2 === "none" ? CN[slit] + " 한 줄기" : CN[slit] + " 그대로 — 새 색이 생기지 않았다");
+    }
+    function panel(R) {
+      var y0 = DH + 8, h = H - y0, good = (slit !== "all" && p2 !== "none") || (slit === "all" && p2 === "flip");
+      K.stage(ctx, 0, y0, W, h, "night", { seed: 79 });
+      K.pill(ctx, "정면에서 본 왼쪽 벽(화면)", 16, y0 + 26, { s: 12, c: KC.blue });
+      var wx = 30, ww = 250, wy = y0 + 42, wh = h - 54, cx = wx + ww / 2;
+      var wg = ctx.createLinearGradient(0, wy, 0, wy + wh); wg.addColorStop(0, "#2b3250"); wg.addColorStop(1, "#1b2034");
+      ctx.fillStyle = wg; ctx.beginPath(); ctx.roundRect(wx, wy, ww, wh, 8); ctx.fill();
+      ctx.strokeStyle = "rgba(200,210,255,.25)"; ctx.lineWidth = 1; ctx.stroke();
+      function zy(z) { return wy + wh - 6 - (z / HZ) * (wh - 12); }
+      if (R.band) {
+        var g = ctx.createLinearGradient(0, zy(R.band[0]), 0, zy(R.band[1]));
+        SPEC.forEach(function (c, k) { g.addColorStop(k / 6, rgba(c, .6)); });
+        ctx.save(); ctx.globalCompositeOperation = "lighter"; ctx.fillStyle = g;
+        ctx.beginPath(); ctx.roundRect(cx - 34, zy(R.band[1]) - 4, 68, zy(R.band[0]) - zy(R.band[1]) + 8, 8); ctx.fill();
+        ctx.restore();
+      }
+      R.wall.forEach(function (s) { if (s.white) K.glow(ctx, cx, zy(s.z), 12, "rgba(255,255,250,.98)", 3); else K.glow(ctx, cx, zy(s.z), 5, rgba(s.c, .95), 3); });
+      var rx = 320, ry = y0 + 58;
+      K.t(ctx, "판자", rx, ry, { s: 12, c: KC.mute, w: "700" });
+      K.t(ctx, slit === "all" ? "큰 구멍 — 흩어진 색이 모두 지나감" : "작은 구멍 — " + CN[slit] + "만 지나감", rx + 120, ry, { s: 14, w: "800" });
+      K.t(ctx, "두 번째 프리즘", rx, ry + 32, { s: 12, c: KC.mute, w: "700" });
+      K.t(ctx, p2 === "none" ? "없음" : (p2 === "same" ? "첫 프리즘과 같은 방향" : "뒤집어서(꼭짓점이 위로)"), rx + 120, ry + 32, { s: 14, w: "800" });
+      K.t(ctx, "보내 본 단색", rx, ry + 64, { s: 12, c: KC.mute, w: "700" });
+      K.t(ctx, got.cols.length ? got.cols.map(function (c) { return CN[c]; }).join(" · ") : "아직 없음", rx + 120, ry + 64, { s: 14, w: "800", c: got.cols.length >= 2 ? KC.green : KC.ink });
+      K.pill(ctx, "화면: " + result(), rx, H - 22, { s: 15, c: good ? KC.green : KC.ink, bg: good ? "rgba(20,70,50,.6)" : null });
+    }
+    function draw() {
+      var R = rays(), one = slit !== "all", box = [0, W];
+      ctx.clearRect(0, 0, W, H);
+      room();
+      ctx.save(); ctx.beginPath(); ctx.roundRect(0, 0, W, DH, 14); ctx.clip();
+      wallLight(R);
+      table();
+      R.b2.forEach(ray);
+      if (p2 !== "none") prism3(P2, p2 === "flip", R.in2);
+      R.b1.forEach(ray);
+      I.person(ctx, 140, 200, 0, "#5b3f8c", 3);
+      board(R);
+      R.a.forEach(ray);
+      prism3(P1, false, "#fffbe8");
+      ray({ x0: L, z0: HOLE, x1: P1 + PA / 2, z1: ZC, c: "#fffbe8", w: 5 });
+      shutterWall();
+      var hs = P(L + WT, HOLE + WT * IN_SL), sun = P(L + WT + 210, HOLE + (WT + 210) * IN_SL);
+      K.glow(ctx, sun.x, sun.y, 12, "rgba(255,236,170,.98)", 3.4);
+      beam(ctx, sun.x, sun.y, hs.x, hs.y, "#fff3c8", 6); flow(sun, hs, "#fff3c8");
+      K.glow(ctx, hs.x, hs.y, 4, "rgba(255,250,230,.98)", 3);
+      ctx.restore();
+      /* 이름표 */
+      I.label(ctx, L + WT, Y0, HOLE, "덧문 구멍의 햇빛", 34, -62, "#fff4d6", box);
+      I.label(ctx, P1, Y0 - PY, ZC + PA, "첫 번째 프리즘", 36, -82, "#e8ecff", box);
+      I.label(ctx, BX, Y0 + 58, 212, one ? "판자 · 작은 구멍" : "판자 · 큰 구멍", 24, -62, "#f1d7b8", box);
+      if (p2 !== "none") I.label(ctx, P2, Y0 - PY, ZC + PA, "두 번째 프리즘 · " + (p2 === "flip" ? "뒤집음" : "같은 방향"), 22, -96, "#e8ecff", box);
+      I.label(ctx, 0, D - 40, 40, "벽(화면)", -36, 34, "#bfe6ff", box);
+      var hl = headline();
+      K.bigText(ctx, hl[0], 22, 50, 27, "#ffffff");
+      K.bigText(ctx, hl[1], 22, 82, 17, "#ffd35a");
+      K.warn(ctx, W - 14, 30, "⚠ 방·프리즘 크기와 빛이 퍼지는 각은 보기 쉽게 과장", "right");
+      panel(R);
     }
     function update() {
       draw();
@@ -433,6 +588,8 @@ function beam(ctx, x0, y0, x1, y1, c, w) {
       } else if (a && got.rec && got.q) window.sthMission("m2-3", true);
     }
     canvas._redraw = draw;
+    playBtn("b-crux-play", "⏸ 빛 흐름 멈추기", "▶ 빛 흐름 보기", function () { return playing; }, function (x) { playing = x; draw(); });
+    K.animate(canvas, function (dt) { if (!playing) return; ph += dt / 1000; draw(); }, 24);
     segWire("b-slit", "data-v", function (x) { slit = x; update(); });
     segWire("b-p2", "data-v", function (x) { p2 = x; update(); });
     window.sthPick({
