@@ -41,13 +41,14 @@
         <section class="scene" data-title="야영장의 밤">
           <div class="story narr"><div class="who">🏕️</div><div class="say"><span class="name">이야기</span>여름 야영 첫날 밤에는 귀뚜라미가 쉴 새 없이 울었는데, 비가 와서 선선해진 둘째 날 밤에는 느릿느릿 울었습니다. 동아리 부원 하나가 말합니다. “혹시 귀뚜라미가 기온에 따라 우는 빠르기를 바꾸는 거 아닐까?”</div></div>
           <div class="story"><div class="who">🧑‍🏫</div><div class="say"><span class="name">지도 교사</span>“재미있는 생각이에요. 그런데 두 밤만 보고 결론을 내도 될까요? 규칙을 찾으려면 무엇부터 해야 할까요?”</div></div>
+          <figure class="hero-art"><img src="img/cricket-camp.webp" alt="야영장 풀밭을 블록처럼 잘라 낸 모형. 주황 텐트와 기록장이 놓인 나무 탁자, 나무 말뚝에 꽂힌 유리 온도계가 있고, 앞쪽에서 큰 귀뚜라미가 날개를 들어 울고 있다. 옆면에는 흙과 돌, 뿌리가 보인다." width="900" height="900" loading="lazy"><figcaption><b>귀뚜라미는 날개를 비벼서 웁니다</b> 귀뚜라미 수컷은 앞날개를 들어 서로 비벼 소리를 냅니다. 변온 동물이라 기온이 오르면 몸의 반응이 빨라져 더 자주 웁니다. 온도계 옆에서 울음 횟수를 여러 밤 세어 보면 무엇을 알 수 있을까요? <span class="art-note">⚠ 귀뚜라미와 온도계의 크기는 실제 비율이 아닙니다.</span></figcaption></figure>
           <div class="gate loose" id="g1"></div>
         </section>
 
         <section class="scene" data-title="열두 밤의 기록">
           <div class="story"><div class="who">📋</div><div class="say"><span class="name">동아리 부장</span>“밤마다 기온을 재고, 귀뚜라미가 <b>8초 동안 우는 횟수</b>를 셌어요. 관찰한 밤의 수를 늘려 가며 자료를 모으고, ‘우는 횟수 + □ = 기온’의 □ 에 들어갈 수를 찾아 주세요. 적어도 <b>여덟 밤</b>의 자료로 확인해야 믿을 수 있겠죠?”</div></div>
           <div class="stage-card">
-            <div class="canvas-wrap stage"><canvas id="a-c-cr" width="900" height="300"></canvas></div>
+            <div class="canvas-wrap studio"><canvas id="a-c-cr" width="900" height="400"></canvas></div>
             <div class="sim-side">
               <div class="readout" id="a-cr-read"></div>
               <div class="ctrl-group">
@@ -69,7 +70,7 @@
         <section class="scene" data-title="규칙이 통하지 않는 밤">
           <div class="story"><div class="who">🥶</div><div class="say"><span class="name">동아리 부원</span>“가을 야영 때 이 규칙으로 기온을 맞혀 보기로 했어요. 그런데 아주 추운 밤에는 어떨까요? 새로운 밤의 기온을 바꿔 가며 규칙이 맞히는 기온과 실제 기온을 비교하고, <b>규칙이 통하지 않는 밤</b>을 찾아 주세요.”</div></div>
           <div class="stage-card">
-            <div class="canvas-wrap stage"><canvas id="a-c-lim" width="900" height="260"></canvas></div>
+            <div class="canvas-wrap studio"><canvas id="a-c-lim" width="900" height="380"></canvas></div>
             <div class="sim-side">
               <div class="readout" id="a-lim-read"></div>
               <div class="ctrl-group">
@@ -125,7 +126,7 @@
         <section class="scene" data-title="가설 시험대">
           <div class="story"><div class="who">🧪</div><div class="say"><span class="name">제멜바이스의 연구 노트</span>“병원 사람들이 내놓은 설명이 셋 있다. 가설마다 ‘이것이 원인이라면, 1병동에서 이것을 바꾸면 사망률이 2병동 수준으로 떨어질 것이다’라고 <b>예측</b>하고 시험해 보자. 달마다 들쭉날쭉하니 <b>6달 이상</b> 지켜봐야 한다.”</div></div>
           <div class="stage-card">
-            <div class="canvas-wrap stage"><canvas id="b-c-hyp" width="900" height="300"></canvas></div>
+            <div class="canvas-wrap studio"><canvas id="b-c-hyp" width="900" height="400"></canvas></div>
             <div class="sim-side">
               <div class="readout" id="b-hyp-read"></div>
               <div class="ctrl-group">
@@ -147,7 +148,7 @@
           <div class="story"><div class="who">🧑‍⚖️</div><div class="say"><span class="name">반대하는 교수</span>“사망률이 떨어진 건 손 씻기 때문이 아니라 그해 여름이라서, 아니면 환자가 줄어서 그런 걸 거요!” 제멜바이스가 다른 병원에서 검증 실험을 한다고 생각해 봅시다(가상의 상황). 두 병동의 조건을 정해, <b>손 씻기만 다르고 나머지는 모두 같은</b> 공정한 비교를 만들어 주세요.</div></div>
           <figure class="hero-art"><img src="img/two-wards.webp" alt="1840년대 병원 건물을 블록처럼 잘라 낸 모형. 두꺼운 돌벽을 사이에 두고 똑같이 생긴 병실 두 칸에 철제 침대가 줄지어 있고 산모들이 누워 있다. 왼쪽 병실에서는 검은 외투를 입은 의사가 물을 담은 흰 세면대에서 손을 씻고, 오른쪽 병실의 세면대는 비어 있다." width="900" height="900" loading="lazy"><figcaption><b>손을 씻자는 주장은 처음에 의사들의 거센 반대에 부딪혔습니다</b> 1847년 빈 종합 병원의 1병동에서 염소 소독수로 손을 씻기 시작하자 산모 사망률이 크게 떨어졌습니다. 그러나 많은 의사는 손 씻기의 효과를 믿지 않았고, 사망률이 떨어진 데는 다른 까닭이 있다고 보았습니다. 어떻게 비교해야 이런 반론에 답할 수 있을지 아래 모형에서 직접 정해 보세요.</figcaption></figure>
           <div class="stage-card">
-            <div class="canvas-wrap" style="background:#e4eaf1"><canvas id="b-c-fair" width="900" height="600"></canvas></div>
+            <div class="canvas-wrap studio"><canvas id="b-c-fair" width="900" height="600"></canvas></div>
             <div class="controls">
               <div class="ctrl-group">
                 <div class="ctrl-label">나 병동: 손 씻기</div>
@@ -204,13 +205,14 @@
         <section class="scene" data-title="숫자로 가득한 보고서">
           <div class="story narr"><div class="who">🕯️</div><div class="say"><span class="name">이야기</span><span data-place=41.0036,29.0157,16,s>스쿠타리 군 병원</span>. 나이팅게일은 군의 기록을 모아, 1년 동안 병사들이 무엇 때문에 죽었는지 달마다 정리했습니다. 그런데 숫자가 빼곡한 표를 본 장관들은 고개만 갸웃할 뿐입니다.</div></div>
           <div class="story"><div class="who">👩‍⚕️</div><div class="say"><span class="name">나이팅게일</span>“병사들은 총알보다 더러운 물과 하수 때문에 죽고 있어요. 바쁜 장관들이 한눈에 알아보게 하려면 어떻게 해야 할까요?”</div></div>
+          <figure class="hero-art"><img src="img/rose-ward.webp" alt="1850년대 군 병원 병실을 블록처럼 잘라 낸 모형. 돌벽과 아치형 창 아래 철제 침대에 병사들이 누워 있고, 앞쪽 책상에는 파란 부분이 가장 큰 원형 통계 도표가 펼쳐져 있으며, 등불을 든 간호사가 그 곁에 서 있다." width="900" height="900" loading="lazy"><figcaption><b>병사들은 전투보다 병으로 더 많이 죽었습니다</b> 크림 전쟁 때 영국군 병원에서는 부상보다 감염병으로 죽는 병사가 훨씬 많았습니다. 나이팅게일은 이 사실을 숫자로 모아 한 장의 그림으로 보여 주려 했습니다. 어떤 그림이어야 바쁜 장관이 한눈에 알아볼까요? <span class="art-note">⚠ 책상 위 도표는 장미 도표를 본뜬 그림이며 실제 값과 다릅니다.</span></figcaption></figure>
           <div class="gate loose" id="g3"></div>
         </section>
 
         <section class="scene" data-title="질문에 맞는 그래프">
           <div class="story"><div class="who">📊</div><div class="say"><span class="name">나이팅게일</span>“장관이 묻는 것이 둘이에요. <b>① 1년 동안 죽은 병사 전체 가운데 각 원인이 차지하는 비율은 얼마인가?</b> <b>② 병으로 죽은 병사 수가 달마다 늘고 줄어든 흐름(추세)을 한눈에 보려면?</b> 질문마다 가장 알맞은 그래프를 골라 주세요.”</div></div>
           <div class="stage-card">
-            <div class="canvas-wrap stage"><canvas id="c-c-gr" width="900" height="310"></canvas></div>
+            <div class="canvas-wrap studio"><canvas id="c-c-gr" width="900" height="400"></canvas></div>
             <div class="controls">
               <div class="ctrl-group" style="flex:1 1 100%">
                 <div class="ctrl-label">장관의 질문</div>
@@ -229,7 +231,7 @@
         <section class="scene" data-title="그래프는 속일 수 있다">
           <div class="story"><div class="who">📰</div><div class="say"><span class="name">나이팅게일</span>“반대편 신문이 ‘새 병원의 회복률이 옛 병원보다 압도적으로 높다’며 그래프를 실었대요. 회복률은 옛 병원 96%, 새 병원 98% 였는데 말이죠. 세로축이 몇에서 시작하느냐에 따라 막대가 어떻게 보이는지 바꿔 보고, <b>정직한 그래프</b>로 되돌려 주세요.”</div></div>
           <div class="stage-card">
-            <div class="canvas-wrap stage"><canvas id="c-c-ax" width="900" height="260"></canvas></div>
+            <div class="canvas-wrap studio"><canvas id="c-c-ax" width="900" height="370"></canvas></div>
             <div class="sim-side">
               <div class="readout" id="c-ax-read"></div>
               <div class="ctrl-group">

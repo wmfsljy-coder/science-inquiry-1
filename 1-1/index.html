@@ -48,7 +48,7 @@
           <div class="story"><div class="who">⏱️</div><div class="say"><span class="name">물리학자 인터뷰</span>“빛은 730 km를 약 2.435 밀리초에 갑니다. 중성미자가 60 나노초 빨랐다는 건 빛보다 겨우 0.0025 %(약 4만분의 1) 빠르다는 뜻이에요. 그런데 만약 장비의 시계가 <b>몇십 나노초</b>만 어긋나 있었다면? 측정 장비의 시간 오차를 바꿔 보며, 중성미자의 속력이 <b>정확히 빛과 같아지는</b> 오차를 찾아보세요.”</div></div>
           <figure class="hero-art"><img src="img/neutrino-beam.webp" alt="스위스의 가속기 연구소에서 알프스를 지나 이탈리아의 바위산까지 길게 잘라 낸 땅 모형. 앞면 단면의 층층 바위 속을 분홍 점선이 곧게 지나 산 아래 지하 실험실의 검출기에 닿고, 하늘에는 GPS 위성 두 대가 떠 있다." width="900" height="900" loading="lazy"><figcaption><b>중성미자는 730 km 바위를 터널 없이 그냥 지나갑니다</b> 2011년 CERN에서 쏜 중성미자는 알프스 아래 바위를 뚫고 730 km 떨어진 그란사소 지하 실험실의 검출기에 닿았습니다. 출발과 도착 시각은 GPS 신호로 맞춘 두 곳의 시계로 쟀고, 2.4 밀리초 남짓한 비행시간을 나노초 단위까지 가려내야 했습니다. 그 시계를 얼마나 믿을 수 있었는지는 아래 모형에서 따져 보세요. <span class="art-note">⚠ 실제 730 km 구간을 한 블록에 줄여 그렸습니다.</span></figcaption></figure>
           <div class="stage-card">
-            <div class="canvas-wrap" style="background:#e4eaf1"><canvas id="a-c-nu" width="900" height="620"></canvas></div>
+            <div class="canvas-wrap studio"><canvas id="a-c-nu" width="900" height="620"></canvas></div>
             <div class="sim-side">
               <div class="readout" id="a-nu-read"></div>
               <div class="ctrl-group">
@@ -66,7 +66,7 @@
         <section class="scene" data-title="동료 검토 — 몇 명이 보아야 걸러질까">
           <div class="story"><div class="who">🧑‍🔬</div><div class="say"><span class="name">학술지 편집자</span>“한 명의 검토자가 논문 속 오류를 발견할 확률이 30%라고 해 봅시다. 여러 명이 <b>따로따로</b> 검토하면 적어도 한 명이 오류를 찾을 확률은 1 − 0.7ⁿ이에요. 오류를 <b>95% 이상</b> 걸러 내려면 검토자가 적어도 몇 명 필요할까요? 너무 많이 부르면 심사가 한없이 늦어지니 가장 적은 수를 찾아 주세요.”</div></div>
           <div class="stage-card">
-            <div class="canvas-wrap stage"><canvas id="a-c-pr" width="900" height="280"></canvas></div>
+            <div class="canvas-wrap studio"><canvas id="a-c-pr" width="900" height="280"></canvas></div>
             <div class="sim-side">
               <div class="readout" id="a-pr-read"></div>
               <div class="ctrl-group">
@@ -115,13 +115,14 @@
         <section class="scene" data-title="특별전의 빈 진열장">
           <div class="story narr"><div class="who">🏛️</div><div class="say"><span class="name">이야기</span>과학관 특별전 ‘세계관이 바뀐 순간’의 첫 진열장이 비어 있습니다. 설명판에는 한 줄만 적혀 있습니다. “1610년, 한 사람이 망원경으로 금성을 보았다. 그리고 우주의 중심이 바뀌었다.”</div></div>
           <div class="story"><div class="who">👧</div><div class="say"><span class="name">초등학생 관람객</span>“금성 모양 하나 보고 우주의 중심이 바뀌었다고요? 사람들이 그냥 생각을 바꾼 거 아니에요?”</div></div>
+          <figure class="hero-art"><img src="img/venus-gallery.webp" alt="과학관 특별전 전시실을 잘라 낸 모형. 가운데 조명이 비치는 빈 유리 진열장 앞에 어린이 관람객들이 서 있고, 왼쪽에는 삼각대 위의 옛 굴절 망원경이 있다. 뒷벽 선반에는 왼쪽의 크고 가는 초승달 모양부터 오른쪽의 작고 둥근 모양까지 금성 모형 다섯 개가 놓여 있고, 오른쪽 둥근 탁자에는 가운데 태양 둘레를 행성들이 도는 놋쇠 태양계 모형이 있다." width="900" height="900" loading="lazy"><figcaption><b>선반의 금성 모형은 둥글수록 작아집니다</b> 뒷벽 선반의 금성 모형은 가늘수록 크고, 둥글수록 작습니다. 갈릴레이가 1610년 망원경으로 본 금성이 바로 이랬습니다. 모양과 크기가 이렇게 짝지어 바뀐다는 사실이 왜 천동설로는 설명되지 않는지 따져 보고, 빈 진열장에 붙일 설명판을 완성해 보세요. <span class="art-note">⚠ 금성 모형의 크기 차이는 실제(약 6배)보다 작게 그렸습니다.</span></figcaption></figure>
           <div class="gate loose" id="g2"></div>
         </section>
 
         <section class="scene" data-title="금성의 위상 — 두 모형의 예측">
           <div class="story"><div class="who">🔭</div><div class="say"><span class="name">천문 해설사</span>“천동설에서 금성은 늘 지구와 태양 <b>사이</b>의 작은 원(주전원)을 돌아요. <span data-view="law:지동설">지동설</span>에서는 금성이 태양 둘레를 돌지요. 두 모형에서 금성이 햇빛을 받는 모양을 시간에 따라 비교해 보세요. 갈릴레이는 금성이 <b>거의 보름달처럼 둥글게</b> 보이는 때를 관측했습니다. 어느 모형에서 그런 모양이 나올까요?”</div></div>
           <div class="stage-card">
-            <div class="canvas-wrap stage"><canvas id="b-c-ven" width="900" height="330"></canvas></div>
+            <div class="canvas-wrap studio"><canvas id="b-c-ven" width="900" height="330"></canvas></div>
             <div class="sim-side">
               <div class="readout" id="b-ven-read"></div>
               <div class="ctrl-group">
@@ -142,7 +143,7 @@
         <section class="scene" data-title="허블의 그래프 — 멀수록 빨리 멀어진다">
           <div class="story"><div class="who">🌌</div><div class="say"><span class="name">우주론 해설사</span>“300년 뒤, 또 한 번 세계관이 바뀝니다. 우주는 영원히 그대로라고 믿던 때, 허블은 먼 은하일수록 빨리 멀어진다는 관측 자료를 내놓았어요. 은하 여덟 개의 거리와 멀어지는 속력에 가장 잘 맞는 직선(속력 = H × 거리)의 기울기 H를 찾아 주세요.”</div></div>
           <div class="stage-card">
-            <div class="canvas-wrap stage"><canvas id="b-c-hub" width="900" height="300"></canvas></div>
+            <div class="canvas-wrap studio"><canvas id="b-c-hub" width="900" height="300"></canvas></div>
             <div class="sim-side">
               <div class="readout" id="b-hub-read"></div>
               <div class="ctrl-group">

@@ -14,29 +14,50 @@ var LAST = R.length - 1, DN = R.length ? dia(R[NEAR]) : 12104, DF = R.length ? d
 var SRC = "<small>출처: 미국 항공우주국 제트추진연구소(NASA JPL) Horizons 천체력 — 지구 중심에서 본 금성, 2025년 1월 1일 ~ 2026년 7월 1일, 5일 간격(밝게 보이는 부분 %, 겉보기 지름 ″, 지구와의 거리 AU, 태양과 벌어진 각). 사본은 data/venus-2025.js.</small>";
 function ko(d) { var p = d.split("-"); return p[0] + "년 " + (+p[1]) + "월 " + (+p[2]) + "일"; }
 
-function phase(H, ctx, cx, cy, r, k) {          /* 오른쪽이 태양 쪽, k = 밝은 부분 비율 */
-  ctx.save();
-  ctx.fillStyle = H.v("--line"); ctx.beginPath(); ctx.arc(cx, cy, r, 0, Math.PI * 2); ctx.fill();
-  ctx.fillStyle = H.v("--amber-700"); ctx.beginPath(); ctx.arc(cx, cy, r, -Math.PI / 2, Math.PI / 2); ctx.fill();
-  var ex = Math.abs(2 * k - 1) * r;
-  ctx.fillStyle = k >= 0.5 ? H.v("--amber-700") : H.v("--line");
-  ctx.beginPath(); ctx.ellipse(cx, cy, Math.max(ex, 0.01), r, 0, 0, Math.PI * 2); ctx.fill();
-  ctx.restore();
+/* ---- 스튜디오 말투(밝은 바탕 + 입체 미니어처 + 흰 판정 카드) — window.sthKit (_tools/STUDIO_GUIDE.md) ---- */
+var K = window.sthKit, LT = K.LT;
+function lpill(ctx, s, x, y, o) { o = o || {}; o.bg = o.bg || "rgba(255,255,255,.94)"; o.line = o.line || "rgba(20,40,90,.16)"; o.c = o.c || LT.ink; return K.pill(ctx, s, x, y, o); }
+function note(ctx, s, x, y, o) { o = o || {}; K.t(ctx, s, x, y, { s: o.s || 11, w: o.w || "700", a: o.a, c: o.c || LT.mute }); }
+function cube(ctx, x, y, w, h, d, cF, cT, cR) {
+  var dx = d * .7, dy = d * .5;
+  ctx.fillStyle = cT; ctx.beginPath(); ctx.moveTo(x, y); ctx.lineTo(x + dx, y - dy); ctx.lineTo(x + w + dx, y - dy); ctx.lineTo(x + w, y); ctx.closePath(); ctx.fill();
+  ctx.fillStyle = cR; ctx.beginPath(); ctx.moveTo(x + w, y); ctx.lineTo(x + w + dx, y - dy); ctx.lineTo(x + w + dx, y + h - dy); ctx.lineTo(x + w, y + h); ctx.closePath(); ctx.fill();
+  ctx.fillStyle = cF; ctx.fillRect(x, y, w, h);
+}
+function card(ctx, RX, W, CH, title, head, headCol, rows, tip, good) {
+  K.card(ctx, RX, 0, W - RX, CH, title);
+  if (head) K.t(ctx, head, RX + 18, 60, { s: 19, w: "900", c: headCol || LT.ink });
+  rows.forEach(function (r, i) { K.row(ctx, r[0], r[1], RX + 18, W - 18, 94 + i * 27, r[2]); });
+  if (tip) K.tip(ctx, tip, RX + 12, CH - 46, W - RX - 24, good);
+}
+/* 금성 입체 공: 오른쪽이 태양 쪽, k = 밝은 부분 비율 */
+function vball(ctx, cx, cy, r, k) {
+  ctx.fillStyle = "rgba(20,30,50,.18)"; ctx.beginPath(); ctx.ellipse(cx + r * .1, cy + r + 6, r * .8, Math.max(2, r * .14), 0, 0, 6.2832); ctx.fill();
+  var ng = ctx.createRadialGradient(cx + r * .3, cy - r * .2, r * .1, cx, cy, r); ng.addColorStop(0, "#3c4258"); ng.addColorStop(1, "#0e111b");
+  ctx.fillStyle = ng; ctx.beginPath(); ctx.arc(cx, cy, r, 0, 6.2832); ctx.fill();
+  var kk = 2 * k - 1;
+  ctx.beginPath(); ctx.arc(cx, cy, r, -Math.PI / 2, Math.PI / 2, false);
+  ctx.ellipse(cx, cy, Math.max(Math.abs(kk) * r, 0.01), r, 0, Math.PI / 2, -Math.PI / 2, kk < 0); ctx.closePath();
+  var g = ctx.createRadialGradient(cx + r * .35, cy - r * .35, r * .05, cx, cy, r * 1.05);
+  g.addColorStop(0, "#fffbe8"); g.addColorStop(.55, "#f1d68a"); g.addColorStop(1, "#b8893a");
+  ctx.fillStyle = g; ctx.fill();
 }
 function chart(H, ctx, W, CH, pick) {
-  H.paper(ctx, W, CH);
-  var x0 = 50, x1 = 560, y0 = 26, y1 = CH - 40;
-  function X(i) { return x0 + i / Math.max(1, R.length - 1) * (x1 - x0); }
-  function Yd(v) { return y1 - v / 65 * (y1 - y0); }
-  function Yp(v) { return y1 - v / 100 * (y1 - y0); }
-  H.axes(ctx, x0, y0, x1, y1);
-  [0, 20, 40, 60].forEach(function (v) { H.text(ctx, v + "″", x0 - 6, Yd(v) + 4, { s: 10, a: "right", c: H.v("--brand") }); });
-  [0, 50, 100].forEach(function (v) { H.text(ctx, v + "%", x1 + 6, Yp(v) + 4, { s: 10, c: H.v("--amber-700") }); });
-  R.forEach(function (r, i) { var mo = +r[0].slice(5, 7); if ((i === 0 || R[i - 1][0].slice(5, 7) !== r[0].slice(5, 7)) && mo % 3 === 1) H.text(ctx, r[0].slice(0, 7), X(i), y1 + 15, { s: 10, a: "center", c: H.v("--mist") }); });
-  H.line(ctx, R.map(function (r, i) { return [X(i), Yd(r[2])]; }), H.v("--brand"), 2.5);
-  H.line(ctx, R.map(function (r, i) { return [X(i), Yp(r[1])]; }), H.v("--amber-700"), 2.5);
-  H.text(ctx, "파랑: 겉보기 지름(″)   주황: 밝게 보이는 부분(%)", x0 + 6, y0 - 10, { s: 11, w: "700", c: H.v("--mist") });
-  if (pick != null) H.dash(ctx, X(pick), y0, X(pick), y1, H.v("--ink"), 1.2);
+  ctx.clearRect(0, 0, W, CH);
+  K.studio(ctx, 0, 0, 560, CH);
+  var g = K.chart(ctx, { x: 4, y: 26, w: 552, h: CH - 30, pl: 40, pb: 30, pt: 14, pr: 40, x0: 0, x1: Math.max(1, R.length - 1), y0: 0, y1: 65, xt: 1, yt: 5, light: true,
+    xf: function () { return ""; }, yf: function (q) { return Math.round(q) + "″"; } });
+  function X(i) { return g.X(i); }
+  function Yp(v) { return g.Y(v / 100 * 65); }
+  [0, 50, 100].forEach(function (v) { K.t(ctx, v + "%", g.R + 6, Yp(v) + 4, { s: 10, c: "#a85d00", w: "700" }); });
+  R.forEach(function (r, i) { var mo = +r[0].slice(5, 7); if ((i === 0 || R[i - 1][0].slice(5, 7) !== r[0].slice(5, 7)) && mo % 3 === 1) K.t(ctx, r[0].slice(0, 7), X(i), g.B + 15, { s: 10, a: "center", c: LT.mute, w: "600" }); });
+  K.plot(ctx, g, R.map(function (r, i) { return [i, r[2]]; }), LT.blue, { w: 2.6, light: true });
+  K.plot(ctx, g, R.map(function (r, i) { return [i, r[1] / 100 * 65]; }), LT.orange, { w: 2.6, light: true });
+  note(ctx, "파랑: 겉보기 지름(″, 왼쪽 눈금)   주황: 밝게 보이는 부분(%, 오른쪽 눈금)", 10, 18, { s: 11 });
+  if (pick != null) {
+    K.line(ctx, { x: X(pick), y: g.T }, { x: X(pick), y: g.B }, "rgba(20,40,90,.55)", 1.4);
+    [[R[pick][2], LT.blue], [R[pick][1] / 100 * 65, LT.orange]].forEach(function (q) { ctx.fillStyle = "#fff"; ctx.beginPath(); ctx.arc(X(pick), g.Y(q[0]), 6, 0, 6.2832); ctx.fill(); ctx.fillStyle = q[1]; ctx.beginPath(); ctx.arc(X(pick), g.Y(q[0]), 4, 0, 6.2832); ctx.fill(); });
+  }
 }
 
 window.sthLab({
@@ -57,10 +78,19 @@ window.sthLab({
       var H = api.h, cv = api.canvas(290), ctx = cv.ctx, W = cv.W, i = 0, side = "none";
       function draw() {
         chart(H, ctx, W, cv.H, i);
-        var r = R[i] || ["", 0, 0, 0, 0, "T"];
-        phase(H, ctx, 735, 105, Math.max(6, r[2] * 1.3), r[1] / 100);
-        H.text(ctx, "태양 쪽 →", 735, 200, { s: 10.5, a: "center", c: H.v("--mist") });
-        H.rows(ctx, 640, 214, [[ko(r[0]), r[1].toFixed(1) + "% · " + r[2].toFixed(1) + "″", "--amber-700"]], 40);
+        var r = R[i] || ["2025-01-01", 0, 0, 0, 0, "T"], CH = cv.H, RX = 568;
+        K.card(ctx, RX, 0, W - RX, CH, "고른 날의 금성 (망원경 속, 같은 배율)");
+        var vx = RX + 112, vy = 132;
+        ctx.fillStyle = "#0b0f24"; ctx.beginPath(); ctx.arc(vx, vy, 84, 0, 6.2832); ctx.fill();
+        ctx.strokeStyle = "#8a93a3"; ctx.lineWidth = 6; ctx.stroke();
+        vball(ctx, vx, vy, Math.max(6, r[2] * 1.3), r[1] / 100);
+        note(ctx, "태양 쪽 →", vx + 80, vy + 100, { s: 10.5, a: "right" });
+        var x0 = RX + 214;
+        note(ctx, ko(r[0]), x0, 70, { s: 12, w: "900", c: LT.ink });
+        note(ctx, "밝은 부분", x0, 100); K.t(ctx, r[1].toFixed(1) + "%", x0, 120, { s: 16, w: "900", c: LT.orange });
+        note(ctx, "겉보기 지름", x0, 148); K.t(ctx, r[2].toFixed(1) + "″", x0, 168, { s: 16, w: "900", c: LT.blue });
+        note(ctx, "지구와의 거리", x0, 196); K.t(ctx, r[3].toFixed(2) + " AU", x0, 216, { s: 16, w: "900", c: LT.ink });
+        K.tip(ctx, r[1] >= 90 ? "둥글고 작게 보이는 때" : (r[1] <= 30 ? "가늘고 크게 보이는 때" : "모양과 크기가 함께 바뀝니다"), RX + 12, CH - 46, W - RX - 24, null);
       }
       cv.canvas._redraw = draw;
       api.slider({ label: "날짜", min: 0, max: Math.max(0, R.length - 1), step: 1, value: 0, fmt: function (x) { return R[x] ? ko(R[x][0]) : ""; }, onInput: function (x) { i = x; api.changed(); draw(); } });
@@ -95,12 +125,30 @@ window.sthLab({
       var H = api.h, cv = api.canvas(250), ctx = cv.ctx, W = cv.W, g = 8000;
       var n = R[NEAR] || ["", 1, 59.5, 0.281], f = R[FULL] || ["", 100, 9.8, 1.711];
       function draw() {
-        H.paper(ctx, W, cv.H);
-        phase(H, ctx, 120, 120, n[2] * 1.4, n[1] / 100);
-        phase(H, ctx, 290, 120, f[2] * 1.4, f[1] / 100);
-        H.text(ctx, ko(n[0]), 120, 225, { s: 11, w: "800", a: "center", c: H.v("--mist") });
-        H.text(ctx, ko(f[0]), 290, 225, { s: 11, w: "800", a: "center", c: H.v("--mist") });
-        H.rows(ctx, 420, 30, [["가장 크게 보인 날", "지름 " + n[2].toFixed(1) + "″ · 거리 " + n[3].toFixed(3) + " AU"], ["비교: 가장 작게 보인 날", "지름 " + f[2].toFixed(1) + "″ · 거리 " + f[3].toFixed(3) + " AU"], ["내 답 (금성 지름)", g.toLocaleString() + " km", null, true]], 60);
+        var CH = cv.H, ok = Math.abs(g - DN) <= 300;
+        ctx.clearRect(0, 0, W, CH);
+        K.studio(ctx, 0, 0, 470, CH, { x: 220, y: 206, rx: 200, ry: 20 });
+        /* 입체 미니어처: 받침대 위에 같은 배율로 놓은 두 날의 금성 */
+        [[120, n, "가장 크게 보인 날"], [330, f, "가장 작게 보인 날"]].forEach(function (b) {
+          cube(ctx, b[0] - 46, 196, 80, 14, 30, "#d9dee6", "#f3f5f8", "#aab2be");
+          vball(ctx, b[0], 196 - 8 - b[1][2] * 1.2, b[1][2] * 1.2, b[1][1] / 100);
+          lpill(ctx, b[2] + " · " + b[1][2].toFixed(1) + "″", b[0], 236, { s: 10.5, a: "center", c: LT.ink, box: [0, 470] });
+        });
+        K.bigText(ctx, "같은 금성, 거리만 다르다", 16, 32, 19, "#ffffff");
+        /* 거리 띠: 지구에서 두 날의 금성까지 (AU) */
+        var RX = 478;
+        card(ctx, RX, W, CH, "두 날의 값 (NASA JPL)", "내 답 " + g.toLocaleString() + " km", ok ? LT.green : LT.blue, [
+          ["크게 보인 날 " + ko(n[0]), n[2].toFixed(1) + "″ · " + n[3].toFixed(3) + " AU"],
+          ["작게 보인 날 " + ko(f[0]), f[2].toFixed(1) + "″ · " + f[3].toFixed(3) + " AU"]
+        ], null);
+        var lx0 = RX + 30, lx1 = W - 30, ly = 172, sc = (lx1 - lx0) / 1.8;
+        K.line(ctx, { x: lx0, y: ly }, { x: lx1, y: ly }, LT.line, 1.5);
+        K.earth(ctx, lx0, ly, 7);
+        K.planet(ctx, lx0 + n[3] * sc, ly, 5, "#fff3c4", "#b8893a"); K.planet(ctx, lx0 + f[3] * sc, ly, 5, "#fff3c4", "#b8893a");
+        note(ctx, "지구", lx0, ly + 22, { s: 10, a: "center" });
+        note(ctx, n[3].toFixed(2) + " AU", lx0 + n[3] * sc, ly - 12, { s: 10, a: "center", c: LT.blue });
+        note(ctx, f[3].toFixed(2) + " AU", lx0 + f[3] * sc, ly - 12, { s: 10, a: "center", c: LT.blue });
+        note(ctx, "지름 = (각″ ÷ 206,265) × 거리(km)", RX + 18, 214, { s: 10.5 });
       }
       cv.canvas._redraw = draw;
       api.slider({ label: "금성의 지름", min: 4000, max: 20000, step: 100, value: 8000, fmt: function (x) { return x.toLocaleString() + " km"; }, onInput: function (x) { g = x; api.changed(); draw(); } });

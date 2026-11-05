@@ -24,17 +24,65 @@ var CW_COLD = CWSE.slice().sort(function (a, b) { return a[2] - b[2]; }).slice(0
 var CW_Y0 = CWSE.length ? CWSE[0][0] : 1987, CW_YL = CWSE.length ? CWSE[CWSE.length - 1][0] : 2025;
 var SRC_CW = "<small>출처: 기상청 날씨누리 과거 관측 일별 자료, 창원(155) 일평균 기온으로 해마다 여름(6 ~ 8월)·겨울(앞해 12월 ~ 그해 2월) 평균을 냈습니다(" + CW_Y0 + " ~ " + CW_YL + "). 위 서울 자료(격자 값)와 달리 관측소 한 곳의 실제 관측입니다. 사본은 data/cw155.js.</small>";
 
+/* ---- 밝은 스튜디오 · 입체 미니어처 도구 (kit.js) ---- */
+var K = window.sthKit, LT = K.LT;
+function kShadow(ctx, x, y, rx, ry, a) {
+  var g = ctx.createRadialGradient(x, y, 1, x, y, rx);
+  g.addColorStop(0, "rgba(20,30,50," + (a == null ? .26 : a) + ")"); g.addColorStop(1, "rgba(20,30,50,0)");
+  ctx.save(); ctx.translate(x, y); ctx.scale(1, ry / rx); ctx.translate(-x, -y); ctx.fillStyle = g; ctx.beginPath(); ctx.arc(x, y, rx, 0, 6.2832); ctx.fill(); ctx.restore();
+}
+function kTag(ctx, px, py, txt, dx, dy, col, box) {
+  var q = { x: px + dx, y: py + dy };
+  ctx.strokeStyle = "rgba(20,25,40,.75)"; ctx.lineWidth = 1.2; ctx.beginPath(); ctx.moveTo(px, py); ctx.lineTo(q.x, q.y); ctx.stroke();
+  ctx.fillStyle = "#111622"; ctx.beginPath(); ctx.arc(px, py, 2.5, 0, 6.283); ctx.fill();
+  return K.pill(ctx, txt, q.x + (dx < 0 ? -4 : 4), q.y + 4, { s: 11.5, a: dx < 0 ? "right" : "left", c: col || "#e8ecff", box: box });
+}
+function kRows(ctx, x0, x1, y, list, gap) { list.forEach(function (r, i) { K.row(ctx, r[0], r[1], x0, x1, y + i * (gap || 28), r[2]); }); }
+/* 유리 원기둥(시험관·병·비커) */
+function kGlass(ctx, cx, by, r, h, lh, liq, o) {
+  o = o || {}; var e = o.e || .3, ry = r * e, ty = by - h, ly = by - lh;
+  if (!o.noShadow) kShadow(ctx, cx + r * .3, by + ry * .5, r * 1.6, ry * 1.6, .24);
+  ctx.fillStyle = "rgba(205,222,245,.3)"; ctx.beginPath(); ctx.moveTo(cx - r, ty); ctx.lineTo(cx - r, by); ctx.ellipse(cx, by, r, ry, 0, Math.PI, 0, true); ctx.lineTo(cx + r, ty); ctx.ellipse(cx, ty, r, ry, 0, 0, Math.PI, true); ctx.closePath(); ctx.fill();
+  if (lh > 0 && liq) {
+    ctx.fillStyle = liq; ctx.beginPath(); ctx.moveTo(cx - r + 1.5, ly); ctx.lineTo(cx - r + 1.5, by); ctx.ellipse(cx, by, r - 1.5, ry - .5, 0, Math.PI, 0, true); ctx.lineTo(cx + r - 1.5, ly); ctx.closePath(); ctx.fill();
+    var sh = ctx.createLinearGradient(cx - r, 0, cx + r, 0); sh.addColorStop(0, "rgba(0,0,30,.22)"); sh.addColorStop(.35, "rgba(255,255,255,.12)"); sh.addColorStop(1, "rgba(0,0,30,.28)"); ctx.fillStyle = sh; ctx.fill();
+    ctx.fillStyle = "rgba(255,255,255,.35)"; ctx.beginPath(); ctx.ellipse(cx, ly, r - 1.5, ry - .5, 0, 0, 6.2832); ctx.fill();
+  }
+  if (o.inside) o.inside(ly, ry);
+  ctx.strokeStyle = "rgba(80,110,150,.78)"; ctx.lineWidth = 1.5; ctx.beginPath(); ctx.moveTo(cx - r, ty); ctx.lineTo(cx - r, by); ctx.ellipse(cx, by, r, ry, 0, Math.PI, 0, true); ctx.lineTo(cx + r, ty); ctx.stroke();
+  ctx.beginPath(); ctx.ellipse(cx, ty, r, ry, 0, 0, 6.2832); ctx.stroke();
+  ctx.fillStyle = "rgba(255,255,255,.55)"; ctx.fillRect(cx - r * .66, ty + ry + 4, r * .18, Math.max(0, h - ry - 10));
+}
+/* 작은 도시 블록(관측소 백엽상 포함): o.snow 눈 덮임, o.sun 해 */
+function kCity(ctx, ox, oy, s, o) {
+  o = o || {}; var I = K.iso({ ox: ox, oy: oy, s: s, L: 160, D: 110 });
+  I.box(ctx, 0, 0, -14, 160, 110, 0, o.snow ? "#eef3f7" : "#8fbf73", "#8a6a4a", "#6d523a");
+  I.box(ctx, 0, 54, 0, 160, 68, .6, "#8d8f94", "#7a7c82", "#6b6d72");
+  [[12, 8, 34, 34, 74], [42, 10, 62, 32, 46], [94, 6, 118, 34, 96], [124, 10, 150, 34, 58], [18, 78, 42, 102, 42], [112, 80, 140, 104, 66]].forEach(function (b) {
+    I.box(ctx, b[0], b[1], 0, b[2], b[3], b[4], o.snow ? "#ffffff" : "#dde2ea", "#c3cad5", "#9ea7b5");
+    for (var z = 10; z < b[4] - 6; z += 12) for (var x = b[0] + 4; x < b[2] - 4; x += 7) I.quad(ctx, I.P(x, b[3], z), I.P(x + 3.5, b[3], z), I.P(x + 3.5, b[3], z + 6), I.P(x, b[3], z + 6), o.night ? "#ffd86b" : "#7d95b8");
+  });
+  I.tree(ctx, 80, 92, 0, .7); I.tree(ctx, 150, 92, 0, .6);
+  [[66, 80], [72, 80], [66, 86], [72, 86]].forEach(function (q) { I.box(ctx, q[0], q[1], 0, q[0] + 1.5, q[1] + 1.5, 16, "#f4f4f0", "#d8d8d2", "#bdbdb6"); });
+  I.box(ctx, 64, 78, 16, 76, 90, 28, "#ffffff", "#eceeea", "#cfd3cc");
+  if (o.sun) K.sun(ctx, ox + 70 * s, oy - 70 * s, 7);
+  return I;
+}
+
 function chart(H, ctx, W, CH, pts, lo, hi, pick, shade, label) {
   H.paper(ctx, W, CH);
-  var x0 = 60, x1 = 600, y0 = 26, y1 = CH - 36;
-  function X(y) { return x0 + (y - 1980.5) / 44 * (x1 - x0); }
-  function Y(v) { return y1 - (v - lo) / (hi - lo) * (y1 - y0); }
-  H.axes(ctx, x0, y0, x1, y1);
-  if (shade) shade.forEach(function (s) { ctx.fillStyle = "rgba(255,190,60,.15)"; ctx.fillRect(X(s[0] - 0.5), y0, X(s[1] + 0.5) - X(s[0] - 0.5), y1 - y0); });
-  for (var v = Math.ceil(lo); v <= hi; v += (hi - lo > 6 ? 2 : 1)) H.text(ctx, v + "°", x0 - 6, Y(v) + 4, { s: 10, a: "right", c: H.v("--mist") });
-  [1985, 1995, 2005, 2015].forEach(function (y) { H.text(ctx, y, X(y), y1 + 15, { s: 10, a: "center", c: H.v("--mist") }); });
-  pts.forEach(function (p) { H.box(ctx, X(p[0]) - 5, Y(p[1]), 10, y1 - Y(p[1]), pick === p[0] ? H.v("--amber-700") : H.v("--brand"), pick === p[0] ? 1 : 0.75); });
-  H.text(ctx, label, x0 + 6, y0 - 10, { s: 11, w: "700", c: H.v("--mist") });
+  var g = K.chart(ctx, { x: 4, y: 8, w: 596, h: CH - 12, pl: 46, pt: 26, pb: 30, pr: 14, x0: 1980.5, x1: 2024.5, y0: lo, y1: hi, xt: 4, yt: hi - lo > 6 ? Math.round((hi - lo) / 2) : hi - lo, light: true, xf: function () { return ""; }, yf: function (v) { return Math.round(v) + "°"; } });
+  function X(y) { return g.X(y); }
+  function Y(v) { return g.Y(v); }
+  if (shade) shade.forEach(function (s) { ctx.fillStyle = "rgba(245,159,0,.13)"; ctx.fillRect(X(s[0] - 0.5), g.T, X(s[1] + 0.5) - X(s[0] - 0.5), g.B - g.T); });
+  [1985, 1995, 2005, 2015].forEach(function (y) { K.t(ctx, String(y), X(y), g.B + 15, { s: 10.5, w: "700", a: "center", c: LT.mute }); });
+  pts.forEach(function (p) {
+    var x = X(p[0]) - 4.5, top = Y(p.length > 2 ? p[2] : p[1]), w = 9, on = pick === p[0], c = on ? "#f59f00" : "#4f8fd6";
+    ctx.fillStyle = on ? "#b86e00" : "#2f6aac"; ctx.beginPath(); ctx.moveTo(x + w, top); ctx.lineTo(x + w + 4, top - 3); ctx.lineTo(x + w + 4, g.B - 3); ctx.lineTo(x + w, g.B); ctx.closePath(); ctx.fill();
+    ctx.fillStyle = on ? "#ffd27a" : "#9cc3ef"; ctx.beginPath(); ctx.moveTo(x, top); ctx.lineTo(x + 4, top - 3); ctx.lineTo(x + w + 4, top - 3); ctx.lineTo(x + w, top); ctx.closePath(); ctx.fill();
+    ctx.fillStyle = c; ctx.fillRect(x, top, w, g.B - top);
+  });
+  K.t(ctx, label, g.L + 4, 20, { s: 11.5, w: "800", c: LT.mute });
   return { X: X, Y: Y };
 }
 
@@ -56,9 +104,15 @@ window.sthLab({
       var H = api.h, cv = api.canvas(270), ctx = cv.ctx, W = cv.W, g = 0;
       function draw() {
         var c = chart(H, ctx, W, cv.H, T.annual, 9, 14, null, [[1981, 1990], [2015, 2024]], "서울의 한 해 평균 기온 (°C) — 세로축은 9 °C부터");
-        H.dash(ctx, c.X(1980.5), c.Y(M1), c.X(1990.5), c.Y(M1), H.v("--ink"), 2);
-        H.dash(ctx, c.X(2014.5), c.Y(M2), c.X(2024.5), c.Y(M2), H.v("--ink"), 2);
-        H.rows(ctx, 640, 40, [["1981~1990 평균", M1.toFixed(2) + " °C"], ["2015~2024 평균", M2.toFixed(2) + " °C"], ["내 답 (오른 정도)", "+" + g.toFixed(1) + " °C", null, true]], 62);
+        K.line(ctx, { x: c.X(1980.5), y: c.Y(M1) }, { x: c.X(1990.5), y: c.Y(M1) }, LT.ink, 2.2, [5, 4]);
+        K.line(ctx, { x: c.X(2014.5), y: c.Y(M2) }, { x: c.X(2024.5), y: c.Y(M2) }, LT.ink, 2.2, [5, 4]);
+        var RX = 610, px = RX + 18, xr = W - 18;
+        K.card(ctx, RX, 8, W - RX - 8, cv.H - 16, "두 기간의 평균");
+        K.row(ctx, "1981~1990 평균", M1.toFixed(2) + " °C", px, xr, 60);
+        K.row(ctx, "2015~2024 평균", M2.toFixed(2) + " °C", px, xr, 86);
+        K.row(ctx, "내 답 (오른 정도)", "+" + g.toFixed(1) + " °C", px, xr, 116, LT.orange);
+        kCity(ctx, RX + 128, 170, .42, { sun: true });
+        K.t(ctx, "서울 · 도심 관측소", RX + 146, cv.H - 18, { s: 10.5, w: "700", a: "center", c: LT.mute });
       }
       cv.canvas._redraw = draw;
       api.slider({ label: "오른 기온", min: 0, max: 3, step: 0.1, value: 0, fmt: function (x) { return "+" + x.toFixed(1) + " °C"; }, onInput: function (x) { g = x; api.changed(); draw(); } });
@@ -91,7 +145,13 @@ window.sthLab({
       var H = api.h, cv = api.canvas(270), ctx = cv.ctx, W = cv.W, y = 2001, cmp = "none";
       function draw() {
         chart(H, ctx, W, cv.H, JAN, -9, 2, y, [[2001, 2024]], "서울의 1월 평균 기온 (°C) — 막대가 짧을수록 추운 1월");
-        H.rows(ctx, 640, 40, [["고른 해", y + "년 1월", "--amber-700"], ["1월 평균", (J[y] != null ? J[y].toFixed(1) : "-") + " °C", null, true], ["그해 한 해 평균", (A[y] != null ? A[y].toFixed(2) : "-") + " °C"]], 62);
+        var RX = 610, px = RX + 18, xr = W - 18;
+        K.card(ctx, RX, 8, W - RX - 8, cv.H - 16, "고른 해의 기록");
+        K.row(ctx, "고른 해", y + "년 1월", px, xr, 60, "#b86e00");
+        K.row(ctx, "1월 평균", (J[y] != null ? J[y].toFixed(1) : "-") + " °C", px, xr, 86, LT.blue);
+        K.row(ctx, "그해 한 해 평균", (A[y] != null ? A[y].toFixed(2) : "-") + " °C", px, xr, 112);
+        kCity(ctx, RX + 128, 170, .42, { snow: true });
+        K.t(ctx, "눈 덮인 1월의 서울", RX + 146, cv.H - 18, { s: 10.5, w: "700", a: "center", c: LT.mute });
       }
       cv.canvas._redraw = draw;
       api.slider({ label: "연도", min: 2001, max: 2024, step: 1, value: 2001, fmt: function (x) { return x + "년"; }, onInput: function (x) { y = x; api.changed(); draw(); } });
@@ -124,26 +184,36 @@ window.sthLab({
     task: "오른쪽 두 기간의 여름 평균을 읽고 <b>마지막 10년 − 처음 10년</b>을 슬라이더로 맞추세요(± 0.1 °C).",
     build: function (stage, api) {
       var H = api.h, cv = api.canvas(300), ctx = cv.ctx, W = cv.W, dt = 0;
-      var x0 = 50, x1 = 640, y0 = 20, y1 = 262;
+      var x0 = 50, x1 = 630, y0 = 20, y1 = 262;
       function X(y) { return x0 + (y - (CW_Y0 - 1)) / (CW_YL - CW_Y0 + 2) * (x1 - x0); }
       var top = [22, 28], bot = [0, 6];        /* 위: 여름 °C, 아래: 겨울 °C */
       function YS(t) { return y0 + (top[1] - t) / (top[1] - top[0]) * 110; }
       function YW(t) { return y1 - 10 - (t - bot[0]) / (bot[1] - bot[0]) * 100; }
       function draw() {
-        H.paper(ctx, W, cv.H); H.axes(ctx, x0, y0, x1, y1);
-        [23, 25, 27].forEach(function (t) { H.text(ctx, t + "°", x0 - 8, YS(t) + 4, { s: 10, a: "right", c: H.v("--coral-700") }); H.dash(ctx, x0, YS(t), x1, YS(t), H.v("--line"), 0.5); });
-        [1, 3, 5].forEach(function (t) { H.text(ctx, t + "°", x0 - 8, YW(t) + 4, { s: 10, a: "right", c: H.v("--brand") }); H.dash(ctx, x0, YW(t), x1, YW(t), H.v("--line"), 0.5); });
-        H.text(ctx, "여름 6 ~ 8월", x0 + 6, y0 + 12, { s: 11, w: "800", c: H.v("--coral-700") });
-        H.text(ctx, "겨울 12 ~ 2월", x0 + 6, YW(bot[1]) + 4, { s: 11, w: "800", c: H.v("--brand") });
-        H.line(ctx, CWSE.map(function (r) { return [X(r[0]), YS(r[1])]; }), H.v("--coral-700"), 2);
-        H.line(ctx, CWSE.map(function (r) { return [X(r[0]), YW(r[2])]; }), H.v("--brand"), 2);
+        H.paper(ctx, W, cv.H);
+        ctx.fillStyle = "rgba(255,255,255,.72)"; ctx.fillRect(x0, y0, x1 - x0, y1 - y0);
+        ctx.strokeStyle = LT.line; ctx.lineWidth = 1.5; ctx.beginPath(); ctx.moveTo(x0, y0); ctx.lineTo(x0, y1); ctx.lineTo(x1, y1); ctx.stroke();
+        [23, 25, 27].forEach(function (t) { K.t(ctx, t + "°", x0 - 8, YS(t) + 4, { s: 10.5, w: "700", a: "right", c: LT.red }); K.line(ctx, { x: x0, y: YS(t) }, { x: x1, y: YS(t) }, LT.grid, 1); });
+        [1, 3, 5].forEach(function (t) { K.t(ctx, t + "°", x0 - 8, YW(t) + 4, { s: 10.5, w: "700", a: "right", c: LT.blue }); K.line(ctx, { x: x0, y: YW(t) }, { x: x1, y: YW(t) }, LT.grid, 1); });
+        K.t(ctx, "여름 6 ~ 8월", x0 + 6, y0 + 14, { s: 11.5, w: "900", c: LT.red });
+        K.t(ctx, "겨울 12 ~ 2월", x0 + 6, YW(bot[1]) + 4, { s: 11.5, w: "900", c: LT.blue });
+        K.plot(ctx, { X: function (v) { return v; }, Y: function (v) { return v; } }, CWSE.map(function (r) { return [X(r[0]), YS(r[1])]; }), LT.red, { w: 2.2, light: true });
+        K.plot(ctx, { X: function (v) { return v; }, Y: function (v) { return v; } }, CWSE.map(function (r) { return [X(r[0]), YW(r[2])]; }), LT.blue, { w: 2.2, light: true });
         [[CW_Y0, CW_Y0 + 9], [CW_YL - 9, CW_YL]].forEach(function (p, i) {
           var s = i ? CW_S1 : CW_S0, w = i ? CW_W1 : CW_W0;
-          H.line(ctx, [[X(p[0]), YS(s)], [X(p[1]), YS(s)]], H.v("--ink"), 3);
-          H.line(ctx, [[X(p[0]), YW(w)], [X(p[1]), YW(w)]], H.v("--ink"), 3);
+          K.line(ctx, { x: X(p[0]), y: YS(s) }, { x: X(p[1]), y: YS(s) }, LT.ink, 3.2);
+          K.line(ctx, { x: X(p[0]), y: YW(w) }, { x: X(p[1]), y: YW(w) }, LT.ink, 3.2);
         });
-        [1990, 2000, 2010, 2020].forEach(function (y) { H.text(ctx, y, X(y), y1 + 15, { s: 10, a: "center", c: H.v("--mist") }); });
-        H.rows(ctx, 680, 34, [["여름 처음 → 마지막 10년", CW_S0.toFixed(2) + " → " + CW_S1.toFixed(2) + " °C", "--coral-700"], ["겨울 처음 → 마지막 10년", CW_W0.toFixed(2) + " → " + CW_W1.toFixed(2) + " °C", "--brand"], ["검은 막대", "10년 평균"], ["내 답 (여름)", (dt >= 0 ? "+" : "") + dt.toFixed(2) + " °C", null, true]], 54);
+        [1990, 2000, 2010, 2020].forEach(function (y) { K.t(ctx, String(y), X(y), y1 + 15, { s: 10.5, w: "700", a: "center", c: LT.mute }); });
+        var RX = 652, px = RX + 16, xr = W - 16;
+        K.card(ctx, RX, 8, W - RX - 8, cv.H - 16, "창원기상대 · 10년 평균");
+        K.row(ctx, "여름 처음→마지막", CW_S0.toFixed(2) + "→" + CW_S1.toFixed(2), px, xr, 58, LT.red);
+        K.row(ctx, "겨울 처음→마지막", CW_W0.toFixed(2) + "→" + CW_W1.toFixed(2), px, xr, 84, LT.blue);
+        K.row(ctx, "검은 막대", "10년 평균", px, xr, 110);
+        K.row(ctx, "내 답 (여름)", (dt >= 0 ? "+" : "") + dt.toFixed(2) + " °C", px, xr, 136, LT.orange);
+        kCity(ctx, RX + 62, 204, .3, { sun: true });
+        kCity(ctx, RX + 168, 204, .3, { snow: true });
+        K.t(ctx, "여름은 더 덥게 · 겨울은 조금 춥게", RX + 120, cv.H - 16, { s: 10.5, w: "700", a: "center", c: LT.mute });
       }
       cv.canvas._redraw = draw;
       api.slider({ label: "여름 평균의 변화", min: -1.5, max: 1.5, step: 0.05, value: 0, fmt: function (x) { return (x >= 0 ? "+" : "") + x.toFixed(2) + " °C"; }, onInput: function (x) { dt = x; api.changed(); draw(); } });

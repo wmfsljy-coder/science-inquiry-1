@@ -48,7 +48,7 @@
           <div class="story"><div class="who">👨‍🔬</div><div class="say"><span class="name">갈릴레이</span>“공을 그냥 떨어뜨리면 1초 만에 끝나 버려. 우리 물시계는 0.1초쯤 어긋나니 그걸로는 잴 수가 없지. 길이 5 m 빗면의 기울기를 줄여 공이 굴러 내려가는 시간을 늘려 보게. 시간 오차가 <b>4% 이하</b>가 되도록. 그리고 무거운 쇠공과 가벼운 나무공을 <b>같은 기울기에서</b> 둘 다 굴려 비교해 보게.”</div></div>
           <figure class="hero-art"><img src="img/incline-workshop.webp" alt="1600년대 파도바의 작업실을 블록처럼 잘라 낸 모형. 홈을 판 긴 나무 빗면 위로 청동 공이 굴러 내려가고, 학자와 공책에 적는 조수가 지켜본다. 창가에는 물통이 받침대 위에서 가는 물줄기를 저울 위 작은 유리잔에 흘려보내고, 앞면 단면에 벽돌과 돌로 된 바닥이 보인다." width="900" height="900" loading="lazy"><figcaption><b>갈릴레이는 떨어지는 물체를 재려고 공을 비탈에 눕혔습니다</b> 공을 그냥 떨어뜨리면 1초 남짓 만에 끝나 버려, 정밀한 시계가 없던 시대에는 잴 방법이 없었습니다. 갈릴레이는 홈을 판 긴 나무 빗면에 청동 공을 굴려 낙하를 느리게 만들고, 통에서 흘러나온 물의 무게로 시간을 쟀습니다. 빗면을 얼마나 눕혀야 잴 수 있는지는 아래 모형에서 직접 찾아보세요.</figcaption></figure>
           <div class="stage-card">
-            <div class="canvas-wrap" style="background:#e4eaf1"><canvas id="a-c-inc" width="900" height="470"></canvas></div>
+            <div class="canvas-wrap studio"><canvas id="a-c-inc" width="900" height="470"></canvas></div>
             <div class="sim-side">
               <div class="readout" id="a-inc-read"></div>
               <div class="ctrl-group">
@@ -69,7 +69,7 @@
         <section class="scene" data-title="고르게 울리는 종">
           <div class="story"><div class="who">🔔</div><div class="say"><span class="name">갈릴레이</span>“빗면에 작은 종을 달아, 공이 지나가면 ‘딩’ 울리게 했네. 종소리가 <b>똑같은 박자로</b> 울리게 하려면 종을 어떤 간격으로 달아야 할까? 박자가 고르면 같은 시간 동안 공이 간 거리를 알 수 있지. 음악가의 귀는 박자가 조금만 어긋나도 알아채거든.” <small style="color:var(--mist)">※ 종을 단 빗면은 갈릴레이의 기록이 아니라 후대 과학사가들의 복원입니다.</small></div></div>
           <div class="stage-card">
-            <div class="canvas-wrap stage"><canvas id="a-c-bell" width="900" height="270"></canvas></div>
+            <div class="canvas-wrap studio"><canvas id="a-c-bell" width="900" height="400"></canvas></div>
             <div class="controls">
               <div class="ctrl-group" style="flex:1 1 100%">
                 <div class="ctrl-label">출발점에서 종까지의 거리 (첫 종까지를 1칸으로)</div>
@@ -119,13 +119,14 @@
         <section class="scene" data-title="제각각인 비 보고">
           <div class="story narr"><div class="who">📜</div><div class="say"><span class="name">이야기</span>호조에 여러 고을의 보고가 올라옵니다. “흙이 한 뼘 젖었습니다.” “호미 날이 다 들어갈 만큼 스몄습니다.” 같은 날 같은 비가 왔는데, 어느 고을에 비가 더 왔는지 알 수가 없습니다.</div></div>
           <div class="story"><div class="who">🤴</div><div class="say"><span class="name">세자(뒤의 <span data-view="who:문종 (조선)">문종</span>)</span>“흙마다 물이 스미는 깊이가 다르니 이래서는 비교할 수가 없구나. 어떻게 하면 온 나라의 비를 견줄 수 있겠느냐?”</div></div>
+          <figure class="hero-art"><img src="img/rain-gauge.webp" alt="조선 관청 마당을 블록처럼 잘라 낸 모형. 기와집 앞 돌 받침 위에 곧은 원통 모양 측우기가 놓여 있고, 비 오는 마당에서 푸른 옷의 관리가 측우기 안에 나무 자를 세워 고인 빗물의 깊이를 재고 있다." width="900" height="900" loading="lazy"><figcaption><b>곧은 원통에 고인 빗물의 깊이를 자로 잽니다</b> 1441년 조선은 쇠로 만든 원통 측우기를 돌 받침 위에 올려 두고, 고인 빗물의 깊이를 정해진 자로 재게 했습니다. 왜 사발이나 병이 아니라 곧은 원통이어야 했을까요? <span class="art-note">⚠ 사람과 측우기, 건물의 크기는 실제 비율이 아닙니다.</span></figcaption></figure>
           <div class="gate loose" id="g2"></div>
         </section>
 
         <section class="scene" data-title="측우기 설계">
           <div class="story"><div class="who">🏺</div><div class="say"><span class="name">세자(뒤의 문종)</span>“비가 30 mm 내렸다고 합시다. 그릇 모양과 크기를 바꿔 가며, 그릇에 고인 물의 깊이가 <b>실제 내린 비의 양과 늘 같아지는</b> 그릇을 찾아보십시오. 고을마다 그릇 크기가 조금씩 달라도 같은 값이 나와야 합니다. 크기를 <b>두 가지 이상</b> 바꿔 확인해 주십시오.”</div></div>
           <div class="stage-card">
-            <div class="canvas-wrap stage"><canvas id="b-c-rain" width="900" height="280"></canvas></div>
+            <div class="canvas-wrap studio"><canvas id="b-c-rain" width="900" height="400"></canvas></div>
             <div class="sim-side">
               <div class="readout" id="b-rain-read"></div>
               <div class="ctrl-group">
@@ -147,7 +148,7 @@
         <section class="scene" data-title="1 m의 역사">
           <div class="story"><div class="who">📏</div><div class="say"><span class="name">과학관 해설사 (오늘날)</span>“측우기의 깊이도 결국 ‘자’로 잽니다. 그 자의 기준은 어떻게 정해 왔을까요? 사람의 팔에서 빛의 속력까지, 단위의 역사를 끝까지 따라가 보세요.”</div></div>
           <div class="stage-card">
-            <div class="canvas-wrap stage"><canvas id="b-c-era" width="900" height="250"></canvas></div>
+            <div class="canvas-wrap studio"><canvas id="b-c-era" width="900" height="380"></canvas></div>
             <div class="controls">
               <div class="ctrl-group" style="flex:1 1 100%">
                 <div class="ctrl-label">시대<span class="val" id="b-era-val">고대 이집트</span></div>
@@ -195,13 +196,14 @@
         <section class="scene" data-title="같은 해, 같은 표">
           <div class="story narr"><div class="who">📰</div><div class="say"><span class="name">이야기</span>1869년 3월 <span data-view="commons:Mendeleev's periodic table (1869 year).jpg|퍼블릭 도메인|멘델레예프가 1869년에 처음 발표한 주기율표">멘델레예프</span>가 원소를 원자량 순으로 늘어놓은 표를 발표했습니다. 그런데 독일의 <span data-view="who:로타르 마이어">로타어 마이어</span>도 1868년에 거의 같은 표를 만들어 두었고, 1870년에 발표했습니다. 두 사람은 서로의 연구를 몰랐습니다.</div></div>
           <div class="story"><div class="who">🧑‍🎓</div><div class="say"><span class="name">화학과 학생</span>“서로 모르는 두 사람이 어떻게 같은 해에 같은 걸 발견할 수 있죠? 우연일까요?”</div></div>
+          <figure class="hero-art"><img src="img/card-table.webp" alt="19세기 화학자의 서재를 블록처럼 잘라 낸 모형. 나무 책상 위에 글자가 없는 색 카드가 색깔별로 세로줄을 맞춰 놓여 있고 한 자리가 비어 있으며, 그 옆 접시에 회색 금속 덩어리가 놓여 있다. 둘레에 플라스크, 시험관, 저울, 책장이 있다." width="900" height="900" loading="lazy"><figcaption><b>카드를 줄 맞춰 늘어놓으면 빈칸이 남습니다</b> 같은 색 카드가 세로줄로 모이도록 늘어놓다 보면 들어갈 카드가 없는 자리가 생깁니다. 멘델레예프는 이런 빈칸을 아직 발견되지 않은 원소의 자리라고 보았습니다. 빈칸 옆의 회색 금속은 무엇일까요? <span class="art-note">⚠ 카드의 수와 색은 실제 주기율표와 다릅니다.</span></figcaption></figure>
           <div class="gate loose" id="g3"></div>
         </section>
 
         <section class="scene" data-title="원소 카드 늘어놓기">
           <div class="story"><div class="who">🃏</div><div class="say"><span class="name">멘델레예프</span>“원소 이름, 원자량, 성질을 카드에 적어 원자량 순으로 늘어놓았네. 한 줄에 몇 장씩 끊어 놓아야 <b>성질이 비슷한 원소들이 세로로 나란히</b> 설까? 같은 색은 성질이 비슷한 원소 가족이야.”</div></div>
           <div class="stage-card">
-            <div class="canvas-wrap stage"><canvas id="c-c-tab" width="900" height="290"></canvas></div>
+            <div class="canvas-wrap studio"><canvas id="c-c-tab" width="900" height="400"></canvas></div>
             <div class="controls">
               <div class="ctrl-group">
                 <div class="ctrl-label">한 줄에 놓는 카드 수<span class="val" id="c-w-val">6장</span></div>
@@ -216,7 +218,7 @@
         <section class="scene" data-title="빈칸의 원소 — 에카규소">
           <div class="story"><div class="who">❓</div><div class="say"><span class="name">멘델레예프</span>“규소 아래 칸이 비어 있네. 아직 발견되지 않은 원소가 있다는 뜻이지. 나는 이것을 ‘에카규소’라 부르겠네. 위·아래, 왼쪽·오른쪽 이웃의 원자량을 보고 이 원소의 원자량을 예측해 보게. 실제로 발견되면 확인할 수 있을 걸세. (그때는 왼쪽 갈륨도 아직 빈칸이었지만, 여기서는 오늘날의 값으로 해 보세.)”</div></div>
           <div class="stage-card">
-            <div class="canvas-wrap stage"><canvas id="c-c-eka" width="900" height="260"></canvas></div>
+            <div class="canvas-wrap studio"><canvas id="c-c-eka" width="900" height="380"></canvas></div>
             <div class="sim-side">
               <div class="readout" id="c-eka-read"></div>
               <div class="ctrl-group">
@@ -239,7 +241,7 @@
                 <div class="seg" id="c-case"><button class="on" data-v="0">미적분학</button><button data-v="1">자연선택설</button><button data-v="2">전화기</button><button data-v="3">산소의 발견</button></div>
               </div>
             </div>
-            <div class="canvas-wrap stage"><canvas id="c-c-sim" width="900" height="260"></canvas></div>
+            <div class="canvas-wrap studio"><canvas id="c-c-sim" width="900" height="380"></canvas></div>
             <div class="info-card" id="c-sim-info"></div>
           </div>
           <div id="c-sim-pick"></div>

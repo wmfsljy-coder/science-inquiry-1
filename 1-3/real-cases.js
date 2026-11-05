@@ -5,6 +5,61 @@
    자료: data/elements.js (PubChem 주기율표), data/seoul-rain.js (NASA POWER), data/cw155.js (기상청 창원 155) */
 (function () {
 "use strict";
+/* ---- 스튜디오 + 입체 미니어처 도구 (_tools/STUDIO_GUIDE.md) ---- */
+var K = window.sthKit, LT = K.LT;
+/* 오른쪽 흰 판정 카드: 카드를 깔고 그 위에 엔진의 H.rows(이름 · 굵은 값)를 쓴다 */
+function card(H, ctx, x, y, w, h, title, rows, gap) {
+  K.card(ctx, x, y, w, h, title || "판정");
+  var yy = y + 56;
+  (rows || []).forEach(function (r) {      /* r = [이름, 값, 색 토큰, 큰 글씨] — 이름 아래에 굵은 값 */
+    H.text(ctx, r[0], x + 18, yy, { s: 12, w: "800", c: LT.mute });
+    var sz = r[3] ? 20 : 15, mw = w - 36; ctx.font = "900 " + sz + "px " + H.FONT; while (ctx.measureText(String(r[1])).width > mw && sz > 11) { sz -= 0.5; ctx.font = "900 " + sz + "px " + H.FONT; }
+    H.text(ctx, r[1], x + 18, yy + (r[3] ? 26 : 22), { s: sz, w: "900", c: r[2] ? H.v(r[2]) : LT.ink });
+    yy += gap || 56;
+  });
+}
+function bar3(c, x, top, w, bottom, col, dx, dy) {
+  dx = dx == null ? 8 : dx; dy = dy == null ? 5 : dy;
+  if (bottom - top < 0.5) top = bottom - 0.5;
+  c.fillStyle = K.tint(col, 0.62); c.beginPath(); c.moveTo(x + w, top); c.lineTo(x + w + dx, top - dy); c.lineTo(x + w + dx, bottom - dy); c.lineTo(x + w, bottom); c.closePath(); c.fill();
+  c.fillStyle = K.tint(col, 1.25); c.beginPath(); c.moveTo(x, top); c.lineTo(x + dx, top - dy); c.lineTo(x + w + dx, top - dy); c.lineTo(x + w, top); c.closePath(); c.fill();
+  var g = c.createLinearGradient(x, 0, x + w, 0); g.addColorStop(0, K.tint(col, 1.08)); g.addColorStop(1, K.tint(col, 0.88));
+  c.fillStyle = g; c.fillRect(x, top, w, bottom - top);
+}
+function tile3(c, x, y, w, h, col) {
+  c.fillStyle = "rgba(20,30,50,.16)"; c.beginPath(); c.roundRect(x + 3, y + 5, w, h, 5); c.fill();
+  c.fillStyle = K.tint(col, 0.6); c.beginPath(); c.roundRect(x + 3, y - 3, w, h, 5); c.fill();
+  var g = c.createLinearGradient(x, y, x, y + h); g.addColorStop(0, K.tint(col, 1.15)); g.addColorStop(1, K.tint(col, 0.88));
+  c.fillStyle = g; c.beginPath(); c.roundRect(x, y, w, h, 5); c.fill();
+}
+/* 토분과 모종: (x, y) 화분 바닥 가운데, h 모종 키(px) */
+function pot(c, x, y, s, h, tag) {
+  c.fillStyle = "rgba(20,30,50,.2)"; c.beginPath(); c.ellipse(x + 3, y + 1, 9 * s, 3 * s, 0, 0, 6.2832); c.fill();
+  var g = c.createLinearGradient(x - 8 * s, 0, x + 8 * s, 0); g.addColorStop(0, "#a0522d"); g.addColorStop(.45, "#e08a5a"); g.addColorStop(1, "#8a4422");
+  c.fillStyle = g; c.beginPath(); c.moveTo(x - 8 * s, y - 14 * s); c.lineTo(x - 6 * s, y); c.lineTo(x + 6 * s, y); c.lineTo(x + 8 * s, y - 14 * s); c.closePath(); c.fill();
+  c.fillStyle = "#5a3a20"; c.beginPath(); c.ellipse(x, y - 14 * s, 8 * s, 2.6 * s, 0, 0, 6.2832); c.fill();
+  c.strokeStyle = "#2f7d32"; c.lineWidth = 1.6 * s; c.beginPath(); c.moveTo(x, y - 14 * s); c.lineTo(x, y - 14 * s - h); c.stroke();
+  for (var k = 0; k < 3; k++) {
+    var ly = y - 14 * s - h * (0.35 + k * 0.3), sd = k % 2 ? 1 : -1;
+    c.fillStyle = k === 2 ? "#5cb85c" : "#3f9a42"; c.beginPath(); c.ellipse(x + sd * 4.5 * s, ly, 5 * s, 2.2 * s, sd * 0.5, 0, 6.2832); c.fill();
+  }
+  if (tag) { c.fillStyle = "#ffd43b"; c.fillRect(x + 4 * s, y - 12 * s, 5 * s, 6 * s); }
+}
+/* 측우기 미니어처: 화강암 받침(측우대) 위 놋쇠 원통, 안에 고인 빗물이 보이게 앞벽을 반쯤 비춘다. (x, y) 받침 윗면 가운데 */
+function gauge(c, x, y, s) {
+  var IG = K.iso({ ox: x, oy: y - 18 * s, s: s, L: 44, D: 44 });
+  IG.box(c, 0, 0, 0, 44, 44, 26, "#dedbd2", "#c3bfb5", "#a29d92");
+  var p = IG.P(22, 22, 26), r = 13 * s, h = 46 * s, wtr = 12 * s;
+  c.fillStyle = "#5b3d1c"; c.fillRect(p.x - r, p.y - h, 2 * r, h); c.beginPath(); c.ellipse(p.x, p.y, r, r * .36, 0, 0, Math.PI); c.fill();
+  var wg = c.createLinearGradient(0, p.y - wtr, 0, p.y); wg.addColorStop(0, "#6cc4ee"); wg.addColorStop(1, "#1f6fb8");
+  c.fillStyle = wg; c.fillRect(p.x - r, p.y - wtr, 2 * r, wtr); c.beginPath(); c.ellipse(p.x, p.y, r, r * .36, 0, 0, Math.PI); c.fill();
+  c.fillStyle = "rgba(190,235,255,.95)"; c.beginPath(); c.ellipse(p.x, p.y - wtr, r, r * .36, 0, 0, 6.2832); c.fill();
+  var mg = c.createLinearGradient(p.x - r, 0, p.x + r, 0); mg.addColorStop(0, "rgba(120,80,30,.6)"); mg.addColorStop(.4, "rgba(240,200,120,.45)"); mg.addColorStop(1, "rgba(100,65,25,.65)");
+  c.fillStyle = mg; c.fillRect(p.x - r, p.y - h, 2 * r, h); c.beginPath(); c.ellipse(p.x, p.y, r, r * .36, 0, 0, Math.PI); c.fill();
+  c.strokeStyle = "#d8b06a"; c.lineWidth = 2.5; c.beginPath(); c.ellipse(p.x, p.y - h, r, r * .36, 0, 0, 6.2832); c.stroke();
+  c.strokeStyle = "rgba(70,110,170,.55)"; c.lineWidth = 1.2;
+  for (var k = 0; k < 6; k++) { var rx = p.x - 18 + k * 7, ry = p.y - h - 30 + (k % 3) * 8; c.beginPath(); c.moveTo(rx, ry); c.lineTo(rx - 2, ry + 9); c.stroke(); }
+}
 var P = window.REAL_PT || { rows: [] }, RN = window.REAL_RAIN || { monthly: [] };
 function el(s) { for (var i = 0; i < P.rows.length; i++) if (P.rows[i][0] === s) return P.rows[i]; return [s, s, 0, 0, 0, 0, ""]; }
 var GE = el("Ge"), NB = [el("Si"), el("Sn"), el("Ga"), el("As")];
@@ -35,17 +90,28 @@ window.sthLab({
     },
     task: "원자량(± 0.5)과 밀도(± 0.15 g/cm³)를 슬라이더로 맞추세요.",
     build: function (stage, api) {
-      var H = api.h, cv = api.canvas(280), ctx = cv.ctx, W = cv.W, m = 60, d = 3;
+      var H = api.h, cv = api.canvas(300), ctx = cv.ctx, W = cv.W, m = 60, d = 3;
       function cell(e, x, y, q) {
-        ctx.save(); ctx.strokeStyle = q ? H.v("--amber-700") : H.v("--line"); ctx.lineWidth = q ? 3 : 1.5; ctx.strokeRect(x, y, 110, 78); ctx.restore();
-        H.text(ctx, q ? "?" : e[0], x + 55, y + 32, { s: 22, w: "900", a: "center", c: q ? H.v("--amber-700") : H.v("--ink") });
-        H.text(ctx, q ? "원자량 " + m.toFixed(1) : "원자량 " + e[3].toFixed(2), x + 55, y + 52, { s: 10.5, a: "center", c: H.v("--mist") });
-        H.text(ctx, q ? "밀도 " + d.toFixed(2) : "밀도 " + e[4].toFixed(2), x + 55, y + 68, { s: 10.5, a: "center", c: H.v("--mist") });
+        tile3(ctx, x, y, 110, 78, q ? "#f59f00" : (e[0] === "Si" || e[0] === "Sn" ? "#0f9f76" : "#1c7ed6"));
+        if (q) { ctx.save(); ctx.strokeStyle = "#ffffff"; ctx.lineWidth = 2; ctx.setLineDash([5, 4]); ctx.beginPath(); ctx.roundRect(x + 4, y + 4, 102, 70, 5); ctx.stroke(); ctx.restore(); }
+        H.text(ctx, q ? "?" : e[0], x + 55, y + 30, { s: 22, w: "900", a: "center", c: "#fff" });
+        H.text(ctx, q ? "원자량 " + m.toFixed(1) : "원자량 " + e[3].toFixed(2), x + 55, y + 51, { s: 11, w: "800", a: "center", c: "rgba(255,255,255,.95)" });
+        H.text(ctx, q ? "밀도 " + d.toFixed(2) : "밀도 " + e[4].toFixed(2), x + 55, y + 68, { s: 11, w: "800", a: "center", c: "rgba(255,255,255,.95)" });
       }
       function draw() {
         H.paper(ctx, W, cv.H);
-        cell(NB[0], 150, 14, false); cell(NB[2], 30, 98, false); cell(GE, 150, 98, true); cell(NB[3], 270, 98, false); cell(NB[1], 150, 182, false);
-        H.rows(ctx, 450, 40, [["내 예측 원자량", m.toFixed(1), null, true], ["내 예측 밀도", d.toFixed(2) + " g/cm³", null, true]], 70);
+        ctx.fillStyle = "rgba(20,30,50,.16)"; ctx.beginPath(); ctx.ellipse(205, 286, 200, 10, 0, 0, 6.2832); ctx.fill();
+        bar3(ctx, 16, 6, 384, 276, "#c99a62", 10, 7);
+        cell(NB[0], 150, 18, false); cell(NB[2], 30, 104, false); cell(GE, 150, 104, true); cell(NB[3], 270, 104, false); cell(NB[1], 150, 190, false);
+        /* 회색 금속 광택 덩어리 — 1886년에 찾은 게르마늄 */
+        var gx = 470, gy = 200;
+        ctx.fillStyle = "rgba(20,30,50,.2)"; ctx.beginPath(); ctx.ellipse(gx + 4, gy + 22, 36, 8, 0, 0, 6.2832); ctx.fill();
+        var gg = ctx.createLinearGradient(gx - 30, gy - 26, gx + 30, gy + 22); gg.addColorStop(0, "#f1f3f5"); gg.addColorStop(.45, "#8a929e"); gg.addColorStop(1, "#495057");
+        ctx.fillStyle = gg; ctx.beginPath(); ctx.moveTo(gx - 30, gy + 16); ctx.lineTo(gx - 20, gy - 18); ctx.lineTo(gx + 6, gy - 28); ctx.lineTo(gx + 30, gy - 8); ctx.lineTo(gx + 24, gy + 20); ctx.closePath(); ctx.fill();
+        ctx.fillStyle = "rgba(255,255,255,.55)"; ctx.beginPath(); ctx.moveTo(gx - 20, gy - 18); ctx.lineTo(gx + 6, gy - 28); ctx.lineTo(gx - 2, gy - 6); ctx.closePath(); ctx.fill();
+        K.pill(ctx, "1886년 빙클러가 찾은 금속", gx, gy + 52, { s: 11, a: "center", c: "#ffffff", box: [410, 606] });
+        K.bigText(ctx, "에카규소 = ?", 420, 46, 22, "#ffd35a");
+        card(H, ctx, 616, 12, 272, cv.H - 24, "내 예측", [["원자량", m.toFixed(1), null, true], ["밀도", d.toFixed(2) + " g/cm³", null, true]], 80);
       }
       cv.canvas._redraw = draw;
       api.slider({ label: "원자량", min: 60, max: 90, step: 0.1, value: 60, fmt: function (x) { return x.toFixed(1); }, onInput: function (x) { m = x; api.changed(); draw(); } });
@@ -77,20 +143,22 @@ window.sthLab({
     },
     task: "6~8월 비의 비율(%)을 슬라이더로 맞추세요(± 2%).",
     build: function (stage, api) {
-      var H = api.h, cv = api.canvas(280), ctx = cv.ctx, W = cv.W, g = 25;
+      var H = api.h, cv = api.canvas(300), ctx = cv.ctx, W = cv.W, g = 25;
       function draw() {
         H.paper(ctx, W, cv.H);
-        var x0 = 60, x1 = 560, y0 = 30, y1 = cv.H - 40, bw = (x1 - x0) / 12, mx = Math.max.apply(null, MAVG) * 1.12 || 1;
+        var x0 = 60, x1 = 576, y0 = 30, y1 = cv.H - 40, bw = (x1 - x0) / 12, mx = Math.max.apply(null, MAVG) * 1.12 || 1;
         function Y(v) { return y1 - v / mx * (y1 - y0); }
+        ctx.fillStyle = "rgba(255,255,255,.75)"; ctx.fillRect(x0, y0, x1 - x0, y1 - y0);
         H.axes(ctx, x0, y0, x1, y1);
-        [0, 100, 200, 300].forEach(function (v) { if (v < mx) H.text(ctx, v, x0 - 6, Y(v) + 4, { s: 10, a: "right", c: H.v("--mist") }); });
+        [0, 100, 200, 300].forEach(function (v) { if (v < mx) { H.text(ctx, v, x0 - 6, Y(v) + 4, { s: 10.5, w: "700", a: "right", c: H.v("--mist") }); if (v) H.dash(ctx, x0, Y(v), x1, Y(v), "rgba(20,40,90,.12)", 1); } });
+        gauge(ctx, 116, 150, 1);
         MAVG.forEach(function (v, i) {
-          H.box(ctx, x0 + i * bw + 4, Y(v), bw - 8, y1 - Y(v), i >= 5 && i <= 7 ? H.v("--brand") : H.v("--mist"), 0.85);
-          H.text(ctx, Math.round(v), x0 + i * bw + bw / 2, Y(v) - 5, { s: 10, a: "center", c: H.v("--mist") });
-          H.text(ctx, (i + 1) + "월", x0 + i * bw + bw / 2, y1 + 15, { s: 10, a: "center", c: H.v("--mist") });
+          bar3(ctx, x0 + i * bw + 6, Y(v), bw - 16, y1, i >= 5 && i <= 7 ? "#1c7ed6" : "#adb5bd", 6, 4);
+          H.text(ctx, Math.round(v), x0 + i * bw + bw / 2, Y(v) - 8, { s: 10.5, w: "800", a: "center", c: H.v("--ink") });
+          H.text(ctx, (i + 1) + "월", x0 + i * bw + bw / 2, y1 + 16, { s: 10.5, w: "700", a: "center", c: H.v("--mist") });
         });
-        H.text(ctx, "달마다 내린 비의 평균 (mm)", x0 + 6, y0 - 12, { s: 11, w: "700", c: H.v("--mist") });
-        H.rows(ctx, 600, 40, [["한 해 합", Math.round(TOT).toLocaleString() + " mm"], ["6~8월 합", Math.round(SUM).toLocaleString() + " mm"], ["내 답 (여름 비율)", g + "%", null, true]], 62);
+        H.text(ctx, "달마다 내린 비의 평균 (mm) — 파랑: 6~8월", x0 + 4, y0 - 12, { s: 11, w: "800", c: H.v("--mist") });
+        card(H, ctx, 616, 12, 272, cv.H - 24, "판정", [["한 해 합", Math.round(TOT).toLocaleString() + " mm"], ["6~8월 합", Math.round(SUM).toLocaleString() + " mm", "--brand"], ["내 답 (여름 비율)", g + "%", null, true]], 70);
       }
       cv.canvas._redraw = draw;
       api.slider({ label: "6~8월 비의 비율", min: 0, max: 100, step: 1, value: 25, fmt: function (x) { return x + "%"; }, onInput: function (x) { g = x; api.changed(); draw(); } });
@@ -120,22 +188,25 @@ window.sthLab({
     },
     task: "막대 위 숫자로 <b>(6월 + 7월 + 8월) ÷ 한 해 합 × 100</b>을 구해 슬라이더로 맞추세요(± 3 %).",
     build: function (stage, api) {
-      var H = api.h, cv = api.canvas(290), ctx = cv.ctx, W = cv.W, p = 40;
-      var x0 = 50, x1 = 640, y0 = 24, y1 = 240, bw = (x1 - x0) / 12;
+      var H = api.h, cv = api.canvas(300), ctx = cv.ctx, W = cv.W, p = 40;
+      var x0 = 50, x1 = 600, y0 = 24, y1 = 240, bw = (x1 - x0) / 12;
       function Y(v) { return y1 - v / 340 * (y1 - y0); }
       function draw() {
-        H.paper(ctx, W, cv.H); H.axes(ctx, x0, y0, x1, y1);
-        [0, 100, 200, 300].forEach(function (v) { H.text(ctx, v, x0 - 8, Y(v) + 4, { s: 10, a: "right", c: H.v("--mist") }); if (v) H.dash(ctx, x0, Y(v), x1, Y(v), H.v("--line"), 0.6); });
-        H.text(ctx, "mm", x0 + 6, y0 - 8, { s: 11, w: "700", c: H.v("--mist") });
+        H.paper(ctx, W, cv.H);
+        ctx.fillStyle = "rgba(255,255,255,.75)"; ctx.fillRect(x0, y0, x1 - x0, y1 - y0);
+        H.axes(ctx, x0, y0, x1, y1);
+        [0, 100, 200, 300].forEach(function (v) { H.text(ctx, v, x0 - 8, Y(v) + 4, { s: 10.5, w: "700", a: "right", c: H.v("--mist") }); if (v) H.dash(ctx, x0, Y(v), x1, Y(v), "rgba(20,40,90,.12)", 1); });
+        H.text(ctx, "mm", x0 + 6, y0 - 8, { s: 11, w: "800", c: H.v("--mist") });
+        gauge(ctx, 104, 130, 0.9);
         CWP.forEach(function (v, i) {
           var cx = x0 + i * bw, sum = i >= 5 && i <= 7;
-          H.box(ctx, cx + 6, Y(v), bw - 12, y1 - Y(v), sum ? H.v("--coral-700") : H.v("--brand"), 0.85);
-          H.text(ctx, Math.round(v), cx + bw / 2, Y(v) - 5, { s: 11, w: "800", a: "center" });
-          H.text(ctx, (i + 1) + "월", cx + bw / 2, y1 + 15, { s: 10, a: "center", c: H.v("--mist") });
-          H.text(ctx, CWH[i] || 0, cx + bw / 2, y1 + 32, { s: 11, w: "800", a: "center", c: H.v("--amber-700") });
+          bar3(ctx, cx + 6, Y(v), bw - 16, y1, sum ? "#e03131" : "#1c7ed6", 6, 4);
+          H.text(ctx, Math.round(v), cx + bw / 2, Y(v) - 8, { s: 11, w: "800", a: "center" });
+          H.text(ctx, (i + 1) + "월", cx + bw / 2, y1 + 16, { s: 10.5, w: "700", a: "center", c: H.v("--mist") });
+          H.text(ctx, CWH[i] || 0, cx + bw / 2, y1 + 34, { s: 11, w: "800", a: "center", c: H.v("--amber-700") });
         });
-        H.text(ctx, "호우일", x0 - 8, y1 + 32, { s: 10, w: "800", a: "right", c: H.v("--amber-700") });
-        H.rows(ctx, 680, 34, [["창원 한 해 합", Math.round(CW_TOT).toLocaleString() + " mm"], ["서울(위 사례) 6 ~ 8월 몫", SH.toFixed(0) + " %", "--mist"], ["창원 6 ~ 8월 몫", p + " %", null, true]], 58);
+        H.text(ctx, "호우일", x0 - 8, y1 + 34, { s: 10, w: "800", a: "right", c: H.v("--amber-700") });
+        card(H, ctx, 616, 12, 272, cv.H - 24, "판정", [["창원 한 해 합", Math.round(CW_TOT).toLocaleString() + " mm"], ["서울(위 사례) 6 ~ 8월 몫", SH.toFixed(0) + " %", "--mist"], ["창원 6 ~ 8월 몫", p + " %", null, true]], 64);
       }
       cv.canvas._redraw = draw;
       api.slider({ label: "창원 6 ~ 8월 비의 몫", min: 20, max: 80, step: 1, value: 40, fmt: function (x) { return x + " %"; }, onInput: function (x) { p = x; api.changed(); draw(); } });

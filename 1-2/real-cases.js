@@ -5,6 +5,46 @@
    자료: data/semmelweis.js (제멜바이스 1861), data/nightingale.js (나이팅게일 1858) */
 (function () {
 "use strict";
+/* ---- 스튜디오 + 입체 미니어처 도구 (_tools/STUDIO_GUIDE.md) ---- */
+var K = window.sthKit, LT = K.LT;
+/* 오른쪽 흰 판정 카드: 카드를 깔고 그 위에 엔진의 H.rows(이름 · 굵은 값)를 쓴다 */
+function card(H, ctx, x, y, w, h, title, rows, gap) {
+  K.card(ctx, x, y, w, h, title || "판정");
+  var yy = y + 56;
+  (rows || []).forEach(function (r) {      /* r = [이름, 값, 색 토큰, 큰 글씨] — 이름 아래에 굵은 값 */
+    H.text(ctx, r[0], x + 18, yy, { s: 12, w: "800", c: LT.mute });
+    var sz = r[3] ? 20 : 15, mw = w - 36; ctx.font = "900 " + sz + "px " + H.FONT; while (ctx.measureText(String(r[1])).width > mw && sz > 11) { sz -= 0.5; ctx.font = "900 " + sz + "px " + H.FONT; }
+    H.text(ctx, r[1], x + 18, yy + (r[3] ? 26 : 22), { s: sz, w: "900", c: r[2] ? H.v(r[2]) : LT.ink });
+    yy += gap || 56;
+  });
+}
+function bar3(c, x, top, w, bottom, col, dx, dy) {
+  dx = dx == null ? 8 : dx; dy = dy == null ? 5 : dy;
+  if (bottom - top < 0.5) top = bottom - 0.5;
+  c.fillStyle = K.tint(col, 0.62); c.beginPath(); c.moveTo(x + w, top); c.lineTo(x + w + dx, top - dy); c.lineTo(x + w + dx, bottom - dy); c.lineTo(x + w, bottom); c.closePath(); c.fill();
+  c.fillStyle = K.tint(col, 1.25); c.beginPath(); c.moveTo(x, top); c.lineTo(x + dx, top - dy); c.lineTo(x + w + dx, top - dy); c.lineTo(x + w, top); c.closePath(); c.fill();
+  var g = c.createLinearGradient(x, 0, x + w, 0); g.addColorStop(0, K.tint(col, 1.08)); g.addColorStop(1, K.tint(col, 0.88));
+  c.fillStyle = g; c.fillRect(x, top, w, bottom - top);
+}
+function tile3(c, x, y, w, h, col) {
+  c.fillStyle = "rgba(20,30,50,.16)"; c.beginPath(); c.roundRect(x + 3, y + 5, w, h, 5); c.fill();
+  c.fillStyle = K.tint(col, 0.6); c.beginPath(); c.roundRect(x + 3, y - 3, w, h, 5); c.fill();
+  var g = c.createLinearGradient(x, y, x, y + h); g.addColorStop(0, K.tint(col, 1.15)); g.addColorStop(1, K.tint(col, 0.88));
+  c.fillStyle = g; c.beginPath(); c.roundRect(x, y, w, h, 5); c.fill();
+}
+/* 토분과 모종: (x, y) 화분 바닥 가운데, h 모종 키(px) */
+function pot(c, x, y, s, h, tag) {
+  c.fillStyle = "rgba(20,30,50,.2)"; c.beginPath(); c.ellipse(x + 3, y + 1, 9 * s, 3 * s, 0, 0, 6.2832); c.fill();
+  var g = c.createLinearGradient(x - 8 * s, 0, x + 8 * s, 0); g.addColorStop(0, "#a0522d"); g.addColorStop(.45, "#e08a5a"); g.addColorStop(1, "#8a4422");
+  c.fillStyle = g; c.beginPath(); c.moveTo(x - 8 * s, y - 14 * s); c.lineTo(x - 6 * s, y); c.lineTo(x + 6 * s, y); c.lineTo(x + 8 * s, y - 14 * s); c.closePath(); c.fill();
+  c.fillStyle = "#5a3a20"; c.beginPath(); c.ellipse(x, y - 14 * s, 8 * s, 2.6 * s, 0, 0, 6.2832); c.fill();
+  c.strokeStyle = "#2f7d32"; c.lineWidth = 1.6 * s; c.beginPath(); c.moveTo(x, y - 14 * s); c.lineTo(x, y - 14 * s - h); c.stroke();
+  for (var k = 0; k < 3; k++) {
+    var ly = y - 14 * s - h * (0.35 + k * 0.3), sd = k % 2 ? 1 : -1;
+    c.fillStyle = k === 2 ? "#5cb85c" : "#3f9a42"; c.beginPath(); c.ellipse(x + sd * 4.5 * s, ly, 5 * s, 2.2 * s, sd * 0.5, 0, 6.2832); c.fill();
+  }
+  if (tag) { c.fillStyle = "#ffd43b"; c.fillRect(x + 4 * s, y - 12 * s, 5 * s, 6 * s); }
+}
 var S = window.REAL_SEMM || { monthly: [] }, N = window.REAL_NIGHT || { rows: [] };
 var M = S.monthly;                                   /* [연도, 월, 출산, 사망] */
 function key(r) { return r[0] * 12 + r[1]; }
@@ -37,22 +77,34 @@ window.sthLab({
     },
     task: "전 12달 사망률 ÷ 뒤 12달 사망률 을 슬라이더로 맞추세요(± 0.4).",
     build: function (stage, api) {
-      var H = api.h, cv = api.canvas(290), ctx = cv.ctx, W = cv.W, g = 1;
+      var H = api.h, cv = api.canvas(300), ctx = cv.ctx, W = cv.W, g = 1;
+      /* 염소 소독수를 담은 세면대(입체 미니어처) */
+      function basin(x, y) {
+        ctx.fillStyle = "rgba(20,30,50,.2)"; ctx.beginPath(); ctx.ellipse(x + 4, y + 52, 30, 7, 0, 0, 6.2832); ctx.fill();
+        bar3(ctx, x - 18, y + 8, 36, y + 50, "#a8783f", 10, 7);
+        ctx.fillStyle = "#f4f6f8"; ctx.beginPath(); ctx.ellipse(x + 5, y + 2, 28, 10, 0, 0, 6.2832); ctx.fill(); ctx.strokeStyle = "#9aa3ae"; ctx.lineWidth = 1.2; ctx.stroke();
+        var wg = ctx.createLinearGradient(0, y - 4, 0, y + 8); wg.addColorStop(0, "#d3f9d8"); wg.addColorStop(1, "#63c7a8");
+        ctx.fillStyle = wg; ctx.beginPath(); ctx.ellipse(x + 5, y + 3, 22, 7, 0, 0, 6.2832); ctx.fill();
+        [-1, 1].forEach(function (sd) { var hx = x + 5 + sd * 8, sk = ctx.createLinearGradient(hx - 5, 0, hx + 5, 0); sk.addColorStop(0, "#d9976f"); sk.addColorStop(.5, "#f6cfae"); sk.addColorStop(1, "#cf8a62"); ctx.fillStyle = sk; ctx.beginPath(); ctx.roundRect(hx - 5, y - 24, 10, 24, 5); ctx.fill(); });
+      }
       function draw() {
         H.paper(ctx, W, cv.H);
-        var x0 = 50, x1 = 600, y0 = 26, y1 = cv.H - 40, a = 1841 * 12 + 1, b = 1849 * 12 + 3;
+        var x0 = 54, x1 = 596, y0 = 30, y1 = cv.H - 40, a = 1841 * 12 + 1, b = 1849 * 12 + 3;
         function X(k) { return x0 + (k - a) / (b - a) * (x1 - x0); }
         function Y(v) { return y1 - v / 32 * (y1 - y0); }
+        ctx.fillStyle = "rgba(255,255,255,.75)"; ctx.fillRect(x0, y0, x1 - x0, y1 - y0);
+        ctx.fillStyle = "rgba(90,140,255,.13)"; ctx.fillRect(X(K0 - 0.5), y0, X(K1 + 0.5) - X(K0 - 0.5), y1 - y0);
+        ctx.fillStyle = "rgba(60,180,120,.15)"; ctx.fillRect(X(K2 - 0.5), y0, X(K3 + 0.5) - X(K2 - 0.5), y1 - y0);
         H.axes(ctx, x0, y0, x1, y1);
-        ctx.fillStyle = "rgba(90,140,255,.12)"; ctx.fillRect(X(K0 - 0.5), y0, X(K1 + 0.5) - X(K0 - 0.5), y1 - y0);
-        ctx.fillStyle = "rgba(60,180,120,.14)"; ctx.fillRect(X(K2 - 0.5), y0, X(K3 + 0.5) - X(K2 - 0.5), y1 - y0);
-        [0, 10, 20, 30].forEach(function (v) { H.text(ctx, v + "%", x0 - 6, Y(v) + 4, { s: 10, a: "right", c: H.v("--mist") }); });
-        for (var y = 1842; y <= 1849; y += 1) H.text(ctx, y, X(y * 12 + 1), y1 + 15, { s: 10, a: "center", c: H.v("--mist") });
-        M.forEach(function (r) { var v = r[2] ? r[3] / r[2] * 100 : 0; H.box(ctx, X(key(r)) - 2, Y(v), 4, y1 - Y(v), key(r) <= K1 ? H.v("--rose-700") : H.v("--green-700"), 0.85); });
-        H.dash(ctx, X(K1 + 0.5), y0, X(K1 + 0.5), y1, H.v("--ink"), 1.4);
-        H.text(ctx, "1847년 5월 손 씻기 시작", X(K1) - 6, y0 + 4, { s: 10.5, w: "800", a: "right" });
-        H.text(ctx, "그달 산모 사망률(%) — 파란 띠: 전 12달, 초록 띠: 뒤 12달", x0 + 6, y0 - 10, { s: 11, w: "700", c: H.v("--mist") });
-        H.rows(ctx, 640, 30, [["전 12달 출산 · 사망", BEF[0].toLocaleString() + " · " + BEF[1]], ["뒤 12달 출산 · 사망", AFT[0].toLocaleString() + " · " + AFT[1]], ["내 답 (몇 분의 1)", g.toFixed(1) + " 분의 1", null, true]], 62);
+        [0, 10, 20, 30].forEach(function (v) { H.text(ctx, v + "%", x0 - 6, Y(v) + 4, { s: 10.5, w: "700", a: "right", c: H.v("--mist") }); if (v) H.dash(ctx, x0, Y(v), x1, Y(v), "rgba(20,40,90,.12)", 1); });
+        for (var y = 1842; y <= 1849; y += 1) H.text(ctx, y, X(y * 12 + 1), y1 + 16, { s: 10.5, w: "700", a: "center", c: H.v("--mist") });
+        M.forEach(function (r) { var v = r[2] ? r[3] / r[2] * 100 : 0; bar3(ctx, X(key(r)) - 2.2, Y(v), 4.4, y1, key(r) <= K1 ? "#e03131" : "#0f9f76", 2, 2); });
+        H.dash(ctx, X(K1 + 0.5), y0, X(K1 + 0.5), y1, H.v("--ink"), 1.6);
+        K.pill(ctx, "1847년 5월 손 씻기 시작", X(K1) - 6, y0 + 18, { s: 11, a: "right", c: "#ffffff" });
+        H.text(ctx, "그달 산모 사망률(%) — 파란 띠: 전 12달, 초록 띠: 뒤 12달", x0 + 4, y0 - 10, { s: 11, w: "800", c: H.v("--mist") });
+        basin(548, 92);
+        K.pill(ctx, "염소 소독수", 553, 166, { s: 11, a: "center", c: "#9ff0b5", box: [x0, x1] });
+        card(H, ctx, 616, 12, 272, cv.H - 24, "판정", [["전 12달 출산 · 사망", BEF[0].toLocaleString() + " · " + BEF[1]], ["뒤 12달 출산 · 사망", AFT[0].toLocaleString() + " · " + AFT[1]], ["내 답 (몇 분의 1)", g.toFixed(1) + " 분의 1", null, true]], 70);
       }
       cv.canvas._redraw = draw;
       api.slider({ label: "사망률이 몇 분의 1로 줄었나", min: 1, max: 10, step: 0.1, value: 1, fmt: function (x) { return x.toFixed(1); }, onInput: function (x) { g = x; api.changed(); draw(); } });
@@ -81,20 +133,33 @@ window.sthLab({
     },
     task: "병으로 죽은 비율(%)을 슬라이더로 맞추세요(± 2%).",
     build: function (stage, api) {
-      var H = api.h, cv = api.canvas(290), ctx = cv.ctx, W = cv.W, g = 30;
+      var H = api.h, cv = api.canvas(300), ctx = cv.ctx, W = cv.W, g = 30;
+      /* 나이팅게일의 등불(접는 천 등롱) */
+      function lamp(x, y) {
+        ctx.fillStyle = "rgba(20,30,50,.18)"; ctx.beginPath(); ctx.ellipse(x + 4, y + 36, 22, 5, 0, 0, 6.2832); ctx.fill();
+        K.glow(ctx, x, y, 8, "rgba(255,196,96,.95)", 3.6);
+        var cg = ctx.createLinearGradient(x - 15, 0, x + 15, 0); cg.addColorStop(0, "rgba(240,200,130,.9)"); cg.addColorStop(.5, "rgba(255,244,214,.95)"); cg.addColorStop(1, "rgba(220,170,100,.9)");
+        ctx.fillStyle = cg; ctx.beginPath(); ctx.ellipse(x, y, 15, 22, 0, 0, 6.2832); ctx.fill();
+        var br = ctx.createLinearGradient(x - 16, 0, x + 16, 0); br.addColorStop(0, "#6a4a1a"); br.addColorStop(.5, "#f0cd80"); br.addColorStop(1, "#6a4a1a");
+        ctx.fillStyle = br; ctx.fillRect(x - 13, y - 28, 26, 6); ctx.fillRect(x - 14, y + 22, 28, 6);
+        ctx.strokeStyle = "#8a6424"; ctx.lineWidth = 2.2; ctx.beginPath(); ctx.arc(x, y - 32, 9, Math.PI, 0); ctx.stroke();
+      }
       function draw() {
         H.paper(ctx, W, cv.H);
-        var x0 = 50, x1 = 600, y0 = 26, y1 = cv.H - 40, bw = (x1 - x0) / Math.max(1, NR.length);
+        var x0 = 56, x1 = 596, y0 = 30, y1 = cv.H - 40, bw = (x1 - x0) / Math.max(1, NR.length);
         function Y(v) { return y1 - v / 3200 * (y1 - y0); }
+        ctx.fillStyle = "rgba(255,255,255,.75)"; ctx.fillRect(x0, y0, x1 - x0, y1 - y0);
         H.axes(ctx, x0, y0, x1, y1);
-        [0, 1000, 2000, 3000].forEach(function (v) { H.text(ctx, v.toLocaleString(), x0 - 6, Y(v) + 4, { s: 10, a: "right", c: H.v("--mist") }); });
+        [0, 1000, 2000, 3000].forEach(function (v) { H.text(ctx, v.toLocaleString(), x0 - 6, Y(v) + 4, { s: 10.5, w: "700", a: "right", c: H.v("--mist") }); if (v) H.dash(ctx, x0, Y(v), x1, Y(v), "rgba(20,40,90,.12)", 1); });
         NR.forEach(function (r, i) {
-          var x = x0 + i * bw + 2, a = Y(r[2]), b = Y(r[2] + r[3]), c = Y(r[2] + r[3] + r[4]);
-          H.box(ctx, x, a, bw - 4, y1 - a, H.v("--brand"), 0.85); H.box(ctx, x, b, bw - 4, a - b, H.v("--rose-700"), 0.85); H.box(ctx, x, c, bw - 4, b - c, H.v("--mist"), 0.7);
-          if (r[0].slice(5, 7) === "01" || i === 0) H.text(ctx, r[0].slice(0, 7), x + bw / 2, y1 + 15, { s: 10, a: "center", c: H.v("--mist") });
+          var x = x0 + i * bw + 3, a = Y(r[2]), b = Y(r[2] + r[3]), c = Y(r[2] + r[3] + r[4]);
+          bar3(ctx, x, c, bw - 9, b, "#868e96", 4, 3); bar3(ctx, x, b, bw - 9, a, "#e03131", 4, 3); bar3(ctx, x, a, bw - 9, y1, "#1c7ed6", 4, 3);
+          if (r[0].slice(5, 7) === "01" || i === 0) H.text(ctx, r[0].slice(0, 7), x + bw / 2, y1 + 16, { s: 10.5, w: "700", a: "center", c: H.v("--mist") });
         });
-        H.text(ctx, "달마다 사망자 — 파랑: 병, 빨강: 부상, 회색: 기타", x0 + 6, y0 - 10, { s: 11, w: "700", c: H.v("--mist") });
-        H.rows(ctx, 640, 30, [["병", TD.toLocaleString() + " 명"], ["부상", TW.toLocaleString() + " 명"], ["기타", TO.toLocaleString() + " 명"], ["내 답 (병의 비율)", g + "%", null, true]], 54);
+        H.text(ctx, "달마다 사망자 — 파랑: 병, 빨강: 부상, 회색: 기타", x0 + 4, y0 - 10, { s: 11, w: "800", c: H.v("--mist") });
+        lamp(560, 82);
+        K.pill(ctx, "나이팅게일의 등불", 560, 140, { s: 11, a: "center", c: "#ffd8a8", box: [x0, x1] });
+        card(H, ctx, 616, 12, 272, cv.H - 24, "판정", [["병", TD.toLocaleString() + " 명", "--brand"], ["부상", TW.toLocaleString() + " 명", "--rose-700"], ["기타", TO.toLocaleString() + " 명"], ["내 답 (병의 비율)", g + "%", null, true]], 56);
       }
       cv.canvas._redraw = draw;
       api.slider({ label: "병으로 죽은 비율", min: 0, max: 100, step: 1, value: 30, fmt: function (x) { return x + "%"; }, onInput: function (x) { g = x; api.changed(); draw(); } });
@@ -124,21 +189,33 @@ window.sthLab({
     },
     task: "1000명당 병 사망이 가장 높은 달을 고르고, 그 뒤 줄어든 까닭을 고르세요.",
     build: function (stage, api) {
-      var H = api.h, cv = api.canvas(280), ctx = cv.ctx, W = cv.W, i = 0, why = "none";
+      var H = api.h, cv = api.canvas(290), ctx = cv.ctx, W = cv.W, i = 0, why = "none";
+      /* 위생 위원회가 고친 막사 병원 미니어처: 환기창과 깨끗한 물통, 바닥 아래 하수관 */
+      var IB = K.iso({ ox: 520, oy: 58, s: 0.62, L: 90, D: 60 });
+      function barrack() {
+        IB.box(ctx, -6, -6, -8, 96, 66, 0, "#a29580", "#857a68", "#6e6555");
+        var p0 = IB.P(0, 66, -4), p1 = IB.P(90, 66, -4); ctx.strokeStyle = "#5c7086"; ctx.lineWidth = 4; ctx.beginPath(); ctx.moveTo(p0.x, p0.y); ctx.lineTo(p1.x, p1.y); ctx.stroke();
+        IB.house(ctx, 6, 8, 0, 74, 46, 30, "#8d6e63");
+        [16, 36, 56].forEach(function (x) { var a = IB.P(x, 54, 14), b = IB.P(x + 10, 54, 14), c = IB.P(x + 10, 54, 24), d = IB.P(x, 54, 24); IB.quad(ctx, a, b, c, d, "#9fd3f5", "#6e4626"); });
+        var w = IB.P(88, 30, 0); ctx.fillStyle = "#4dabf7"; ctx.beginPath(); ctx.ellipse(w.x, w.y - 6, 5, 2, 0, 0, 6.2832); ctx.fill(); bar3(ctx, w.x - 5, w.y - 6, 10, w.y + 2, "#868e96", 3, 2);
+      }
       function draw() {
         H.paper(ctx, W, cv.H);
-        var x0 = 50, x1 = 600, y0 = 26, y1 = cv.H - 40;
+        var x0 = 56, x1 = 596, y0 = 30, y1 = cv.H - 40;
         function X(j) { return x0 + (j + 0.5) / Math.max(1, NR.length) * (x1 - x0); }
         function Y(v) { return y1 - v / 100 * (y1 - y0); }
+        ctx.fillStyle = "rgba(255,255,255,.75)"; ctx.fillRect(x0, y0, x1 - x0, y1 - y0);
         H.axes(ctx, x0, y0, x1, y1);
-        [0, 50, 100].forEach(function (v) { H.text(ctx, v, x0 - 6, Y(v) + 4, { s: 10, a: "right", c: H.v("--mist") }); });
-        NR.forEach(function (r, j) { if (r[0].slice(5, 7) === "01" || j === 0) H.text(ctx, r[0].slice(0, 7), X(j), y1 + 15, { s: 10, a: "center", c: H.v("--mist") }); });
-        H.line(ctx, NR.map(function (r, j) { return [X(j), Y(rate(r))]; }), H.v("--brand"), 2.5);
-        H.line(ctx, NR.map(function (r, j) { return [X(j), Y(r[1] ? r[3] / r[1] * 1000 : 0)]; }), H.v("--rose-700"), 2);
-        H.dot(ctx, X(i), Y(rate(NR[i] || [0, 1, 0])), 6, H.v("--amber-700"));
-        H.text(ctx, "군인 1000명당 한 달 사망 — 파랑: 병, 빨강: 부상", x0 + 6, y0 - 10, { s: 11, w: "700", c: H.v("--mist") });
+        [0, 50, 100].forEach(function (v) { H.text(ctx, v, x0 - 6, Y(v) + 4, { s: 10.5, w: "700", a: "right", c: H.v("--mist") }); if (v) H.dash(ctx, x0, Y(v), x1, Y(v), "rgba(20,40,90,.12)", 1); });
+        NR.forEach(function (r, j) { if (r[0].slice(5, 7) === "01" || j === 0) H.text(ctx, r[0].slice(0, 7), X(j), y1 + 16, { s: 10.5, w: "700", a: "center", c: H.v("--mist") }); });
+        barrack();
+        K.plot(ctx, { X: function (j) { return X(j); }, Y: Y }, NR.map(function (r, j) { return [j, rate(r)]; }), LT.blue, { w: 2.8, light: true });
+        K.plot(ctx, { X: function (j) { return X(j); }, Y: Y }, NR.map(function (r, j) { return [j, r[1] ? r[3] / r[1] * 1000 : 0]; }), LT.red, { w: 2.2, light: true });
+        ctx.strokeStyle = "rgba(245,159,0,.6)"; ctx.lineWidth = 1.5; ctx.beginPath(); ctx.moveTo(X(i), y0); ctx.lineTo(X(i), y1); ctx.stroke();
+        K.planet(ctx, X(i), Y(rate(NR[i] || [0, 1, 0])), 7, "#ffd36b", "#a8781f");
+        H.text(ctx, "군인 1000명당 한 달 사망 — 파랑: 병, 빨강: 부상", x0 + 4, y0 - 10, { s: 11, w: "800", c: H.v("--mist") });
         var r = NR[i] || ["1854-04", 1, 0, 0];
-        H.rows(ctx, 640, 40, [["고른 달", nko(r[0]), "--amber-700"], ["군인 · 병 사망", r[1].toLocaleString() + " · " + r[2].toLocaleString()], ["1000명당 병 사망", rate(r).toFixed(1) + " 명", null, true]], 60);
+        card(H, ctx, 616, 12, 272, cv.H - 24, "판정", [["고른 달", nko(r[0]), "--amber-700"], ["군인 · 병 사망", r[1].toLocaleString() + " · " + r[2].toLocaleString()], ["1000명당 병 사망", rate(r).toFixed(1) + " 명", null, true]], 66);
       }
       cv.canvas._redraw = draw;
       api.slider({ label: "달", min: 0, max: Math.max(0, NR.length - 1), step: 1, value: 0, fmt: function (x) { return NR[x] ? nko(NR[x][0]) : ""; }, onInput: function (x) { i = x; api.changed(); draw(); } });

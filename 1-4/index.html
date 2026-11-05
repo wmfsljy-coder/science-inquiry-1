@@ -42,13 +42,14 @@
         <section class="scene" data-title="상한 고기즙">
           <div class="story narr"><div class="who">🍲</div><div class="say"><span class="name">이야기</span>파스퇴르의 실험실. 끓여서 식힌 고기즙 플라스크를 입구를 연 채 두었더니, 사흘 뒤 뿌옇게 흐려지고 현미경 속에 미생물이 우글거립니다. 루앙의 푸셰 교수는 이렇게 주장합니다. “보시오, 생명은 공기 속 ‘생명력’으로 저절로 생겨나는 거요!”</div></div>
           <div class="story"><div class="who">👨‍🔬</div><div class="say"><span class="name">파스퇴르</span>“자네 생각은 어떤가? 이 결과가 무엇을 보여 준다고 보나?”</div></div>
+          <figure class="hero-art"><img src="img/swan-neck-lab.webp" alt="19세기 실험실을 블록처럼 잘라 낸 모형. 창가의 나무 실험대 위에 목이 길게 휜 플라스크와 목이 짧고 곧은 플라스크가 놓여 있다. 목이 휜 플라스크의 고기즙은 맑은 금빛이고, 곧은 목 플라스크의 고기즙은 뿌옇고 탁하다. 옆에 놋쇠 현미경과 알코올 램프가 있다." width="900" height="900" loading="lazy"><figcaption><b>같이 끓였는데, 한쪽만 상했습니다</b> 두 플라스크 모두 고기즙을 끓인 뒤 입구를 열어 두었습니다. 목이 곧은 플라스크는 뿌옇게 상했고, 목이 길게 휜 플라스크는 맑게 남았습니다. 두 플라스크는 무엇이 달랐을까요?</figcaption></figure>
           <div class="gate loose" id="g1"></div>
         </section>
 
         <section class="scene" data-title="백조는 모두 흰색일까">
           <div class="story"><div class="who">🦢</div><div class="say"><span class="name">파스퇴르</span>“푸셰 교수는 ‘열어 둔 고기즙은 언제나 상했다’는 관찰을 수없이 쌓았다네. 관찰을 많이 쌓으면 결론이 확실해질까? 옛 유럽 사람들이 백조를 관찰한 기록으로 시험해 보세. 관찰을 <b>20번 이상</b> 쌓아 결론을 내린 뒤, 1697년 새로운 대륙에서 온 소식을 확인해 보게.”</div></div>
           <div class="stage-card">
-            <div class="canvas-wrap stage"><canvas id="a-c-swan" width="900" height="220"></canvas></div>
+            <div class="canvas-wrap studio"><canvas id="a-c-swan" width="900" height="300"></canvas></div>
             <div class="btn-row" style="padding:12px 20px 0">
               <button class="btn primary" id="a-add" type="button">백조 관찰 하나 더</button>
               <button class="btn" id="a-add5" type="button">다섯 번 더</button>
@@ -63,7 +64,7 @@
         <section class="scene" data-title="백조목 플라스크">
           <div class="story"><div class="who">⚗️</div><div class="say"><span class="name">파스퇴르</span>“내 가설은 이렇다네. ‘고기즙을 상하게 하는 미생물은 저절로 생기는 게 아니라, 공기 속 먼지에 묻어 들어온다.’ 가설이 옳다면, 공기는 드나들되 먼지만 막으면 고기즙은 상하지 않아야 해. 플라스크의 목 모양을 바꿔 가며 끓인 고기즙을 <b>14일</b> 지켜보게. 그리고 먼지가 고기즙에 닿게 한 비교 플라스크도 하나 확인해 보게.”</div></div>
           <div class="stage-card">
-            <div class="canvas-wrap stage"><canvas id="a-c-flask" width="900" height="300"></canvas></div>
+            <div class="canvas-wrap studio"><canvas id="a-c-flask" width="900" height="340"></canvas></div>
             <div class="controls">
               <div class="ctrl-group" style="flex:1 1 100%">
                 <div class="ctrl-label">플라스크 (모두 고기즙을 끓인 뒤)</div>
@@ -123,7 +124,7 @@
         <section class="scene" data-title="빛을 펼치기">
           <div class="story"><div class="who">🔦</div><div class="say"><span class="name">뉴턴</span>“색을 하나씩 골라내려면 벽 위의 무지개가 넓게 펼쳐져야 해. 프리즘의 유리 종류와 빛을 비추는 각도를 바꿔, 빨강과 보라가 <b>3° 이상</b> 벌어지게 해 주게. 첫 면에 너무 곧게(수직에 가깝게) 비추면 빛이 두 번째 면에 너무 비스듬히 닿아 프리즘 안에 갇히니 조심하고.”</div></div>
           <div class="stage-card">
-            <div class="canvas-wrap stage"><canvas id="b-c-disp" width="900" height="300"></canvas></div>
+            <div class="canvas-wrap studio"><canvas id="b-c-disp" width="900" height="360"></canvas></div>
             <div class="sim-side">
               <div class="readout" id="b-disp-read"></div>
               <div class="ctrl-group">
@@ -144,7 +145,7 @@
           <div class="story"><div class="who">🔺</div><div class="say"><span class="name">뉴턴</span>“유리가 빛을 물들인다면, 한 가지 색만 골라 <b>두 번째 프리즘</b>에 통과시켰을 때 또 새로운 색이 생겨야 해. 내 가설이 옳다면 그 색은 그대로 남겠지. 판자의 작은 구멍으로 색을 하나씩 골라 두 번째 프리즘에 보내 보게. 그리고 흩어진 빛 전부를 뒤집은 프리즘에 모으면 어떻게 될지도.”</div></div>
           <figure class="hero-art"><img src="img/dark-room.webp" alt="17세기 시골집 방을 블록처럼 잘라 낸 모형. 덧문의 작은 구멍으로 들어온 햇빛 한 줄기가 탁자 위 유리 프리즘을 지나 색 띠로 펼쳐지고, 그 색 띠가 작은 구멍이 뚫린 판자 위에 비친다. 판자 뒤에는 아직 빛이 닿지 않은 두 번째 프리즘이 놓여 있고, 긴 머리의 청년이 옆에서 판자를 바라본다." width="900" height="900" loading="lazy"><figcaption><b>뉴턴의 실험실은 덧문에 뚫은 구멍 하나와 캄캄한 방이었습니다</b> 1666년 고향 집에 머물던 뉴턴은 방을 어둡게 막고, 덧문의 작은 구멍으로 햇빛 한 줄기만 들였습니다. 프리즘을 지난 빛은 판자 위에 길쭉한 색 띠를 그렸고, 판자에 뚫은 작은 구멍 뒤에는 두 번째 프리즘이 놓여 있었습니다. 그 구멍을 지난 한 가지 색이 두 번째 프리즘에서 어떻게 될지는 아래 모형에서 직접 가려 보세요.</figcaption></figure>
           <div class="stage-card">
-            <div class="canvas-wrap" style="background:#e4eaf1"><canvas id="b-c-crux" width="900" height="620"></canvas></div>
+            <div class="canvas-wrap studio"><canvas id="b-c-crux" width="900" height="620"></canvas></div>
             <div class="controls">
               <div class="ctrl-group">
                 <div class="ctrl-label">판자 구멍으로 고른 빛</div>
@@ -197,13 +198,14 @@
         <section class="scene" data-title="게시판의 댓글">
           <div class="story narr"><div class="who">💬</div><div class="say"><span class="name">이야기</span>학교 누리집 게시판에 댓글이 달렸습니다. “올겨울 영하 15도 찍었음. 5년 전보다 더 추움. 온난화는 과장된 거 아님?” 좋아요가 백 개를 넘었습니다.</div></div>
           <div class="story"><div class="who">🧑‍💻</div><div class="say"><span class="name">과학면 편집장</span>“이 댓글에 기사로 답해 보자. 기후가 변하고 있는지 판단하려면 무엇을 봐야 할까?”</div></div>
+          <figure class="hero-art"><img src="img/weather-station.webp" alt="풀밭 흙 블록 위 학교 관측소 모형. 가운데에 다리 넷 달린 흰 백엽상이 서 있고, 블록 왼쪽 절반은 눈 덮인 겨울, 오른쪽 절반은 푸른 여름이다. 뒤에는 왼쪽 파랑에서 오른쪽 빨강으로 바뀌는 세로 줄무늬 판이 서 있다." width="900" height="900" loading="lazy"><figcaption><b>학교 백엽상은 50년 동안 같은 자리에서 기온을 재 왔습니다</b> 학교 관측소의 백엽상은 눈 오는 겨울에도 무더운 여름에도 같은 자리에서 기온을 잽니다. 뒤의 줄무늬는 해마다의 평균 기온을 색 하나로 나타낸 것으로, 파랑은 추운 해, 빨강은 더운 해입니다. 한 번의 추운 겨울과 수십 년의 줄무늬 가운데 무엇으로 기후를 판단해야 할까요?</figcaption></figure>
           <div class="gate loose" id="g3"></div>
         </section>
 
         <section class="scene" data-title="구간을 고르면 달라지는 추세">
           <div class="story"><div class="who">📈</div><div class="say"><span class="name">편집장</span>“1974~2023년 한반도 연평균 기온 자료야. 분석 구간을 바꿔 가며 추세선을 그려 보자. 댓글처럼 <b>짧은 구간(10년 이하)</b>만 고르면 오히려 기온이 내려가는 것처럼 보이는 구간도 있을까? 찾았다면, <b>50년 전체</b>의 추세와 비교해 보자. (실제 관측값의 흐름을 본뜬 예시 자료야.)”</div></div>
           <div class="stage-card">
-            <div class="canvas-wrap stage"><canvas id="c-c-tr" width="900" height="300"></canvas></div>
+            <div class="canvas-wrap studio"><canvas id="c-c-tr" width="900" height="340"></canvas></div>
             <div class="sim-side">
               <div class="readout" id="c-tr-read"></div>
               <div class="ctrl-group">
@@ -225,7 +227,7 @@
         <section class="scene" data-title="같은 자료, 세 가지 그림">
           <div class="story"><div class="who">🎨</div><div class="say"><span class="name">편집장</span>“기사에 넣을 그림을 정하자. 같은 50년 자료를 <b>세 가지 방법</b>으로 모두 그려 보고, 각각 무엇이 잘 보이는지 비교해 봐.”</div></div>
           <div class="stage-card">
-            <div class="canvas-wrap stage"><canvas id="c-c-rep" width="900" height="280"></canvas></div>
+            <div class="canvas-wrap studio"><canvas id="c-c-rep" width="900" height="340"></canvas></div>
             <div class="controls">
               <div class="ctrl-group" style="flex:1 1 100%">
                 <div class="ctrl-label">나타내는 방법</div>
@@ -273,13 +275,14 @@
         <section class="scene" data-title="두 동아리의 첫 회의">
           <div class="story narr"><div class="who">🤝</div><div class="say"><span class="name">이야기</span>생명과학 동아리는 세균을 기를 줄 알고, 화학 동아리는 식물에서 성분을 뽑아낼 줄 압니다. 그런데 첫 회의부터 서로 “우리 방식대로 하자”며 목소리가 높아졌습니다.</div></div>
           <div class="story"><div class="who">🧑‍🏫</div><div class="say"><span class="name">지도 교사</span>“두 동아리가 잘 협력하려면 무엇부터 정해야 할까?”</div></div>
+          <figure class="hero-art"><img src="img/garlic-lab.webp" alt="검은 실험대를 블록처럼 잘라 낸 모형. 왼쪽에는 가운데 종이 디스크를 올린 페트리 접시 세 개와 마늘, 편백 잎, 녹차 잎이 있고, 오른쪽에는 노랑·초록·파랑 용액이 담긴 비커 세 개와 빨대, 베이킹소다 상자와 숟가락, 보안경과 공책이 놓여 있다." width="900" height="900" loading="lazy"><figcaption><b>세균 접시와 색이 바뀌는 비커가 한 실험대에서 만났습니다</b> 왼쪽은 생명과학 동아리의 디스크 확산 실험 접시, 오른쪽은 화학 동아리의 BTB 용액 비커입니다. 서로 다른 도구와 방법을 가진 두 동아리가 함께 탐구하려면 무엇부터 맞춰야 할까요?</figcaption></figure>
           <div class="gate loose" id="g4"></div>
         </section>
 
         <section class="scene" data-title="디스크 확산법">
           <div class="story"><div class="who">🧫</div><div class="say"><span class="name">생명과학 동아리장</span>“세균을 고르게 바른 배지에 추출물을 적신 종이 디스크(지름 6 mm)를 올려 두면, 효과가 있는 추출물 둘레에는 세균이 자라지 못하는 <b>억제대</b>가 생겨. 먼저 에탄올만 적신 <b>대조군</b>으로 억제대가 없는지 확인하고, 마늘·편백·녹차 세 가지를 <b>같은 농도, 같은 배양 시간</b>(24시간 이상, 농도 50% 이상)에서 재어 비교해 줘.”</div></div>
           <div class="stage-card">
-            <div class="canvas-wrap stage"><canvas id="d-c-disk" width="900" height="300"></canvas></div>
+            <div class="canvas-wrap studio"><canvas id="d-c-disk" width="900" height="340"></canvas></div>
             <div class="sim-side">
               <div class="readout" id="d-disk-read"></div>
               <div class="ctrl-group">
@@ -303,7 +306,7 @@
         <section class="scene" data-title="과학 축제 — 색이 바뀌는 물">
           <div class="story"><div class="who">🎩</div><div class="say"><span class="name">화학 동아리장</span>“과학 축제 부스에서 관객의 눈길을 끌 마술을 준비했어. BTB 용액은 산성에서 노랑, 중성에서 초록, 염기성에서 파랑이 돼. 초록 물에 숨을 불어넣거나 베이킹소다를 넣어서 <b>노랑 → 초록 → 파랑</b> 세 가지 색을 모두 보여 주자!”</div></div>
           <div class="stage-card">
-            <div class="canvas-wrap stage"><canvas id="d-c-btb" width="900" height="260"></canvas></div>
+            <div class="canvas-wrap studio"><canvas id="d-c-btb" width="900" height="320"></canvas></div>
             <div class="btn-row" style="padding:12px 20px 0">
               <button class="btn primary" id="d-breath" type="button">빨대로 숨 불어넣기 (이산화 탄소)</button>
               <button class="btn" id="d-soda" type="button">베이킹소다 한 숟갈</button>

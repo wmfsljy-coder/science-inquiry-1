@@ -2,6 +2,46 @@
    이야기에서 찾은 개념을 처음 보는 상황에 써 본다. 공용 엔진: ../assets/lab.js (sthLab) */
 (function () {
 "use strict";
+/* ---- 스튜디오 + 입체 미니어처 도구 (_tools/STUDIO_GUIDE.md) ---- */
+var K = window.sthKit, LT = K.LT;
+/* 오른쪽 흰 판정 카드: 카드를 깔고 그 위에 엔진의 H.rows(이름 · 굵은 값)를 쓴다 */
+function card(H, ctx, x, y, w, h, title, rows, gap) {
+  K.card(ctx, x, y, w, h, title || "판정");
+  var yy = y + 56;
+  (rows || []).forEach(function (r) {      /* r = [이름, 값, 색 토큰, 큰 글씨] — 이름 아래에 굵은 값 */
+    H.text(ctx, r[0], x + 18, yy, { s: 12, w: "800", c: LT.mute });
+    var sz = r[3] ? 20 : 15, mw = w - 36; ctx.font = "900 " + sz + "px " + H.FONT; while (ctx.measureText(String(r[1])).width > mw && sz > 11) { sz -= 0.5; ctx.font = "900 " + sz + "px " + H.FONT; }
+    H.text(ctx, r[1], x + 18, yy + (r[3] ? 26 : 22), { s: sz, w: "900", c: r[2] ? H.v(r[2]) : LT.ink });
+    yy += gap || 56;
+  });
+}
+function bar3(c, x, top, w, bottom, col, dx, dy) {
+  dx = dx == null ? 8 : dx; dy = dy == null ? 5 : dy;
+  if (bottom - top < 0.5) top = bottom - 0.5;
+  c.fillStyle = K.tint(col, 0.62); c.beginPath(); c.moveTo(x + w, top); c.lineTo(x + w + dx, top - dy); c.lineTo(x + w + dx, bottom - dy); c.lineTo(x + w, bottom); c.closePath(); c.fill();
+  c.fillStyle = K.tint(col, 1.25); c.beginPath(); c.moveTo(x, top); c.lineTo(x + dx, top - dy); c.lineTo(x + w + dx, top - dy); c.lineTo(x + w, top); c.closePath(); c.fill();
+  var g = c.createLinearGradient(x, 0, x + w, 0); g.addColorStop(0, K.tint(col, 1.08)); g.addColorStop(1, K.tint(col, 0.88));
+  c.fillStyle = g; c.fillRect(x, top, w, bottom - top);
+}
+function tile3(c, x, y, w, h, col) {
+  c.fillStyle = "rgba(20,30,50,.16)"; c.beginPath(); c.roundRect(x + 3, y + 5, w, h, 5); c.fill();
+  c.fillStyle = K.tint(col, 0.6); c.beginPath(); c.roundRect(x + 3, y - 3, w, h, 5); c.fill();
+  var g = c.createLinearGradient(x, y, x, y + h); g.addColorStop(0, K.tint(col, 1.15)); g.addColorStop(1, K.tint(col, 0.88));
+  c.fillStyle = g; c.beginPath(); c.roundRect(x, y, w, h, 5); c.fill();
+}
+/* 토분과 모종: (x, y) 화분 바닥 가운데, h 모종 키(px) */
+function pot(c, x, y, s, h, tag) {
+  c.fillStyle = "rgba(20,30,50,.2)"; c.beginPath(); c.ellipse(x + 3, y + 1, 9 * s, 3 * s, 0, 0, 6.2832); c.fill();
+  var g = c.createLinearGradient(x - 8 * s, 0, x + 8 * s, 0); g.addColorStop(0, "#a0522d"); g.addColorStop(.45, "#e08a5a"); g.addColorStop(1, "#8a4422");
+  c.fillStyle = g; c.beginPath(); c.moveTo(x - 8 * s, y - 14 * s); c.lineTo(x - 6 * s, y); c.lineTo(x + 6 * s, y); c.lineTo(x + 8 * s, y - 14 * s); c.closePath(); c.fill();
+  c.fillStyle = "#5a3a20"; c.beginPath(); c.ellipse(x, y - 14 * s, 8 * s, 2.6 * s, 0, 0, 6.2832); c.fill();
+  c.strokeStyle = "#2f7d32"; c.lineWidth = 1.6 * s; c.beginPath(); c.moveTo(x, y - 14 * s); c.lineTo(x, y - 14 * s - h); c.stroke();
+  for (var k = 0; k < 3; k++) {
+    var ly = y - 14 * s - h * (0.35 + k * 0.3), sd = k % 2 ? 1 : -1;
+    c.fillStyle = k === 2 ? "#5cb85c" : "#3f9a42"; c.beginPath(); c.ellipse(x + sd * 4.5 * s, ly, 5 * s, 2.2 * s, sd * 0.5, 0, 6.2832); c.fill();
+  }
+  if (tag) { c.fillStyle = "#ffd43b"; c.fillRect(x + 4 * s, y - 12 * s, 5 * s, 6 * s); }
+}
 
 function isPrime(x) { if (x < 2) return false; for (var d = 2; d * d <= x; d++) if (x % d === 0) return false; return true; }
 function factor(x) { for (var d = 2; d * d <= x; d++) if (x % d === 0) return d + " × " + (x / d); return ""; }
@@ -22,33 +62,52 @@ window.sthLab({
     },
     task: "비교 모둠·화분 위치·화분 수를 정해 <b>비료만 다르고</b>, 차이의 범위(± 2 × 오차)의 <b>아래 끝이 0보다 크게</b>(범위에 0이 들어가지 않게) 하세요.",
     build: function (stage, api) {
-      var H = api.h, cv = api.canvas(290), ctx = cv.ctx, W = cv.W;
+      var H = api.h, cv = api.canvas(320), ctx = cv.ctx, W = cv.W;
       var ctrl = "no", place = "split", n = 2, EFFECT = 4, SUN = 3;
       function se() { return 3 * Math.sqrt(2 / n); }
       function diff() { return EFFECT + (place === "split" ? SUN : 0); }
+      /* 학교 텃밭 선반을 잘라 낸 블록: 왼쪽 절반 = 창가(햇빛), 오른쪽 절반 = 복도 */
+      var I = K.iso({ ox: 250, oy: 112, s: 0.82, L: 340, D: 150 });
+      function shelf() {
+        I.box(ctx, 0, 0, -14, I.L, I.D, 0, "#d9b47c", "#a8834f", "#8a6a3c");
+        I.plane(ctx, 0.2, "rgba(255,226,140,.45)", null, 0, 170, 0, I.D);
+        I.plane(ctx, 0.2, "rgba(120,130,150,.18)", null, 170, I.L, 0, I.D);
+        I.box(ctx, 0, 0, 0, I.L, 5, 96, "#ece6da", "#f6f1e8", "#d8d0c2");
+        var w0 = I.P(30, 5.5, 24), w1 = I.P(140, 5.5, 24), w2 = I.P(140, 5.5, 84), w3 = I.P(30, 5.5, 84);
+        I.quad(ctx, w0, w1, w2, w3, "#9fd3f5", "#7a5a3a");
+        var m0 = I.P(85, 5.5, 24), m1 = I.P(85, 5.5, 84); ctx.strokeStyle = "#7a5a3a"; ctx.lineWidth = 2; ctx.beginPath(); ctx.moveTo(m0.x, m0.y); ctx.lineTo(m1.x, m1.y); ctx.stroke();
+        var sp = I.P(120, 5.5, 74); K.glow(ctx, sp.x, sp.y, 5, "rgba(255,236,150,.98)", 3.6);
+        var d0 = I.P(220, 5.5, 0), d1 = I.P(275, 5.5, 0), d2 = I.P(275, 5.5, 78), d3 = I.P(220, 5.5, 78);
+        I.quad(ctx, d0, d1, d2, d3, "#b98a52", "#6e4626");
+        I.edges(ctx, 0, 0);
+      }
+      function row(y, cnt, inWin, fert, tall) {
+        var x0 = inWin ? 14 : 184, sp = Math.min(17, 152 / Math.max(1, cnt));
+        for (var i = 0; i < cnt; i++) { var p = I.P(x0 + i * sp + 6, y, 0); pot(ctx, p.x, p.y, 1.05, tall, fert); }
+      }
       function draw() {
         H.paper(ctx, W, cv.H);
-        H.text(ctx, "🪟 창가", 40, 28, { s: 12, w: "800", c: H.v("--amber-700") });
-        H.text(ctx, "🚪 복도", 40, 158, { s: 12, w: "800", c: H.v("--mist") });
-        H.box(ctx, 30, 36, 520, 100, H.v("--amber-700"), 0.08);
-        var i, fy = 118, cy = ctrl === "no" ? -1 : (place === "same" ? 118 : 248);
-        for (i = 0; i < n; i++) H.text(ctx, "🌱", 60 + i * 26, fy - (ctrl === "yes" && place === "same" ? 30 : 0), { s: 20 });
-        H.text(ctx, "비료 O " + n + "개", 330, fy - (ctrl === "yes" && place === "same" ? 30 : 0) - 4, { s: 11.5, w: "800", c: H.v("--green-700") });
-        if (ctrl === "yes") {
-          for (i = 0; i < n; i++) H.text(ctx, "🌱", 60 + i * 26, cy, { s: 20 });
-          H.text(ctx, "비료 X " + n + "개", 330, cy - 4, { s: 11.5, w: "800", c: H.v("--mist") });
-        }
+        shelf();
+        var fWin = true, cWin = place === "same";
+        if (ctrl === "yes") row(52, n, cWin, false, 14 + (cWin ? SUN : 0) * 3);
+        row(118, n, fWin, true, 14 + (EFFECT + SUN) * 3);
+        var lb = [0, 600];
+        I.label(ctx, 60, 5, 90, "🪟 창가 (햇빛 많음)", -10, -16, "#ffd35a", lb);
+        I.label(ctx, 250, 5, 82, "🚪 복도", 20, -14, "#e8ecff", lb);
+        I.label(ctx, 10 + n * 8, 118, 30, "비료 O " + n + "개 (노란 표)", -40, 74, "#9ff0b5", lb);
+        if (ctrl === "yes") I.label(ctx, (cWin ? 14 : 184) + n * 8, 52, 30, "비료 X " + n + "개", 70, -60, "#e8ecff", lb);
+        K.warn(ctx, 16, cv.H - 12, "⚠ 화분 크기·모종 키는 보기 쉽게 과장");
         var ok = false;
         if (ctrl === "yes") {
           var d = diff(), e = 2 * se();
           ok = place === "same" && d - e > 0;
-          H.rows(ctx, 610, 46, [
+          card(H, ctx, 616, 12, 272, cv.H - 24, "판정", [
             ["키 차이 (비료 O − 비료 X)", d.toFixed(1) + " cm"],
             ["차이의 범위", (d - e).toFixed(1) + " ~ " + (d + e).toFixed(1) + " cm", d - e > 0 ? "--green-700" : "--rose-700"],
             ["판정", ok ? "비료의 효과가 드러난다" : (place === "split" ? "빛이 섞였다" : "오차에 묻힌다"), ok ? "--green-700" : "--rose-700", true]
-          ], 64);
+          ], 70);
         } else {
-          H.rows(ctx, 610, 60, [["비교할 대상", "없음", "--rose-700", true], ["알 수 있는 것", "비료를 준 모종의 키뿐"]], 70);
+          card(H, ctx, 616, 12, 272, cv.H - 24, "판정", [["비교할 대상", "없음", "--rose-700", true], ["알 수 있는 것", "비료를 준 모종의 키뿐"]], 76);
         }
       }
       cv.canvas._redraw = draw;
@@ -88,23 +147,29 @@ window.sthLab({
     },
     task: "n을 바꿔 가며 <b>n² + n + 41이 처음으로 소수가 아닌 n</b>을 찾으세요.",
     build: function (stage, api) {
-      var H = api.h, cv = api.canvas(250), ctx = cv.ctx, W = cv.W, n = 0;
+      var H = api.h, cv = api.canvas(280), ctx = cv.ctx, W = cv.W, n = 0;
       function f(k) { return k * k + k + 41; }
       function first() { for (var k = 0; k < 100; k++) if (!isPrime(f(k))) return k; return -1; }
       function draw() {
         H.paper(ctx, W, cv.H);
-        H.text(ctx, "n = 0부터 확인한 값 (초록 = 소수, 빨강 = 소수 아님)", 30, 26, { s: 12.5, w: "900" });
+        /* 나무판 위에 n = 0~60 숫자 블록을 늘어놓는다(확인한 것만 색이 들어간다) */
+        ctx.fillStyle = "rgba(20,30,50,.16)"; ctx.beginPath(); ctx.ellipse(300, 150, 300, 12, 0, 0, 6.2832); ctx.fill();
+        bar3(ctx, 14, 52, 572, 140, "#c99a62", 8, 6);
         for (var k = 0; k <= 60; k++) {
-          var x = 30 + (k % 31) * 27, y = 44 + Math.floor(k / 31) * 40;
-          var col = k > n ? "--line" : (isPrime(f(k)) ? "--green-700" : "--rose-700");
-          H.box(ctx, x, y, 23, 28, H.v(col), k > n ? 0.25 : 0.75);
-          H.text(ctx, k, x + 11.5, y + 18, { s: 10, w: "800", a: "center", c: k > n ? H.v("--mist") : "#fff" });
+          var x = 22 + (k % 31) * 18, y = 64 + Math.floor(k / 31) * 36;
+          var col = k > n ? "#ced4da" : (isPrime(f(k)) ? "#12b886" : "#e03131");
+          tile3(ctx, x, y, 14, 24, col);
+          K.t(ctx, String(k), x + 7, y + 16, { s: 9, w: "800", a: "center", c: k > n ? "#868e96" : "#fff" });
         }
-        var val = f(n), p = isPrime(val);
-        H.text(ctx, "n = " + n + " → " + n + "² + " + n + " + 41 = " + val, 30, 160, { s: 16, w: "900" });
-        H.text(ctx, p ? "소수" : "소수가 아님 : " + factor(val), 30, 190, { s: 15, w: "900", c: p ? H.v("--green-700") : H.v("--rose-700") });
-        var cnt = 0; for (var j = 0; j <= n; j++) if (isPrime(f(j))) cnt++;
-        H.text(ctx, "지금까지 " + (n + 1) + "개 중 소수 " + cnt + "개", 30, 222, { s: 12, w: "700", c: H.v("--mist") });
+        var val = f(n), p = isPrime(val), cnt = 0; for (var j = 0; j <= n; j++) if (isPrime(f(j))) cnt++;
+        K.bigText(ctx, "n = " + n + " → " + val, 18, 40, 22, p ? "#7cf0b5" : "#ff9aac");
+        H.text(ctx, "초록 블록 = 소수 · 빨간 블록 = 소수 아님 · 회색 = 아직 확인 안 함", 18, 186, { s: 11.5, w: "700", c: H.v("--mist") });
+        H.text(ctx, n + "² + " + n + " + 41 = " + val, 18, 222, { s: 16, w: "900" });
+        H.text(ctx, p ? "소수" : "소수가 아님 : " + factor(val), 18, 252, { s: 15, w: "900", c: p ? H.v("--green-700") : H.v("--rose-700") });
+        card(H, ctx, 616, 12, 272, cv.H - 24, "판정", [
+          ["확인한 값", (n + 1) + "개"], ["그 가운데 소수", cnt + "개", cnt === n + 1 ? "--green-700" : "--rose-700"],
+          ["지금까지", cnt === n + 1 ? "모두 소수" : "반례가 나왔다", cnt === n + 1 ? "--green-700" : "--rose-700", true]
+        ], 62);
         return n === first();
       }
       cv.canvas._redraw = draw;
@@ -141,33 +206,56 @@ window.sthLab({
     },
     task: "비교 모둠의 음료·기록 재는 사람·인원을 정해 <b>믿음과 기대를 통제</b>하고, 효과의 범위(± 2 × 오차)가 <b>± 2% 안</b>에 들게 하세요.",
     build: function (stage, api) {
-      var H = api.h, cv = api.canvas(270), ctx = cv.ctx, W = cv.W;
+      var H = api.h, cv = api.canvas(320), ctx = cv.ctx, W = cv.W;
       var ctrl = "none", rec = "coach", n = 4, TRUE = 0, PLACEBO = 3, BIAS = 2;
       function se() { return 2.5 * Math.sqrt(2 / n); }
       function meas() { return TRUE + (ctrl === "none" ? PLACEBO : 0) + (rec === "coach" ? BIAS : 0); }
+      /* 운동장 출발선 앞 탁자 블록: 뒷줄 = 음료 모둠 컵, 앞줄 = 비교 모둠 컵(가짜 음료면 같은 색), 오른쪽 끝 = 기록 재는 사람 */
+      var I = K.iso({ ox: 150, oy: 70, s: 0.66, L: 330, D: 110 });
+      function cup(x, y, z, col) {
+        var p = I.P(x, y, z);
+        ctx.fillStyle = "rgba(20,30,50,.18)"; ctx.beginPath(); ctx.ellipse(p.x + 2, p.y + 1, 5, 2, 0, 0, 6.2832); ctx.fill();
+        var g = ctx.createLinearGradient(p.x - 4, 0, p.x + 4, 0); g.addColorStop(0, "rgba(255,255,255,.9)"); g.addColorStop(1, "rgba(190,205,225,.9)");
+        ctx.fillStyle = g; ctx.beginPath(); ctx.moveTo(p.x - 4.5, p.y - 13); ctx.lineTo(p.x - 3.5, p.y); ctx.lineTo(p.x + 3.5, p.y); ctx.lineTo(p.x + 4.5, p.y - 13); ctx.closePath(); ctx.fill();
+        if (col) { ctx.fillStyle = col; ctx.fillRect(p.x - 3.6, p.y - 9, 7.2, 8.5); ctx.fillStyle = K.tint(col, 1.2); ctx.beginPath(); ctx.ellipse(p.x, p.y - 9, 3.8, 1.2, 0, 0, 6.2832); ctx.fill(); }
+        ctx.strokeStyle = "rgba(90,110,140,.6)"; ctx.lineWidth = .8; ctx.beginPath(); ctx.ellipse(p.x, p.y - 13, 4.5, 1.4, 0, 0, 6.2832); ctx.stroke();
+      }
       function draw() {
         H.paper(ctx, W, cv.H);
-        var m = meas(), e = 2 * se(), x0 = 60, x1 = 540, y = 150;
+        var m = meas(), e = 2 * se(), i;
+        I.box(ctx, 0, 0, -10, I.L, I.D, 0, "#e8ecf2", "#c9ced6", "#9aa3b0");
+        I.plane(ctx, 0.2, "#2f9e44", null, 0, I.L, 92, 96);
+        var sp = Math.min(13, 250 / n);
+        for (i = 0; i < n; i++) cup(16 + i * sp, 26, 0, "#f08c00");
+        for (i = 0; i < n; i++) cup(16 + i * sp, 66, 0, ctrl === "none" ? null : "#f08c00");
+        I.person(ctx, 300, 50, 0, rec === "coach" ? "#e8590c" : "#495057", 2.2);
+        var hp = I.P(300, 50, 0);
+        if (rec === "blind") { ctx.fillStyle = "#212529"; ctx.fillRect(hp.x - 6, hp.y - 30, 12, 3.5); }
+        K.planet(ctx, hp.x + 9, hp.y - 18, 4.5, "#e9ecef", "#495057");
+        var lb = [0, 600];
+        I.label(ctx, 16 + (n - 1) * sp / 2, 26, 14, "음료 모둠 " + n + "명", -30, -14, "#ffd8a8", lb);
+        I.label(ctx, 16 + (n - 1) * sp / 2, 66, 14, (ctrl === "none" ? "비교 모둠 · 빈 컵(안 마심)" : "비교 모둠 · 가짜 음료"), -40, 50, "#e8ecff", lb);
+        I.label(ctx, 300, 50, 30, rec === "coach" ? "⏱ 누가 마셨는지 아는 코치" : "⏱ 모르는 기록원(눈가림)", 20, -18, rec === "coach" ? "#ffb0bc" : "#9ff0b5", lb);
+        /* 아래: 잰 효과와 범위(밝은 수직선) */
+        var x0 = 50, x1 = 560, y = 278;
         function X(p) { return x0 + (p + 6) / 16 * (x1 - x0); }
-        H.text(ctx, "잰 효과 = 음료 모둠 기록 향상 − 비교 모둠 기록 향상", 30, 26, { s: 13, w: "900" });
-        H.text(ctx, "🥤 × " + n + "명", 60, 64, { s: 14, w: "800", c: H.v("--brand-700") });
-        H.text(ctx, (ctrl === "none" ? "🚫" : "🥤") + " × " + n + "명 (" + (ctrl === "none" ? "안 마심" : "가짜 음료") + ")", 220, 64, { s: 14, w: "800", c: H.v("--mist") });
-        H.text(ctx, rec === "coach" ? "⏱️ 음료를 아는 코치" : "⏱️ 모르는 기록원", 450, 64, { s: 13, w: "800" });
-        H.axes(ctx, x0, y - 50, x1, y);
-        [-6, -4, -2, 0, 2, 4, 6, 8, 10].forEach(function (p) { H.text(ctx, (p > 0 ? "+" : "") + p + "%", X(p), y + 16, { s: 10, a: "center", c: H.v("--mist") }); });
-        H.dash(ctx, X(0), y - 60, X(0), y, H.v("--mist"), 1.5);
+        ctx.fillStyle = "rgba(255,255,255,.75)"; ctx.fillRect(x0 - 10, y - 50, x1 - x0 + 20, 62);
+        ctx.strokeStyle = LT.line; ctx.lineWidth = 1.4; ctx.beginPath(); ctx.moveTo(x0, y); ctx.lineTo(x1, y); ctx.stroke();
+        [-6, -4, -2, 0, 2, 4, 6, 8, 10].forEach(function (p) { ctx.beginPath(); ctx.moveTo(X(p), y); ctx.lineTo(X(p), y + 5); ctx.stroke(); H.text(ctx, (p > 0 ? "+" : "") + p + "%", X(p), y + 18, { s: 10, a: "center", w: "700", c: H.v("--mist") }); });
+        H.dash(ctx, X(0), y - 52, X(0), y, H.v("--mist"), 1.5);
         var L = Math.max(x0, X(m - e)), R = Math.min(x1, X(m + e));
-        H.box(ctx, L, y - 34, R - L, 14, H.v("--brand"), 0.35);
-        H.dot(ctx, X(m), y - 27, 6, H.v("--brand"));
-        H.text(ctx, "잰 효과 " + (m > 0 ? "+" : "") + m.toFixed(1) + "%", X(m), y - 42, { s: 11.5, w: "800", a: "center" });
+        bar3(ctx, L, y - 30, R - L, y - 18, e <= 2 ? "#12b886" : "#4dabf7", 5, 4);
+        K.planet(ctx, X(m), y - 24, 6, "#ffd36b", "#a8781f");
+        H.text(ctx, "잰 효과 " + (m > 0 ? "+" : "") + m.toFixed(1) + "%", X(m), y - 38, { s: 11.5, w: "900", a: "center" });
+        H.text(ctx, "잰 효과 = 음료 모둠 기록 향상 − 비교 모둠 기록 향상", 18, 20, { s: 12, w: "900", c: H.v("--mist") });
         var parts = [];
         if (ctrl === "none") parts.push("믿음 +3%");
-        if (rec === "coach") parts.push("기록원의 기대 +2%");
-        H.rows(ctx, 610, 50, [
+        if (rec === "coach") parts.push("기대 +2%");
+        card(H, ctx, 616, 12, 272, cv.H - 24, "판정", [
           ["섞인 변인", parts.length ? parts.join(", ") : "없음", parts.length ? "--rose-700" : "--green-700"],
           ["효과의 범위", (m - e).toFixed(1) + " ~ " + (m + e).toFixed(1) + "%"],
           ["범위의 폭", "± " + e.toFixed(1) + "%", e <= 2 ? "--green-700" : "--amber-700", true]
-        ], 62);
+        ], 66);
       }
       cv.canvas._redraw = draw;
       api.seg({ label: "비교 모둠", value: "none", options: [{ v: "none", t: "아무것도 마시지 않음" }, { v: "fake", t: "맛·색이 같은 가짜 음료" }], onPick: function (x) { ctrl = x; draw(); } });
