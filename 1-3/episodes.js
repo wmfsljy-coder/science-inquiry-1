@@ -1,4 +1,4 @@
-/* 과학탐구실험1 Ⅰ-3 역사 속의 과학 탐구 — 이야기 세 편
+/* 과학탐구실험1 Ⅰ-2 역사 속의 과학 탐구 — 이야기 세 편
    01 빗면 위의 종소리 / 02 빗물을 재는 그릇 / 03 두 사람의 주기율표
    공용 부품: ../assets/theme.js (sthUnit·sthGate·sthWork), ../assets/story.js (sthStory·sthSort·sthOrder·sthPick) */
 (function () {
@@ -464,7 +464,7 @@ function board(c, x, y, w, h, d) {
   ep.onShow(function (i) { if (i === 4) vs(); });
   if (ep.at() === 4) vs();
   window.sthWork({
-    mount: "wk1", unitLabel: "[과학탐구실험1 Ⅰ-3] 이야기 ① 빗면 위의 종소리",
+    mount: "wk1", unitLabel: "[과학탐구실험1 Ⅰ-2] 이야기 ① 빗면 위의 종소리",
     items: [
       { id: "w1", label: "갈릴레이가 실제로 한 것", hint: "사탑 일화가 아니라면 갈릴레이는 무엇으로 결론을 얻었는지 쓰세요.", ph: "사고 실험: … / 빗면 실험: … / 찾아낸 규칙: …" },
       { id: "e1a", label: "빗면을 쓴 까닭", hint: "갈릴레이가 공을 그냥 떨어뜨리지 않고 빗면에서 굴린 까닭을, 측정 도구의 한계와 관련지어 한 문장으로 쓰세요." }
@@ -629,7 +629,7 @@ function board(c, x, y, w, h, d) {
     var canvas = $("b-c-era"), ctx = window.setupCanvas(canvas), W = canvas._w, H = canvas._h, era = 0;
     var got = window.sthState("eraGot") || { a: false, q: false };
     var ERAS = [
-      { n: "고대 이집트", y: "약 BC 3000", ico: "💪", base: "파라오의 팔(왕실 큐빗)", who: "이집트 안에서만", d: "팔꿈치에서 가운뎃손가락 끝까지의 길이를 큐빗으로 정하고, 돌로 만든 표준 막대로 관리했습니다. 사람마다 팔 길이가 달라 기준 막대가 꼭 필요했습니다." },
+      { n: "고대 이집트", y: "약 BC 3000", ico: "💪", base: "팔꿈치~손끝 길이(왕실 큐빗)", who: "이집트 안에서만", d: "팔꿈치에서 가운뎃손가락 끝까지의 길이를 큐빗으로 정하고, 돌로 만든 표준 막대로 관리했습니다. 사람마다 팔 길이가 달라 기준 막대가 꼭 필요했습니다. 왕실 큐빗이 파라오의 팔 길이에서 나왔다는 말은 기록으로 확인된 사실이라기보다 전해지는 이야기입니다." },
       { n: "중국 진(秦)", y: "BC 221", ico: "⚖️", base: "나라가 정한 자·되·저울", who: "통일된 중국 안에서", d: "진시황이 나라마다 달랐던 자·되·저울을 하나로 통일했습니다. 세금과 거래, 수레바퀴 폭까지 같아졌습니다." },
       { n: "조선 세종", y: "1430~1440년대", ico: "🎐", base: "황종척·주척 등 표준 자", who: "조선 전국에서", d: "음악의 기준음을 내는 피리(황종관)의 길이로 자의 기준을 삼고, 여러 자를 정비해 측우기와 함께 전국에 보냈습니다." },
       { n: "프랑스 혁명", y: "1799", ico: "🌍", base: "북극~적도 자오선 거리의 1000만분의 1", who: "누구나 (원리상)", d: "북극에서 적도까지 거리의 1000만분의 1을 1 m로 정했습니다. 한 사람의 몸이 아닌 ‘자연’에서 기준을 가져오려 했습니다." },
@@ -821,7 +821,7 @@ function board(c, x, y, w, h, d) {
   ep.onShow(function (i) { if (i === 4) vs(); });
   if (ep.at() === 4) vs();
   window.sthWork({
-    mount: "wk2", unitLabel: "[과학탐구실험1 Ⅰ-3] 이야기 ② 빗물을 재는 그릇",
+    mount: "wk2", unitLabel: "[과학탐구실험1 Ⅰ-2] 이야기 ② 빗물을 재는 그릇",
     items: [
       { id: "e2a", label: "측우기가 원통인 까닭", hint: "사발이나 병이 아니라 곧은 원통이어야 하는 까닭을, 이 장면에서 잰 결과를 근거로 쓰세요." },
       { id: "e2b", label: "표준 단위가 과학에 필요한 까닭", hint: "여러 사람이 같은 기준으로 재는 것이 과학 지식을 만드는 데 왜 중요한지 한두 문장으로 쓰세요." }
@@ -938,15 +938,15 @@ function board(c, x, y, w, h, d) {
       K.planet(ctx, NX(m), ny - 2, 7, "#ffd36b", "#a8781f");
       K.pill(ctx, "내 예측 " + m.toFixed(1), NX(m), ny + 86, { s: 12.5, a: "center", c: ok ? "#7cf0b5" : "#ffd35a", box: [360, LS] });
       if (ok) {
-        K.pill(ctx, "1886년 게르마늄 72.6", NX(72.6), ny - 52, { s: 12, a: "center", c: "#7cf0b5", box: [360, LS] });
-        var gx = 640, gy = 176;                                     /* 회색 금속 광택의 게르마늄 덩어리 */
+        K.pill(ctx, "1886년 저마늄 72.6", NX(72.6), ny - 52, { s: 12, a: "center", c: "#7cf0b5", box: [360, LS] });
+        var gx = 640, gy = 176;                                     /* 회색 금속 광택의 저마늄 덩어리 */
         ctx.fillStyle = "rgba(20,30,50,.2)"; ctx.beginPath(); ctx.ellipse(gx + 4, gy + 18, 26, 6, 0, 0, 6.2832); ctx.fill();
         var gg = ctx.createLinearGradient(gx - 22, gy - 20, gx + 22, gy + 18); gg.addColorStop(0, "#f1f3f5"); gg.addColorStop(.45, "#8a929e"); gg.addColorStop(1, "#495057");
         ctx.fillStyle = gg; ctx.beginPath(); ctx.moveTo(gx - 22, gy + 12); ctx.lineTo(gx - 14, gy - 14); ctx.lineTo(gx + 4, gy - 22); ctx.lineTo(gx + 22, gy - 6); ctx.lineTo(gx + 18, gy + 16); ctx.closePath(); ctx.fill();
         ctx.fillStyle = "rgba(255,255,255,.55)"; ctx.beginPath(); ctx.moveTo(gx - 14, gy - 14); ctx.lineTo(gx + 4, gy - 22); ctx.lineTo(gx - 2, gy - 4); ctx.closePath(); ctx.fill();
       }
       K.t(ctx, "원자량 눈금", nx0, ny - 74, { s: 12, w: "900", c: LT.mute });
-      K.bigText(ctx, ok ? "예측 적중 — 게르마늄 72.6" : "예측한 원자량 " + m.toFixed(1), 18, 48, 25, ok ? "#7cf0b5" : "#ffffff");
+      K.bigText(ctx, ok ? "예측 적중 — 저마늄 72.6" : "예측한 원자량 " + m.toFixed(1), 18, 48, 25, ok ? "#7cf0b5" : "#ffffff");
       K.bigText(ctx, "위·아래 평균 " + ((28.1 + 118.7) / 2).toFixed(1) + " · 왼·오른쪽 평균 " + ((69.7 + 74.9) / 2).toFixed(1), 18, 80, 17, "#ffd35a");
       judgeCard(ctx, 700, 0, W - 700, H, {
         head: ok ? "거의 같다" : "아직 멀다", headCol: ok ? LT.green : LT.orange,
@@ -963,17 +963,17 @@ function board(c, x, y, w, h, d) {
         "<span class='sub'>이웃 넷: Si 28.1 · Ga 69.7 · As 74.9 · Sn 118.7</span>" +
         "<span class='k'>이웃의 평균</span><span class='v b'>" + ((28.1 + 118.7) / 2).toFixed(1) + " / " + ((69.7 + 74.9) / 2).toFixed(1) + "</span>" +
         "<span class='sub'>위·아래 / 왼·오른쪽</span>" +
-        "<span class='ok " + (ok ? "g" : "r") + "'>" + (ok ? "1886년에 발견된 게르마늄 72.6과 거의 같다" : "아직 멀었습니다 · 이웃들 사이의 값을 찾아 보세요") + "</span>");
+        "<span class='ok " + (ok ? "g" : "r") + "'>" + (ok ? "1886년에 발견된 저마늄 72.6과 거의 같다" : "아직 멀었습니다 · 이웃들 사이의 값을 찾아 보세요") + "</span>");
     }
     function update() {
       var ok = draw();
-      put("c-eka-info", "예측한 원자량 " + m.toFixed(1) + ". " + (ok ? "✅ 1886년에 발견된 게르마늄의 원자량 72.6과 거의 같습니다. 멘델레예프가 1871년에 예측한 값(약 72)도 이 근처였습니다." : "주기율표에서 원소의 성질은 이웃들 사이에서 차례로 변합니다. 이웃 넷의 원자량을 참고해 보세요."));
+      put("c-eka-info", "예측한 원자량 " + m.toFixed(1) + ". " + (ok ? "✅ 1886년에 발견된 저마늄의 원자량 72.6과 거의 같습니다. 멘델레예프가 1871년에 예측한 값(약 72)도 이 근처였습니다." : "주기율표에서 원소의 성질은 이웃들 사이에서 차례로 변합니다. 이웃 넷의 원자량을 참고해 보세요."));
       if (ok && !got.a) { got.a = true; window.sthState("ekaGot", got); mission(); }
     }
     function mission() {
       if (got.a) done("m3-3a"); if (got.q) done("m3-3b");
       if (got.a && got.q) {
-        window.sthState("ekaBest", "이웃의 평균으로 원자량 약 72 예측 → 게르마늄 72.6");
+        window.sthState("ekaBest", "이웃의 평균으로 원자량 약 72 예측 → 저마늄 72.6");
         window.sthMission("m3-3", true, "<span class='m-tag'>미션 완료</span>" + window.sthState("ekaBest") + ". 앞날을 예측하고 그 예측이 검증되는 것, 이것이 과학 이론의 큰 힘입니다.");
         ep.clear(2);
       }
@@ -982,7 +982,7 @@ function board(c, x, y, w, h, d) {
     $("c-m").addEventListener("input", function (ev) { m = +ev.target.value; $("c-m-val").textContent = m.toFixed(1); update(); });
     window.sthPick({
       mount: "c-eka-pick",
-      q: "갈륨(1875)과 게르마늄(1886)이 멘델레예프의 예측대로 발견되자 어떤 일이 일어났을까요?",
+      q: "갈륨(1875)과 저마늄(1886)이 멘델레예프의 예측대로 발견되자 어떤 일이 일어났을까요?",
       options: ["주기율표는 여전히 무시되었다", "예측이 검증되면서 과학자들이 주기율표를 널리 받아들이게 되었다", "멘델레예프의 예측이 틀렸음이 밝혀졌다"],
       answer: 1,
       why: ["예측이 맞은 뒤로 오히려 크게 주목받았습니다.", "아직 발견되지 않은 것을 맞힌 예측은 이론을 믿을 강력한 증거가 됩니다. 마이어보다 멘델레예프가 더 널리 알려진 까닭이기도 합니다.", "원자량, 밀도 같은 성질까지 매우 가깝게 맞았습니다."],
@@ -1112,7 +1112,7 @@ function board(c, x, y, w, h, d) {
   ep.onShow(function (i) { if (i === 4) vs(); });
   if (ep.at() === 4) vs();
   window.sthWork({
-    mount: "wk3", unitLabel: "[과학탐구실험1 Ⅰ-3] 이야기 ③ 두 사람의 주기율표",
+    mount: "wk3", unitLabel: "[과학탐구실험1 Ⅰ-2] 이야기 ③ 두 사람의 주기율표",
     items: [
       { id: "w2", label: "같은 발견이 동시에", hint: "같은 시기에 여러 사람이 같은 것을 발견한 사례를 하나 들고, 왜 그런 일이 생기는지 생각을 쓰세요.", ph: "사례: … / 까닭: …" },
       { id: "e3a", label: "예측이 이론에 주는 힘", hint: "멘델레예프의 빈칸 예측이 맞은 일이 주기율표를 믿게 하는 데 왜 중요했는지 한 문장으로 쓰세요." }
@@ -1122,7 +1122,7 @@ function board(c, x, y, w, h, d) {
 
 /* ========================================================================= 06 정리하기 */
 window.sthWork({
-  mount: "wk", unitLabel: "[과학탐구실험1 Ⅰ-3] 역사 속의 과학 탐구 — 정리",
+  mount: "wk", unitLabel: "[과학탐구실험1 Ⅰ-2] 역사 속의 과학 탐구 — 정리",
   recap: [
     { key: "r1", label: "① 빗면 위의 종소리" },
     { key: "r2", label: "② 빗물을 재는 그릇" },
@@ -1140,7 +1140,7 @@ window.sthWork({
 
 /* ========================================================================= 07 우리 반 */
 window.sthShare({
-  mount: "share", unit: "gt1-1-3", unitLabel: "[과학탐구실험1 Ⅰ-3] 역사 속의 과학 탐구",
+  mount: "share", unit: "gt1-1-3", unitLabel: "[과학탐구실험1 Ⅰ-2] 역사 속의 과학 탐구",
   rows: [
     { key: "r1", label: "① 빗면 위의 종소리" },
     { key: "r2", label: "② 빗물을 재는 그릇" },

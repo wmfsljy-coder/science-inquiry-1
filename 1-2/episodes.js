@@ -1,4 +1,4 @@
-/* 과학탐구실험1 Ⅰ-2 과학 탐구의 과정과 절차 — 이야기 세 편
+/* 과학탐구실험1 Ⅱ-1 과학 탐구의 과정과 절차 — 이야기 세 편
    01 귀뚜라미 온도계 / 02 손을 씻으시오 / 03 장미 도표
    공용 부품: ../assets/theme.js (sthUnit·sthGate·sthWork), ../assets/story.js (sthStory·sthSort·sthOrder·sthPick) */
 (function () {
@@ -441,7 +441,7 @@ function bar3(c, x, top, w, bottom, col, dx, dy) {
   ep.onShow(function (i) { if (i === 4) vs(); });
   if (ep.at() === 4) vs();
   window.sthWork({
-    mount: "wk1", unitLabel: "[과학탐구실험1 Ⅰ-2] 이야기 ① 귀뚜라미 온도계",
+    mount: "wk1", unitLabel: "[과학탐구실험1 Ⅱ-1] 이야기 ① 귀뚜라미 온도계",
     items: [
       { id: "w1", label: "귀납과 연역의 갈림길", hint: "두 방법이 갈리는 지점이 어디인지 한 문장으로 쓰세요. 귀뚜라미 이야기에서 각각의 예를 하나씩 들어도 좋아요.", ph: "귀납은 … 에서 출발하고, 연역은 … 에서 출발한다." },
       { id: "e1a", label: "우리 동네에서 해 볼 귀납 탐구", hint: "주변에서 여러 번 관찰해 규칙을 찾아볼 만한 현상을 하나 골라, 무엇을 몇 번 관찰할지 계획을 쓰세요." }
@@ -830,7 +830,7 @@ function bar3(c, x, top, w, bottom, col, dx, dy) {
   ep.onShow(function (i) { if (i === 4) vs(); });
   if (ep.at() === 4) vs();
   window.sthWork({
-    mount: "wk2", unitLabel: "[과학탐구실험1 Ⅰ-2] 이야기 ② 손을 씻으시오",
+    mount: "wk2", unitLabel: "[과학탐구실험1 Ⅱ-1] 이야기 ② 손을 씻으시오",
     items: [
       { id: "w2", label: "좋은 가설의 조건", hint: "검증 가능한 가설과 그렇지 않은 가설을 하나씩 만들어 보고, 왜 그런지 쓰세요. (예: 종소리 가설은 시험할 수 있었나요?)", ph: "검증 가능한 가설: … / 검증할 수 없는 가설: … / 까닭: …" },
       { id: "e2a", label: "제멜바이스가 설득에 실패한 까닭", hint: "옳은 결론이었는데도 당시 의사들이 받아들이지 않은 까닭을, 과학 지식이 인정받는 과정과 관련지어 한두 문장으로 쓰세요." }
@@ -1065,7 +1065,7 @@ function bar3(c, x, top, w, bottom, col, dx, dy) {
   ep.onShow(function (i) { if (i === 4) vs(); });
   if (ep.at() === 4) vs();
   window.sthWork({
-    mount: "wk3", unitLabel: "[과학탐구실험1 Ⅰ-2] 이야기 ③ 장미 도표",
+    mount: "wk3", unitLabel: "[과학탐구실험1 Ⅱ-1] 이야기 ③ 장미 도표",
     items: [
       { id: "e3a", label: "내 탐구 자료에 맞는 그래프", hint: "귀뚜라미 기록(우는 횟수와 기온)을 그래프로 나타낸다면 어떤 그래프가 알맞은지, 그 까닭과 함께 쓰세요." },
       { id: "e3b", label: "속이는 그래프를 알아보는 법", hint: "뉴스나 광고에서 그래프를 볼 때 확인해야 할 것을 두 가지 쓰세요." }
@@ -1075,7 +1075,7 @@ function bar3(c, x, top, w, bottom, col, dx, dy) {
 
 /* ========================================================================= 06 정리하기 */
 window.sthWork({
-  mount: "wk", unitLabel: "[과학탐구실험1 Ⅰ-2] 과학 탐구의 과정과 절차 — 정리",
+  mount: "wk", unitLabel: "[과학탐구실험1 Ⅱ-1] 과학 탐구의 과정과 절차 — 정리",
   recap: [
     { key: "r1", label: "① 귀뚜라미 온도계" },
     { key: "r2", label: "② 손을 씻으시오" },
@@ -1092,7 +1092,7 @@ window.sthWork({
 
 /* ========================================================================= 07 우리 반 */
 window.sthShare({
-  mount: "share", unit: "gt1-1-2", unitLabel: "[과학탐구실험1 Ⅰ-2] 과학 탐구의 과정과 절차",
+  mount: "share", unit: "gt1-1-2", unitLabel: "[과학탐구실험1 Ⅱ-1] 과학 탐구의 과정과 절차",
   rows: [
     { key: "r1", label: "① 귀뚜라미 온도계" },
     { key: "r2", label: "② 손을 씻으시오" },

@@ -1,4 +1,4 @@
-/* 과학탐구실험1 Ⅰ-2 — 우리 반 측정값(선택 활동). 공용 부품: ../assets/measure.js (sthMeasure)
+/* 과학탐구실험1 Ⅱ-1 — 우리 반 측정값(선택 활동). 공용 부품: ../assets/measure.js (sthMeasure)
    하지 않아도 이야기·문제 진행에는 영향이 없다. */
 window.sthMeasure({
   mount: "measure", unit: "gt1-1-2", key: "drop",

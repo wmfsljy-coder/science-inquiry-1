@@ -1,4 +1,4 @@
-/* 과학탐구실험1 Ⅰ-4 과학 탐구의 과정과 절차 — 이야기 네 편
+/* 과학탐구실험1 Ⅱ-2 과학 탐구의 과정과 절차 — 이야기 네 편
    01 목이 휜 플라스크 / 02 두 번째 프리즘 / 03 추운 겨울의 반론 / 04 마늘 대 세균
    공용 부품: ../assets/theme.js (sthUnit·sthGate·sthWork), ../assets/story.js (sthStory·sthSort·sthOrder·sthPick) */
 (function () {
@@ -394,7 +394,7 @@ function cardHead(ctx, s, x, y, col, size) { K.t(ctx, s, x, y, { s: size || 21, 
   ep.onShow(function (i) { if (i === 4) vs(); });
   if (ep.at() === 4) vs();
   window.sthWork({
-    mount: "wk1", unitLabel: "[과학탐구실험1 Ⅰ-4] 이야기 ① 목이 휜 플라스크",
+    mount: "wk1", unitLabel: "[과학탐구실험1 Ⅱ-2] 이야기 ① 목이 휜 플라스크",
     items: [
       { id: "w2", label: "가설이 갖추어야 할 조건", hint: "파스퇴르의 백조목 실험에서 검증된 가설을 한 문장으로 쓰고, 그 가설이 왜 “검증 가능한” 가설인지 설명하세요.", ph: "가설: … / 검증 가능한 까닭: …" },
       { id: "w3", label: "통제해야 했던 변인", hint: "그 실험에서 무엇을 같게 두고 무엇만 다르게 두었는지 쓰세요.", ph: "같게 둔 것: … / 다르게 둔 것: …" }
@@ -802,7 +802,7 @@ function cardHead(ctx, s, x, y, col, size) { K.t(ctx, s, x, y, { s: size || 21, 
   ep.onShow(function (i) { if (i === 4) vs(); });
   if (ep.at() === 4) vs();
   window.sthWork({
-    mount: "wk2", unitLabel: "[과학탐구실험1 Ⅰ-4] 이야기 ② 두 번째 프리즘",
+    mount: "wk2", unitLabel: "[과학탐구실험1 Ⅱ-2] 이야기 ② 두 번째 프리즘",
     items: [
       { id: "e2a", label: "결정적 실험이 된 까닭", hint: "두 번째 프리즘 실험에서 두 설명(유리가 색을 만든다 / 흰빛 속에 색이 있다)이 각각 무엇을 예측했는지 쓰고, 실제 결과로 어느 쪽을 받아들였는지 쓰세요.", ph: "유리가 색을 만든다면 … / 흰빛 속에 색이 있다면 … / 결과는 …" },
       { id: "e2b", label: "손전등으로 다시 해 보기", hint: "교실에서 손전등과 프리즘으로 이 실험을 재현한다면 무엇을 준비하고 어떻게 할지 간단히 계획을 쓰세요." }
@@ -1061,7 +1061,7 @@ function cardHead(ctx, s, x, y, col, size) { K.t(ctx, s, x, y, { s: size || 21, 
   ep.onShow(function (i) { if (i === 4) vs(); });
   if (ep.at() === 4) vs();
   window.sthWork({
-    mount: "wk3", unitLabel: "[과학탐구실험1 Ⅰ-4] 이야기 ③ 추운 겨울의 반론",
+    mount: "wk3", unitLabel: "[과학탐구실험1 Ⅱ-2] 이야기 ③ 추운 겨울의 반론",
     items: [
       { id: "e3a", label: "댓글에 다는 답글", hint: "‘올겨울이 추우니 온난화는 거짓’이라는 댓글에, 이 장면의 자료 분석을 근거로 두세 문장의 답글을 쓰세요." },
       { id: "e3b", label: "내가 고른 그림과 까닭", hint: "학교 신문 기사에 세 가지 그림 가운데 무엇을 넣을지 고르고, 읽는 사람을 생각해 그 까닭을 쓰세요." }
@@ -1310,7 +1310,7 @@ function cardHead(ctx, s, x, y, col, size) { K.t(ctx, s, x, y, { s: size || 21, 
   ep.onShow(function (i) { if (i === 4) vs(); });
   if (ep.at() === 4) vs();
   window.sthWork({
-    mount: "wk4", unitLabel: "[과학탐구실험1 Ⅰ-4] 이야기 ④ 마늘 대 세균",
+    mount: "wk4", unitLabel: "[과학탐구실험1 Ⅱ-2] 이야기 ④ 마늘 대 세균",
     items: [
       { id: "e4a", label: "대조군이 필요한 까닭", hint: "에탄올만 적신 디스크를 함께 두지 않았다면 어떤 문제가 생겼을지 한두 문장으로 쓰세요." },
       { id: "e4b", label: "우리 반 협력 탐구 계획", hint: "다른 분야의 친구와 함께 해 보고 싶은 탐구 주제를 하나 정하고, 누가 무엇을 맡을지 적어 보세요." }
@@ -1320,7 +1320,7 @@ function cardHead(ctx, s, x, y, col, size) { K.t(ctx, s, x, y, { s: size || 21, 
 
 /* ========================================================================= 07 정리하기 */
 window.sthWork({
-  mount: "wk", unitLabel: "[과학탐구실험1 Ⅰ-4] 과학 탐구의 과정과 절차 — 정리",
+  mount: "wk", unitLabel: "[과학탐구실험1 Ⅱ-2] 과학 탐구의 과정과 절차 — 정리",
   recap: [
     { key: "r1", label: "① 목이 휜 플라스크" },
     { key: "r2", label: "② 두 번째 프리즘" },
@@ -1340,7 +1340,7 @@ window.sthWork({
 
 /* ========================================================================= 08 우리 반 */
 window.sthShare({
-  mount: "share", unit: "gt1-1-4", unitLabel: "[과학탐구실험1 Ⅰ-4] 과학 탐구의 과정과 절차",
+  mount: "share", unit: "gt1-1-4", unitLabel: "[과학탐구실험1 Ⅱ-2] 과학 탐구의 과정과 절차",
   rows: [
     { key: "r1", label: "① 목이 휜 플라스크" },
     { key: "r2", label: "② 두 번째 프리즘" },

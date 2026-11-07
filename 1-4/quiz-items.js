@@ -1,4 +1,4 @@
-/* 과학탐구실험1 Ⅰ-4 과학 탐구의 과정과 절차 — 수준별 문제
+/* 과학탐구실험1 Ⅱ-2 과학 탐구의 과정과 절차 — 수준별 문제
    1 기본(개념 확인) · 2 발전(해석·계산) · 3 심화(적용·논증). 공용 엔진: ../assets/quiz.js (sthQuiz) */
 window.sthQuiz({
   mount: "quiz", key: "quiz", result: "rQuiz",

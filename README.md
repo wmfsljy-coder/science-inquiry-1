@@ -10,8 +10,8 @@
 |---|---|---|---|---|
 | [1-1](https://wmfsljy-coder.github.io/science-inquiry-1/1-1/) | 과학의 본성과 역사 속의 과학 탐구 | 과학의 본성 · 역사 속 과학 탐구 사례 | ○ | ○ |
 | [1-2](https://wmfsljy-coder.github.io/science-inquiry-1/1-2/) | 과학 탐구의 과정과 절차 | 귀납적 탐구 · 연역적 탐구와 변인 통제 · 데이터 시각화 | ○ | ○ |
-| [1-3](https://wmfsljy-coder.github.io/science-inquiry-1/1-3/) | Ⅰ. 과학의 본성과 역사 속의 과학 탐구 | 갈릴레이의 낙하 실험 · 도량형과 우리 선조의 과학 · 주기율표와 동시 발견 | ○ | ○ |
-| [1-4](https://wmfsljy-coder.github.io/science-inquiry-1/1-4/) | Ⅱ. 과학 탐구의 과정과 절차 | 귀납과 파스퇴르의 실험 · 뉴턴의 프리즘 실험 · 기후 변화 빅데이터 · 천연 항생물질과 과학 마술 | ○ | ○ |
+| [1-3](https://wmfsljy-coder.github.io/science-inquiry-1/1-3/) | Ⅰ-2 과학의 본성과 역사 속의 과학 탐구 (2) | 갈릴레이의 낙하 실험 · 도량형과 우리 선조의 과학 · 주기율표와 동시 발견 | ○ | ○ |
+| [1-4](https://wmfsljy-coder.github.io/science-inquiry-1/1-4/) | Ⅱ-2 과학 탐구의 과정과 절차 (2) | 귀납과 파스퇴르의 실험 · 뉴턴의 프리즘 실험 · 기후 변화 빅데이터 · 천연 항생물질과 과학 마술 | ○ | ○ |
 
 ## 한 단원의 구성
 

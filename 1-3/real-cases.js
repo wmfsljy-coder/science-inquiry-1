@@ -1,5 +1,5 @@
 /* 과학탐구실험1 Ⅰ 역사 속의 과학 탐구 — 실제 자료
-   r1 멘델레예프의 빈칸 — 이웃 원소로 게르마늄(에카규소)의 원자량과 밀도를 예측하기
+   r1 멘델레예프의 빈칸 — 이웃 원소로 저마늄(에카규소)의 원자량과 밀도를 예측하기
    r2 서울의 비는 언제 내리나 — 달마다 내린 비의 평균(1981~2024)
    r3 창원의 비는 언제 내리나 — 기상청 창원(155) 1991~2020 달별 강수, 서울과 비교
    자료: data/elements.js (PubChem 주기율표), data/seoul-rain.js (NASA POWER), data/cw155.js (기상청 창원 155) */
@@ -103,7 +103,7 @@ window.sthLab({
         ctx.fillStyle = "rgba(20,30,50,.16)"; ctx.beginPath(); ctx.ellipse(205, 286, 200, 10, 0, 0, 6.2832); ctx.fill();
         bar3(ctx, 16, 6, 384, 276, "#c99a62", 10, 7);
         cell(NB[0], 150, 18, false); cell(NB[2], 30, 104, false); cell(GE, 150, 104, true); cell(NB[3], 270, 104, false); cell(NB[1], 150, 190, false);
-        /* 회색 금속 광택 덩어리 — 1886년에 찾은 게르마늄 */
+        /* 회색 금속 광택 덩어리 — 1886년에 찾은 저마늄 */
         var gx = 470, gy = 200;
         ctx.fillStyle = "rgba(20,30,50,.2)"; ctx.beginPath(); ctx.ellipse(gx + 4, gy + 22, 36, 8, 0, 0, 6.2832); ctx.fill();
         var gg = ctx.createLinearGradient(gx - 30, gy - 26, gx + 30, gy + 22); gg.addColorStop(0, "#f1f3f5"); gg.addColorStop(.45, "#8a929e"); gg.addColorStop(1, "#495057");
@@ -121,7 +121,7 @@ window.sthLab({
       return {
         judge: function () {
           var okm = Math.abs(m - AM) <= 0.5, okd = Math.abs(d - AD) <= 0.15 + 1e-9;
-          if (okm && okd) return { ok: true, msg: "네 이웃의 평균: 원자량 " + AM.toFixed(1) + ", 밀도 " + AD.toFixed(2) + ". 1886년 빙클러가 찾은 게르마늄(Ge)의 실제 값은 원자량 " + GE[3].toFixed(2) + ", 밀도 " + GE[4].toFixed(2) + " g/cm³ — 예측이 거의 맞았습니다." };
+          if (okm && okd) return { ok: true, msg: "네 이웃의 평균: 원자량 " + AM.toFixed(1) + ", 밀도 " + AD.toFixed(2) + ". 1886년 빙클러가 찾은 저마늄(Ge)의 실제 값은 원자량 " + GE[3].toFixed(2) + ", 밀도 " + GE[4].toFixed(2) + " g/cm³ — 예측이 거의 맞았습니다." };
           if (!okm) return { ok: false, msg: "원자량 " + m.toFixed(1) + " 은 맞지 않습니다. 네 원소의 원자량을 더해 4로 나누세요." };
           return { ok: false, msg: "원자량은 맞았습니다. 밀도 " + d.toFixed(2) + " 도 같은 방법으로 평균을 구하세요." };
         }
@@ -129,7 +129,7 @@ window.sthLab({
     },
     hints: ["원자량: (" + NB.map(function (e) { return e[3].toFixed(1); }).join(" + ") + ") ÷ 4.", "밀도: (" + NB.map(function (e) { return e[4].toFixed(2); }).join(" + ") + ") ÷ 4."],
     solution: "원자량 약 <b>" + AM.toFixed(1) + "</b>, 밀도 약 <b>" + AD.toFixed(2) + " g/cm³</b>.",
-    why: "멘델레예프는 원소를 원자량 순으로 늘어놓되 성질이 비슷한 것끼리 같은 세로줄에 오도록 배열하고, 맞는 원소가 없는 자리는 비워 두었습니다. 그리고 빈칸의 성질을 이웃 원소로부터 예측했습니다. 1875년 갈륨(에카알루미늄), 1879년 스칸듐(에카붕소), 1886년 게르마늄(에카규소)이 발견되어 예측과 맞자, 주기율표는 널리 받아들여졌습니다.<br>"
+    why: "멘델레예프는 원소를 원자량 순으로 늘어놓되 성질이 비슷한 것끼리 같은 세로줄에 오도록 배열하고, 맞는 원소가 없는 자리는 비워 두었습니다. 그리고 빈칸의 성질을 이웃 원소로부터 예측했습니다. 1875년 갈륨(에카알루미늄), 1879년 스칸듐(에카붕소), 1886년 저마늄(에카규소)이 발견되어 예측과 맞자, 주기율표는 널리 받아들여졌습니다.<br>"
       + "같은 무렵 독일의 마이어도 원자 부피의 주기성으로 비슷한 표를 만들었지만, 아직 발견되지 않은 원소를 대담하게 예측하고 그것이 확인된 점에서 멘델레예프의 표가 더 큰 힘을 얻었습니다. 시험할 수 있는 예측은 과학 이론의 큰 장점입니다."
   },
   {
