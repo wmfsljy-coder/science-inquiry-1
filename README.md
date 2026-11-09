@@ -2,16 +2,16 @@
 
 학생이 직접 조작하며 배우는 **이야기형 인터랙티브 단원** 모음입니다. 브라우저만 있으면 되고, 설치·회원 가입이 없습니다.
 
-- 바로 열기: https://wmfsljy-coder.github.io/science-inquiry-1/
+- 바로 열기: https://wmfsljy-coder.github.io/science-inquiry-1-ha7iz5/
 
 ## 단원
 
 | 단원 | 제목 | 이야기(탭) | 수준별 문제 | 응용 실험실 |
 |---|---|---|---|---|
-| [1-1](https://wmfsljy-coder.github.io/science-inquiry-1/1-1/) | 과학의 본성과 역사 속의 과학 탐구 | 과학의 본성 · 역사 속 과학 탐구 사례 | ○ | ○ |
-| [1-2](https://wmfsljy-coder.github.io/science-inquiry-1/1-2/) | 과학 탐구의 과정과 절차 | 귀납적 탐구 · 연역적 탐구와 변인 통제 · 데이터 시각화 | ○ | ○ |
-| [1-3](https://wmfsljy-coder.github.io/science-inquiry-1/1-3/) | Ⅰ-2 과학의 본성과 역사 속의 과학 탐구 (2) | 갈릴레이의 낙하 실험 · 도량형과 우리 선조의 과학 · 주기율표와 동시 발견 | ○ | ○ |
-| [1-4](https://wmfsljy-coder.github.io/science-inquiry-1/1-4/) | Ⅱ-2 과학 탐구의 과정과 절차 (2) | 귀납과 파스퇴르의 실험 · 뉴턴의 프리즘 실험 · 기후 변화 빅데이터 · 천연 항생물질과 과학 마술 | ○ | ○ |
+| [1-1](https://wmfsljy-coder.github.io/science-inquiry-1-ha7iz5/1-1/) | 과학의 본성과 역사 속의 과학 탐구 | 과학의 본성 · 역사 속 과학 탐구 사례 | ○ | ○ |
+| [1-2](https://wmfsljy-coder.github.io/science-inquiry-1-ha7iz5/1-2/) | 과학 탐구의 과정과 절차 | 귀납적 탐구 · 연역적 탐구와 변인 통제 · 데이터 시각화 | ○ | ○ |
+| [1-3](https://wmfsljy-coder.github.io/science-inquiry-1-ha7iz5/1-3/) | Ⅰ-2 과학의 본성과 역사 속의 과학 탐구 (2) | 갈릴레이의 낙하 실험 · 도량형과 우리 선조의 과학 · 주기율표와 동시 발견 | ○ | ○ |
+| [1-4](https://wmfsljy-coder.github.io/science-inquiry-1-ha7iz5/1-4/) | Ⅱ-2 과학 탐구의 과정과 절차 (2) | 귀납과 파스퇴르의 실험 · 뉴턴의 프리즘 실험 · 기후 변화 빅데이터 · 천연 항생물질과 과학 마술 | ○ | ○ |
 
 ## 한 단원의 구성
 
@@ -25,8 +25,8 @@
 ## 내 학교에서 쓰기
 
 1. 이 저장소를 **Fork** 하거나 *Use this template* 으로 복사합니다.
-2. Settings → Pages → Branch 를 `main` / `(root)` 로 두면 몇 분 뒤 `https://<내 계정>.github.io/science-inquiry-1/` 에 열립니다.
-3. **우리 반 공유**를 쓰려면 `assets/share-config.js` 의 주소를 내 Apps Script 웹 앱 주소로 바꿉니다(만드는 법: science-teacher-hub 의 [GUIDE.md](https://github.com/wmfsljy-coder/science-teacher-hub/blob/main/GUIDE.md)). 바꾸지 않으면 공유 기능만 꺼지고 나머지는 그대로 됩니다.
+2. Settings → Pages → Branch 를 `main` / `(root)` 로 두면 몇 분 뒤 `https://<내 계정>.github.io/science-inquiry-1-ha7iz5/` 에 열립니다.
+3. **우리 반 공유**를 쓰려면 `assets/share-config.js` 의 주소를 내 Apps Script 웹 앱 주소로 바꿉니다(만드는 법: science-teacher-hub 의 [GUIDE.md](https://github.com/wmfsljy-coder/science-teacher-hub-qtrqwc/blob/main/GUIDE.md)). 바꾸지 않으면 공유 기능만 꺼지고 나머지는 그대로 됩니다.
 4. 반 목록을 고르게 하려면 `assets/share-config.js` 에 `window.STH_CLASSES = [{ v: "1-1", t: "1학년 1반" }, …]` 를 적습니다.
 
 ## 라이선스
